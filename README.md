@@ -27,4 +27,4 @@ npm run server
 
 ## View on browser
 Visit http://localhost:3001
-In this case, you can go to http://localhost:3001/users for eaxmple 
+In this case, you can go to http://localhost:3001/users for example 
