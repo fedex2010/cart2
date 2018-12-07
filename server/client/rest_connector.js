@@ -61,6 +61,22 @@ class RestConnector{
         return deferred.promise;
     }
 
+    postWithoutErrors(url, options) {
+        var deferred = Q.defer();
+
+        options.timeout = options.timeout || config.services.restler_timeout;
+
+        logger.info('POST ',url,' \n ',options,'\n');
+
+        restConnector.post(url, options)
+            .on('success', (response) => deferred.resolve(response))
+            .on('fail', (err, response) => deferred.reject({type: "render", error: err, message: 'POST [' + url + '] fail ' + response.statusCode + ' -> ' + response.rawEncoded}))
+            .on('error', (err) => deferred.reject({type: "error", error: err, message: 'POST [' + url + '] internal error -> ' + JSON.stringify(err)}))
+            .on('timeout', (err) =>  deferred.reject({type: "error", error: err, message: 'POST [' + url + '] timeout -> ' + JSON.stringify(err)}));
+
+        return deferred.promise;
+    }
+
 
 }
 

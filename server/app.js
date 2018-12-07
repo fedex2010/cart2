@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var async  = require("async");
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 
@@ -18,6 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(parallel([
+    cookie
+]));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
@@ -37,5 +41,36 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+function parallel(middlewares) {
+    return function (req, res, next) {
+        async.each(middlewares, function (mw, cb) {
+            mw(req, res, cb);
+        }, next);
+    };
+}
+
+function cookie(req, res, next) {
+    let sessionCookie = req.cookies['epi.context']
+    let cartCookie = req.cookies['cartId']
+    if (!sessionCookie) {
+        generateSessionCookie(res)
+    }else {
+        sessionService.setSessionContextFromCookie(res, sessionCookie)
+    }
+    if (cartCookie) {
+        setCartContextFromCookie(res, cartCookie)
+    }
+    next()
+}
+
+function setCartContextFromCookie(res, cartCookie){
+    res.locals.cartId = cartCookie
+}
+
+function generateSessionCookie(res){
+    this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))
+}
+
 
 module.exports = app;

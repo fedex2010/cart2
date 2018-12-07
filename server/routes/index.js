@@ -15,7 +15,7 @@ router.all('*', function (req, res, next) {
         res.locals.xBrand = req.headers['x-brand'].toLowerCase();
     else {
         res.locals.xBrand = 'garbarino';
-        logger.warn('x-brand header not present. Set garbarino by default');
+        //logger.warn('x-brand header not present. Set garbarino by default');
     }
 
     next();
