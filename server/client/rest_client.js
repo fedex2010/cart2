@@ -40,7 +40,36 @@ class RestClient {
         logger.info(options)
 
         return this._restConnector.postWithoutErrors(url, options);
-    };
+    }
+
+    addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null){
+        let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
+            data = {
+                product_id: productId,
+                quantity: quantity,
+                warranty_id: warrantyId,
+                price: productPrice
+            }
+
+        if (promotionId) {
+            data.promotion = {id: promotionId}
+        }
+        let options = {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-id': session_id
+            },
+            data: JSON.stringify(data)
+        }
+        return this._restConnector.post( url, options)
+    }
+
+    deleteProduct(cartId, productId){
+
+        var url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId;
+
+        return this._restConnector.delete(url)
+    }
 }
 
 module.exports = RestClient;
