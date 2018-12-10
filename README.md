@@ -3,7 +3,7 @@ React Cart
 
 
 ## Clone the repo
-git clone https://github.com/lgedeon33/react-app.git
+git clone https://github.com/garbarino-com/cart-ui
 
 ## Node Version
 Use Node 8 for this project => nvm use 8
