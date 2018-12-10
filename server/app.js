@@ -56,7 +56,7 @@ function cookie(req, res, next) {
     if (!sessionCookie) {
         generateSessionCookie(res)
     }else {
-        sessionService.setSessionContextFromCookie(res, sessionCookie)
+        setSessionContextFromCookie(res, sessionCookie)
     }
     if (cartCookie) {
         setCartContextFromCookie(res, cartCookie)
@@ -70,6 +70,10 @@ function setCartContextFromCookie(res, cartCookie){
 
 function generateSessionCookie(res){
     this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))
+}
+
+function setSessionContextFromCookie(res, sessionCookie){
+    res.locals.session = JSON.parse(sessionCookie.replace(/\\/g, '')).userId
 }
 
 

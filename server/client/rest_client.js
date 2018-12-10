@@ -1,5 +1,6 @@
 const RestConnector = require('./rest_connector');
-var config  = require('../config/config');
+var config  = require('../config/config'),
+    logger  = require('../utils/logger');
 
 
 const CHECKOUT_CORE_URL = config.services.checkout_core.base_url;
@@ -10,13 +11,13 @@ class RestClient {
         this._restConnector = new RestConnector();
     }
     getOneCart(cartId) {
-        var url = "http://api-ci.garbarino.com/carts/"+cartId;
+        let url = `${CHECKOUT_CORE_URL}/carts/` + cartId ;
         return this._restConnector.get(url);
     }
 
     newCart(session_id, sellerId, ipClient=false, xBrand=null, channel='WEB') {
 
-        logger.info("[", session_id, "] Requesting cart");
+        logger.info("[" + session_id + "] Requesting cart");
 
         let url = `${CHECKOUT_CORE_URL}/carts/`
         let cartData = {session_id: session_id, sale_source: channel};
@@ -38,7 +39,7 @@ class RestClient {
         logger.info(url)
         logger.info(options)
 
-        return httpClient.postWithoutErrors(url, options);
+        return this._restConnector.postWithoutErrors(url, options);
     };
 }
 

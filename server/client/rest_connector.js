@@ -1,6 +1,7 @@
 var Q             = require("q"),
     config        = require('../config/config'),
     restConnector = require('restler'),
+    rest_errors   = require('../errors/rest-errors'),
     logger          = require("../utils/logger");
 
 
@@ -66,7 +67,7 @@ class RestConnector{
 
         options.timeout = options.timeout || config.services.restler_timeout;
 
-        logger.info('POST ',url,' \n ',options,'\n');
+        logger.info('POST '+url+' \n '+options+'\n');
 
         restConnector.post(url, options)
             .on('success', (response) => deferred.resolve(response))

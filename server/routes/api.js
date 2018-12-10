@@ -5,8 +5,9 @@ var express     = require('express'),
     urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
+router.get('/cart/', urlencodedParser, controllers.cart.getNewCart);
 router.get('/cart/:cartId', controllers.cart.getOneCart);
-router.post('/', urlencodedParser, controllers.cart.addProduct);
+router.post('/cart/', urlencodedParser, controllers.cart.addProduct);
 
 
 module.exports = router;
