@@ -6,11 +6,21 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        use: ["babel-loader"]
+      },
+      {
+        test: /\.(css|scss)$/,
+        use: [
+          "style-loader", // creates style nodes from JS strings
+          "css-loader", // translates CSS into CommonJS
+          "sass-loader" // compiles Sass to CSS, using Node Sass by default
+        ]
+      },
+      {
+        test: /\.svg$/,
+        loader: "svg-inline-loader"
       }
     ]
   },
@@ -23,11 +33,11 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
-    // new HtmlWebPackPlugin({
-    //   template: "./src/index.html",
-    //   filename: "./index.html"
-    // })
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebPackPlugin({
+      template: "./public/index.html",
+      filename: "./index.html"
+    })
   ],
   devServer: {
     contentBase: "./dist",
