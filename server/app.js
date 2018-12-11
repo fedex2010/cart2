@@ -73,7 +73,7 @@ function setCartContextFromCookie(res, cartCookie){
 }
 
 function generateSessionCookie(res){
-    this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))
+    setSessionCookie(res, "chkw-" + uuid.v4().substr(5))
 }
 
 function setSessionContextFromCookie(res, sessionCookie){

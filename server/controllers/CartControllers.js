@@ -24,7 +24,8 @@ class CartControllers {
     getCart(req, res){
         let cartId = req.params.cartId;
         console.log("paso por el getCart")
-        RestClient.cartClient.getOneCart(cartId)
+        let brand = res.locals.xBrand.toLowerCase()
+        RestClient.cartClient.getOneCart(cartId,{},brand)
             .then((cart) => {
                 res.send(cart);
             })
