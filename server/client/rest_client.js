@@ -10,12 +10,14 @@ class RestClient {
     constructor() {
         this._restConnector = new RestConnector();
     }
-    getOneCart(cartId) {
+
+    getOneCart(cartId,options={}) {
         let url = `${CHECKOUT_CORE_URL}/carts/` + cartId ;
-        return this._restConnector.get(url);
+        options.headers = {"Content-Type": "application/json", "X-Brand": brand};
+        return this._restConnector.get(url,options);
     }
 
-    newCart(session_id, sellerId, ipClient=false, xBrand=null, channel='WEB') {
+    newCart(session_id, sellerId, ipClient=false, xBrand=null, channel='WEB',brand) {
 
         logger.info("[" + session_id + "] Requesting cart");
 
@@ -31,10 +33,8 @@ class RestClient {
             data: JSON.stringify(cartData),
             timeout: NEW_CART_TIMEOUT
         };
-        if(xBrand === "compumundo")
-            options.headers = {"Content-Type": "application/json", "X-Brand": "compumundo"};
-        else
-            options.headers = {"Content-Type": "application/json", "X-Brand": "garbarino"};
+
+        options.headers = {"Content-Type": "application/json", "X-Brand": brand};
 
         logger.info(url)
         logger.info(options)

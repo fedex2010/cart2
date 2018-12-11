@@ -7,7 +7,7 @@ var express     = require('express'),
 
 router.get('/cart/', urlencodedParser, controllers.cart.getNewCart);
 router.get('/cart/:cartId', controllers.cart.getCart);
-router.post('/cart/', urlencodedParser, controllers.cart.addProduct);
+router.post('/cart/', urlencodedParser, (req, res) => controllers.cart.addProduct(req, res));
 
 
 module.exports = router;

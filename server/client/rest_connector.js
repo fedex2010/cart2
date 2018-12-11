@@ -9,7 +9,7 @@ class RestConnector{
     constructor() { }
 
     get(url,options) {
-        var deferred = Q.defer();
+        let deferred = Q.defer();
         let opts = (options||{})
         opts.timeout = opts.timeout || config.services.restler_timeout
         restConnector.get(url, opts)
@@ -23,7 +23,7 @@ class RestConnector{
     }
 
     put(url, headers) {
-        var deferred = Q.defer();
+        let deferred = Q.defer();
 
         restConnector.put(url, {timeout: config.services.restler_timeout, headers: headers})
             .on('success', (response) => deferred.resolve(response))
@@ -35,11 +35,11 @@ class RestConnector{
     }
 
     post(url, options) {
-        var deferred = Q.defer();
+        let deferred = Q.defer();
 
         options.timeout = options.timeout || config.services.restler_timeout;
 
-        //logger.info('POST ',url,' \n ',options,'\n');
+        logger.info('POST '+url+' \n '+JSON.stringify(options)+'\n');
 
         restConnector.post(url, options)
             .on('success', (response) => deferred.resolve(response))
@@ -51,7 +51,7 @@ class RestConnector{
     }
 
     delete(url, headers) {
-        var deferred = Q.defer();
+        let deferred = Q.defer();
 
         restConnector.del(url, {timeout: config.services.restler_timeout, headers: headers})
             .on('success', (response) => deferred.resolve(response))
@@ -63,7 +63,7 @@ class RestConnector{
     }
 
     postWithoutErrors(url, options) {
-        var deferred = Q.defer();
+        let deferred = Q.defer();
 
         options.timeout = options.timeout || config.services.restler_timeout;
 

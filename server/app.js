@@ -53,8 +53,10 @@ function parallel(middlewares) {
 }
 
 function cookie(req, res, next) {
-    let sessionCookie = req.cookies['epi.context']
-    let cartCookie = req.cookies['cartId']
+
+    let sessionCookie = req.cookies['epi.context'];
+    let cartCookie = req.cookies['cartId'];
+
     if (!sessionCookie) {
         generateSessionCookie(res)
     }else {

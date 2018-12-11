@@ -3,26 +3,26 @@ const   RestClient = require("../client"),
 
 class CartControllers {
     constructor() {
-
     }
 
     getNewCart(req, res){
 
         let session_id = res.locals.session;
         let sellerId = "";
+        let brand = res.locals.xBrand.toLowerCase()
 
-        RestClient.cartClient.newCart(session_id, sellerId, false, null, 'WEB')
-            .then((cart)=>{
-                return cart;
-            })
-            .catch((err) => {
-                log.error("Error getting home. " + err);
-                next(err);
-            })
+        return RestClient.cartClient.newCart(session_id, sellerId, false, null, 'WEB',brand)
+             .then((cart)=>{
+                 return cart;
+             })
+             .catch((err) => {
+                 log.error("Error getting home. " + err);
+                 next(err);
+             })
     }
 
     getCart(req, res){
-        let cartId=req.params.cartId;
+        let cartId = req.params.cartId;
         console.log("paso por el getCart")
         RestClient.cartClient.getOneCart(cartId)
             .then((cart) => {
@@ -39,7 +39,7 @@ class CartControllers {
         //TODO Pasar lógica a core para evaluar si devuelve un carro nuevo o utiliza uno anterior en baase al sesisonId
         if(cartId != null){
             console.log("paso por el cartOne")
-            RestClient.cartClient.getOneCart(cartId)
+            return RestClient.cartClient.getOneCart(cartId)
             .then((cart) => {
                 return (cart);
             })
@@ -49,7 +49,7 @@ class CartControllers {
             })
         }else{
             console.log("hago un create")
-            this.getNewCart(req, res)
+            return this.getNewCart(req, res)
                 .then((cart)=>{
                     return cart;
                 })
@@ -62,28 +62,36 @@ class CartControllers {
 
     addProduct(req, res){
         const body = req.body || {};
-        const productIds = [].concat.apply([], [body.xid.split(",")])
+        const productId = body.xid || undefined
         const promotionId = body.promotion_id || undefined
         const warranty_id = body.warranty_id || undefined
         const productPrice = body.price || undefined
 
-        let productService = null
         let cartId = req.cookies['cartId'] || null
-        let session_id = req.cookies['gb_session_id'];
-
+        let brand = res.locals.xBrand.toLowerCase()
         console.log("addProduct")
-        console.log("productIds:"+productIds)
+        console.log("productId:"+productId)
 
-        this.getOneCart(cartId,req, res)
+        console.log("this", this);
+
+        this.getOneCart(cartId, req, res)
             .then((cart)=>{
+                console.log(cart);
+                return RestClient.productClient.addProduct(cart.cart_id,productId,1,warranty_id,productPrice,brand)
+                    .then(()=>{
+                        res.send(cart);
+                    }).catch((err) => {
+                        log.error("Add Product to cart. " + err);
+                        next(err);
+                    })
+                //res.send(RestClient.productClient.addProduct(cart.cartId,productId,1,warranty_id,productPrice,brand))
 
-                //res.send(cart);
             }).catch((err) => {
-                log.error("Error getting home. " + err);
+                log.error("Error getting cart. " + err);
                 next(err);
             })
 
-        res.send(body);
+        //res.send(body);
     }
 }
 

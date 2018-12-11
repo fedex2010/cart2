@@ -17,7 +17,7 @@ class ProductClient{
         return this._restConnector.get(url, config.services.product_core.ttl, options);
     }
 
-    addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null){
+    addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null,brand){
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
             data = {
                 product_id: productId,
@@ -25,7 +25,9 @@ class ProductClient{
                 warranty_id: warrantyId,
                 price: productPrice
             }
+        console.log("date :" + data);
 
+        console.log("date :" + JSON.stringify(data));
         if (promotionId) {
             data.promotion = {id: promotionId}
         }
@@ -36,6 +38,10 @@ class ProductClient{
             },
             data: JSON.stringify(data)
         }
+        options.headers=brand;
+
+        console.log("options :" + options);
+        console.log("options :" + JSON.stringify(options));
         return this._restConnector.post( url, options)
     }
 
