@@ -59,14 +59,16 @@ class CartControllers {
         let session_id = req.cookies['gb_session_id'];
 
         console.log("addProduct")
+        console.log("productIds:"+productIds)
 
-        this.getOneCart(cartId,req, res).then((cart)=>{
+        this.getOneCart(cartId,req, res)
+            .then((cart)=>{
 
-            res.send(cart);
-        }).catch((err) => {
-            log.error("Error getting home. " + err);
-            next(err);
-        })
+                //res.send(cart);
+            }).catch((err) => {
+                log.error("Error getting home. " + err);
+                next(err);
+            })
 
         res.send(body);
     }
