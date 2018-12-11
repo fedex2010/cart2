@@ -78,5 +78,11 @@ function setSessionContextFromCookie(res, sessionCookie){
     res.locals.session = JSON.parse(sessionCookie.replace(/\\/g, '')).userId
 }
 
+function setSessionCookie(res, session_id){
+    logger.info("[", session_id, "] Setting new user session")
+    res.locals.session = session_id
+    res.cookie('epi.context', '"{\\"userId\\":\\"'+ session_id +'\\"}"', {encode: String })
+}
+
 
 module.exports = app;
