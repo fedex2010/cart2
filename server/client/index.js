@@ -5,5 +5,5 @@ const 	ProductClient 					= require('./product_client');
 
 module.exports = {
     cartClient: new CartClient(),
-    ProductClient :new ProductClient()
+    productClient :new ProductClient()
 }

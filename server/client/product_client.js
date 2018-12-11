@@ -46,3 +46,5 @@ class ProductClient{
         return this._restConnector.delete(url)
     }
 }
+
+module.exports = ProductClient;
