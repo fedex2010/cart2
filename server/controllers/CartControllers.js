@@ -21,6 +21,19 @@ class CartControllers {
             })
     }
 
+    getCart(req, res){
+        let cartId=req.params.cartId;
+        console.log("paso por el getCart")
+        RestClient.cartClient.getOneCart(cartId)
+            .then((cart) => {
+                res.send(cart);
+            })
+            .catch((err) => {
+                log.error("Error getting home. " + err);
+                next(err);
+            })
+    }
+
     getOneCart(cartId, req, res){
         console.log("getOneCart")
         //TODO Pasar lógica a core para evaluar si devuelve un carro nuevo o utiliza uno anterior en baase al sesisonId
