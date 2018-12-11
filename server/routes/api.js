@@ -6,7 +6,7 @@ var express     = require('express'),
 
 
 router.get('/cart/', urlencodedParser, controllers.cart.getNewCart);
-router.get('/cart/:cartId', controllers.cart.getOneCart);
+router.get('/cart/:cartId', controllers.cart.getCart);
 router.post('/cart/', urlencodedParser, controllers.cart.addProduct);
 
 

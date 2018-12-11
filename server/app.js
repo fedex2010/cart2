@@ -6,6 +6,8 @@ var logger = require('morgan');
 var async  = require("async");
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
+var uuid      = require('uuid');
+
 
 var app = express();
 
