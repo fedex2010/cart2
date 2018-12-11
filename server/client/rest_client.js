@@ -36,9 +36,6 @@ class RestClient {
 
         options.headers = {"Content-Type": "application/json", "X-Brand": brand};
 
-        logger.info(url)
-        logger.info(options)
-
         return this._restConnector.postWithoutErrors(url, options);
     }
 }

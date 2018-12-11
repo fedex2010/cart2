@@ -4,10 +4,9 @@ var express     = require('express'),
     bodyParser  = require("body-parser"),
     urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-
-router.get('/cart/', urlencodedParser, controllers.cart.getNewCart);
 router.get('/cart/:cartId', controllers.cart.getCart);
 router.post('/cart/', urlencodedParser, (req, res) => controllers.cart.addProduct(req, res));
+router.delete('/cart/:prodcutId', urlencodedParser, (req, res) => controllers.cart.deleteProduct(req, res));
 
 
 module.exports = router;
@@ -21,13 +20,13 @@ router.get('/c_:cartId', cartController.routeCart);
 router.get('/fake_product_view/:productId', cartController.fake_product_view);
 router.get('/vendedor', cartController.sellerLogin);
 router.post('/vendedor', urlencodedParser, cartController.sellerLoginAction);
-router.get('/', cartController.index);
+router.get('/', cartController.index);------------------OK
 router.post('/', urlencodedParser, cartController.addProduct);
 router.get('/c_:cartId/warranty/:productId', cartController.warrantyMobile);
 router.get('/c_:cartId/arplus-terminos-y-condiciones', cartController.arplusterminosycondiciones);
 router.get('/c_:cartId/warranty/:productId/terminos-y-condiciones', cartController.terminosycondiciones);
 router.get('/health', function(req, res){ res.status(200).send('OK') });
-router.post('/deleteProductFromCart', jsonParser, cartController.deleteProduct);
+router.post('/deleteProductFromCart', jsonParser, cartController.deleteProduct);---------------OK
 router.post('/updateItemQuantity', jsonParser, cartController.updateItemQuantity);
 router.post('/setWarranty', jsonParser, cartController.setWarranty);
 router.post('/sendCart', jsonParser, cartController.sendCart);

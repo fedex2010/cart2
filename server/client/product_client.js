@@ -25,31 +25,35 @@ class ProductClient{
                 warranty_id: warrantyId,
                 price: productPrice
             }
-        console.log("date :" + data);
 
-        console.log("date :" + JSON.stringify(data));
         if (promotionId) {
             data.promotion = {id: promotionId}
         }
         let options = {
             headers: {
                 'Content-Type': 'application/json',
-                'x-session-id': session_id
+                'x-session-id': session_id,
+                'X-Brand':brand
             },
             data: JSON.stringify(data)
         }
-        options.headers=brand;
 
-        console.log("options :" + options);
-        console.log("options :" + JSON.stringify(options));
         return this._restConnector.post( url, options)
     }
 
-    deleteProduct(cartId, productId){
+    deleteProduct(cartId, productId,brand){
 
-        var url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId;
+        console.log(brand);
 
-        return this._restConnector.delete(url)
+        let url     = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId;
+
+        let options = {
+            headers: {
+                'X-Brand':brand
+            }
+        }
+
+        return this._restConnector.delete(url,options)
     }
 }
 

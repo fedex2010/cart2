@@ -50,10 +50,12 @@ class RestConnector{
         return deferred.promise;
     }
 
-    delete(url, headers) {
+    delete(url, options) {
         let deferred = Q.defer();
 
-        restConnector.del(url, {timeout: config.services.restler_timeout, headers: headers})
+        logger.info('DELETE '+url+' \n '+JSON.stringify(options)+'\n');
+
+        restConnector.del(url, options)
             .on('success', (response) => deferred.resolve(response))
             .on('fail', (err, response) => deferred.reject(new rest_errors.ServerErrorException(`DELETE [${url}] fail [${response.statusCode}] -> ${response.rawEncoded}`, err)) )
             .on('error', (err) => deferred.reject(new rest_errors.ClientErrorException(`DELETE [${url}]`, err)) )
