@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Alert from './components/alert/alert';
 import Card from './components/product/card/card';
 import Summary from './components/summary/summary';
+import Carousel from './components/carousel/carousel';
 
 import './App.scss';
 
@@ -12,20 +13,37 @@ class App extends Component {
  
   render() {
   return (
-   <div className="App">
-      <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por producto combinado y bonificación."} tipo={"success"}/>
-      <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por bonificación."} tipo={"success"}/>
-      <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por producto combinado."} tipo={"success"}/>
-      <Alert mensaje={"¡Buenas noticias! Tenes un cupón de descuento aplicado."} tipo={"success"}/>
+   <div className="container-gbChk">
+      <div className="gbChk-row">
+         <div className="alert-message-gbChk gbChk-12">
+         <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por producto combinado y bonificación."} tipo={"success"}/>
+         <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por bonificación."} tipo={"success"}/>
+         <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por producto combinado."} tipo={"success"}/>
+         <Alert mensaje={"¡Buenas noticias! Tenes un cupón de descuento aplicado."} tipo={"success"}/>
 
 
-      <Alert mensaje={"El producto seleccionado está agotado. Eliminalo para poder continuar."} tipo={"error"}/>
-      <Alert mensaje={"Atención! No es posible comprar estos productos en el mismo carrito.Te sugerimos comprarlos por separado así podemos ofrecerte más opciones de entrega."} tipo={"error"}/>
-      <Alert mensaje={"Ocurrio un error. Intente nuevamente más tarde."} tipo={"error"}/>
+         <Alert mensaje={"El producto seleccionado está agotado. Eliminalo para poder continuar."} tipo={"error"}/>
+         <Alert mensaje={"Atención! No es posible comprar estos productos en el mismo carrito.Te sugerimos comprarlos por separado así podemos ofrecerte más opciones de entrega."} tipo={"error"}/>
+         <Alert mensaje={"Ocurrio un error. Intente nuevamente más tarde."} tipo={"error"}/>
+      </div>
 
-      <Card tipo={"success"}/>
+         <div className="product-summary-gbChk">
+            <div className="product-gbChk gbChk-8">
+               <Card tipo={"success"}/>
+            </div>
+            <div className="summary-gbChk gbChk-4">
+               <Summary tipo={"success"}/>
+            </div>
+         </div>
+     
+         <div className="carousel-gbChk gbChk-12">
+         <Carousel tipo={"success"}/>      
+      </div>
+      
 
-      <Summary tipo={"success"}/>
+      </div>
+      
+
 
    </div>
   );
