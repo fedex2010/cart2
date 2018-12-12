@@ -38,7 +38,6 @@ class CartControllers {
         let brand = res.locals.xBrand.toLowerCase();
 
         if(cartId != null){
-            console.log("paso por el cartOne")
             return RestClient.cartClient.getOneCart(cartId,{},brand)
             .then((cart) => {
                 return (cart);
@@ -97,7 +96,6 @@ class CartControllers {
     }
 
     deleteProduct(req , res){
-        console.log("delete");
         let productId = req.params.prodcutId;
         let cartId = res.locals.cartId;
         let brand = res.locals.xBrand.toLowerCase()
