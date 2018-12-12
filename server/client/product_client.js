@@ -72,14 +72,14 @@ class ProductClient{
         return this._restConnector.putWithOptions(url, options);
     };
 
-    getProductsCarousel(xBrand) {
-
-        console.log(xBrand);
-        console.log(config.services.searchList);
-        console.log(config.services.searchList.list_name[xBrand]);
-        let listName = config.services.searchList.list_name[xBrand];
+    getProductsCarousel(brand) {
+        const SEARCHLIST = config.searchList.url;
+        let listName = config.searchList.list_name[brand];
         //let options = httpClient.getDefaultOptions(xBrand, config.services.searchList.timeout);
         let options={};
+        options = {
+            headers : {'X-Brand':brand}
+        }
         let url = `${SEARCHLIST}/${listName}`;
 
         return this._restConnector.getWithOptions(url, options);

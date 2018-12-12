@@ -40,9 +40,11 @@ class CartControllers {
 
         RestClient.productClient.getProductsCarousel(brand)
             .then((carousel) => {
+                console.log(carousel);
                 res.send(carousel);
             })
             .catch((err) => {
+                console.log(err);
                 res.status(500).send('Fail get carousel');
             })
     }
