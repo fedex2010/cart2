@@ -6,13 +6,12 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mensaje: this.props.mensaje,
-      tipo: this.props.tipo
+      card: []
     };
   }
 
   render() {
-    if(this.state.tipo == "success"){
+    if(this.state.card !== null){
       return (
         <div className="cart-item card">
             <div className="cart-item-detail">
