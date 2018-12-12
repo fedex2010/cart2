@@ -71,6 +71,19 @@ class ProductClient{
 
         return this._restConnector.putWithOptions(url, options);
     };
+
+    getProductsCarousel(xBrand) {
+
+        console.log(xBrand);
+        console.log(config.services.searchList);
+        console.log(config.services.searchList.list_name[xBrand]);
+        let listName = config.services.searchList.list_name[xBrand];
+        //let options = httpClient.getDefaultOptions(xBrand, config.services.searchList.timeout);
+        let options={};
+        let url = `${SEARCHLIST}/${listName}`;
+
+        return this._restConnector.getWithOptions(url, options);
+    }
 }
 
 module.exports = ProductClient;

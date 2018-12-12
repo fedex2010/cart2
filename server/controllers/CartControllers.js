@@ -21,6 +21,7 @@ class CartControllers {
     }
 
     getCart(req, res){
+        console.log("getcart")
         let cartId = req.params.cartId;
         let brand = res.locals.xBrand.toLowerCase();
 
@@ -30,6 +31,19 @@ class CartControllers {
             })
             .catch((err) => {
                 res.status(500).send('Fail get cart');
+            })
+    }
+
+    getCarousel(req, res){
+        console.log("carousel")
+        let brand = res.locals.xBrand.toLowerCase();
+
+        RestClient.productClient.getProductsCarousel(brand)
+            .then((carousel) => {
+                res.send(carousel);
+            })
+            .catch((err) => {
+                res.status(500).send('Fail get carousel');
             })
     }
 

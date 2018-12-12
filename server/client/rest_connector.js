@@ -96,6 +96,21 @@ class RestConnector{
         return deferred.promise;
     }
 
+    getWithOptions(url, options){
+        var deferred = Q.defer();
+
+        logger.info("GET "+url+" "+ options);
+
+        restConnector.get(url, options)
+            .on('success', (response) => deferred.resolve(response))
+            .on('fail', (err, response) => deferred.reject( new rest_errors.ServerErrorException(`GET [${url}] fail [${response.statusCode}] -> ${response.rawEncoded}`, err) ) )
+            .on('error', (err) => deferred.reject(new rest_errors.ClientErrorException(`GET [${url}]`, err)) )
+            .on('timeout', (err) =>  deferred.reject(new rest_errors.TimeoutException(`GET [${url}]`, err)) )
+
+        return deferred.promise;
+    }
+
+
 }
 
 module.exports = RestConnector;

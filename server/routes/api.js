@@ -4,6 +4,7 @@ var express     = require('express'),
     bodyParser  = require("body-parser"),
     urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+router.get('/cart/carousel', controllers.cart.getCarousel);
 router.get('/cart/:cartId', controllers.cart.getCart);
 router.post('/cart/', urlencodedParser, (req, res) => controllers.cart.addProduct(req, res));
 router.put('/cart/:cartId', urlencodedParser, (req, res) => controllers.cart.editProduct(req, res));
