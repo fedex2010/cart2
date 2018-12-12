@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Alert from './components/alert/alert';
 import Card from './components/product/card/card';
+import Summary from './components/summary/summary';
 
 import './App.scss';
 
@@ -23,6 +24,8 @@ class App extends Component {
       <Alert mensaje={"Ocurrio un error. Intente nuevamente más tarde."} tipo={"error"}/>
 
       <Card tipo={"success"}/>
+
+      <Summary tipo={"success"}/>
 
    </div>
   );
