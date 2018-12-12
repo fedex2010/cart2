@@ -55,6 +55,22 @@ class ProductClient{
 
         return this._restConnector.delete(url,options)
     }
+
+    updateProduct(cartId, productId, quantity,brand) {
+        let data = {
+            product_id : productId,
+            quantity : quantity
+        }
+
+        let url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
+            options = {
+                headers : {'Content-Type':'application/json'},
+                'X-Brand':brand,
+                data : JSON.stringify(data)
+            }
+
+        return this._restConnector.putWithOptions(url, options);
+    };
 }
 
 module.exports = ProductClient;

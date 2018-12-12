@@ -16,29 +16,27 @@ class CartControllers {
                  return cart;
              })
              .catch((err) => {
-                 log.error("Error getting home. " + err);
-                 next(err);
+                 res.status(500).send('Fail create cart');
              })
     }
 
     getCart(req, res){
         let cartId = req.params.cartId;
-        console.log("paso por el getCart")
-        let brand = res.locals.xBrand.toLowerCase()
+        let brand = res.locals.xBrand.toLowerCase();
+
         RestClient.cartClient.getOneCart(cartId,{},brand)
             .then((cart) => {
                 res.send(cart);
             })
             .catch((err) => {
-                log.error("Error getting home. " + err);
-                next(err);
+                res.status(500).send('Fail get cart');
             })
     }
 
-    getOneCart(cartId, req, res){
-        console.log("getOneCart")
-        let brand = res.locals.xBrand.toLowerCase()
+    _getOneCart(cartId, req, res){
         //TODO Pasar lógica a core para evaluar si devuelve un carro nuevo o utiliza uno anterior en baase al sesisonId
+        let brand = res.locals.xBrand.toLowerCase();
+
         if(cartId != null){
             console.log("paso por el cartOne")
             return RestClient.cartClient.getOneCart(cartId,{},brand)
@@ -46,48 +44,56 @@ class CartControllers {
                 return (cart);
             })
             .catch((err) => {
-                log.error("Error getting home. " + err);
-                next(err);
+                res.status(500).send('Fail get one cart');
             })
         }else{
-            console.log("hago un create")
             return this.getNewCart(req, res)
                 .then((cart)=>{
                     return cart;
                 })
                 .catch((err) => {
-                    log.error("Error getting home. " + err);
-                    next(err);
+                    res.status(500).send('Fail get a new cart');
                 })
         }
     }
 
     addProduct(req, res){
         const body = req.body || {};
-        const productId = body.xid || undefined
-        const promotionId = body.promotion_id || undefined
-        const warranty_id = body.warranty_id || undefined
-        const productPrice = body.price || undefined
+        const productId = body.xid;
+        const promotionId = body.promotion_id;
+        const warranty_id = body.warranty_id;
+        const productPrice = body.price;
+        const cartId = req.cookies['cartId'];
+        const brand = res.locals.xBrand.toLowerCase()
 
-        let cartId = req.cookies['cartId'] || null
-        let brand = res.locals.xBrand.toLowerCase()
-
-        this.getOneCart(cartId, req, res)
+        this._getOneCart(cartId, req, res)
             .then((cart)=>{
                 RestClient.productClient.addProduct(cart.cart_id,productId,1,warranty_id,productPrice,"","",brand)
-                    .then((cart)=>{
+                    .then(()=>{
                         res.send(cart);
                     }).catch((err) => {
-                        res.statusCode(500)
+                        console.log(err);
+                        res.status(500).send('Fail update product to cart');
                     })
-                //res.send(RestClient.productClient.addProduct(cart.cartId,productId,1,warranty_id,productPrice,brand))
-
             }).catch((err) => {
-                log.error("Error getting cart. " + err);
-                next(err);
+                res.status(500).send('Fail get to cart');
+            })
+    }
+
+    editProduct(req, res){
+        let body = req.body || {};
+        const cartId = req.params.cartId;
+        const brand = res.locals.xBrand.toLowerCase();
+        const productId = body.xid;
+        const quantity = body.quantity;
+        RestClient.productClient.updateProduct(cartId,productId,quantity,brand)
+            .then((cart)=>{
+                res.send(cart);
+            }).catch((err) => {
+                console.log(err);
+                res.status(500).send('Fail add product to cart');
             })
 
-        //res.send(body);
     }
 
     deleteProduct(req , res){

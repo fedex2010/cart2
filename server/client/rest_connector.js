@@ -80,6 +80,21 @@ class RestConnector{
         return deferred.promise;
     }
 
+    putWithOptions(url, options){
+        let deferred = Q.defer();
+
+        options.timeout = options.timeout || config.services.restler_timeout;
+
+        logger.info('PUT ',url,' ', options, '\n');
+
+        restConnector.put(url, options)
+            .on('success', (response) => deferred.resolve(response))
+            .on('fail', (err, response) => deferred.reject(new rest_errors.ServerErrorException(`PUT [${url}] fail [${response.statusCode}] -> ${response.rawEncoded}`, err)) )
+            .on('error', (err) => deferred.reject(new rest_errors.ClientErrorException(`PUT [${url}]`, err)) )
+            .on('timeout', (err) =>  deferred.reject(new rest_errors.TimeoutException(`PUT [${url}]`, err)) )
+
+        return deferred.promise;
+    }
 
 }
 
