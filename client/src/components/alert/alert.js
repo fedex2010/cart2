@@ -2,10 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
-
-
-
 class Alert extends Component {
 
   constructor(props) {
@@ -15,8 +11,6 @@ class Alert extends Component {
       tipo: this.props.tipo
     };
   }
-
-
 
   render() {
 
