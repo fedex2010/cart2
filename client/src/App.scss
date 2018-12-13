@@ -1,6 +1,8 @@
 @import './variables.scss';
 
-
+*, ::after, ::before {
+  box-sizing: border-box;
+}
 
 .container-gbChk {
   font-size: .85em;
@@ -8,12 +10,20 @@
   min-width: 320px;
   margin: 0 auto;
   border: 1px solid red;
+  padding: 20px 30px 30px 35px;
   position: relative;
 }
 .gbChk-row {
   margin-left: -1rem;
   margin-right: -1rem;
 }
+.gbChk-row:after,
+.product-summary-gbChk {
+  clear: both;
+  content: "";
+  display: table;
+}
+
 .gbChk-12,
 .gbChk-8,
 .gbChk-4 {
