@@ -1,2 +1,37 @@
 $primary-color:red;
 $secondary-color:violet;
+
+.alert-message-gbChk {
+  border: 1px solid red;
+}
+.product-summary-gbChk {
+  border: 1px solid blue;
+  position: relative;
+    width: 100%;
+}
+.summary-gbChk {
+  border: 1px solid violet;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+.summary {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border: 1px solid orange;
+  width: 100%;
+  left: 0;
+}
+.summary-fixed {
+  position: fixed;
+  top: 150px
+}
+.summary-absolute{
+    position: absolute;
+    bottom: 0;
+}
+.carousel-gbChk {
+  border: 1px solid green;
+}
