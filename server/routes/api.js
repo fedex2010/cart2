@@ -1,14 +1,18 @@
-var express     = require('express'),
-    router      = express.Router(),
-    controllers = require('../controllers'),
-    bodyParser  = require("body-parser"),
-    urlencodedParser = bodyParser.urlencoded({ extended: false });
+var express             = require('express'),
+    router              = express.Router(),
+    controllers         = require('../controllers'),
+    bodyParser          = require("body-parser"),
+    urlencodedParser    = bodyParser.urlencoded({ extended: false }),
+    jsonParser		    = bodyParser.json();
 
+router.get('/health', function(req, res){ res.status(200).send('OK') });
 router.get('/cart/carousel', controllers.cart.getCarousel);
 router.get('/cart/:cartId', controllers.cart.getCart);
 router.post('/cart/', urlencodedParser, (req, res) => controllers.cart.addProduct(req, res));
+router.post('/cart/:cartId/cupon', jsonParser, controllers.cart.setCoupon);
 router.put('/cart/:cartId', urlencodedParser, (req, res) => controllers.cart.editProduct(req, res));
 router.delete('/cart/:prodcutId', urlencodedParser, (req, res) => controllers.cart.deleteProduct(req, res));
+router.delete('/cart/c_:cartId/cupon/:couponCode', controllers.cart.deleteCoupon);
 
 
 module.exports = router;
@@ -20,6 +24,9 @@ TODO Estas son las rutas actuales del carrito a replicar
 router.get('/', cartController.index);------------------OK
 router.post('/deleteProductFromCart', jsonParser, cartController.deleteProduct);---------------OK
 router.post('/updateItemQuantity', jsonParser, cartController.updateItemQuantity);---------------OK
+router.get('/health', function(req, res){ res.status(200).send('OK') });------------------OK
+router.post('/c_:cartId/cupon', jsonParser, cartController.setCoupon);------------------OK
+router.delete('/c_:cartId/cupon/:couponCode', cartController.deleteCoupon);------------------OK
 
 
 router.get('/error', cartController.error);
@@ -31,11 +38,8 @@ router.post('/', urlencodedParser, cartController.addProduct);
 router.get('/c_:cartId/warranty/:productId', cartController.warrantyMobile);
 router.get('/c_:cartId/arplus-terminos-y-condiciones', cartController.arplusterminosycondiciones);
 router.get('/c_:cartId/warranty/:productId/terminos-y-condiciones', cartController.terminosycondiciones);
-router.get('/health', function(req, res){ res.status(200).send('OK') });
 router.post('/setWarranty', jsonParser, cartController.setWarranty);
 router.post('/sendCart', jsonParser, cartController.sendCart);
-router.post('/c_:cartId/cupon', jsonParser, cartController.setCoupon);
-router.delete('/c_:cartId/cupon/:couponCode', cartController.deleteCoupon);
 router.post('/c_:cartId/aaPlus', jsonParser, cartController.setAAPlus);
 router.delete('/c_:cartId/aaPlus', cartController.deleteAAPlus);
 router.get('/garex', garexController.index);

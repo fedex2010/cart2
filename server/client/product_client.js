@@ -1,5 +1,5 @@
 const RestConnector = require('./rest_connector');
-var config  = require('../config/config'),
+let config  = require('../config/config'),
     logger  = require('../utils/logger');
 
 
