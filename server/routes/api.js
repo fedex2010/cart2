@@ -1,15 +1,20 @@
-var express     = require('express'),
-    router      = express.Router(),
-    controllers = require('../controllers'),
-    bodyParser  = require("body-parser"),
-    urlencodedParser = bodyParser.urlencoded({ extended: false });
+var express = require("express"),
+  router = express.Router(),
+  controllers = require("../controllers"),
+  bodyParser = require("body-parser"),
+  urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-router.get('/cart/carousel', controllers.cart.getCarousel);
-router.get('/cart/:cartId', controllers.cart.getCart);
-router.post('/cart/', urlencodedParser, (req, res) => controllers.cart.addProduct(req, res));
-router.put('/cart/:cartId', urlencodedParser, (req, res) => controllers.cart.editProduct(req, res));
-router.delete('/cart/:prodcutId', urlencodedParser, (req, res) => controllers.cart.deleteProduct(req, res));
-
+router.get("/cart/carousel", controllers.cart.getCarousel);
+router.get("/cart/:cartId", controllers.cart.getCart);
+router.post("/cart/", urlencodedParser, (req, res) =>
+  controllers.cart.addProduct(req, res)
+);
+router.put("/cart/:cartId", urlencodedParser, (req, res) =>
+  controllers.cart.editProduct(req, res)
+);
+router.delete("/cart/:prodcutId", urlencodedParser, (req, res) =>
+  controllers.cart.deleteProduct(req, res)
+);
 
 module.exports = router;
 

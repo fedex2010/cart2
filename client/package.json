@@ -16,7 +16,7 @@
     "restler": "^3.4.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development --open"
+    "dev": "webpack-dev-server --watch --config ./webpack.config.js --mode development"
   },
   "eslintConfig": {
     "extends": "react-app"
