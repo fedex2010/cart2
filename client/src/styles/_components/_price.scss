@@ -1,0 +1,148 @@
+@import "../_variables/variables";
+@import "../_variables/variables-garba";
+@import "../_mixins/mixins";
+
+// PRECIOS
+.itemBox--price {
+   color: $gray;
+   text-align: center;
+}
+
+.value-item {
+   color: $item-price-color;
+   display: block;
+   font-size:  28px;
+   font-weight: 400;
+   line-height:  32px;
+   padding: 0 3px;
+   
+   @include breakpoint("small"){
+      font-size: 22px;
+      line-height: 28px;
+   }
+}
+   
+
+// + IVA
+.value-item--tax {
+   color: $black;
+   display: inline-block;
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 32px;
+   margin-left: $spacer-xs;
+   vertical-align: top;
+}
+
+
+.value-note {
+   font-size: 14px;
+   line-height: 24px;
+   display: flex;
+   justify-content:center;
+   @include breakpoint("medium"){
+      font-size: 13px;
+   }
+   @include breakpoint("small") {
+      font-size: 13px;
+      line-height: 20px;
+   }
+   del {
+      color: $item-price-list-color;
+      margin: 0 3px;
+      display: inline-block;
+      vertical-align: middle;
+
+      &:hover {
+         text-decoration: line-through !important;
+      }
+   }
+   .value-item--discount,
+   .benefits {
+      color: $item-discount-color;
+      margin: 0 3px;
+      display: inline-block;
+      vertical-align: middle;
+   }
+   .icon-truck {
+      margin-left: $spacer-xs;
+      &:before {
+         content: $gui-icon-free-send;
+         line-height: inherit;
+         color: $gray;
+         font-family: 'gui-icons' !important;
+         -webkit-font-smoothing: antialiased;
+         -moz-osx-font-smoothing: grayscale;
+      }
+}
+}
+   
+
+//precio horizontal (como en pricebox sticky de ficha)
+.itemBox--price-horizontal {
+   vertical-align: middle;
+   .value-item,
+   .value-note {
+      display: inline-block;
+      vertical-align: middle;
+   }
+   .value-item {
+      margin-left: $spacer-sm;
+   }
+}
+
+
+//tamaños
+
+.itemBox--price-lg {
+   .value-item {
+      font-size: 35px;
+      line-height: 45px;
+   }
+   // + IVA
+   .value-item--tax {
+      font-size: 16px;
+      line-height: 45px;
+   }
+   .value-note {
+      font-size: 16px;
+   }
+}
+
+
+.itemBox--price-sm {
+   .value-item {
+      font-size: 23px;
+      line-height: 28px;
+   }
+   .value-note {
+      font-size: 13px;
+      line-height: 20px;
+   }
+}
+
+
+.itemBox--price-alignLeft {
+   text-align: left;
+   .value-note {
+      justify-content: left;
+   }
+}
+
+
+.itemBox--price-alignRight {
+   text-align: right;
+   .value-note {
+      justify-content: flex-end;
+   }
+}
+
+
+.benefits {
+   color: $item-discount-color;
+}
+
+
+
+
+

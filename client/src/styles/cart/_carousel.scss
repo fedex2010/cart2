@@ -1,0 +1,55 @@
+// CAROUSEL
+
+.carousel  {
+   overflow: hidden;
+   position: relative;
+
+   &:hover{
+      .gb-carousel-module-control {
+         visibility: visible;
+         transform: opacity(1);
+
+         &.gb--prev {
+            left: 0
+         }
+         &.gb--next {
+            right: 0
+         }
+      }
+   }
+
+   .carousel-wrapper  {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: stretch;
+      box-sizing: border-box;
+      
+   }
+
+   .carousel-item {
+      width: auto;
+      height: auto;
+
+      *:hover {
+         text-decoration: none;
+      }
+   }
+
+   //Separa el primer y último item del contenedor
+   .carousel-slider--has-padding {
+      .carousel-item:first-child {
+         margin-left: 30px;
+         @include breakpoint("medium") {
+            margin-left: 20px;
+         }
+      }
+
+      .carousel-item:last-child {
+         margin-right: 30px;
+         @include breakpoint("medium") {
+            margin-right: 20px;
+         }
+      }
+   }
+}

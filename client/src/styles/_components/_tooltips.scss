@@ -1,0 +1,197 @@
+@import "../_variables/variables";
+
+.tooltip_left,
+.tooltip_right,
+.tooltip_topCenter,
+.tooltip_topLeft,
+.tooltip_topRight,
+.tooltip_bottomCenter,
+.tooltip_bottomLeft,
+.tooltip_bottomRight {
+	background: $tooltip-bg;
+	border-radius: $tooltip-border-radius;
+	color: $tooltip-color;
+	display: none;
+	font-size: $tooltip-font-size;
+	line-height: $tooltip-line-height;
+	opacity: 0;
+	padding: $tooltip-padding;
+	position: absolute;
+	text-align: center;
+	visibility: hidden;
+	white-space: nowrap;
+	z-index: 3;
+	font-family: $font-family-base;
+
+
+	&:before {
+		border-color: transparent;
+		border-style: solid;
+		border-width: $tooltip-arrow-size;
+		content: "";
+		display: block;
+		position: absolute;
+	}
+}
+
+
+
+
+// Tooltis laterales
+//----------------------------------------------
+
+.tooltip_left,
+.tooltip_right {
+	transform: translateY(-50%);
+	top: 50%;
+	&:before {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.tooltip_left {
+	right: calc(#{$tooltip-distance} + 100%);
+	&:before {
+		border-left: $tooltip-arrow-size solid $tooltip-bg;
+		right: calc(#{-$tooltip-arrow-size} * 2);
+	}
+}
+
+.tooltip_right {
+	left: calc(#{$tooltip-distance} + 100%);
+	&:before {
+		border-right: $tooltip-arrow-size solid $tooltip-bg;
+		left: calc(#{-$tooltip-arrow-size} * 2); 
+	}
+}
+
+
+
+// Tooltis superiores
+//----------------------------------------------
+
+.tooltip_topCenter,
+.tooltip_topLeft,
+.tooltip_topRight {
+	bottom: calc(#{$tooltip-distance} + 100%);
+	&:before {
+		border-top: $tooltip-arrow-size solid $tooltip-bg;
+		bottom: calc(#{-$tooltip-arrow-size} * 2); 
+	}
+}
+
+.tooltip_topCenter {
+	left: 50%;
+	transform: translateX(-50%);
+	&:before {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.tooltip_topLeft {
+	left:0;
+	&:before {
+		left: $spacer-sm;
+	}
+}
+
+.tooltip_topRight {
+	right:0;
+	&:before {
+		right: $spacer-sm;
+	}
+}
+
+
+// Tooltis inferiores
+//----------------------------------------------
+
+.tooltip_bottomCenter,
+.tooltip_bottomLeft,
+.tooltip_bottomRight {
+	top: calc(#{$tooltip-distance} + 100%);
+	&:before {
+		border-bottom: $tooltip-arrow-size solid $tooltip-bg;
+		top: calc(#{-$tooltip-arrow-size} * 2); 
+	}
+}
+
+.tooltip_bottomCenter {
+	left: 50%;
+	transform: translateX(-50%);
+	&:before {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.tooltip_bottomLeft {
+	left:0;
+	&:before {
+		left: $spacer-sm;
+	}
+}
+
+.tooltip_bottomRight {
+	right:0;
+	&:before {
+		right: $spacer-sm;
+	}
+}
+
+
+
+
+
+
+//----------------------------------------------
+
+// Modificadores
+
+//----------------------------------------------
+
+
+//Elemento que contiene el tooltip 
+.has-tooltip {
+   position: relative;
+   cursor: pointer;
+   
+   &:hover [class^="tooltip_"]{
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transition: all .5s ease-in-out;
+      //animation: fadeAnimation .5s foward;
+		//background-color: red;
+   }
+}
+
+// animación
+@keyframes fadeAnimation {
+   0%   { opacity: 0; display: none;}
+   1%   { opacity: 0; display: block;}
+   100% { opacity: 1; display: block;}
+}
+
+//para que el tooltip siempre este visible
+.has-tooltip-visible {
+	position: relative;
+	[class^="tooltip_"] {
+		display: block;
+   	opacity: 1;
+   	visibility: visible;
+	}
+}
+
+//para cuando el tooltip tiene texto en donde no se puede forzar el salto de línea con <br>
+.tooltip--has-dinamic-text {
+	white-space: normal;
+	min-width: 150px;
+}
+
+
+
+
+

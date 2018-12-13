@@ -1,0 +1,22 @@
+@import "../_variables/_variables";
+
+
+header,footer {
+   background-color: red;
+   height: 50px;
+}
+
+
+
+.cart-empty {
+	background: url(./images/empty.png) no-repeat center top;
+	background-size: auto rem(140);
+	padding-top: rem(160);
+
+	p {
+		text-align: center;
+   	font-size:rem(16);
+   	color: $gray;
+   	margin-bottom: $spacer-xl;
+   }
+}

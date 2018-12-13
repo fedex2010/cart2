@@ -1,0 +1,16 @@
+//utility classes
+
+.ellipsis-text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   max-width: 100%;
+}
+
+.is-inline-block {
+   display: inline-block;
+}
+
+.hide {
+	display: none;
+}

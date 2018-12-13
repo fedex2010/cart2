@@ -1,0 +1,54 @@
+@import "../_variables/variables";
+
+body,
+html {
+   background-color: $body-bg;
+   font-size: $baseline-grid;
+   font-family: $font-family-base;
+   line-height: $line-height-base;
+}
+
+.wrapper,
+.gb-wrapper,
+.main-container,
+.cart-wrapper {
+   max-width: $container-max-width;
+   min-width: $container-min-width;
+   margin-right: auto;
+   margin-left: auto;
+   text-align: left;
+   padding-left: $spacer-xl;
+   padding-right: $spacer-xl;
+   margin-bottom: $spacer-xl;
+}
+
+
+a {
+   color: $link-color;
+   text-decoration:  $link-decoration;
+
+   &:hover {
+      color: $link-hover-color;
+      text-decoration: $link-hover-decoration;
+   }
+}
+
+.card {
+   background-color: $card-bg-color;
+   border: 1px solid $card-border-color;
+   border-radius: $card-rounded;
+}
+
+.card-header {
+   border-bottom: 1px solid $card-border-color;
+   margin: 0 30px;
+}
+
+.card-title {
+   display: block;
+   font-size: rem(24);
+   font-weight: 600;
+   line-height: initial;
+   padding: 20px 0;
+   vertical-align: top;
+}
