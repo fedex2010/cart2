@@ -30,6 +30,19 @@ class PromotionClient{
         }
         return this._restConnector.delete( url,options )
     }
+
+    setLoyaltyCode(cartId, loyaltyId, code, brand) {
+        let options = {
+            headers: {
+                'X-Brand':brand
+            }
+        }
+
+        return this._restConnector.putWithOptions( `${CHECKOUT_CORE_URL}/carts/${cartId}/loyalties/${loyaltyId}`, {
+            headers: {'Content-Type': 'application/json'},
+            data: JSON.stringify({'code': code})
+        })
+    }
 }
 
 module.exports =  PromotionClient;

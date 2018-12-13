@@ -156,6 +156,34 @@ class CartControllers {
             res.status(500).send('Fail delete coupon to cart');
         })
     }
+
+    setAAPlus(req, res){
+        let cartId  = req.params.cartId,
+            code    = req.body.code,
+            brand = res.locals.xBrand.toLowerCase();
+
+        RestClient.promotion.setLoyaltyCode(cartId, 'AEROLINEAS_PLUS', code, brand)
+            .then((loyalty)=>{
+                res.send(loyalty);
+            }).catch((err) => {
+                logger.error("["+ cartId+ "] Error add AEROLINEAS_PLUS: "+ code+ ",err:"+err)
+                res.status(500).send('Fail add coupon to cart');
+            })
+    }
+
+    deleteAAPlus(req,res){
+        let cartId  = req.params.cartId,
+            code    = null,
+            brand = res.locals.xBrand.toLowerCase();
+
+        RestClient.promotion.setLoyaltyCode(cartId, 'AEROLINEAS_PLUS', code, brand)
+            .then((loyalty)=>{
+                res.send(loyalty);
+            }).catch((err) => {
+                logger.error("["+ cartId+ "] Error add AEROLINEAS_PLUS: "+ code+ ",err:"+err)
+                res.status(500).send('Fail add coupon to cart');
+            })
+    }
 }
 
 module.exports = CartControllers;
