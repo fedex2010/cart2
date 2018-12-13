@@ -1,0 +1,24 @@
+{
+  "name": "reddice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prune-client": "cd client && npm prune",
+    "prune-server": "cd server && npm prune",
+    "clean": "npm-run-all prune-server prune-client",
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "postinstall": "npm run clean && npm-run-all install-server install-client",
+    "client": "cd client && npm run start",
+    "server": "cd server && npm run start",
+    "start-ui": "npm-run-all --parallel client server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {}
+}
