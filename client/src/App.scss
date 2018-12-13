@@ -1,15 +1,28 @@
-@import './common/common.scss';
+@import './variables.scss';
 
-.jerry{
-  @include border-radius-top(10px);
-  @include border-radius-bottom(10px);
-}
 .App {
   text-align: center;
 }
 
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
 
+.App-header {
+  background-color: $primary-color;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
 
+.App-link {
+  color: $secondary-color;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -23,9 +36,22 @@
 
 
 
-//@import './styles/_variables/_variables.scss';
+
+
+
+
+
+@import './styles/_variables/_variables.scss';
 @import './styles/_variables/_variables-garba.scss';
 @import './styles/_mixins/mixins.scss';
 @import './styles/_components/components.scss';
 
 @import './styles/cart/cart';
+
+
+
+
+
+
+
+

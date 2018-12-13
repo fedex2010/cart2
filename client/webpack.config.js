@@ -23,10 +23,10 @@ module.exports = {
         loader: "svg-inline-loader"
       },
       {
-        test: /\.(ttf|eot|woff|woff2)$/,
-        loader: 'file-loader',
+        test: /\.(png|ttf|eot|woff|woff2)$/,
+        loader: "file-loader",
         options: {
-          name: '[name].[ext]'
+          name: "[name].[ext]"
         }
       }
     ]

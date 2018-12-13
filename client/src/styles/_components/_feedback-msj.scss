@@ -6,8 +6,7 @@
 	color: $gray-darker-2x;
 	font-size: 0.875rem;
 	margin-bottom: $spacer-xl;
-	padding: $spacer-base $spacer-base $spacer-base;
-	//padding: $spacer-base $spacer-base $spacer-base($spacer-base * 2 + $spacer-xl);
+	padding: $spacer-base $spacer-base $spacer-base ($spacer-base * 2 + $spacer-xl);
 	position: relative;
 	text-align: left;
 

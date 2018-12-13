@@ -1,6 +1,8 @@
-import { combineReducers } from "redux";
-import cartReducer from "./cartReducer";
-
+/*
+ src/reducers/rootReducer.js
+*/
+import { combineReducers } from 'redux';
+import simpleReducer from './simpleReducer';
 export default combineReducers({
-  cartReducer
+ simpleReducer
 });
