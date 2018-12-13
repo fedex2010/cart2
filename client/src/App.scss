@@ -21,8 +21,10 @@
 }
 
 
-@import './styles/_variables/variables';
-@import './styles/_variables/variables-garba';
+
+
+//@import './styles/_variables/_variables.scss';
+@import './styles/_variables/_variables-garba.scss';
 @import './styles/_mixins/mixins.scss';
 @import './styles/_components/components.scss';
 
