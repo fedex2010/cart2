@@ -1,0 +1,33 @@
+@import './variables-cart-ui.scss';
+@import './_bootstrap-grid.scss';
+@import './grid';
+
+// Import bourbon functionalities to be used in the app
+@import "../../node_modules/garba-ui/app/lib/helpers/bourbon";
+
+// Functions
+@import "../../node_modules/garba-ui/app/lib/helpers/px-to-rem";
+@import "../../node_modules/garba-ui/app/lib/helpers/color-modifiers";
+@import "../../node_modules/garba-ui/app/lib/helpers/state-modifiers";
+
+
+// Variables
+@import "../../node_modules/garba-ui/app/lib/variables/icon-variables";
+@import "../../node_modules/garba-ui/app/lib/variables/variables";
+
+
+@import "../../node_modules/garba-ui/app/lib/helpers/border-radius";
+@import "../../node_modules/garba-ui/app/lib/helpers/button-actions";
+@import "../../node_modules/garba-ui/app/lib/helpers/bourbon";
+@import "../../node_modules/garba-ui/app/lib/helpers/bootstrap";
+@import "../../node_modules/garba-ui/app/lib/helpers/element-aspect-ratio";
+@import "../../node_modules/garba-ui/app/lib/helpers/forms";
+@import "../../node_modules/garba-ui/app/lib/helpers/grid-narrow";
+@import "../../node_modules/garba-ui/app/lib/helpers/icon-element";
+@import "../../node_modules/garba-ui/app/lib/helpers/labels";
+@import "../../node_modules/garba-ui/app/lib/helpers/lists";
+@import "../../node_modules/garba-ui/app/lib/helpers/multi-line-ellipsis";
+@import "../../node_modules/garba-ui/app/lib/helpers/position-items";
+@import "../../node_modules/garba-ui/app/lib/helpers/set-width-based-on-siblings-count";
+@import "../../node_modules/garba-ui/app/lib/helpers/spinners";
+@import "../../node_modules/garba-ui/app/lib/helpers/value";

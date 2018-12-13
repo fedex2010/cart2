@@ -1,4 +1,4 @@
-@import './common.scss';
+@import './common/common.scss';
 
 .jerry{
   @include border-radius-top(10px);
@@ -8,9 +8,6 @@
   text-align: center;
 }
 
-.App-link {
-  color: $secondary-color;
-}
 
 
 
