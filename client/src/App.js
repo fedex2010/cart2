@@ -1,46 +1,53 @@
-/*
- src/App.js
-*/
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import logo from './logo.svg';
 import { simpleAction } from './actions/simpleAction'
 import './App.scss';
 import Test from './components/Test/Test'
 
-const mapStateToProps = state => ({
-  ...state
- })
+import Alert from './components/alert/alert';
+import Card from './components/product/card/card';
+import Summary from './components/summary/summary';
+import Carousel from './components/carousel/carousel';
 
- const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
- })
+import './App.scss';
 
 class App extends Component {
  
-  simpleAction = (event) => {
-    this.props.simpleAction();
-  }
-
   render() {
   return (
-   <div className="App">
-    <header className="App-header">
-     <img src={logo} className="App-logo" alt="logo" />
-     <Test />
-     <h1 className="App-title">Welcome to React</h1>
-     <button onClick={this.simpleAction} className='jerry'>Test redux action</button>
-     <pre>
- {
-  JSON.stringify(this.props)
- }
-</pre>
-    </header>
-    <p className="App-intro">
-     To get started, edit <code>src/App.js</code> and save to reload
-    </p>
-   </div>
+
+   <div className="container-gbChk">
+      <div className="gbChk-row">
+         <div className="alert-message-gbChk gbChk-12">
+         <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por producto combinado y bonificación."} tipo={"success"}/>
+         <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por bonificación."} tipo={"success"}/>
+         <Alert mensaje={"¡Buenas noticias! Tenés un descuento especial por producto combinado."} tipo={"success"}/>
+         <Alert mensaje={"¡Buenas noticias! Tenes un cupón de descuento aplicado."} tipo={"success"}/>
+
+
+         <Alert mensaje={"El producto seleccionado está agotado. Eliminalo para poder continuar."} tipo={"error"}/>
+         <Alert mensaje={"Atención! No es posible comprar estos productos en el mismo carrito.Te sugerimos comprarlos por separado así podemos ofrecerte más opciones de entrega."} tipo={"error"}/>
+         <Alert mensaje={"Ocurrio un error. Intente nuevamente más tarde."} tipo={"error"}/>
+      </div>
+       <button onClick={this.simpleAction} className='jerry'>Test redux action</button>
+         <div className="product-summary-gbChk">
+            <div className="product-gbChk gbChk-8">
+               <Card tipo={"success"}/>
+            </div>
+            <div className="summary-gbChk gbChk-4">
+               <Summary tipo={"success"}/>
+            </div>
+         </div>
+     
+         <div className="carousel-gbChk gbChk-12">
+         <Carousel tipo={"success"}/>      
+      </div>
+      
   );
  }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default App;
