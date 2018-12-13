@@ -1,4 +1,7 @@
 @import './variables.scss';
+@import './_bootstrap-grid.scss';
+
+@import './grid';
 
 // Import bourbon functionalities to be used in the app
 @import "../node_modules/garba-ui/app/lib/helpers/bourbon";

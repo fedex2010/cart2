@@ -8,61 +8,11 @@
   text-align: center;
 }
 
-.container-gbChk {
-  font-size: .85em;
-  max-width: 1366px;
-  min-width: 320px;
-  margin: 0 auto;
-  border: 1px solid red;
-  padding: 20px 30px 30px 35px;
-  position: relative;
-}
-.gbChk-row {
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-.gbChk-row:after,
-.product-summary-gbChk {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-.gbChk-12,
-.gbChk-8,
-.gbChk-4 {
-  min-height: 1px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  float: left;
-  position: relative;
-}
-.gbChk-12 {
-  width: 100%;
-  border: 1px solid blue;
-}
-.gbChk-8 {
-  width: 66.66667%;
-  border: 1px solid green;
-}
-.gbChk-4 {
-  width: 33.33333%;
-  border: 1px solid yellow;
-}
-.App-header {
-  background-color: $primary-color;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .App-link {
   color: $secondary-color;
 }
+
+
 
 @keyframes App-logo-spin {
   from {
