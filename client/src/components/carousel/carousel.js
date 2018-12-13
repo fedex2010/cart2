@@ -44,7 +44,7 @@ class Carousel extends Component {
                         </span>
                     </div>
                     <a href="/producto/af78e79d85" className="btn_see_detail">Ver detalle</a>
-                    <button class="gb-button primary small btn_add_product">Agregar</button>
+                    <button className="gb-button primary small btn_add_product">Agregar</button>
                 </div>
 
                 
