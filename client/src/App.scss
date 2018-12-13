@@ -1,7 +1,11 @@
-@import './variables.scss';
+@import './common.scss';
 
-*, ::after, ::before {
-  box-sizing: border-box;
+.jerry{
+  @include border-radius-top(10px);
+  @include border-radius-bottom(10px);
+}
+.App {
+  text-align: center;
 }
 
 .container-gbChk {

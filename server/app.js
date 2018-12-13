@@ -2,10 +2,12 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
+var logger = require('./utils/logger')
+var async  = require("async");
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var apiRouter = require('./routes/api');
+var uuid      = require('uuid');
+
 
 var app = express();
 
@@ -13,14 +15,17 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(parallel([
+    cookie
+]));
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,5 +42,48 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+function parallel(middlewares) {
+    return function (req, res, next) {
+        async.each(middlewares, function (mw, cb) {
+            mw(req, res, cb);
+        }, next);
+    };
+}
+
+function cookie(req, res, next) {
+
+    let sessionCookie = req.cookies['epi.context'];
+    let cartCookie = req.cookies['cartId'];
+
+    if (!sessionCookie) {
+        generateSessionCookie(res)
+    }else {
+        setSessionContextFromCookie(res, sessionCookie)
+    }
+    if (cartCookie) {
+        setCartContextFromCookie(res, cartCookie)
+    }
+    next()
+}
+
+function setCartContextFromCookie(res, cartCookie){
+    res.locals.cartId = cartCookie
+}
+
+function generateSessionCookie(res){
+    setSessionCookie(res, "chkw-" + uuid.v4().substr(5))
+}
+
+function setSessionContextFromCookie(res, sessionCookie){
+    res.locals.session = JSON.parse(sessionCookie.replace(/\\/g, '')).userId
+}
+
+function setSessionCookie(res, session_id){
+    logger.info("[", session_id, "] Setting new user session")
+    res.locals.session = session_id
+    res.cookie('epi.context', '"{\\"userId\\":\\"'+ session_id +'\\"}"', {encode: String })
+}
+
 
 module.exports = app;
