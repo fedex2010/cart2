@@ -8,7 +8,7 @@ class Summary extends Component {
   render() {
   return (
    <div className="summary">
-        <div className="summary-fixed">
+        <div className="summary-absolute">
             <div className="card">
                 Resumen de compra
                 Subtotal $21.296

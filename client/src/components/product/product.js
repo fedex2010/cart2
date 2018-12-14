@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class Card extends Component {
+class Product extends Component {
 
   constructor(props) {
     super(props);
@@ -86,6 +86,6 @@ class Card extends Component {
     }
     }
 }
-export default Card;
+export default Product;
 
 

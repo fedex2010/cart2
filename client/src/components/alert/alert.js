@@ -14,15 +14,17 @@ class Alert extends Component {
 
   render() {
 
-    if(this.state.tipo == "success"){
+    if(this.state.tipo === "success"){
+      console.log("TIPO:", this.state.tipo)
       return (
-        <div className="feedback feedback-error feedback-dismissible">
+        <div className="feedback feedback-success feedback-dismissible">
           <button type="button" className="feedback--btn-close"></button>
           {this.state.mensaje}
         </div>
       );
     }
     else {
+      console.log("NO ENTRA TIPO:", this.state.tipo)
       return (
         <div className="feedback feedback-error feedback-dismissible">
           <button type="button" className="feedback--btn-close"></button>
