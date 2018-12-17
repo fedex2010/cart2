@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 // import "./Test.scss";
 import { connect } from "react-redux";
-import { fetchCart } from "../../actions/CartAction";
+
+import { fetchCart, addProduct } from "../../actions/CartAction";
 
 class Test extends Component {
   constructor(props) {
@@ -9,7 +10,11 @@ class Test extends Component {
     this.state = {};
   }
   componentWillMount() {
-    this.props.fetchCart("5bbe3e53e4b093b426db56b2");
+    this.props.fetchCart("5c17fc54e4b0ba0232be8c96");
+
+    let productFake = { xid: "b1c2d3c7b0", productPrice: 5699 };
+
+    this.props.addProduct(productFake);
   }
 
   render() {
@@ -27,5 +32,5 @@ class Test extends Component {
 // };
 export default connect(
   null,
-  { fetchCart }
+  { fetchCart, addProduct }
 )(Test);
