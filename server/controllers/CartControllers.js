@@ -20,16 +20,18 @@ class CartControllers {
              })
     }
 
-    getCart(req, res){
-        console.log("getcart")
-        let cartId = req.params.cartId;
+    getCart(req, res, ){
+        console.log("get cart");
         let brand = res.locals.xBrand.toLowerCase();
+        let cartId = req.params.cartId;
 
+        console.log("get cart:"+cartId);
         RestClient.cartClient.getOneCart(cartId,{},brand)
             .then((cart) => {
                 res.send(cart);
             })
             .catch((err) => {
+                logger.error("[" + cartId + "] Fail get cart,err:"+err);
                 res.status(500).send('Fail get cart');
             })
     }
@@ -37,11 +39,16 @@ class CartControllers {
     getCarousel(req, res){
         console.log("carousel")
         let brand = res.locals.xBrand.toLowerCase();
-
+        let product=[];
         RestClient.productClient.getProductsCarousel(brand)
             .then((carousel) => {
-                console.log(carousel);
-                res.send(carousel);
+                return RestClient.productClient.getProducts(brand,carousel.products)
+                    .then((product)=>{
+                        res.send(product);
+                    }).catch((err) => {
+                        console.log(err);
+                        res.status(500).send('Fail get carousel product');
+                    })
             })
             .catch((err) => {
                 console.log(err);
@@ -183,6 +190,52 @@ class CartControllers {
                 logger.error("["+ cartId+ "] Error add AEROLINEAS_PLUS: "+ code+ ",err:"+err)
                 res.status(500).send('Fail add coupon to cart');
             })
+    }
+
+    summary(req, res){
+        let cartId = res.locals.cartId,
+            brand = res.locals.xBrand.toLowerCase();
+
+        RestClient.cartClient.getOneCart(cartId,{},brand)
+        .then((cart) => {
+            res.json({"products_count": cart.products.length})
+        })
+        .catch((err) => {
+            res.status(500).send('Fail get cart');
+        })
+    }
+
+    warrantyMobile(req, res){
+        res.send("ok")
+    }
+
+    setWarranty(req, res){
+        let cartId = req.body.cartId,
+            productId = req.body.product_id,
+            warrantyId = req.body.warranty_id,
+            brand = res.locals.xBrand.toLowerCase(),
+            responseObj;
+        RestClient.productClient.setWarranty(cartId, productId, warrantyId, brand)
+        .then((product) => {
+            //req.params.cartId = cartId;
+            return this.getCart(req,res)
+                .then((cart)=>{
+                    console.log("cart");
+                    console.log(cart);
+                    responseObj = {
+                        cart: cart,
+                        product: product
+                    };
+                    res.status(200).send(responseObj);
+                })
+                .catch(()=>{
+                    res.status(500).send('Fail get cart');
+                })
+        })
+        .catch((err) => {
+            logger.error("[" + cartId + "] Fail set warranty to cart,err:"+err)
+            res.status(500).send('Fail set warranty to cart');
+        })
     }
 }
 
