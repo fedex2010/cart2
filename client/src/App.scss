@@ -38,11 +38,10 @@
 
 
 
-
-@import './styles/_variables/_variables.scss';
-@import './styles/_variables/_variables-garba.scss';
-@import './styles/_mixins/mixins.scss';
-@import './styles/_components/components.scss';
+@import './styles/GUI/_variables/_variables.scss';
+@import './styles/GUI/_variables/_variables-garba.scss';
+@import './styles/GUI/_mixins/mixins.scss';
+@import './styles/GUI/_components/components.scss';
 
 @import './styles/cart/cart';
 
