@@ -20,11 +20,9 @@ class CartControllers {
   }
 
   getCart(req, res) {
-    console.log("get cart");
     let brand = res.locals.xBrand.toLowerCase();
     let cartId = req.params.cartId;
 
-    console.log("get cart:" + cartId);
     RestClient.cartClient
       .getOneCart(cartId, {}, brand)
       .then(cart => {
@@ -39,14 +37,17 @@ class CartControllers {
   getCarousel(req, res) {
     console.log("carousel");
     let brand = res.locals.xBrand.toLowerCase();
-    let product = [];
+    let products={};
     RestClient.productClient
       .getProductsCarousel(brand)
       .then(carousel => {
-        return RestClient.productClient
-          .getProducts(brand, carousel.products)
+        return RestClient.productClient.getProducts(brand, carousel.products)
           .then(product => {
-            res.send(product);
+              products.id=carousel.id
+              products.title=carousel.title
+              products.products=product
+              console.log(products);
+            res.send(products);
           })
           .catch(err => {
             console.log(err);

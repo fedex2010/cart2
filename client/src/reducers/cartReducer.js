@@ -1,7 +1,8 @@
-import { SET_CURRENT_CART } from "../actions/Types";
+import {SET_CAROUSEL, SET_CURRENT_CART} from "../actions/types";
 
 const initialState = {
-  cart: {}
+  cart: {},
+  carousel:{}
 };
 
 export default (state = initialState, action = {}) => {
@@ -11,6 +12,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         cart: action.payload
       };
+      case SET_CAROUSEL:
+        return{
+            ...state,
+            carousel: action.payload
+        }
     default:
       return state;
   }
