@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {fetchCart, getCarousel} from "../../actions/cartAction";
+import {fetchCart, getCarousel} from "../../actions/CartAction";
 
 class Carousel extends Component {
 
