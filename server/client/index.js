@@ -1,9 +1,11 @@
 "use strict";
 
-const 	CartClient 					= require('./rest_client');
-const 	ProductClient 					= require('./product_client');
+const 	CartClient 		= require('./rest_client'),
+     	ProductClient 	= require('./product_client'),
+        PromotionClient = require('./promotion_client');
 
 module.exports = {
-    cartClient: new CartClient(),
-    productClient :new ProductClient()
+    cartClient      : new CartClient(),
+    productClient   :new ProductClient(),
+    promotion       :new PromotionClient()
 }

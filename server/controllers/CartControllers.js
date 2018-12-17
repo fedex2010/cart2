@@ -40,9 +40,11 @@ class CartControllers {
 
         RestClient.productClient.getProductsCarousel(brand)
             .then((carousel) => {
+                console.log(carousel);
                 res.send(carousel);
             })
             .catch((err) => {
+                console.log(err);
                 res.status(500).send('Fail get carousel');
             })
     }
@@ -95,10 +97,11 @@ class CartControllers {
 
     editProduct(req, res){
         let body = req.body || {};
-        const cartId = req.params.cartId;
-        const brand = res.locals.xBrand.toLowerCase();
-        const productId = body.xid;
-        const quantity = body.quantity;
+        const   cartId = req.params.cartId,
+                brand = res.locals.xBrand.toLowerCase(),
+                productId = body.xid,
+                quantity = body.quantity;
+
         RestClient.productClient.updateProduct(cartId,productId,quantity,brand)
             .then((cart)=>{
                 res.send(cart);
@@ -110,17 +113,76 @@ class CartControllers {
     }
 
     deleteProduct(req , res){
-        let productId = req.params.prodcutId;
-        let cartId = res.locals.cartId;
-        let brand = res.locals.xBrand.toLowerCase()
+        let productId = req.params.prodcutId,
+            cartId = res.locals.cartId,
+            brand = res.locals.xBrand.toLowerCase();
 
-        RestClient.productClient.deleteProduct(cartId,productId,brand)
+            RestClient.productClient.deleteProduct(cartId,productId,brand)
             .then((cart)=>{
                 res.status(200).send('ok');
             }).catch((e)=>{
                 res.status(500).send('Something broke!');
             })
 
+    }
+
+    setCoupon(req, res){
+        let cartId    = req.params.cartId,
+            couponCode  = req.body.coupon_code,
+            brand = res.locals.xBrand.toLowerCase();
+
+        console.log(cartId);
+        console.log(couponCode);
+        RestClient.promotion.addCoupon(cartId,couponCode,brand)
+            .then((coupon)=>{
+                res.send(coupon);
+            }).catch((err) => {
+            logger.error("["+ cartId+ "] Error add coupon: "+ couponCode+ ",err:"+err)
+            res.status(500).send('Fail add coupon to cart');
+        })
+
+    }
+
+    deleteCoupon(req, res){
+        let cartId    = req.params.cartId,
+            couponCode  = req.params.couponCode,
+            brand = res.locals.xBrand.toLowerCase();
+
+        RestClient.promotion.deleteCoupon(cartId,couponCode,brand)
+            .then((coupon)=>{
+                res.send(coupon);
+            }).catch((err) => {
+            logger.error("[" + cartId + "] Error deleting coupon: "+ couponCode+ ",err:"+err)
+            res.status(500).send('Fail delete coupon to cart');
+        })
+    }
+
+    setAAPlus(req, res){
+        let cartId  = req.params.cartId,
+            code    = req.body.code,
+            brand = res.locals.xBrand.toLowerCase();
+
+        RestClient.promotion.setLoyaltyCode(cartId, 'AEROLINEAS_PLUS', code, brand)
+            .then((loyalty)=>{
+                res.send(loyalty);
+            }).catch((err) => {
+                logger.error("["+ cartId+ "] Error add AEROLINEAS_PLUS: "+ code+ ",err:"+err)
+                res.status(500).send('Fail add coupon to cart');
+            })
+    }
+
+    deleteAAPlus(req,res){
+        let cartId  = req.params.cartId,
+            code    = null,
+            brand = res.locals.xBrand.toLowerCase();
+
+        RestClient.promotion.setLoyaltyCode(cartId, 'AEROLINEAS_PLUS', code, brand)
+            .then((loyalty)=>{
+                res.send(loyalty);
+            }).catch((err) => {
+                logger.error("["+ cartId+ "] Error add AEROLINEAS_PLUS: "+ code+ ",err:"+err)
+                res.status(500).send('Fail add coupon to cart');
+            })
     }
 }
 

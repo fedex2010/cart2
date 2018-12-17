@@ -99,7 +99,7 @@ class RestConnector{
     getWithOptions(url, options){
         var deferred = Q.defer();
 
-        logger.info("GET "+url+" "+ options);
+        logger.info("GET "+url+" "+ JSON.stringify(options));
 
         restConnector.get(url, options)
             .on('success', (response) => deferred.resolve(response))

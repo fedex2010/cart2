@@ -15,6 +15,7 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
       }
   	},
     searchList: {
+        url:"http://api-global-ci.garbarino.com/search/product_list",
         list_name:{
             garbarino:"home-ofertas-ultimo-momento",
             compumundo:"after-offers"
