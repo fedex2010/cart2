@@ -1,0 +1,52 @@
+@import "../_variables/variables";
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+.form-control {
+	border-radius: $input-border-radius;
+	border:1px solid $input-border-color;
+	background-color: $input-bg-color;
+	vertical-align: middle;
+	font-size: rem(14);
+
+	&:focus {
+		border-color: $input-border-color-focus;
+	}
+}
+
+.form-control[disabled],
+.form-control[disabled="disabled"],
+.form-control.is-disabled {
+	background-color: $input-disabled-bg;
+   border-color: $input-disabled-border-color;
+   cursor: not-allowed;
+   pointer-events: none;
+   color: $input-disabled-color;
+}
+
+
+
+.form-control-error,
+.form-control-error:focus {
+	border-color: $input-border-color-error;
+}
+.error-msj {
+	color: $error;
+	padding-top: $spacer-xs;
+}
+
+
+
+.form-control--sm {
+	line-height: rem(28);
+	padding: 0 $spacer-sm;
+	height: 30px;
+}
+

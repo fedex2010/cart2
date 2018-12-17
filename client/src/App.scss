@@ -1,6 +1,16 @@
 @import './variables.scss';
 
 /*GENERAL*/
+.main-wrapper, .gb-wrapper, .main-container, .cart-wrapper {
+  max-width: 1366px;
+  min-width: 320px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: left;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-bottom: 32px;
+}
 /*ESTRUCTURA*/
 .product-summary-gbChk{
   position: relative;
@@ -38,11 +48,10 @@
 
 
 
-
-@import './styles/_variables/_variables.scss';
-@import './styles/_variables/_variables-garba.scss';
-@import './styles/_mixins/mixins.scss';
-@import './styles/_components/components.scss';
+@import './styles/GUI/_variables/_variables.scss';
+@import './styles/GUI/_variables/_variables-garba.scss';
+@import './styles/GUI/_mixins/mixins.scss';
+@import './styles/GUI/_components/components.scss';
 
 @import './styles/cart/cart';
 

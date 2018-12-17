@@ -1,60 +1,76 @@
-@import "../_variables/_variables";
+@import "../GUI/_variables/_variables";
 
 .cart-item {
-	margin-bottom:$spacer-base;
+	margin-bottom: $spacer-base;
 }
 
-
 .cart-item-detail {
-	padding: $spacer-base 50px  $spacer-base $spacer-base;
-	display: flex;
-	position: relative;
-	font-size: rem(14);
-	align-content: stretch;
-	align-items: center;
+   align-content: stretch;
+   align-items: center;
+   display: flex;
+   font-size: rem(14);
+   padding: $spacer-base 10% $spacer-base $spacer-lg;
+   position: relative;
    
    picture {
-   	width: 70px;
-   	height: 70px;
-   	position: relative;
-   	display: block;
+      display: block;
+      height: 65px;
+      position: relative;
+      width: 65px;
 
    	img {
-   		position: absolute;
-   		left: 50%;
-   		top: 50%;
-   		transform: translate(-50%,-50%);
-   		display: block;
-   		max-width: 100%;
-   		max-height: 100%;
+         display: block;
+         left: 50%;
+         max-height: 100%;
+         max-width: 100%;
+         position: absolute;
+         top: 50%;
+         transform: translate(-50%,-50%);
    	}
+   }
+
+   .cart-item-name { 
+      padding-right: $spacer-xl;
+      line-height: rem(20);
+
+      em {
+         display: block;
+         font-style: normal;
+      }
+   }
+
+
+   .cart-item-column {
+      flex: 0 0 80px;
+      margin-left: 1px;
+   }
+
+   .cart-item-column-lg {
+      flex-grow: 2;
+      height: auto;
+      width: auto;
    }
 
    label {
-   	display: block;
-   	font-size: rem(11);
+      display: block;
+      font-size: rem(11);
+      line-height: initial;
+      margin-bottom: $spacer-sm;
    }
 
-   .cart-item-column {
-   	min-width: 75px;
-   	margin-left: $spacer-base;
-   	height: 70px;
+	.cart-item-column-data {
+      display: block;
+      line-height: rem(30);
+      white-space: nowrap;
+	}
 
-   	&:nth-child(2) {
-   		flex-grow: 2;
-   		height: auto;
-   	}
-
-   	&:first-child {
-   		margin-left: 0;
-   		min-width: 70px;
-   	}
-   }
+	select {
+		width: 50px;
+	}
 
    .gui-icon-trash {
-   	position: absolute;
-   	right: $spacer-base;
-   	font-size: rem(18);
+      position: absolute;
+      right: $spacer-base;
 
    	&:hover {
    		text-decoration: none;
@@ -62,52 +78,82 @@
    }
 }
 
+//ajustes para Venta empresas
+.cart-item--vta-empresas {
 
+   .cart-item-column:nth-child(3),{
+      flex: 0 0 100px;
+   }
 
-.cart-item-image {}
+    .cart-item-column:nth-child(4) {
+      flex: 0 0 65px;
+   }
 
-.cart-item-name {
-	display: inline-block;
-	padding-right: $spacer-lg;
-	line-height: rem(20);
-
-
+   .cart-item-column:nth-child(5){
+      flex: 0 0 90px;
+   }
 }
 
 
-.cart-item-sold-out-tag {
-	display: inline-block;
-	border-radius: $border-radius-xs;
-	background-color: $error;
-	padding: 0 $spacer-sm;
-	color: $white;
-	font-size: rem(12);
-	font-weight: 700;
-	margin-top:$spacer-sm;
+// producto agotado
+.cart-item-sold-out {
+   border-color: $border-color-error;
+}
 
-	&:before {
-		content: " ";
-		display: table;
-		height: 0;
-	} 
+//tags
+.cart-item-tag {
+   border-radius: $border-radius-xs;
+   color: $white;
+   display: inline-block;
+   font-size: rem(12);
+   font-weight: 700;
+   margin-top:$spacer-sm;
+   padding: 0 $spacer-sm;
+}
 
+.cart-item-tag--error {
+   background-color: $error;
+}
+
+.cart-item-tag--success {
+   background-color: $success;
 }
 
 
-
+//garantías
 .cart-item-warranties {
-	border-top: 1px solid $card-border-color;
-	padding: $spacer-base;
-}
+   border-top: 1px solid $card-border-color;
+   padding: $spacer-base $spacer-lg;
 
+	p { 
+		font-size: rem(13);
+
+		.benefits {
+			font-weight: 600;
+		}
+	}
+}
 
 .cart-item-warranties--list {
 	font-size: 0;
-	li {
-		font-size: rem(14);
-		width: 50%;
-		padding: $spacer-xs $spacer-base $spacer-xs 0;
-		display: inline-block;
-		box-sizing: border-box;
+	margin-top: $spacer-sm;
+	
+   li {
+      box-sizing: border-box;
+      display: inline-block;
+      font-size: rem(12);
+      width: 50%;
+	}
+
+	label {
+      padding: $spacer-xs $spacer-base $spacer-xs 20px;
+      position: relative;
+
+		input {
+         left: 0;
+         position: absolute;
+         top: 7px;
+		}
 	}
 }
+

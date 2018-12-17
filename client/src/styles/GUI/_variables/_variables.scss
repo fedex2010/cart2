@@ -41,7 +41,7 @@ $error:        			$red !default;
 $option-color:				$orange !default;
 $benefit-color:			$green !default;
 $action-color:				$blue !default;
-
+$action-color-hover:		$blue-darker-1x!default; 
 
 
 
@@ -117,7 +117,7 @@ $item-discount-color:					$green-darker-1x !default;
 $card-bg-color:							$white !default;
 $card-border-color:						$gray-lighter-2x !default;
 $card-rounded: 							$border-radius-xs !default;
-
+$border-color-error:						$error !default;
 
 
 // Tooltip definitions
@@ -132,6 +132,17 @@ $tooltip-border-radius:					$border-radius-xs !default;
 $tooltip-font-size: 						14px !default;
 
 
+// Popovers definitions
+// --------------------------------------------------
+$popover-bg:                        $white !default;
+$popover-color:                     $black !default;
+$popover-line-height:               1.3em!default;
+$popover-padding:                   $spacer-base !default;
+$popover-arrow-size:                9px !default;
+$popover-distance:                  10px !default;
+$popover-border-radius:					$border-radius-xs !default;
+$popover-font-size: 						14px !default;
+$popover-border-color:					$gray-lighter-1x !default;
 
 // Icon font name
 // --------------------------------------------------
@@ -147,3 +158,18 @@ $gui-icon-trash: "\e902";
 $gui-icon-question-mark-circle: "\e901";
 $gui-icon-trash: "\e902";
 $gui-icon-question-mark-circle: "\e901";
+$gui-icon-checkmark: "\e903";
+
+
+
+// forms
+// --------------------------------------------------
+$input-bg-color:				$white !default;
+$input-border-color:			$gray-lighter-1x !default;
+$input-border-color-focus:	$blue !default;
+$input-border-color-error: $error !default;
+$input-border-radius:		$border-radius-xs !default;
+
+$input-disabled-bg:				$gray-lighter-3x;			
+$input-disabled-border-color:	$gray-lighter-1x!default;
+$input-disabled-color:			$gray-darker-1x !default;

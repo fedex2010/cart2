@@ -8,7 +8,7 @@ html {
    line-height: $line-height-base;
 }
 
-.wrapper,
+.main-wrapper,
 .gb-wrapper,
 .main-container,
 .cart-wrapper {
@@ -52,3 +52,53 @@ a {
    padding: 20px 0;
    vertical-align: top;
 }
+
+
+.card--is-loading {
+   position: relative;
+   &:after {
+      background-color: rgba(246, 246, 246, .8);
+      background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/all/gb-spinner--md.svg);
+      background-position:  center center;
+      background-repeat: no-repeat;
+      background-size: 40px 40px;
+      bottom: 0;
+      content:""; 
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 2998;
+   }
+}
+
+
+body.full-page--is-loading {
+   &:after {
+      background-color: rgba(246, 246, 246, .8);
+      background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/all/gb-spinner--md.svg);
+      background-position:  center center;
+      background-repeat: no-repeat;
+      background-size: 60px 60px;
+      bottom: 0;
+      content:""; 
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 2998;
+   }
+   .gb-header {
+      position: relative;
+      z-index: 2999;
+   }
+}
+
+
+
+
+
+
+
+
+

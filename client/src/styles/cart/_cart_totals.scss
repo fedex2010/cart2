@@ -1,0 +1,147 @@
+.cart-summary-header {
+	margin: 0 $spacer-base;
+	border-bottom: 1px solid $card-border-color;
+}
+
+.cart-summary-title {
+	font-size: rem(18);
+	line-height: rem(48);
+	text-transform: uppercase;
+}
+
+.cart-seller {
+	line-height: rem(30);
+	padding: 0 $spacer-base;
+	font-size: rem(14);
+	background-color:  $blue-lighter-1x;
+}
+
+.summary-detail {
+	padding: $spacer-base $spacer-base 0 $spacer-base;
+	font-size: rem(14);
+
+	li + li {
+		margin-top: $spacer-xs;
+	}
+
+	label {
+		width: 60%;
+		display: inline-block;
+	}
+
+	.summary-detail-value {
+		width: 40%;
+		display: inline-block;
+		text-align: right;
+	}
+
+	.highlight-benefit {
+		border-radius: $border-radius-xs;
+		background-color: $green-lighter-1x;
+		padding: 0 $spacer-sm;
+		margin-left:  -#{$spacer-sm};
+		margin-right:  -#{$spacer-sm};
+	}
+
+	.summary-total {
+		background-color: $gray-lighter-3x;
+		font-size: rem(20);
+		font-weight: 600;
+		line-height: 48px;
+		padding: 0 $spacer-base;
+		margin-left:  -#{$spacer-base};
+		margin-right:  -#{$spacer-base}; 
+		margin-top: $spacer-sm;
+	}
+
+}
+
+
+
+.cart-additionals {
+	padding: $spacer-base; 
+	font-size: rem(14);
+
+}
+
+.cart-additionals-title {
+	font-weight: 600;
+	margin-bottom: 12px;
+}
+
+.cart-additional-item {
+	border-bottom: 1px solid $card-border-color;
+	padding: 0 0 $spacer-base 0; 
+	margin-bottom: $spacer-base ;
+
+	&:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	label {
+		position: relative;
+		padding-left: 20px;
+
+		input {
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+}
+
+ul.cart-additional-item {
+	li + li {
+		margin-top: $spacer-sm;
+	}
+}
+
+
+.coupon-apply-form,
+.coupon-applied {
+	padding-top:$spacer-sm; 
+}
+
+.coupon-apply-form {
+	.form-control {
+		width: calc(100% - 85px);
+		margin-right: $spacer-sm;
+	}
+}
+
+.coupon-code {
+	border-radius: $border-radius-xs;
+	background-color: $gray-lighter-2x;
+	line-height: rem(28);
+	margin-right: $spacer-sm;
+	padding:  0 $spacer-sm 0 $spacer-lg;
+	display: inline-block;
+	position: relative;
+
+	&:before {
+		content: $gui-icon-checkmark;
+		position: absolute;
+		font-family: $icon-font-name;
+		left: 6px;
+		color: $benefit-color;
+		font-size: rem(14);
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.coupon-msj {
+	margin-top:$spacer-sm; 
+}
+
+.cart-actions {
+	padding-top: $spacer-base;
+
+	.button--primary {
+		float: right;
+	}
+}
+

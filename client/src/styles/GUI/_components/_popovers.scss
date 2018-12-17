@@ -1,0 +1,206 @@
+@import "../_variables/variables";
+
+.popover_left,
+.popover_right,
+.popover_topCenter,
+.popover_topLeft,
+.popover_topRight,
+.popover_bottomCenter,
+.popover_bottomLeft,
+.popover_bottomRight {
+	background: $popover-bg;
+	border-radius: $popover-border-radius;
+	border: 1px solid $popover-border-color;
+	color: $popover-color;
+	cursor: default;
+	display: none;
+	font-family: $font-family-base;
+	font-size: $popover-font-size;
+	line-height: $popover-line-height;
+	opacity: 0;
+	padding: $popover-padding;
+	position: absolute;
+	text-align: left;
+	visibility: hidden;
+	width: 250px;
+	z-index: -1;
+
+	&:before,
+	&:after {
+		border-color: transparent;
+		border-style: solid;
+		border-width: $popover-arrow-size;
+		content: "";
+		display: block;
+		position: absolute;
+	}
+
+	&:before {
+		z-index: 2;
+	}
+
+	&:after {
+		z-index: 1;
+	}
+
+	p + p {
+		padding-top: $spacer-sm;
+	}
+}
+
+
+
+
+// Tooltis laterales
+//----------------------------------------------
+
+.popover_left,
+.popover_right {
+	transform: translateY(-50%);
+	top: 50%;
+	&:before {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.popover_left {
+	right: calc(#{$popover-distance} + 100%);
+	&:before {
+		border-left: $popover-arrow-size solid $popover-bg;
+		right: calc(#{-$popover-arrow-size} * 2);
+	}
+}
+
+.popover_right {
+	left: calc(#{$popover-distance} + 100%);
+	&:before {
+		border-right: $popover-arrow-size solid $popover-bg;
+		left: calc(#{-$popover-arrow-size} * 2); 
+	}
+}
+
+
+
+// Tooltis superiores
+//----------------------------------------------
+
+.popover_topCenter,
+.popover_topLeft,
+.popover_topRight {
+	bottom: calc(#{$popover-distance} + 100%);
+	&:before {
+		border-top: $popover-arrow-size solid $popover-bg;
+		bottom: calc(#{-$popover-arrow-size} * 2); 
+	}
+}
+
+.popover_topCenter {
+	left: 50%;
+	transform: translateX(-50%);
+	&:before {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.popover_topLeft {
+	left:0;
+	&:before {
+		left: $spacer-sm;
+	}
+}
+
+.popover_topRight {
+	right:0;
+	&:before {
+		right: $spacer-sm;
+	}
+}
+
+
+// Tooltis inferiores
+//----------------------------------------------
+
+.popover_bottomCenter,
+.popover_bottomLeft,
+.popover_bottomRight {
+	top: calc(#{$popover-distance} + 100%);
+	&:before {
+		border-bottom: $popover-arrow-size solid $popover-bg;
+		top: calc((#{-$popover-arrow-size} + 1px) * 2); 
+	}
+
+	&:after {
+		border-bottom: $popover-arrow-size solid $popover-border-color;
+		top: calc(#{-$popover-arrow-size} * 2);
+	}
+}
+
+.popover_bottomCenter {
+	left: 50%;
+	transform: translateX(-50%);
+	&:before,
+	&:after {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.popover_bottomLeft {
+	left:0;
+	&:before,
+	&:after {
+		left: $spacer-sm;
+	}
+}
+
+.popover_bottomRight {
+	right:0;
+	&:before,
+	&:after {
+		right: $spacer-sm;
+	}
+}
+
+
+
+
+
+
+//----------------------------------------------
+
+// Modificadores
+
+//----------------------------------------------
+
+
+//Elemento que contiene el tooltip 
+.has-popover {
+   cursor: pointer;
+   position: relative;
+   z-index: 2;
+   
+   &:hover [class^="popover_"]{
+      display: block;
+      opacity: 1;
+      transition: all .5s ease-in-out;
+      visibility: visible;
+   }
+}
+
+//para que el tooltip siempre este visible
+.has-popover-visible {
+	position: relative;
+	[class^="popover_"] {
+		display: block;
+   	opacity: 1;
+   	visibility: visible;
+	}
+}
+
+
+
+
+
+
