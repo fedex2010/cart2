@@ -1,27 +1,28 @@
 import React, { Component } from "react";
+// import "./test.scss";
 import { connect } from "react-redux";
 import { fetchCart } from "../../actions/cartAction";
 
-class Test2 extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.cart) {
-      console.log(nextProps.cart);
-    }
+class Test extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
   render() {
     return (
-      <div className="Test2">
-        <p>result : {this.props.cart}</p>
+      <div className="Test">
+        <p> found: </p>
+        {JSON.stringify(this.props.cart.cart_id)}
       </div>
     );
   }
 }
-const mapStateToProps = state => ({
-  cart: state.cart
-});
-
+const mapStateToProps = state => {
+  console.log(state); // state
+  return { cart: state.cartReducer.cart };
+};
 export default connect(
-  null,
+  mapStateToProps,
   { fetchCart }
-)(Test2);
+)(Test);

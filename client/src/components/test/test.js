@@ -15,11 +15,16 @@ class Test extends Component {
   render() {
     return (
       <div className="Test">
-        <p>Component Test</p>
+        <p>Redux test -</p>
+        {/* {JSON.stringify(this.props.cart.cart_id)} */}
       </div>
     );
   }
 }
+// const mapStateToProps = state => {
+//   console.log(state); // state
+//   return { cart: state.cartReducer.cart };
+// };
 export default connect(
   null,
   { fetchCart }
