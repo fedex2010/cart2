@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import "./Test.scss";
 import { connect } from "react-redux";
-import { fetchCart } from "../../actions/cartAction";
+import { fetchCart } from "../../actions/CartAction";
 
 class Test extends Component {
   constructor(props) {
