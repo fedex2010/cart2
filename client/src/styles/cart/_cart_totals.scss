@@ -92,7 +92,10 @@
 		}
 	}
 }
-
+.cart-additional-item.without-border-bottom {
+	border-bottom: none;
+	margin-bottom: 0;
+}
 ul.cart-additional-item {
 	li + li {
 		margin-top: $spacer-sm;
