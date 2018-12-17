@@ -36,8 +36,6 @@ class Product extends Component {
                 
                 ********* ***** ********
             */}
-
-
             <div className="cart-item card"  itemscope itemtype="http://schema.org/Product">
                 <div className="cart-item-detail" itemscope itemtype="http://schema.org/Offer">
                     <div className="cart-item-column">
@@ -103,7 +101,6 @@ class Product extends Component {
                     </ul>
                 </div>
             </div>
-
             {/* Garantía de reparación */}
             <div className="cart-item card" itemscope itemtype="http://schema.org/Product">
                 <div className="cart-item-detail" itemscope itemtype="http://schema.org/Offer">
@@ -140,7 +137,6 @@ class Product extends Component {
                     </a>
                 </div>
             </div>
-
             {/**/}
             <div className="cart-item card cart-item--vta-empresas" itemscope itemtype="http://schema.org/Product">
                 <div className="cart-item-detail" itemscope itemtype="http://schema.org/Offer">
@@ -174,7 +170,6 @@ class Product extends Component {
                     </a>
                 </div>
             </div>
-
             <div className="cart-item card cart-item--vta-empresas card--is-loading" itemscope itemtype="http://schema.org/Product">
                 <div className="cart-item-detail" itemscope itemtype="http://schema.org/Offer">
                     <div className="cart-item-column">
@@ -208,8 +203,6 @@ class Product extends Component {
                 </div>
                 
             </div>
-
-
             {/* item de carrito agotado */}
             <div className="cart-item card cart-item-sold-out" itemscope itemtype="http://schema.org/Product">
                 <div className="cart-item-detail" itemscope itemtype="http://schema.org/Offer">
@@ -228,8 +221,6 @@ class Product extends Component {
                 </div>
             </div>
 
-
-      
      </div>
 
       );
