@@ -1,4 +1,4 @@
-import { SET_CURRENT_CART } from "../actions/type";
+import { SET_CURRENT_CART } from "../actions/types";
 
 const initialState = {
   cart: {}
@@ -8,7 +8,8 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_CART:
       return {
-        cart: action.cart
+        ...state,
+        cart: action.payload
       };
     default:
       return state;
