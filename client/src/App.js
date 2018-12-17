@@ -7,21 +7,8 @@ import Product from "./components/product/product";
 import Summary from "./components/summary/summary";
 import Carousel from "./components/carousel/carousel";
 import Test from "./components/test/test";
-// import { cartAction } from "./actions/cartAction";
-
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => ({
-  // cartAction: () => dispatch(cartAction())
-});
 
 class App extends Component {
-  //   cartAction = event => {
-  //     this.props.cartAction();
-  //   };
-
   render() {
     return (
       <div className="App">
@@ -107,6 +94,6 @@ class App extends Component {
   }
 }
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  null,
+  null
 )(App);

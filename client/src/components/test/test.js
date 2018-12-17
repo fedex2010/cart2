@@ -6,12 +6,10 @@ import { fetchCart } from "../../actions/cartAction";
 class Test extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // cart: {}
-    };
+    this.state = {};
   }
   componentWillMount() {
-    this.props.fetchCart();
+    this.props.fetchCart("5bbe3e53e4b093b426db56b2");
   }
 
   render() {
