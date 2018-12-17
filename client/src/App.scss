@@ -1,6 +1,16 @@
 @import './variables.scss';
 
 /*GENERAL*/
+.main-wrapper, .gb-wrapper, .main-container, .cart-wrapper {
+  max-width: 1366px;
+  min-width: 320px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: left;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-bottom: 32px;
+}
 /*ESTRUCTURA*/
 .product-summary-gbChk{
   position: relative;

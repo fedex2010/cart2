@@ -29,7 +29,7 @@ class App extends Component {
     return (
       <div className="App">
         
-        <div className="wrapper">
+        <div className="main-wrapper wrapper">
           <section>
             <h1 className="cart-title">Mi Carrito</h1>
             <div className="row">
