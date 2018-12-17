@@ -89,7 +89,7 @@ class CartControllers {
     const promotionId = body.promotion_id;
     const warranty_id = body.warranty_id;
     const productPrice = body.price;
-    const cartId = req.cookies["cartId"];
+    const cartId = res.locals.cartId;
     const brand = res.locals.xBrand.toLowerCase();
 
     this._getOneCart(cartId, req, res)
