@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./test.scss";
+// import "./Test.scss";
 import { connect } from "react-redux";
 import { fetchCart } from "../../actions/cartAction";
 

@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./App.scss";
 
-import Alert from "./components/alert/alert";
-import Product from "./components/product/product";
-import Summary from "./components/summary/summary";
-import Carousel from "./components/carousel/carousel";
-import Test from "./components/test/test";
-import Test2 from "./components/test/test2";
+import Alert from "./components/Alert/Alert";
+import Product from "./components/Product/Product";
+import Summary from "./components/Summary/Summary";
+import Carousel from "./components/Carousel/Carousel";
+import Test from "./components/Test/Test";
+import Test2 from "./components/Test/Test2";
 
 class App extends Component {
   render() {

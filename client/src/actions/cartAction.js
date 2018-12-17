@@ -1,4 +1,4 @@
-import { SET_CURRENT_CART } from "./types";
+import { SET_CURRENT_CART } from "./Types";
 
 export const fetchCart = id => dispatch => {
   fetch("/api/cart/" + id)
