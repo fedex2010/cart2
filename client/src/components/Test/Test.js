@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 // import "./Test.scss";
 import { connect } from "react-redux";
-
 import { fetchCart, addProduct } from "../../actions/CartAction";
 
 class Test extends Component {
