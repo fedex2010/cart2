@@ -1,10 +1,11 @@
 const RestConnector = require('./rest_connector');
-var config  = require('../config/config'),
+let config  = require('../config/config'),
     logger  = require('../utils/logger');
 
 
 const CHECKOUT_CORE_URL = config.services.checkout_core.base_url;
 const NEW_CART_TIMEOUT = config.services.new_cart_timeout || 2000;
+const SEARCHLIST = config.searchList.url;
 
 class ProductClient{
     constructor() {
@@ -12,9 +13,12 @@ class ProductClient{
     }
 
     getProducts(xBrand, ...products) {
-        let options = httpClient.getDefaultOptions(xBrand, config.services.product_core.timeout);
-        var url = PRODUCT_CORE_URL + "/products?ids=" + products.sort().join(",") + "&include=warranties,specifications";
-        return this._restConnector.get(url, config.services.product_core.ttl, options);
+        let options={};
+        options = {
+            headers : {'X-Brand':xBrand}
+        }
+        var url = CHECKOUT_CORE_URL + "/products?ids=" + products.sort().join(",") + "&include=warranties,specifications";
+        return this._restConnector.get(url, options);
     }
 
     addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null,brand){
@@ -72,17 +76,29 @@ class ProductClient{
         return this._restConnector.putWithOptions(url, options);
     };
 
-    getProductsCarousel(xBrand) {
+    getProductsCarousel(brand) {
 
-        console.log(xBrand);
-        console.log(config.services.searchList);
-        console.log(config.services.searchList.list_name[xBrand]);
-        let listName = config.services.searchList.list_name[xBrand];
+        let listName = config.searchList.list_name[brand];
         //let options = httpClient.getDefaultOptions(xBrand, config.services.searchList.timeout);
         let options={};
+        options = {
+            headers : {'X-Brand':brand}
+        }
         let url = `${SEARCHLIST}/${listName}`;
 
         return this._restConnector.getWithOptions(url, options);
+    }
+
+    setWarranty(cartId, productId, warrantyId, brand) {
+        var url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
+            data = {
+                warranty_id: warrantyId
+            },
+            options = {
+                headers : {'Content-Type':'application/json','X-Brand':brand},
+                data : JSON.stringify(data)
+            };
+        return this._restConnector.putWithOptions(url, options);
     }
 }
 
