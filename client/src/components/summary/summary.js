@@ -2,7 +2,40 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class Summary extends Component {
+ 
+  handleCheck = () => {
+    this.setState({checkedCoupon: !this.state.checkedCoupon});
+  }
+  handleCheckAP = () => {
+    this.setState({checkedAP: !this.state.checkedAP});
+  }
+   /*input radio*/
+   constructor() {
+    super();
+    this.state = {
+      selectedOption: 'discount-coupon1',
+      checkedCoupon: true,
+      checkedAP: true
+    }
+  }
+   handleOptionChange = (changeEvent) => {
+    this.setState({ selectedOption: changeEvent.target.value  })
+   }
+
   render() {
+    let displayNoneCoupon = 'displaynone';
+    let displaynoneCheckboxDiscount = 'displaynone';
+    let displaynoneCheckboxAP = 'displaynone';
+    if(this.state.selectedOption === 'discount-coupon2') {
+       displayNoneCoupon = '';
+    }
+    
+    if (this.state.checkedCoupon) {
+      displaynoneCheckboxDiscount = '';
+    }
+    if(this.state.checkedAP){
+      displaynoneCheckboxAP ='';
+    }
     return (
       <div className="summary">
         <div className="summary-absolute">
@@ -56,62 +89,83 @@ class Summary extends Component {
                 <ul className="cart-additional-item">
                   <li>
                     <label>
-                      <input type="radio" name="discount-coupon" /> Descuento
+                      <input
+                      type="radio"
+                      name="discount-coupon"
+                      value="discount-coupon1"
+                      checked={this.state.selectedOption === 'discount-coupon1'}
+                      onChange={this.handleOptionChange}/> Descuento
                       especial
                     </label>
                   </li>
                   <li>
                     <label>
-                      <input type="radio" name="discount-coupon" /> Tengo cupón
+                      <input
+                      type="radio"
+                      name="discount-coupon"
+                      value="discount-coupon2"
+                      checked={this.state.selectedOption === 'discount-coupon2'}
+                      onChange={this.handleOptionChange}/> Tengo cupón
                       de descuento
                     </label>
-                    <div className="coupon-apply-form">
-                      <input
-                        className="form-control form-control--sm"
-                        type="text"
-                        placeholder="Respetá mayúsculas y minúsculas"
-                      />
-                      <button className="button--primary button--sm button__is-loading">
-                        Alicar
-                      </button>
-                      <p className="error-msj hide">
-                        Código de cupón inválido.
-                      </p>
-                    </div>
-                    <div className="coupon-applied">
-                      <span className="coupon-code">CHKTEST</span>
-                      <a href="#">Eliminar</a>
+                    <div className={displayNoneCoupon}>
+                      <div className="coupon-apply-form">
+                        <input
+                          className="form-control form-control--sm"
+                          type="text"
+                          placeholder="Respetá mayúsculas y minúsculas"
+                        />
+                        <button className="button--primary button--sm button__is-loading">
+                          Alicar
+                        </button>
+                        <p className="error-msj hide">
+                          Código de cupón inválido.
+                        </p>
+                      </div>
+                      <div className="coupon-applied">
+                        <span className="coupon-code">CHKTEST</span>
+                        <a href="#">Eliminar</a>
+                      </div>
                     </div>
                   </li>
                 </ul>
 
                 <div className="cart-additional-item">
                   <label>
-                    <input type="checkbox" /> Tengo cupón de descuento
-                  </label>
-                  <div className="coupon-apply-form">
                     <input
-                      className="form-control form-control-error form-control--sm"
-                      type="text"
-                      placeholder="Respetá mayúsculas y minúsculas"
-                      autoComplete="off"
-                    />
-                    <button className="button--primary button--sm">
-                      Alicar
-                    </button>
-                    <p className="error-msj">Código de cupón inválido.</p>
-                  </div>
-                  <div className="coupon-applied">
+                    type="checkbox"
+                    value="checkboxDiscount"
+                    onChange={this.handleCheck}
+                    defaultChecked={this.state.checkedCoupon}
+                    /> Tengo cupón de descuento
+                  </label>
+                  <div className={displaynoneCheckboxDiscount}>
+                    <div className="coupon-apply-form">
+                      <input
+                        className="form-control form-control-error form-control--sm"
+                        type="text"
+                        placeholder="Respetá mayúsculas y minúsculas"
+                        autoComplete="off"
+                      />
+                      <button className="button--primary button--sm">
+                        Alicar
+                      </button>
+                      <p className="error-msj">Código de cupón inválido.</p>
+                    </div>
+                    <div className="coupon-applied">
                     <span className="coupon-code">CHKTEST</span>
                     <a href="#">Eliminar</a>
                   </div>
+                  </div>
                 </div>
-
-                <div className="cart-additional-item">
-                  <label>
-                    <input type="checkbox" /> Sumá millas Aerolíneas Plus{" "}
+                
+                  <div className="cart-additional-item">
+                    <label>
+                    <input
+                    type="checkbox"
+                    onChange={this.handleCheckAP}/> Sumá millas Aerolíneas Plus{" "}
                   </label>
-                  <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
+                    <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
                     <span className="popover_bottomCenter">
                       <p>
                         Comprando ciertos productos en nuestra web podés sumar
@@ -122,7 +176,8 @@ class Summary extends Component {
                       </p>
                     </span>
                   </span>
-                  <div className="coupon-apply-form">
+                    <div className={displaynoneCheckboxAP}> 
+                      <div className="coupon-apply-form">
                     <input
                       className="form-control form-control--sm"
                       type="number"
@@ -135,14 +190,15 @@ class Summary extends Component {
                       Alicar
                     </button>
                   </div>
-                  <div className="coupon-applied">
+                      <div className="coupon-applied">
                     <span className="coupon-code">1234567</span>
                     <a href="#">Eliminar</a>
                     <p className="coupon-msj">
                       Sumaste 35 millas Aerolíneas Plus.
                     </p>
                   </div>
-                </div>
+                    </div>
+                  </div>
               </div>
             </div>
             <div className="cart-actions">
