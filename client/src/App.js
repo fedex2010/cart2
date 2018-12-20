@@ -66,7 +66,7 @@ class App extends Component {
                 />
 
                 {/* mensajes de info (no se usa actualmente) */}
-                <div className="feedback feedback-info feedback-dismissible">
+                <div className="displaynone feedback feedback-info feedback-dismissible">
                   <button type="button" className="feedback--btn-close" />
                   <p>
                     This is a info alert with{" "}
@@ -76,6 +76,7 @@ class App extends Component {
                     .
                   </p>
                 </div>
+              
               </div>
             </div>
             <div className="product-summary-gbChk row">

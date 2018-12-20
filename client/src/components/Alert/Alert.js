@@ -13,14 +13,14 @@ class Alert extends Component {
   render() {
     if (this.state.tipo === "success") {
       return (
-        <div className="feedback feedback-success feedback-dismissible">
+        <div className="displaynone feedback feedback-success feedback-dismissible">
           <button type="button" className="feedback--btn-close" />
           {this.state.mensaje}
         </div>
       );
     } else {
       return (
-        <div className="feedback feedback-error feedback-dismissible">
+        <div className="displaynone feedback feedback-error feedback-dismissible">
           <button type="button" className="feedback--btn-close" />
           {this.state.mensaje}
         </div>
