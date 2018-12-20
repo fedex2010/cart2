@@ -35,7 +35,6 @@ class CartControllers {
   }
 
   getCarousel(req, res) {
-    console.log("carousel");
     let brand = res.locals.xBrand.toLowerCase();
     let products={};
     RestClient.productClient
@@ -46,7 +45,6 @@ class CartControllers {
               products.id=carousel.id
               products.title=carousel.title
               products.products=product
-              console.log(products);
             res.send(products);
           })
           .catch(err => {
