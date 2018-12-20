@@ -6,6 +6,7 @@ class ComponentMillasAP extends Component {
   constructor() {
      super();
      this.state = {
+        millasAP: false,
         checkedAP: false
      }
   }
@@ -17,51 +18,56 @@ class ComponentMillasAP extends Component {
     let displaynoneCheckboxAP = 'displaynone';
     if(this.state.checkedAP){
         displaynoneCheckboxAP ='';
-      }
-    return (
-      
-        <div className="cart-additional-item">
-            <label>
-                <input
-                type="checkbox"
-                onChange={this.handleCheckAP}/> Sumá millas Aerolíneas Plus{" "}
-            </label>
-            <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
-                <span className="popover_bottomCenter">
-                    <p>
-                        Comprando ciertos productos en nuestra web podés sumar
-                        millas en Aerolíneas Plus
-                    </p>
-                    <p>
-                        <a data-target="#arplus-tyc">Ver bases y condiciones</a>
-                    </p>
-                </span>
-            </span>
-            <div className={displaynoneCheckboxAP}> 
-                <div className="coupon-apply-form">
+    }
+    if(this.state.millasAP){
+        return (
+            <div className="cart-additional-item">
+                <label>
                     <input
-                    className="form-control form-control--sm"
-                    type="number"
-                    placeholder="Ingresá tu número de socio"
-                    min="999999"
-                    max="99999999"
-                    autoComplete="off"
-                    />
-                <button className="button--primary button--sm">
-                Alicar
-                </button>
+                    type="checkbox"
+                    onChange={this.handleCheckAP}/> Sumá millas Aerolíneas Plus{" "}
+                </label>
+                <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
+                    <span className="popover_bottomCenter">
+                        <p>
+                            Comprando ciertos productos en nuestra web podés sumar
+                            millas en Aerolíneas Plus
+                        </p>
+                        <p>
+                            <a data-target="#arplus-tyc">Ver bases y condiciones</a>
+                        </p>
+                    </span>
+                </span>
+                <div className={displaynoneCheckboxAP}> 
+                    <div className="coupon-apply-form">
+                        <input
+                        className="form-control form-control--sm"
+                        type="number"
+                        placeholder="Ingresá tu número de socio"
+                        min="999999"
+                        max="99999999"
+                        autoComplete="off"
+                        />
+                    <button className="button--primary button--sm">
+                    Alicar
+                    </button>
+                </div>
+                <div className="coupon-applied">
+                    <span className="coupon-code">1234567</span>
+                    <a href="#">Eliminar</a>
+                    <p className="coupon-msj">
+                    Sumaste 35 millas Aerolíneas Plus.
+                    </p>
+                </div>
             </div>
-            <div className="coupon-applied">
-                <span className="coupon-code">1234567</span>
-                <a href="#">Eliminar</a>
-                <p className="coupon-msj">
-                Sumaste 35 millas Aerolíneas Plus.
-                </p>
-            </div>
-        </div>
-      </div>
-  
-    );
+          </div>
+        );
+    }else{
+        return(
+            <div></div>
+        );
+    }
+    
   }
 }
 export default ComponentMillasAP;
