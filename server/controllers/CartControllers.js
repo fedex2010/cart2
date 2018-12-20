@@ -9,8 +9,7 @@ class CartControllers {
     let sellerId = "";
     let brand = res.locals.xBrand.toLowerCase();
 
-    return RestClient.cartClient
-      .newCart(session_id, sellerId, false, null, "WEB", brand)
+    return RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
       .then(cart => {
         return cart;
       })
@@ -23,8 +22,7 @@ class CartControllers {
     let brand = res.locals.xBrand.toLowerCase();
     let cartId = req.params.cartId;
 
-    RestClient.cartClient
-      .getOneCart(cartId, {}, brand)
+    RestClient.cartClient.getOneCart(cartId, {}, brand)
       .then(cart => {
         res.send(cart);
       })
@@ -37,8 +35,7 @@ class CartControllers {
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let products={};
-    RestClient.productClient
-      .getProductsCarousel(brand)
+    RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
         return RestClient.productClient.getProducts(brand, carousel.products)
           .then(product => {
@@ -63,8 +60,7 @@ class CartControllers {
     let brand = res.locals.xBrand.toLowerCase();
 
     if (cartId != null) {
-      return RestClient.cartClient
-        .getOneCart(cartId, {}, brand)
+      return RestClient.cartClient.getOneCart(cartId, {}, brand)
         .then(cart => {
           return cart;
         })
@@ -93,17 +89,7 @@ class CartControllers {
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
-        RestClient.productClient
-          .addProduct(
-            cart.cart_id,
-            productId,
-            1,
-            warranty_id,
-            productPrice,
-            "",
-            "",
-            brand
-          )
+        RestClient.productClient.addProduct(cart.cart_id, productId, 1, warranty_id, productPrice, "", "", brand )
           .then(() => {
             res.send(cart);
           })
@@ -124,8 +110,7 @@ class CartControllers {
       productId = body.xid,
       quantity = body.quantity;
 
-    RestClient.productClient
-      .updateProduct(cartId, productId, quantity, brand)
+    RestClient.productClient.updateProduct(cartId, productId, quantity, brand)
       .then(cart => {
         res.send(cart);
       })
@@ -140,8 +125,7 @@ class CartControllers {
       cartId = res.locals.cartId,
       brand = res.locals.xBrand.toLowerCase();
 
-    RestClient.productClient
-      .deleteProduct(cartId, productId, brand)
+    RestClient.productClient.deleteProduct(cartId, productId, brand)
       .then(cart => {
         res.status(200).send("ok");
       })
@@ -157,8 +141,7 @@ class CartControllers {
 
     console.log(cartId);
     console.log(couponCode);
-    RestClient.promotion
-      .addCoupon(cartId, couponCode, brand)
+    RestClient.promotion.addCoupon(cartId, couponCode, brand)
       .then(coupon => {
         res.send(coupon);
       })
@@ -175,8 +158,7 @@ class CartControllers {
       couponCode = req.params.couponCode,
       brand = res.locals.xBrand.toLowerCase();
 
-    RestClient.promotion
-      .deleteCoupon(cartId, couponCode, brand)
+    RestClient.promotion.deleteCoupon(cartId, couponCode, brand)
       .then(coupon => {
         res.send(coupon);
       })
@@ -198,8 +180,7 @@ class CartControllers {
       code = req.body.code,
       brand = res.locals.xBrand.toLowerCase();
 
-    RestClient.promotion
-      .setLoyaltyCode(cartId, "AEROLINEAS_PLUS", code, brand)
+    RestClient.promotion.setLoyaltyCode(cartId, "AEROLINEAS_PLUS", code, brand)
       .then(loyalty => {
         res.send(loyalty);
       })
@@ -216,8 +197,7 @@ class CartControllers {
       code = null,
       brand = res.locals.xBrand.toLowerCase();
 
-    RestClient.promotion
-      .setLoyaltyCode(cartId, "AEROLINEAS_PLUS", code, brand)
+    RestClient.promotion.setLoyaltyCode(cartId, "AEROLINEAS_PLUS", code, brand)
       .then(loyalty => {
         res.send(loyalty);
       })
@@ -233,8 +213,7 @@ class CartControllers {
     let cartId = res.locals.cartId,
       brand = res.locals.xBrand.toLowerCase();
 
-    RestClient.cartClient
-      .getOneCart(cartId, {}, brand)
+    RestClient.cartClient.getOneCart(cartId, {}, brand)
       .then(cart => {
         res.json({ products_count: cart.products.length });
       })
@@ -253,8 +232,7 @@ class CartControllers {
       warrantyId = req.body.warranty_id,
       brand = res.locals.xBrand.toLowerCase(),
       responseObj;
-    RestClient.productClient
-      .setWarranty(cartId, productId, warrantyId, brand)
+    RestClient.productClient.setWarranty(cartId, productId, warrantyId, brand)
       .then(product => {
         //req.params.cartId = cartId;
         return this.getCart(req, res)
