@@ -21,7 +21,7 @@ class ComponentMillasAP extends Component {
     }
     if(this.state.millasAP){
         return (
-            <div className="cart-additional-item">
+            <div className="cart-additional-item millasAPBorder">
                 <label>
                     <input
                     type="checkbox"

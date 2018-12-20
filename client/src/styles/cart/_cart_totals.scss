@@ -70,10 +70,9 @@
 }
 
 .cart-additional-item {
-	border-bottom: 1px solid $card-border-color;
-	padding: 0 0 $spacer-base 0; 
-	margin-bottom: $spacer-base ;
-
+	//border-bottom: 1px solid $card-border-color;
+	//padding: 0 0 $spacer-base 0; 
+	//margin-bottom: $spacer-base ;
 	&:last-child {
 		border-bottom: none;
 		margin-bottom: 0;
@@ -92,9 +91,10 @@
 		}
 	}
 }
-.cart-additional-item.without-border-bottom {
-	border-bottom: none;
-	margin-bottom: 0;
+.millasAPBorder {
+	border-top: 1px solid $card-border-color;
+	padding: 16px 0 0 0;
+	margin-top: 16px;
 }
 ul.cart-additional-item {
 	li + li {
