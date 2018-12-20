@@ -32,22 +32,14 @@ class Summary extends Component {
     if (this.state.checkedCoupon) {
       displaynoneCheckboxDiscount = '';
     }
-    
+    {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
     return (
-      <div className="summary">
-        <div className="summary-absolute">
+        <div className="summary">
           {/* resumen de compra */}
           <div className="purchase-summary">
+            {/*add class - card--is-loading - en  <div className="card cart-summary card--is-loading"> para el loading*/}
             <div className="card cart-summary">
-              {/*  ******** NOTA ********
-                           Para que el contenedor tenga el estado" loading" 
-                           se agrega la clase card--is-loading
-                           <div className="card cart-summary card--is-loading">
-                           ********* ***** ********
-                        */}
-
-              <p className="cart-seller">Vendedor: 12345566</p>
-
+              {/*  cart-seller <p className="cart-seller">Vendedor: 12345566</p> */}
               <div className="cart-summary-header">
                 <span className="cart-summary-title">Resumen de compra</span>
               </div>
@@ -139,7 +131,6 @@ class Summary extends Component {
           </div>
           {/* FIN resumen de compra */}
         </div>
-      </div>
     );
   }
 }
