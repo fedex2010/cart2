@@ -6,8 +6,6 @@ import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
 import Carousel from "./components/Carousel/Carousel";
-import Test from "./components/Test/Test";
-import Test2 from "./components/Test/Test2";
 
 class App extends Component {
   render() {
@@ -17,9 +15,6 @@ class App extends Component {
           <section>
             <h1 className="cart-title">Mi Carrito</h1>
             <div className="row">
-              <Test />
-              <br />
-              <Test2 />
               <div className="alert-message-gbChk col-md-12">
 
                 {/* mensajes de error */}

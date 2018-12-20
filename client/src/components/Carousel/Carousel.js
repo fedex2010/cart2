@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {fetchCart, getCarousel} from "../../actions/CartAction";
+import {fetchCart, getCarousel, addProduct} from "../../actions/CartAction";
 
 class Carousel extends Component {
 
@@ -11,6 +11,19 @@ class Carousel extends Component {
 
     componentWillMount() {
         this.props.getCarousel();
+    }
+
+    handleAddProduct(product,price){
+        var product = { xid: product, productPrice: price };
+        console.log(product);
+        this.props.addProduct(product);
+    }
+
+    handleGetProduct(e){
+        //var product = e.target.value;
+        //console.log(product);
+        //window.location.href = '/producto/' + product;
+        alert("ficha")
     }
 
     render() {
@@ -50,7 +63,10 @@ class Carousel extends Component {
                                               <span className="value-item--discount">{product.discount}% OFF</span>
                                             </span>
                                         </div>
-                                        {product.xid}
+                                        <a onClick={this.handleGetProduct.bind(this)} className="btn_see_detail">
+                                            Ver detalle
+                                        </a>
+                                        <button className="button--primary button--xs" onClick={this.handleAddProduct.bind(this,product.xid,product.price)}>Agregar</button>
                                     </div>
                                     )
                                 )
@@ -63,7 +79,23 @@ class Carousel extends Component {
     } else {
         return (
             <div className="card">
-                hola
+                <div className="card-header">
+                    <h5 className="card-title">
+
+                    </h5>
+                </div>
+                <div className="carousel swiper-container">
+                    <a className="swiper-button-prev gb-carousel-module-control gb--prev">
+                        <span className="gb-icon-simple-bold-arrow-left" />
+                    </a>
+                    <a className="swiper-button-next gb-carousel-module-control gb--next">
+                        <span className="gb-icon-simple-bold-arrow-right" />
+                    </a>
+
+                    <div className=" carousel-slider carousel-slider--has-padding swiper-wrapper">
+
+                    </div>
+                </div>
             </div>
         );
     }
@@ -128,6 +160,6 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { getCarousel }
+    { getCarousel ,addProduct }
 )(Carousel)
 
