@@ -12,17 +12,20 @@ class Product extends Component {
   }
 
   render() {
-     {/* 
-      
+     {/*
+
       -----item de carrito agotado add class - cart-item-sold-out - to cart-item
       -----item de carrito venta empresaria add class - cart-item--vta-empresas - al contenedor con class cart-item
       -----loading de carrito add class - card--is-loading - al contenedor con class cart-item
-    
+
      */}
+      console.log("********------**********");
+      console.log(this.props.product);
+      console.log("*********------dev*********");
     if (this.state.card !== null) {
       return (
         <div>
-           
+
           <div
             className="cart-item card"
             itemScope
