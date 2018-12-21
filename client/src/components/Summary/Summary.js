@@ -13,12 +13,14 @@ constructor(props) {
         sellerId:{},
         subtotalPrice:{},
         totalWarranties: {},
+        polcomDiscount : {},
+        matchingDiscount: {},
+        crossellingDiscount : {},
         totalDiscounts: {},
         totalPrice: {}
     };
     }
   render() {
-    console.log("totalPrice",this.props.totalPrice)
     {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
     return (
         <div className="summary">
