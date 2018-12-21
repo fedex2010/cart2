@@ -18,7 +18,7 @@ class InputCouponApplied extends Component {
             />
             {/*add class - button__is-loading - to loading button */}
             <button className="button--primary button--sm">
-            Alicar
+            Aplicar
             </button>
             {/*remove class - hide - to error message*/} 
             <p className="error-msj hide">Código de cupón inválido.</p>

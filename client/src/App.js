@@ -20,7 +20,7 @@ class App extends Component {
     }
 
   render() {
-    if (this.props.cart != undefined) {
+    if (this.props.cart !== undefined) {
         return (
             <div className="App">
                 <div className="main-wrapper wrapper">
@@ -91,7 +91,12 @@ class App extends Component {
                                 <Product product={this.props.cart.products}/>
                             </div>
                             <div className="summary-gbChk col-md-4">
-                                <Summary/>
+                                <Summary
+                                sellerId={this.props.cart.seller_id}
+                                subtotalPrice={this.props.cart.subtotal_price} 
+                                totalWarranties={this.props.cart.total_warranties}
+                                totalDiscounts={this.props.cart.total_discounts} 
+                                totalPrice={this.props.cart.total_price} />
                             </div>
                         </div>
                         <div className="carousel row">

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProductDescription from "./ProductDescription"
+import ProductDescription from "./ProductDescription";
 
 
 
@@ -14,7 +14,7 @@ class Product extends Component {
 
   render() {
     let products = this.props.product;
-    if (products != undefined) {
+    if (products !== undefined) {
       return (
         <div>
             {

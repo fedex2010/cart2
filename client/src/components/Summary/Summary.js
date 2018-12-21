@@ -2,13 +2,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import ComponentMillasAP from "./ComponentMillasAP";
-
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 
+
 class Summary extends Component {
- 
+    
+constructor(props) {
+    super(props);
+    this.state = {
+        sellerId:{},
+        subtotalPrice:{},
+        totalWarranties: {},
+        totalDiscounts: {},
+        totalPrice: {}
+    };
+    }
   render() {
- 
+    console.log("totalPrice",this.props.totalPrice)
     {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
     return (
         <div className="summary">
@@ -24,7 +34,7 @@ class Summary extends Component {
               <ul className="summary-detail">
                 <li>
                   <label>Subtotal</label>
-                  <span className="summary-detail-value">$21.296</span>
+                  <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? this.props.subtotalPrice : '0'}</span>
                 </li>
                 <li>
                   <label>IVA</label>
@@ -32,11 +42,11 @@ class Summary extends Component {
                 </li>
                 <li>
                   <label>Garantías</label>
-                  <span className="summary-detail-value">$21.296</span>
+                  <span className="summary-detail-value">${this.props.totalWarranties > 0 ? this.props.totalWarranties : '0'}</span>
                 </li>
                 <li className="highlight-benefit">
                   <label>Descuento por cupón</label>
-                  <span className="summary-detail-value">- $500</span>
+                  <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? this.props.totalDiscounts : '0'}</span>
                 </li>
                 <li className="benefits">
                   <label>Descuento especial</label>
@@ -44,7 +54,7 @@ class Summary extends Component {
                 </li>
                 <li className="summary-total">
                   <label>Total</label>
-                  <span className="summary-detail-value">$20.696,10</span>
+                  <span className="summary-detail-value">${this.props.totalPrice > 0 ? this.props.totalPrice : '0'}</span>
                 </li>
               </ul>
 
