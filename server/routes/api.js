@@ -18,7 +18,7 @@ router.post("/cart/setWarranty", jsonParser, controllers.cart.setWarranty);
 
 router.put("/cart/:cartId", urlencodedParser, (req, res) =>  controllers.cart.editProduct(req, res));
 
-router.delete("/cart/:prodcutId", urlencodedParser, (req, res) => controllers.cart.deleteProduct(req, res));
+router.delete("/cart/:productId", urlencodedParser, (req, res) => controllers.cart.deleteProduct(req, res));
 router.delete( "/cart/c_:cartId/cupon/:couponCode", controllers.cart.deleteCoupon);
 router.delete("/cart/c_:cartId/aaPlus", controllers.cart.deleteAAPlus);
 
