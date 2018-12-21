@@ -24,6 +24,14 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
             garbarino:"productos-cuotas-sin-interes",
             compumundo:"productos-cuotas-sin-interes"
         }
+    },
+    normandia: {
+        base_url:{
+            garbarino   :   "https://ci.garbarino.com/normandia",
+            compumundo  :   "https://ci.compumundo.com.ar/normandia",
+            empresarias :   "https://empresas-ci.garbarino.com/normandia"
+        },
+        timeout: 4000*timeoutRatio
     }
   };
   return config;

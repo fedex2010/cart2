@@ -5,6 +5,7 @@ var express = require("express"),
     urlencodedParser = bodyParser.urlencoded({ extended: false }),
     jsonParser = bodyParser.json();
 
+router.get("/cart/normandia", (req, res) => controllers.normandia.getTemplate(req, res))
 router.get("/health", function(req, res) { res.status(200).send("OK");});
 router.get("/cart/carousel", controllers.cart.getCarousel);
 router.get("/cart/summary", controllers.cart.summary);
