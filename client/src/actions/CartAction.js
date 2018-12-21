@@ -33,3 +33,22 @@ export const getCarousel = () => dispatch => {
       dispatch({ type: SET_CAROUSEL, payload: response });
     });
 };
+
+export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
+    let data={};
+    data.xid=product;
+    data.quantity=quantity;
+
+    fetch("api/cart/"+cartId, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(response => {
+            dispatch({ type: SET_CURRENT_CART, payload: response });
+        });
+};

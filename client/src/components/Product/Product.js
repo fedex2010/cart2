@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ProductDescription from "./ProductDescription"
 
 
-
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,7 @@ class Product extends Component {
       return (
         <div>
             {
-                products.map(product => (<ProductDescription item={product}/>))
+                products.map(product => (<ProductDescription item={product} />))
             }
         </div>
       );
