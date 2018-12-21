@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ProductWarranty from "./ProductWarranty"
-import { updateQuantityProduct} from "../../actions/CartAction";
+import { updateQuantityProduct ,deleteProduct} from "../../actions/CartAction";
 import {connect} from "react-redux";
 import Cookie from "js-cookie";
 
@@ -10,10 +10,15 @@ class ProductDescription extends Component {
         let cartId = Cookie.get("cartId")
         let quantity = e.target.value;
         this.props.updateQuantityProduct(cartId,product_id,quantity)
-
     }
 
-    render() {
+    _handleDeleteProduct(productId,e){
+        let cartId = Cookie.get("cartId")
+        this.props.deleteProduct(cartId,productId)
+        console.log("borro")
+    }
+
+    render(){
         let product = this.props.item;
         let cartId = this.props.cartId;
         return(
@@ -60,7 +65,7 @@ class ProductDescription extends Component {
                         <strong className="cart-item-column-data">${product.subtotal_price}</strong>
                     </div>
 
-                    <a className="has-tooltip gui-icon-trash icon--md">
+                    <a className="has-tooltip gui-icon-trash icon--md" onClick={this._handleDeleteProduct.bind(this,product.product_id)}>
                         <span className="tooltip_bottomCenter">Eliminar</span>
                     </a>
                 </div>
@@ -77,5 +82,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { updateQuantityProduct }
+    { updateQuantityProduct ,deleteProduct }
 )(ProductDescription)

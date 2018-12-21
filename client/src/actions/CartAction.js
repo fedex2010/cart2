@@ -52,3 +52,18 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
         });
 };
+
+export const deleteProduct = (cartId , productId) => dispatch => {
+    fetch("/api/cart/" + productId,
+        {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => response.json())
+        .then(response => {
+             dispatch({ type: SET_CURRENT_CART, payload: response });
+        });
+};
