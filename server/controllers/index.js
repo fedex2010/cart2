@@ -1,4 +1,5 @@
+const   IndexNormandia      = require('./IndexController');
 const   CartControllers     = require('./CartControllers');
 const   NormandiaController = require('./NormandiaController');
 
-module.exports = { cart: new CartControllers() ,normandia : new NormandiaController}
+module.exports = {index : new IndexNormandia, cart : new CartControllers() ,normandia : new NormandiaController}

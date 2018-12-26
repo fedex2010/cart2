@@ -2,7 +2,8 @@ const RestClient = require("../client"),
   logger = require("../utils/logger");
 
 class CartControllers {
-  constructor() {}
+  constructor() {
+  }
 
   getNewCart(req, res) {
     let session_id = res.locals.session;
