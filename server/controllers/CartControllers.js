@@ -22,15 +22,31 @@ class CartControllers {
   getCart(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let cartId = req.params.cartId;
-
     RestClient.cartClient.getOneCart(cartId, {}, brand)
       .then(cart => {
+        isEmpresarias(req,res)
         res.send(cart);
       })
       .catch(err => {
         logger.error("[" + cartId + "] Fail get cart,err:" + err);
         res.status(500).send("Fail get cart");
       });
+  }
+
+  isEmpresarias(req,res) {
+    console.log("isEmpresarios", res)
+    const cookies = new Cookies();
+    
+
+    if(typeof req.headers['x-subdomain']!="undefined"){
+        if(req.headers['x-subdomain']=="empresas"){
+            res.cookies.set("empresarias", true);
+        }else{
+          res.cookies.set("empresarias", false);
+        }
+    }else{
+      res.cookies.set("empresarias", false);
+    }
   }
 
   getCarousel(req, res) {

@@ -15,12 +15,12 @@ class ProductDescription extends Component {
     _handleDeleteProduct(productId,e){
         let cartId = Cookie.get("cartId")
         this.props.deleteProduct(cartId,productId)
-        console.log("borro")
     }
 
     render(){
         let product = this.props.item;
         let cartId = this.props.cartId;
+
         return(
             <div className="cart-item card">
                 <div className="cart-item-detail"  itemScope  itemType="http://schema.org/Offer">

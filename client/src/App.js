@@ -27,8 +27,8 @@ class App extends Component {
 
     if (this.props.cart !== undefined) {
        
-        if(this.props.cart.discount_details !== undefined ){
-            console.log("ENTRA EN DISCOUNT_DETAILS", this.props.cart.coupons)
+        if(this.props.cart.discount_details !== undefined && this.props.cart.discount_details.length >= 1){
+           
             if(this.props.cart.discount_details[0].source === 'CROSSELLING'){
               specialDiscountAmount += this.props.cart.discount_details[0].amount;
             }

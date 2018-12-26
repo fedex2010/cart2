@@ -26,7 +26,6 @@ class Summary extends Component {
     
   }
   render() {
-    console.log("fdfdfd",this.props.coupons)
     {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
     return (
         <div className="summary">
