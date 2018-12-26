@@ -13,7 +13,6 @@ class ComponentDiscountCoupon extends Component {
     constructor() {
     super();
     this.state = {
-        discountCoupon: true,
         selectedOption: 'discount-coupon1',
         checkedCoupon: false
     }
@@ -33,8 +32,7 @@ class ComponentDiscountCoupon extends Component {
     if (this.state.checkedCoupon) {
       displaynoneCheckboxDiscount = '';
     }
-
-    if (this.state.discountCoupon) {
+    if (this.props.discountCoupon > 0) {
         return (
             <ul className="cart-additional-item">
             <li>

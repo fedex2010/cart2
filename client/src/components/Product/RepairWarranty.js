@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class RepairGuarantee extends Component {
+class RepairWarranty extends Component {
  
   render() {
     
@@ -58,4 +58,4 @@ class RepairGuarantee extends Component {
     );
   }
 }
-export default RepairGuarantee;
+export default RepairWarranty;

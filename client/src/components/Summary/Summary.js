@@ -4,23 +4,29 @@ import { connect } from "react-redux";
 import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 
+import StickySummary from "./StickySummary";
+
 
 class Summary extends Component {
     
-constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
         sellerId:{},
         subtotalPrice:{},
         totalWarranties: {},
-        polcomDiscount : {},
-        matchingDiscount: {},
-        crossellingDiscount : {},
+        specialDiscountAmount: {},
+        discountCoupon:{},
+        coupons : {},
         totalDiscounts: {},
         totalPrice: {}
     };
-    }
+  }
+  componentWillUpdate(){
+    
+  }
   render() {
+    console.log("fdfdfd",this.props.coupons)
     {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
     return (
         <div className="summary">
@@ -42,17 +48,17 @@ constructor(props) {
                   <label>IVA</label>
                   <span className="summary-detail-value">$21.296</span>
                 </li>
-                <li>
+                <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'}>
                   <label>Garantías</label>
                   <span className="summary-detail-value">${this.props.totalWarranties > 0 ? this.props.totalWarranties : '0'}</span>
                 </li>
-                <li className="highlight-benefit">
+                <li className={this.props.coupons > 0 ? 'highlight-benefit' : 'highlight-benefit displaynone'}>
                   <label>Descuento por cupón</label>
                   <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? this.props.totalDiscounts : '0'}</span>
                 </li>
                 <li className="benefits">
                   <label>Descuento especial</label>
-                  <span className="summary-detail-value">- $500</span>
+                  <span className="summary-detail-value">- ${this.props.specialDiscountAmount}</span>
                 </li>
                 <li className="summary-total">
                   <label>Total</label>
@@ -63,7 +69,7 @@ constructor(props) {
               {/* cupones y descuentos */}
               <div className="cart-additionals">
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
-                <ComponentDiscountCoupon/>       
+                <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount}/>       
                 <ComponentMillasAP/>
               </div>          
             </div>

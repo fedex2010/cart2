@@ -22,28 +22,19 @@ class App extends Component {
    
 
   render() {
-    let crossellingDiscount;
-    let matchingDiscount;
-    let polcomDiscount;
+   
+    let specialDiscountAmount = 0
 
     if (this.props.cart !== undefined) {
        
         if(this.props.cart.discount_details !== undefined ){
-            
-            if(this.props.cart.discount_details.source === 'CROSSELLING'){
-              crossellingDiscount = this.props.cart.discount_details.source;
-            }else {
-              crossellingDiscount = '';
+            console.log("ENTRA EN DISCOUNT_DETAILS", this.props.cart.coupons)
+            if(this.props.cart.discount_details[0].source === 'CROSSELLING'){
+              specialDiscountAmount += this.props.cart.discount_details[0].amount;
             }
-            if(this.props.cart.discount_details.source === 'PRICE_MATCHING'){
-              matchingDiscount = this.props.cart.discount_details.source;
-            }else {
-              matchingDiscount = '';
-            }
-            if(this.props.cart.discount_details.source === 'POLCOM'){
-              polcomDiscount = this.props.cart.discount_details.source;
-            }else {
-              polcomDiscount = '';
+            if(this.props.cart.discount_details[0].source === 'POLCOM' || this.props.cart.discount_details[0].source === 'PRICE_MATCHING'){
+                console.log("ENTRA EN POLCOM")
+                specialDiscountAmount += this.props.cart.discount_details[0].amount;
             }
         }
         return (
@@ -120,9 +111,8 @@ class App extends Component {
                                 sellerId={this.props.cart.seller_id}
                                 subtotalPrice={this.props.cart.subtotal_price} 
                                 totalWarranties={this.props.cart.total_warranties}
-                                polcomDiscount = {polcomDiscount} // trae si exite el string "POLCOM" Y EL DESCUENTO SERIA EN discount_details.amount
-                                matchingDiscount = {matchingDiscount} // trae si exite el string "PRICE_MATCHING" Y EL DESCUENTO SERIA EN discount_details.amount
-                                crossellingDiscount = {crossellingDiscount} // trae si exite el string "CROSSELLING" Y EL DESCUENTO SERIA EN discount_details.amount
+                                specialDiscountAmount ={specialDiscountAmount}
+                                coupons = {this.props.cart.coupons}
                                 totalDiscounts={this.props.cart.total_discounts} 
                                 totalPrice={this.props.cart.total_price} />
                             </div>
