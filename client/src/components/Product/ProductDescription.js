@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import ProductWarranty from "./ProductWarranty"
+import ProductWarranty from "./ProductWarranty";
+import Modal from "../Modal/Modal";
 import { updateQuantityProduct ,deleteProduct} from "../../actions/CartAction";
 import {connect} from "react-redux";
 import Cookie from "js-cookie";
@@ -12,15 +13,10 @@ class ProductDescription extends Component {
         this.props.updateQuantityProduct(cartId,product_id,quantity)
     }
 
-    _handleDeleteProduct(productId,e){
-        let cartId = Cookie.get("cartId")
-        this.props.deleteProduct(cartId,productId)
-    }
 
     render(){
         let product = this.props.item;
-        let cartId = this.props.cartId;
-
+        let cartId = Cookie.get("cartId")
         return(
             <div className="cart-item card">
                 <div className="cart-item-detail"  itemScope  itemType="http://schema.org/Offer">
@@ -65,11 +61,13 @@ class ProductDescription extends Component {
                         <strong className="cart-item-column-data">${product.subtotal_price}</strong>
                     </div>
 
-                    <a className="has-tooltip gui-icon-trash icon--md" onClick={this._handleDeleteProduct.bind(this,product.product_id)}>
+                    {/* --  onClick={this._handleDeleteProduct.bind(this,product.product_id)} --*/}
+                    <a className="has-tooltip gui-icon-trash icon--md" data-toggle="modal" data-target="#delete-product" >
                         <span className="tooltip_bottomCenter">Eliminar</span>
                     </a>
                 </div>
                 <ProductWarranty item={product.validations}/>
+                <Modal item={product.product_id} cartId={cartId}/>
             </div>
         )
     }

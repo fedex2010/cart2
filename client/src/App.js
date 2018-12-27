@@ -7,7 +7,6 @@ import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
 import Carousel from "./components/Carousel/Carousel";
-import Modal from "./components/Modal/Modal";
 import {fetchCart} from "./actions/CartAction";
 
 class App extends Component {
@@ -122,7 +121,6 @@ class App extends Component {
                                 <Carousel/>
                             </div>
                         </div>
-                        <Modal/>
                     </section>
                 </div>
             </div>

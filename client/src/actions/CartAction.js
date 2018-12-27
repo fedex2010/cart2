@@ -55,7 +55,7 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
         });
 };
 
-export const deleteProduct = (cartId , productId) => dispatch => {
+export const deleteProduct = (productId) => dispatch => {
     fetch("/api/cart/" + productId,
         {
             method: "DELETE",

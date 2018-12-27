@@ -1,10 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { updateQuantityProduct ,deleteProduct} from "../../actions/CartAction";
+
 
 class Modal extends Component {
-  
+   
+    _handleDeleteProduct(product){
+        console.log("ProductID",product)
+        this.props.deleteProduct(product)
+    }
 
   render() {
+    let product = this.props.item;
+    let cartId = this.props.cartId
+    console.log("Product",product)
+    console.log("CarTID",cartId)
       return(
 
         <div>
@@ -20,7 +30,7 @@ class Modal extends Component {
                     </div>
                     <div className="gui-modal-footer">
                         <button className="button--link" type="button" data-dismiss="modal">Cerrar</button>
-                        <button className="button--primary" type="button">Eliminar</button>
+                        <button className="button--primary" type="button" onClick={this._handleDeleteProduct.bind(this,product)}>Eliminar</button>
                     </div>
                     </div>
                 </div>
@@ -94,8 +104,12 @@ class Modal extends Component {
       );
   }
 }
-export default Modal;
+const mapStateToProps = state => {
+    console.log(state); // state
+    return { product: state.cartReducer.product };
+};
 
-                         
-                     
-                     
+export default connect(
+    mapStateToProps,
+    { updateQuantityProduct ,deleteProduct }
+)(Modal)
