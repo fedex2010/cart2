@@ -11,6 +11,19 @@
    display: inline-block;
 }
 
+.text-center {
+   text-align: center;
+}
+
+.is-semibold {
+	font-weight: 600;
+}
+
+
 .hide {
+	display: none;
+}
+
+.show {
 	display: none;
 }

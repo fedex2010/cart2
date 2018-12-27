@@ -1,0 +1,145 @@
+@import "../_variables/variables";
+
+.gui-modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1050;
+	display: none;
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch;
+	outline: 0;
+}
+
+.modal-open .gui-modal {
+   overflow-x: hidden;
+   overflow-y: auto;
+}
+
+
+.gui-modal.fade .gui-modal-dialog {
+	-webkit-transition: -webkit-transform .3s ease-out;
+	   -o-transition:      -o-transform .3s ease-out;
+	      transition:         transform .3s ease-out;
+	-webkit-transform: translate(0, -25%);
+	  -ms-transform: translate(0, -25%);
+	   -o-transform: translate(0, -25%);
+      transform: translate(0, -25%);
+}
+
+.gui-modal.in .gui-modal-dialog {
+	-webkit-transform: translate(0, 0);
+	  -ms-transform: translate(0, 0);
+	   -o-transform: translate(0, 0);
+      transform: translate(0, 0);
+}
+
+
+.modal-backdrop.fade {
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+.modal-backdrop.in {
+	filter: alpha(opacity=50);
+	opacity: .5;
+}
+
+.gui-modal-dialog {
+	max-width: 90%;
+	margin: 0 auto;
+	position: relative;
+	padding: $spacer-xl 0;
+}
+
+.gui-modal-content {
+	background-color: $white;
+	border-radius: $border-radius-md;
+	box-shadow: 0 5px 15px rgba(0,0,0,.2)!important;
+	text-align: left;
+	font-size: rem(14);
+}
+
+
+.gui-modal-header {
+	padding-top: $spacer-base;
+	padding-bottom: $spacer-base;
+	padding-left: $spacer-xl;
+	padding-right: calc(#{$spacer-xl} + #{$spacer-base});
+	position: relative;
+	margin-bottom: $spacer-base;
+	
+	.gui-icon-close {
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding: $spacer-base;
+	}
+}
+
+.gui-modal-title,
+.gui-modal-title--action-link {
+	display: inline-block;
+	vertical-align: text-top;
+	line-height: rem(24);
+}
+
+
+.gui-modal-title {
+	font-weight: 600;
+	font-size: rem(16);
+}
+	
+.gui-modal-title--action-link {
+	font-size: rem(14);
+	margin-left: $spacer-base;
+}
+
+
+.gui-modal-header--has-border {
+	border-bottom: 1px solid $card-border-color;
+}
+
+
+.gui-modal-body {
+	padding: $spacer-sm $spacer-xl;
+	text-align: left;
+	max-height: calc(100vh - 204px);
+	overflow: auto;
+}
+
+.gui-modal-footer {
+	text-align: right;
+	padding: $spacer-base $spacer-xl; 
+}
+
+
+
+
+/*tamaños*/
+.gui-modal-sm {
+	max-width: 400px;
+}
+
+.gui-modal-md { 
+	max-width: 600px;
+}
+
+.gui-modal-lg {
+	max-width: 800px;
+}
+
+.gui-modal-xl {
+	max-width: 1000px;
+}
+
+
+/*centrado verticalmente*/
+.gui-modal .modal-dialog--is-centered,
+.gui-modal.in .modal-dialog--is-centered {
+   transform: translate(0, -50%);
+   top: 50%;
+}
+
+

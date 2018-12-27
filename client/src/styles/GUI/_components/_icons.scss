@@ -55,35 +55,18 @@
 }
 
 
-.gui-icon-close:before {
-  content: $gui-icon-close;
-}
-.gui-icon-error:before {
-  content: $gui-icon-error;
-}
-.gui-icon-info:before {
-  content: $gui-icon-info;
-}
-.gui-icon-success:before {
-  content: $gui-icon-success;
-}
-.gui-icon-warning:before {
-  content: $gui-icon-warning;
-}
-
-.icon-truck:before,
-.gui-icon-free-send:before {
-  content: $gui-icon-free-send;
-}
-
-.gui-icon-question-mark-circle:before {
-  content: $gui-icon-question-mark-circle;
-}
-
-.gui-icon-trash:before {
-  content: $gui-icon-trash;
-}
-
-.gui-icon-checkmark:before {
-  content: $gui-icon-checkmark;
-}
+.gui-icon-close:before { content: $gui-icon-close;}
+.gui-icon-error:before { content: $gui-icon-error;}
+.gui-icon-info:before { content: $gui-icon-info;}
+.gui-icon-success:before { content: $gui-icon-success;}
+.gui-icon-warning:before { content: $gui-icon-warning;}
+.gui-icon-free-send:before, .icon-truck:before  {content: $gui-icon-free-send;}
+.gui-icon-question-mark-circle:before { content: $gui-icon-question-mark-circle;}
+.gui-icon-trash:before { content: $gui-icon-trash;}
+.gui-icon-checkmark:before { content: $gui-icon-checkmark;}
+.gui-icon-arrow-bold-left:before { content: $gui-icon-arrow-bold-left;}
+.gui-icon-arrow-bold-right:before { content: $gui-icon-arrow-bold-right;}
+.gui-icon-arrow-thin-bottom:before { content: $gui-icon-arrow-thin-bottom;}
+.gui-icon-arrow-thin-left:before { content: $gui-icon-arrow-thin-left;}
+.gui-icon-arrow-thin-right:before { content: $gui-icon-arrow-thin-right;}
+.gui-icon-arrow-thin-top:before { content: $gui-icon-arrow-thin-top;}
