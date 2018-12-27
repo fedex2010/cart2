@@ -30,8 +30,8 @@
    }
 
    .cart-item-name { 
-      padding-right: $spacer-xl;
       line-height: rem(20);
+      padding-right: $spacer-xl;
 
       em {
          display: block;
@@ -42,7 +42,6 @@
 
    .cart-item-column {
       flex: 0 0 80px;
-      margin-left: 1px;
    }
 
    .cart-item-column-lg {
@@ -52,6 +51,7 @@
    }
 
    label {
+      color: $gray-darker-1x;
       display: block;
       font-size: rem(11);
       line-height: initial;
@@ -127,6 +127,7 @@
 
 	p { 
 		font-size: rem(13);
+      line-height: rem(18);
 
 		.benefits {
 			font-weight: 600;
@@ -142,18 +143,65 @@
       box-sizing: border-box;
       display: inline-block;
       font-size: rem(12);
+      line-height: rem(18);
+      padding: $spacer-xs $spacer-base $spacer-xs 20px;
+      position: relative;
       width: 50%;
 	}
 
-	label {
-      padding: $spacer-xs $spacer-base $spacer-xs 20px;
-      position: relative;
-
-		input {
-         left: 0;
-         position: absolute;
-         top: 7px;
-		}
+	input {
+      left: 0;
+      position: absolute;
+      top: 7px;
 	}
 }
 
+
+
+@media (max-width: 1024px){
+   .cart-item-detail {
+      flex-wrap: wrap;
+      padding: $spacer-base 10% $spacer-base 100px;
+
+      .cart-item-column:first-child {
+         left: $spacer-base;
+         position: absolute;
+         top: $spacer-base;
+      }
+
+      .cart-item-column-lg {
+         flex: 0 0 100%;
+      }
+
+      label {
+         margin-top: 20px;
+      }
+   }
+
+   .cart-item-warranties--list {
+      li {
+         width: 100%;
+      }
+   }
+}
+
+
+@media (max-width: 767px){
+   .cart-item-detail {
+
+      .gui-icon-trash {
+         top: 20px;
+      }
+
+      .cart-item-column {
+         flex: 0 0 100% !important;
+      }
+
+      label,
+      .cart-item-column-data {
+         display: inline-block;
+         min-width: 60px;
+      }
+   }
+  
+}

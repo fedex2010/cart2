@@ -1,6 +1,6 @@
 .cart-summary-header {
-	margin: 0 $spacer-base;
 	border-bottom: 1px solid $card-border-color;
+	margin: 0 $spacer-base;
 }
 
 .cart-summary-title {
@@ -10,37 +10,37 @@
 }
 
 .cart-seller {
+	background-color:  $blue-lighter-1x;
+	font-size: rem(14);
 	line-height: rem(30);
 	padding: 0 $spacer-base;
-	font-size: rem(14);
-	background-color:  $blue-lighter-1x;
 }
 
 .summary-detail {
-	padding: $spacer-base $spacer-base 0 $spacer-base;
 	font-size: rem(14);
+	padding: $spacer-base $spacer-base 0 $spacer-base;
 
 	li + li {
 		margin-top: $spacer-xs;
 	}
 
 	label {
-		width: 60%;
 		display: inline-block;
+		width: 60%;
 	}
 
 	.summary-detail-value {
-		width: 40%;
 		display: inline-block;
 		text-align: right;
+		width: 40%;
 	}
 
 	.highlight-benefit {
-		border-radius: $border-radius-xs;
 		background-color: $green-lighter-1x;
-		padding: 0 $spacer-sm;
+		border-radius: $border-radius-xs;
 		margin-left:  -#{$spacer-sm};
 		margin-right:  -#{$spacer-sm};
+		padding: 0 $spacer-sm;
 	}
 
 	.summary-total {
@@ -48,12 +48,11 @@
 		font-size: rem(20);
 		font-weight: 600;
 		line-height: 48px;
-		padding: 0 $spacer-base;
 		margin-left:  -#{$spacer-base};
 		margin-right:  -#{$spacer-base}; 
 		margin-top: $spacer-sm;
+		padding: 0 $spacer-base;
 	}
-
 }
 
 
@@ -61,7 +60,6 @@
 .cart-additionals {
 	padding: $spacer-base; 
 	font-size: rem(14);
-
 }
 
 .cart-additionals-title {
@@ -70,9 +68,10 @@
 }
 
 .cart-additional-item {
-	//border-bottom: 1px solid $card-border-color;
-	//padding: 0 0 $spacer-base 0; 
-	//margin-bottom: $spacer-base ;
+	border-bottom: 1px solid $card-border-color;
+	margin-bottom: $spacer-base;
+	padding: 0 0 $spacer-base 0; 
+
 	&:last-child {
 		border-bottom: none;
 		margin-bottom: 0;
@@ -80,8 +79,8 @@
 	}
 
 	label {
-		position: relative;
 		padding-left: 20px;
+		position: relative;
 
 		input {
 			position: absolute;
@@ -91,11 +90,7 @@
 		}
 	}
 }
-.millasAPBorder {
-	border-top: 1px solid $card-border-color;
-	padding: 16px 0 0 0;
-	margin-top: 16px;
-}
+
 ul.cart-additional-item {
 	li + li {
 		margin-top: $spacer-sm;
@@ -110,27 +105,27 @@ ul.cart-additional-item {
 
 .coupon-apply-form {
 	.form-control {
-		width: calc(100% - 85px);
 		margin-right: $spacer-sm;
+		width: calc(100% - 85px);
 	}
 }
 
 .coupon-code {
-	border-radius: $border-radius-xs;
 	background-color: $gray-lighter-2x;
+	border-radius: $border-radius-xs;
+	display: inline-block;
 	line-height: rem(28);
 	margin-right: $spacer-sm;
 	padding:  0 $spacer-sm 0 $spacer-lg;
-	display: inline-block;
 	position: relative;
 
 	&:before {
-		content: $gui-icon-checkmark;
-		position: absolute;
-		font-family: $icon-font-name;
-		left: 6px;
 		color: $benefit-color;
+		content: $gui-icon-checkmark;
+		font-family: $icon-font-name;
 		font-size: rem(14);
+		left: 6px;
+		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
 	}
@@ -141,6 +136,7 @@ ul.cart-additional-item {
 }
 
 .cart-actions {
+	margin-bottom: $spacer-lg;
 	padding-top: $spacer-base;
 
 	.button--primary {
@@ -148,3 +144,21 @@ ul.cart-additional-item {
 	}
 }
 
+
+//resumen sticky
+.purchase-summary--fixed {
+	position: fixed;
+	top: 30px;
+	width: calc(33.33333333% - 40px);
+	max-width: 415px;
+	z-index: 2;
+	@media (max-width: 1024px){
+		width: calc(41.66666667% - 38px);
+	}
+
+	@media (max-width: 767px){
+		position: static;
+		max-width: 100%;
+		width: 100%;
+	}
+}

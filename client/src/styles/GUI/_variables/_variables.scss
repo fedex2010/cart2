@@ -101,7 +101,7 @@ $button-link-color:					$link-color !default;
 // Border-radius
 // --------------------------------------------------
 $border-radius-xs:      			4px !default;
-
+$border-radius-md:      			8px !default;
 
 
 // Price info
@@ -118,6 +118,16 @@ $card-bg-color:							$white !default;
 $card-border-color:						$gray-lighter-2x !default;
 $card-rounded: 							$border-radius-xs !default;
 $border-color-error:						$error !default;
+
+
+//Shadows 
+// --------------------------------------------------
+$shadow-color:				rgba(0,0,0,0.33);
+$hover-shadow-0: 			0 0 0 0 $shadow-color; // inicial para la transición
+$hover-shadow-depth-1:	0 4px 8px 0 $shadow-color; //hover de las  cajas
+
+$shadow-xs:					0 1px 2px 0 rgba(0,0,0,0.25) ; //sombra de cajas en el interior
+
 
 
 // Tooltip definitions
@@ -159,7 +169,12 @@ $gui-icon-question-mark-circle: "\e901";
 $gui-icon-trash: "\e902";
 $gui-icon-question-mark-circle: "\e901";
 $gui-icon-checkmark: "\e903";
-
+$gui-icon-arrow-bold-left: "\e904";
+$gui-icon-arrow-bold-right: "\e905";
+$gui-icon-arrow-thin-bottom: "\e907";
+$gui-icon-arrow-thin-left:"\e908";
+$gui-icon-arrow-thin-right: "\e909";
+$gui-icon-arrow-thin-top: "\e90b";
 
 
 // forms
@@ -173,3 +188,17 @@ $input-border-radius:		$border-radius-xs !default;
 $input-disabled-bg:				$gray-lighter-3x;			
 $input-disabled-border-color:	$gray-lighter-1x!default;
 $input-disabled-color:			$gray-darker-1x !default;
+
+$error-msj-color:				$error !default;
+
+
+
+// Carousel
+// --------------------------------------------------
+$carusel-title-font-color:				$black !default;
+$carusel-title-font-size:				24px !default;
+$carusel-tablet-title-font-size:		20px !default;
+$carusel-mobile-title-font-size:		16px !default;
+
+$carusel-product-name-color:			$gray-darker-2x!default;
+$carusel-product-name-font-size:    15px!default;

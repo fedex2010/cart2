@@ -1,16 +1,11 @@
 @import "../GUI/_variables/_variables";
 
 
-header {
-   background-color: red
-}
-
-
 .cart-title {
-    font-size:rem(20);
-    border-bottom: 1px solid $card-border-color;
-    margin:$spacer-lg 0;
-    padding-bottom: $spacer-sm;
+   border-bottom: 1px solid $card-border-color;
+   font-size:rem(20);
+   margin:$spacer-lg 0;
+   padding-bottom: $spacer-sm;
 }
 
 .feedback {

@@ -1,0 +1,71 @@
+@import "../../GUI/_variables/_variables";
+
+.warranty-info {
+
+	h5 {
+		margin-bottom: $spacer-lg;
+	}
+
+	picture {
+		width: 160px;
+		text-align: center;
+		margin-right: $spacer-lg;
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	img {
+		width: 110px;
+		margin-left: 10px;
+	}
+
+	ul {
+		vertical-align: middle;
+		width: calc(100% - 210px);
+		display: inline-block;
+	}
+
+}
+
+
+.checkmark-list {
+   li {
+      padding: $spacer-xs 0 $spacer-xs $spacer-lg;
+      position: relative;
+      text-align: left;
+      line-height: rem(20);
+
+      &:before {
+         content: $gui-icon-checkmark;
+         font-family: $icon-font-name;
+         color: $benefit-color;
+         position: absolute;
+         left: 0;
+         font-size: rem(16);
+      }
+   }
+}
+
+
+/* términos y condiciones*/
+
+.warranty-tyc {
+	font-size: rem(13);
+
+	p {
+		line-height: rem(18);
+		margin-top: $spacer-sm;
+	}
+
+	.destacado {
+		color: $red-darker-1x;
+		font-size: rem(14);
+		margin-bottom:  $spacer-base;
+		margin-top: 0;
+	}
+
+	h5 {
+		text-transform: uppercase;
+    	font-weight: 600;
+	}
+}
