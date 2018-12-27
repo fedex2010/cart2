@@ -3,10 +3,12 @@ import Cookies from "universal-cookie";
 
 export const fetchCart = id => dispatch => {
   fetch("/api/cart/" + id)
-    .then(response => response.json())
+    .then(
+            response => response.json()
+        )
     .then(response => {
-      const cookies = new Cookies();
-      cookies.set("cartId", response.cart_id, { path: "/" });
+      //const cookies = new Cookies();
+      //cookies.set("cartId", response.cart_id, { path: "/" });
       return dispatch({ type: SET_CURRENT_CART, payload: response });
     });
 };

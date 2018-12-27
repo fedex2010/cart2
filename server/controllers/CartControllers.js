@@ -24,7 +24,7 @@ class CartControllers {
     let cartId = req.params.cartId;
     RestClient.cartClient.getOneCart(cartId, {}, brand)
       .then(cart => {
-        isEmpresarias(req,res)
+        //isEmpresarias(req,res)
         res.send(cart);
       })
       .catch(err => {
