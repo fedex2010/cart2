@@ -32,7 +32,7 @@ class ProductDescription extends Component {
                     <div className="cart-item-column cart-item-column-lg">
                         <h3 className="cart-item-name">
                             <a href="#" title="" itemProp="url">
-                                {product.product_id}
+                                {product.description}
                             </a>
                         </h3>
                         <span className="cart-item-tag cart-item-tag--error">
@@ -66,7 +66,7 @@ class ProductDescription extends Component {
                         <span className="tooltip_bottomCenter">Eliminar</span>
                     </a>
                 </div>
-                <ProductWarranty item={product.validations}/>
+                <ProductWarranty item={product.warranties}/>
                 <Modal item={product.product_id} cartId={cartId}/>
             </div>
         )

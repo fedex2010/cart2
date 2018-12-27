@@ -22,6 +22,8 @@ class CartControllers {
   getCart(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let cartId = req.params.cartId;
+    console.log("cart");
+    console.log(cartId);
     RestClient.cartClient.getOneCart(cartId, {}, brand)
       .then(cart => {
         //isEmpresarias(req,res)

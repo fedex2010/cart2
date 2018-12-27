@@ -22,6 +22,4 @@ router.all('*', function (req, res, next) {
 });
 
 
-router.get('/test', indexController.main);
-
 module.exports = router;
