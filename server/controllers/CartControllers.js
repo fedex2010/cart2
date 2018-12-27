@@ -37,7 +37,6 @@ class CartControllers {
     console.log("isEmpresarios", res)
     const cookies = new Cookies();
     
-
     if(typeof req.headers['x-subdomain']!="undefined"){
         if(req.headers['x-subdomain']=="empresas"){
             res.cookies.set("empresarias", true);

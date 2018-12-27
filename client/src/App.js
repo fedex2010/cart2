@@ -33,7 +33,6 @@ class App extends Component {
               specialDiscountAmount += this.props.cart.discount_details[0].amount;
             }
             if(this.props.cart.discount_details[0].source === 'POLCOM' || this.props.cart.discount_details[0].source === 'PRICE_MATCHING'){
-                console.log("ENTRA EN POLCOM")
                 specialDiscountAmount += this.props.cart.discount_details[0].amount;
             }
         }
