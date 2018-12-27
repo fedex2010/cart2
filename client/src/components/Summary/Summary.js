@@ -55,7 +55,7 @@ class Summary extends Component {
                   <label>Descuento por cupón</label>
                   <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? this.props.totalDiscounts : '0'}</span>
                 </li>
-                <li className="benefits">
+                <li className={this.props.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'}>
                   <label>Descuento especial</label>
                   <span className="summary-detail-value">- ${this.props.specialDiscountAmount}</span>
                 </li>

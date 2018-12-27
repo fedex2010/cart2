@@ -11,6 +11,10 @@
   padding-right: 32px;
   margin-bottom: 32px;
 }
+/*MODAL*/
+.modal-open .gui-modal {
+  background-color: rgba(0, 0, 0, .5);
+}
 /*ESTRUCTURA*/
 .product-summary-gbChk{
   position: relative;
