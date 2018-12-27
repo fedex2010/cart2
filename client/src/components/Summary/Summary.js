@@ -69,7 +69,7 @@ class Summary extends Component {
               <div className="cart-additionals">
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
                 <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount}/>       
-                <ComponentMillasAP/>
+                <ComponentMillasAP addMillasAP={this.props.addMillasAP}/>
               </div>          
             </div>
             <div className="cart-actions">
