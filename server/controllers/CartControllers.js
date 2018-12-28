@@ -83,6 +83,7 @@ class CartControllers {
           return cart;
         })
         .catch(err => {
+          logger.error("[" + cartId + "] Fail get cart _getOneCart ,err:" + err);
           res.status(500).send("Fail get one cart");
         });
     } else {
@@ -91,6 +92,7 @@ class CartControllers {
           return cart;
         })
         .catch(err => {
+            logger.error("[" + cartId + "] Fail get cart getNewCart ,err:" + err);
           res.status(500).send("Fail get a new cart");
         });
     }
@@ -165,8 +167,6 @@ class CartControllers {
       couponCode = req.body.coupon_code,
       brand = res.locals.xBrand.toLowerCase();
 
-    console.log(cartId);
-    console.log(couponCode);
     RestClient.promotion.addCoupon(cartId, couponCode, brand)
       .then(coupon => {
         res.send(coupon);
@@ -256,24 +256,17 @@ class CartControllers {
     let cartId = req.body.cartId,
       productId = req.body.product_id,
       warrantyId = req.body.warranty_id,
-      brand = res.locals.xBrand.toLowerCase(),
-      responseObj;
+      brand = res.locals.xBrand.toLowerCase();
     RestClient.productClient.setWarranty(cartId, productId, warrantyId, brand)
       .then(product => {
-        //req.params.cartId = cartId;
-        return this.getCart(req, res)
-          .then(cart => {
-            console.log("cart");
-            console.log(cart);
-            responseObj = {
-              cart: cart,
-              product: product
-            };
-            res.status(200).send(responseObj);
-          })
-          .catch(() => {
-            res.status(500).send("Fail get cart");
-          });
+        this._getOneCart(cartId,req,res)
+            .then(cart => {
+                res.send(cart);
+            })
+            .catch(err => {
+                logger.error("[" + cartId + "] Fail get cart   warranty to cart,err:" + err);
+                res.status(500).send("Fail get a update cart warranty");
+            });
       })
       .catch(err => {
         logger.error("[" + cartId + "] Fail set warranty to cart,err:" + err);

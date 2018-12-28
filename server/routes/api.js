@@ -16,7 +16,7 @@ router.get("/cart/:cartId", controllers.cart.getCart);
 router.post("/cart", urlencodedParser, ( req , res) => controllers.cart.addProduct(req , res));
 router.post("/cart/:cartId/cupon", jsonParser, controllers.cart.setCoupon);
 router.post("/cart/c_:cartId/aaPlus", jsonParser, controllers.cart.setAAPlus);
-router.post("/cart/setWarranty", jsonParser, controllers.cart.setWarranty);
+router.post("/cart/setWarranty", jsonParser, ( req , res) => controllers.cart.setWarranty( req , res));
 
 router.put("/cart/:cartId", urlencodedParser, ( req , res) =>  controllers.cart.editProduct( req , res));
 
