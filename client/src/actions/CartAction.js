@@ -55,6 +55,27 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
         });
 };
 
+export const editWarranty =(cartId,productId,warrantyId) => dispatch =>{
+    let data={};
+    data.cartId=cartId;
+    data.product_id=productId;
+    data.warranty_id=warrantyId;
+
+    fetch("api/cart/setWarranty", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(response => {
+            dispatch({ type: SET_CURRENT_CART, payload: response });
+        });
+
+};
+
 export const deleteProduct = (productId) => dispatch => {
     fetch("/api/cart/" + productId,
         {

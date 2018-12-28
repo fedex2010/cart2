@@ -66,7 +66,9 @@ class ProductDescription extends Component {
                         <span className="tooltip_bottomCenter">Eliminar</span>
                     </a>
                 </div>
-                <ProductWarranty item={product.warranties}/>
+                <ProductWarranty
+                    item={product.warranties}
+                    products={product.product_id} />
                 <Modal item={product.product_id} cartId={cartId}/>
             </div>
         )
@@ -74,7 +76,6 @@ class ProductDescription extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state); // state
     return { product: state.cartReducer.product };
 };
 
