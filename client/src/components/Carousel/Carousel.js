@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {fetchCart, getCarousel, addProduct} from "../../actions/CartAction";
 
+import Swiper from 'swiper';
+
+
 class Carousel extends Component {
 
     constructor(props) {
@@ -11,6 +14,14 @@ class Carousel extends Component {
 
     componentWillMount() {
         this.props.getCarousel();
+        console.log("termino")
+    }
+
+    componentDidMount(){
+
+
+         
+      
     }
 
     handleAddProduct(product,price){
@@ -27,8 +38,24 @@ class Carousel extends Component {
     }
 
     render() {
-        console.log(this.props.carousel.title);
     if (this.props.carousel.title != undefined) {
+
+        
+
+         //initialize swiper when document ready
+         var mySwiper = new Swiper ('.swiper-container', {
+            pagination: '.swiper-pagination',
+            slidesPerView: 'auto',
+            slidesPerGroup: 4,
+            spaceBetween: 0,
+            simulateTouch: false,
+            paginationClickable: true,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }
+          })
+
         return (
             <div className="card">
                 <div className="card-header">
