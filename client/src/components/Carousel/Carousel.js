@@ -2,25 +2,36 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {fetchCart, getCarousel, addProduct} from "../../actions/CartAction";
 
-import Swiper from 'swiper';
+
+
 
 
 class Carousel extends Component {
 
     constructor(props) {
-        super(props);
-        this.state = {};
-    }
+        super(props)
+       
+      }
+
+    
 
     componentWillMount() {
         this.props.getCarousel();
-        console.log("termino")
+
+        var addScript = document.createElement('script');
+        addScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js');
+        document.body.appendChild(addScript);
+
+
+        console.log("append addScript");
+ 
+       
+
     }
 
+   
+
     componentDidMount(){
-
-
-         
       
     }
 
@@ -39,23 +50,6 @@ class Carousel extends Component {
 
     render() {
     if (this.props.carousel.title != undefined) {
-
-        
-
-         //initialize swiper when document ready
-         var mySwiper = new Swiper ('.swiper-container', {
-            pagination: '.swiper-pagination',
-            slidesPerView: 'auto',
-            slidesPerGroup: 4,
-            spaceBetween: 0,
-            simulateTouch: false,
-            paginationClickable: true,
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            }
-          })
-
         return (
             <div className="card">
                 <div className="card-header">
@@ -101,7 +95,7 @@ class Carousel extends Component {
 
                     </div>
                 </div>
-            </div>
+            </div>  
         );
     } else {
         return (
