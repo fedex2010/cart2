@@ -1,4 +1,4 @@
-const   IndexNormandia      = require('./IndexController');
+const   IndexNormandia = require('./IndexController');
 const   CartControllers     = require('./CartControllers');
 const   NormandiaController = require('./NormandiaController');
 

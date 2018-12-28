@@ -7,7 +7,6 @@ class indexController{
 
     renderApp(req, res) {
         const brand = res.locals.xBrand.toLowerCase();
-        console.log("norma");
         RestClient.normandia.getTemplate("desktop",brand,false)
             .then((normandia)=>{
                 return res.render(

@@ -11,9 +11,12 @@ class RestClient {
         this._restConnector = new RestConnector();
     }
 
-    getOneCart(cartId,options={},brand) {
+    getOneCart(cartId,options={},brand,include=true) {
         let url = `${CHECKOUT_CORE_URL}/carts/` + cartId ;
+        if(include)
+            url = url+"?include=cartdata";
         options.headers = {"Content-Type": "application/json", "X-Brand": brand};
+        console.log("url: "+url)
         return this._restConnector.get(url,options);
     }
 

@@ -1,7 +1,21 @@
 import React, {Component} from "react"
 
 class ProductWarranty extends Component{
+
+    _optionsRender(productWarranty){
+        let li = []
+            for (var i in productWarranty) {
+            if (productWarranty.hasOwnProperty(i)) {
+                console.log( i + " = " + productWarranty[i] + "\n");
+                li.push("<li>"+productWarranty[i].period+"</li>")
+            }
+        }
+        console.log(li);
+    }
+
     render(){
+        let productsWarranty = this.props.item;
+        let liWarranty = this._optionsRender(productsWarranty)
         return  (
             <div className="cart-item-warranties">
                 <p>
@@ -10,34 +24,7 @@ class ProductWarranty extends Component{
                     por robo y daños!
                 </p>
                 <ul className="cart-item-warranties--list">
-                    <li>
-                        <label>
-                            <input type="checkbox" />
-                            <a href="#">12 meses</a> de protección por{" "}
-                            <strong>$1.549</strong> ó 12 cuotas de <strong>$192</strong>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" />
-                            <a href="#">24 meses</a> de protección por{" "}
-                            <strong>$1.549</strong> ó 12 cuotas de <strong>$192</strong>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" />
-                            <a href="#">36 meses</a> de protección por{" "}
-                            <strong>$1.549</strong> ó 12 cuotas de <strong>$192</strong>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox" />
-                            <a href="#">48 meses</a> de protección por{" "}
-                            <strong>$1.549</strong> ó 12 cuotas de <strong>$192</strong>
-                        </label>
-                    </li>
+
                 </ul>
             </div>
         )
