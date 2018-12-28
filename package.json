@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "js-cookie": "^2.2.0",
+    "node-fetch": "^2.3.0",
     "universal-cookie": "^3.0.7"
   }
 }
