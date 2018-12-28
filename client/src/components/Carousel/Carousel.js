@@ -24,8 +24,6 @@ class Carousel extends Component {
 
 
         console.log("append addScript");
- 
-       
 
     }
 
@@ -68,13 +66,13 @@ class Carousel extends Component {
                     <div className=" carousel-slider carousel-slider--has-padding swiper-wrapper">
                             {
                                 this.props.carousel.products.map(product => (
-                                    <div className="carousel-item hover-box swiper-slide">
+                                    <div className="carousel-item hover-box swiper-slide carousel-item--with-actions">
+                                        <div className="carousel-item-content">
                                         <picture>
                                             <img
-                                                src="https://via.placeholder.com/160x160"
-                                                alt="product name"
-                                                itemProp="image"
-                                            />
+                                                src={product.main_image.url}
+                                                alt={product.description}
+                                                itemProp="image"/>
                                         </picture>
                                         <h3>{product.description}</h3>
                                         <div className="itemBox--price">
@@ -84,11 +82,14 @@ class Carousel extends Component {
                                               <span className="value-item--discount">{product.discount}% OFF</span>
                                             </span>
                                         </div>
-                                        <a onClick={this.handleGetProduct.bind(this)} className="btn_see_detail">
-                                            Ver detalle
-                                        </a>
-                                        <button className="button--primary button--xs" onClick={this.handleAddProduct.bind(this,product.xid,product.price)}>Agregar</button>
-                                    </div>
+                                        </div>
+
+                                            <div className="carousel-item-actions">
+                                                <a onClick={this.handleGetProduct.bind(this)}  className="button--link button--xs">Ver detalle</a>
+                                                <button className="button--primary button--xs" onClick={this.handleAddProduct.bind(this,product.xid,product.price)}>Agregar</button>
+                                            </div>
+
+                                        </div>
                                     )
                                 )
                             }

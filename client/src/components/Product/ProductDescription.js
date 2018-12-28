@@ -40,7 +40,7 @@ class ProductDescription extends Component {
                     <div className="cart-item-column">
                         <picture className="cart-item-image">
                             <img
-                                src="https://via.placeholder.com/65x65"
+                                src={product.main_image.url}
                                 alt="product name"
                                 itemProp="image"
                             />

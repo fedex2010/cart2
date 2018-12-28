@@ -22,11 +22,9 @@ class CartControllers {
   getCart(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let cartId = req.params.cartId;
-    console.log("cart");
-    console.log(cartId);
     RestClient.cartClient.getOneCart(cartId, {}, brand)
       .then(cart => {
-        //isEmpresarias(req,res)
+        cart = _replaceImage(cart);
         res.send(cart);
       })
       .catch(err => {
@@ -59,6 +57,9 @@ class CartControllers {
           .then(product => {
               products.id=carousel.id
               products.title=carousel.title
+              product.map((prod)=>{
+                  prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url)
+              })
               products.products=product
             res.send(products);
           })
@@ -273,6 +274,32 @@ class CartControllers {
         res.status(500).send("Fail set warranty to cart");
       });
   }
+}
+
+function _replaceImage(cart) {
+    console.log("-----------------");
+    console.log(cart.products);
+    console.log("-----------------");
+    cart.products.map((product)=>{
+        product.main_image.url = getProductImageCloudfrontV2(product.main_image.url)
+    })
+    return cart
+}
+
+function getProductImageCloudfrontV2(url){
+
+    if(url.indexOf("noImage") == -1){
+
+        var product_image_sha = url.split("/");
+        product_image_sha = product_image_sha[product_image_sha.length-1];
+        var cloudfront_v2 = "//d34zlyc2cp9zm7.cloudfront.net/";
+        var cloudfront_products = "products/";
+        var extension = ".webp";
+        var tamano = "_200";
+        url = cloudfront_v2 + cloudfront_products + product_image_sha + extension + tamano;
+    }
+
+    return url;
 }
 
 module.exports = CartControllers;
