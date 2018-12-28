@@ -13,10 +13,27 @@ class ProductDescription extends Component {
         this.props.updateQuantityProduct(cartId,product_id,quantity)
     }
 
+    _showStatus(saleable){
+        let clasStatus ="cart-item-tag cart-item-tag--error";
+        let clasStatusNone ="cart-item-tag cart-item-tag--error displaynone";
+
+        return (!saleable)?clasStatus:clasStatusNone;
+    }
+
+    _showDiscount(discount){
+        let classDiscount ="cart-item-tag cart-item-tag--success";
+        let classDiscountNone ="cart-item-tag cart-item-tag--success displaynone";
+
+        return (!discount)?classDiscount:classDiscountNone;
+    }
+
 
     render(){
         let product = this.props.item;
         let cartId = Cookie.get("cartId")
+
+        let showStatus      =   this._showStatus(product.validations.saleable)
+        let showDiscount    =   this._showDiscount(product.validations.saleable);
         return(
             <div className="cart-item card">
                 <div className="cart-item-detail"  itemScope  itemType="http://schema.org/Offer">
@@ -35,10 +52,10 @@ class ProductDescription extends Component {
                                 {product.description}
                             </a>
                         </h3>
-                        <span className="cart-item-tag cart-item-tag--error">
+                        <span className={showStatus}>
                           Agotado
                         </span>
-                        <span className="cart-item-tag cart-item-tag--success">
+                        <span className={showDiscount}>
                           Bonificación aplicada
                         </span>
                     </div>
