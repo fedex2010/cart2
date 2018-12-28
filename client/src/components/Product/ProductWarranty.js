@@ -29,9 +29,10 @@ class ProductWarranty extends Component{
         return (li);
     }
 
-    _onSelectOption(id,product_id){
-        let cartId = Cookie.get("cartId")
-        this.props.editWarranty(cartId,product_id,id)
+    _onSelectOption(id,product_id,event){
+        let cartId = Cookie.get("cartId");
+        if(!event.target.checked) id="DEFAULT_FACTORY";
+        this.props.editWarranty(cartId,product_id,id);
     }
 
 
@@ -40,7 +41,7 @@ class ProductWarranty extends Component{
         if(typeof this.props.item != "undefined"){
             let productsWarranty = this.props.item;
             let product_id       = this.props.products;
-            console.log("------dd-------"+product_id);
+            let checked;
             let liWarranty = this._optionsRender(productsWarranty);
 
             return  (
@@ -52,8 +53,9 @@ class ProductWarranty extends Component{
                     </p>
                     <ul className="cart-item-warranties--list">
                         {
-                            liWarranty.map((item, i)=>{
-                                return (<li><label><input type="checkbox" onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#">{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.round(item.price/12)}</strong></label></li>)
+                            liWarranty.map((item)=>{
+                                checked = (this.props.warranty_id != "DEFAULT_FACTORY" && this.props.warranty_id == item.id)?true:false;
+                                return (<li><label><input type="checkbox" value={item.id} checked={ checked } onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#">{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.round(item.price/12)}</strong></label></li>)
                             })
                         }
                     </ul>

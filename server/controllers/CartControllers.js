@@ -167,8 +167,6 @@ class CartControllers {
       couponCode = req.body.coupon_code,
       brand = res.locals.xBrand.toLowerCase();
 
-    console.log(cartId);
-    console.log(couponCode);
     RestClient.promotion.addCoupon(cartId, couponCode, brand)
       .then(coupon => {
         res.send(coupon);
@@ -261,13 +259,8 @@ class CartControllers {
       brand = res.locals.xBrand.toLowerCase();
     RestClient.productClient.setWarranty(cartId, productId, warrantyId, brand)
       .then(product => {
-        console.log("holaaaaaaaa");
-        console.log(cartId);
-        console.log("holaaaaaaaa");
         this._getOneCart(cartId,req,res)
             .then(cart => {
-              console.log("carttttttttt");
-              console.log(cart);
                 res.send(cart);
             })
             .catch(err => {

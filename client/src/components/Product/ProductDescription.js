@@ -61,14 +61,14 @@ class ProductDescription extends Component {
                         <strong className="cart-item-column-data">${product.subtotal_price}</strong>
                     </div>
 
-                    {/* --  onClick={this._handleDeleteProduct.bind(this,product.product_id)} --*/}
                     <a className="has-tooltip gui-icon-trash icon--md" data-toggle="modal" data-target="#delete-product" >
                         <span className="tooltip_bottomCenter">Eliminar</span>
                     </a>
                 </div>
                 <ProductWarranty
                     item={product.warranties}
-                    products={product.product_id} />
+                    products={product.product_id}
+                    warranty_id={product.warranty_id} />
                 <Modal item={product.product_id} cartId={cartId}/>
             </div>
         )
