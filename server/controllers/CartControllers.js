@@ -82,7 +82,9 @@ class CartControllers {
     if (cartId != null) {
       return RestClient.cartClient.getOneCart(cartId, {}, brand)
         .then(cart => {
-          return cart;
+            cart = _replaceImage(cart);
+            cart.percentage = calculateWarrantiesPercentage(cart);
+            return cart;
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart _getOneCart ,err:" + err);
