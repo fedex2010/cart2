@@ -1,5 +1,4 @@
 import { SET_CURRENT_CART, ADD_PRODUCT_CART, SET_CAROUSEL } from "./Types";
-import Cookies from "universal-cookie";
 
 export const fetchCart = id => dispatch => {
   fetch("/api/cart/" + id)
