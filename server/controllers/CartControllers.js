@@ -11,7 +11,7 @@ class CartControllers {
     let sellerId = "";
     let brand = res.locals.xBrand.toLowerCase();
 
-    return RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
+    RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
       .then(cart => {
         return cart;
       })
@@ -21,18 +21,39 @@ class CartControllers {
   }
 
   getCart(req, res) {
-    let brand = res.locals.xBrand.toLowerCase();
     let cartId = req.params.cartId;
-    RestClient.cartClient.getOneCart(cartId, {}, brand)
-      .then(cart => {
-        cart = _replaceImage(cart);
-        cart.percentage = calculateWarrantiesPercentage(cart);
-        res.send(cart);
-      })
-      .catch(err => {
-        logger.error("[" + cartId + "] Fail get cart,err:" + err);
-        res.status(500).send("Fail get cart");
-      });
+    let session_id = res.locals.session;
+    let sellerId = "";
+    let brand = res.locals.xBrand.toLowerCase();
+    console.log("************************");
+    console.log(cartId);
+    console.log("************************");
+    if(cartId!="undefined"){
+        RestClient.cartClient.getOneCart(cartId, {}, brand)
+            .then(cart => {
+                cart = _replaceImage(cart);
+                cart.percentage = calculateWarrantiesPercentage(cart);
+                res.send(cart);
+            })
+            .catch(err => {
+                logger.error("[" + cartId + "] Fail get cart,err:" + err);
+                res.status(500).send("Fail get cart");
+            });
+    }else{
+        console.log("nuevo1");
+        RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
+            .then(cart => {
+                cart = _replaceImage(cart);
+                cart.percentage = calculateWarrantiesPercentage(cart);
+                res.cookie('cartId',cart.cart_id);
+                console.log(cart.cart_id);
+                //res.send(cart);
+            })
+            .catch(err => {
+                res.status(500).send("Fail create cart");
+            });
+    }
+
   }
 
   isEmpresarias(req,res) {
@@ -58,9 +79,6 @@ class CartControllers {
       .then(carousel => {
             let productsPromise = this._filterProduct(carousel.products,cartId,{},res)
             productsPromise.then((productsResponse)=>{
-                console.log("prodpromise");
-                console.log(productsResponse);
-                console.log("prodpromise");
               return RestClient.productClient.getProducts(brand, productsResponse)
                   .then(product => {
                       products.id=carousel.id

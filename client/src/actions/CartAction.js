@@ -7,8 +7,6 @@ export const fetchCart = id => dispatch => {
             response => response.json()
         )
     .then(response => {
-      //const cookies = new Cookies();
-      //cookies.set("cartId", response.cart_id, { path: "/" });
       return dispatch({ type: SET_CURRENT_CART, payload: response });
     });
 };

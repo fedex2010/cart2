@@ -9,9 +9,9 @@ router.get("/",( req , res ) => controllers.cart.renderApp( req , res ))
 router.get("/cart/normandia", ( req , res) => controllers.normandia.getTemplate( req , res ))
 router.get("/health", ( req , res) => { res.status(200).send("OK");});
 router.get("/cart/:cartId/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
-router.get("/cart/summary", controllers.cart.summary);
-router.get("/cart/c_:cartId/warranty/:productId", controllers.cart.warrantyMobile);
-router.get("/cart/:cartId", controllers.cart.getCart);
+router.get("/cart/summary", ( req , res) => controllers.cart.summary( req , res ));
+router.get("/cart/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));
+router.get("/cart/:cartId", ( req , res) => controllers.cart.getCart( req , res ));
 
 router.post("/cart", urlencodedParser, ( req , res) => controllers.cart.addProduct(req , res));
 router.post("/cart/:cartId/cupon", jsonParser, controllers.cart.setCoupon);

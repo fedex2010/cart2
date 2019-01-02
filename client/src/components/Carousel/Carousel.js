@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {fetchCart, getCarousel, addProduct} from "../../actions/CartAction";
+import {getCarousel, addProduct} from "../../actions/CartAction";
 import Cookie from "js-cookie";
 
 
@@ -18,7 +18,9 @@ class Carousel extends Component {
 
     componentWillMount() {
         let cartId = Cookie.get("cartId")
-        this.props.getCarousel(cartId);
+        if(cartId!=undefined){
+            this.props.getCarousel(cartId);
+        }
 
         var addScript = document.createElement('script');
         addScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js');
