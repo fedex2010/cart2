@@ -6,13 +6,14 @@ WORKDIR /usr/src/app
 
 # Bundle app source
 ADD package.json /usr/src/app/package.json
+ADD client/package.json /usr/src/app/client/package.json
+ADD server/package.json /usr/src/app/server/package.json
 
 # Install app dependencies
 RUN npm config set registry http://registry.npmjs.org/
 RUN npm install --no-optional --production
 RUN npm install --no-optional --production --prefix client
 RUN npm install --no-optional --production --prefix server
-RUN npm install react-scripts@2.1.1 -g --silent
 
 # Bundle app source
 COPY . /usr/src/app
