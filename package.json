@@ -12,7 +12,10 @@
     "postinstall": "npm run clean && npm-run-all install-server install-client",
     "client": "cd client && npm run start",
     "server": "cd server && npm run dev",
-    "start-ui": "npm-run-all --parallel client server"
+    "normaGBJob": "cd client && node normaGBJob.js garbarino",
+    "normaCMJob": "cd client && node normaGBJob.js compumundo",
+    "garba-cart": "npm run normaGBJob && npm-run-all --parallel client server",
+    "compu-cart": "npm run normaCMJob && npm-run-all --parallel client server"
   },
   "keywords": [],
   "author": "",

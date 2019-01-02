@@ -6,8 +6,22 @@ var jsInlineList = "";
 var cssInlineList = "";
 var data = fs.readFileSync("indexTemplate.html", "utf-8");
 
-fetch("https://ci.garbarino.com/normandia/template/all?analytics=off&webp=true")
+fs.unlink("./public/index.html", err => {
+  if (err) console.log("./public/index.html was deleted");
+});
+
+var baseUrl =
+  process.argv[2] === "garbarino"
+    ? "https://ci.garbarino.com/normandia"
+    : "https://ci.compumundo.com.ar/normandia";
+
+baseUrl += "/template/all?analytics=off&webp=true";
+
+console.log(baseUrl);
+
+fetch(baseUrl)
   .then(res => res.json())
+  .catch(err => console.error(err))
   .then(json => {
     var cssTemplate =
       '<link href="<inline CSS>" rel="stylesheet" type="text/css">\n';
@@ -31,5 +45,6 @@ fetch("https://ci.garbarino.com/normandia/template/all?analytics=off&webp=true")
 
     fs.writeFileSync("./public/index.html", newIndex, "utf-8");
 
-    console.log("norma inject complete");
-  });
+    console.log("norma inject in " + process.argv[2] + " complete");
+  })
+  .catch(err => console.error(err));
