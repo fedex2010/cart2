@@ -1,7 +1,10 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 /*GENERAL*/
-.main-wrapper, .gb-wrapper, .main-container, .cart-wrapper {
+.main-wrapper,
+.gb-wrapper,
+.main-container,
+.cart-wrapper {
   max-width: 1366px;
   min-width: 320px;
   margin-right: auto;
@@ -9,14 +12,17 @@
   text-align: left;
   padding-left: 32px;
   padding-right: 32px;
-  margin-bottom: 32px;
+}
+header .gb-wrapper {
+  margin-bottom: 0px;
 }
 /*MODAL*/
+
 .modal-open .gui-modal {
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 /*ESTRUCTURA*/
-.product-summary-gbChk{
+.product-summary-gbChk {
   position: relative;
   .summary-gbChk {
     position: relative;
@@ -41,7 +47,7 @@
       position: fixed;
       right: 175px;
       top: 150px;
-      width: 27.120100%;
+      width: 27.1201%;
       padding-left: 15px;
       padding-right: 15px;
     }
@@ -53,20 +59,9 @@
   display: none !important;
 }
 
+@import "./styles/GUI/_variables/_variables.scss";
+@import "./styles/GUI/_variables/_variables-garba.scss";
+@import "./styles/GUI/_mixins/mixins.scss";
+@import "./styles/GUI/_components/components.scss";
 
-
-
-@import './styles/GUI/_variables/_variables.scss';
-@import './styles/GUI/_variables/_variables-garba.scss';
-@import './styles/GUI/_mixins/mixins.scss';
-@import './styles/GUI/_components/components.scss';
-
-@import './styles/cart/cart';
-
-
-
-
-
-
-
-
+@import "./styles/cart/cart";

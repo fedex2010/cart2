@@ -12,7 +12,10 @@
     "postinstall": "npm run clean && npm-run-all install-server install-client",
     "client": "cd client && npm run start",
     "server": "cd server && npm run dev",
-    "start-ui": "npm-run-all --parallel client server"
+    "normaGBJob": "cd client && node normaJob.js garbarino",
+    "normaCMJob": "cd client && node normaJob.js compumundo",
+    "garba-cart": "npm run normaGBJob && npm-run-all --parallel client server",
+    "compu-cart": "npm run normaCMJob && npm-run-all --parallel client server"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +26,7 @@
   },
   "dependencies": {
     "js-cookie": "^2.2.0",
+    "node-fetch": "^2.3.0",
     "universal-cookie": "^3.0.7"
   }
 }

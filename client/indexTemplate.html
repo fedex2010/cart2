@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <meta name="cache-control" content="no-cache" />
+    <meta name="expires" content="0" />
+    <meta name="pragma" content="no-cache" />
+    <!-- GARBA-UI -->
+    <link
+      rel="stylesheet"
+      href="http://ui-doc.garba.ninja/dist/stylesheets/styles.css"
+    />
+    <!-- GARBA-UI -->
+    <!-- <norma CSS> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link
+      rel="external"
+      id="map-marker-icon"
+      href="//d16pzmpb3xz65p.cloudfront.net/statics/1.0.37/images/map/marker.png"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css"
+    />
+    <title>Garbarino</title>
+  </head>
+  <body>
+    <!-- <norma Header> -->
+    <div id="root"></div>
+    <!-- <norma Footer> -->
+
+    <!-- ARREGLAR ESTO -->
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-latest.js"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js"></script>
+    <script type="text/javascript">
+      window.addEventListener("load", function() {
+        window.loaded = true;
+      });
+
+      function logLoaded() {
+        console.log("loaded");
+        //initialize swiper when document ready
+        var mySwiper = new Swiper(".swiper-container", {
+          pagination: ".swiper-pagination",
+          slidesPerView: "auto",
+          slidesPerGroup: 4,
+          spaceBetween: 0,
+          simulateTouch: false,
+          paginationClickable: true,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          }
+        });
+      }
+
+      (function listen() {
+        if (window.loaded) {
+          logLoaded();
+        } else {
+          console.log("notLoaded");
+          window.setTimeout(listen, 50);
+        }
+      })();
+    </script>
+
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-latest.js"
+    ></script>
+
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- ARREGLAR ESTO -->
+
+    <!-- GARBA-UI -->
+    <script src="http://ui-doc.garba.ninja/js/header.js"></script>
+    <script src="http://ui-doc.garba.ninja/js/popover-popup.js"></script>
+    <script src="http://ui-doc.garba.ninja/js/TweenLite.min.js"></script>
+    <script src="http://ui-doc.garba.ninja/js/EasePack.min.js"></script>
+    <script src="http://ui-doc.garba.ninja/js/rAF.js"></script>
+    <script src="http://ui-doc.garba.ninja/js/demo-3.js"></script>
+    <script src="http://ui-doc.garba.ninja/js/bootstrap.min.js"></script>
+    <!-- GARBA-UI -->
+    <!-- <norma Js> -->
+  </body>
+</html>
