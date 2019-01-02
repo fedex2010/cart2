@@ -28,8 +28,8 @@ export const addProduct = product => dispatch => {
     });
 };
 
-export const getCarousel = () => dispatch => {
-  fetch("api/cart/carousel")
+export const getCarousel = (cartId) => dispatch => {
+  fetch("api/cart/" + cartId + "/carousel")
     .then(response => response.json())
     .then(response => {
       dispatch({ type: SET_CAROUSEL, payload: response });
