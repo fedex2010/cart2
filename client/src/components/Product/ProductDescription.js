@@ -30,6 +30,7 @@ class ProductDescription extends Component {
 
     render(){
         let product = this.props.item;
+        let percentage = this.props.percentage;
         let cartId = Cookie.get("cartId")
 
         let showStatus      =   this._showStatus(product.validations.saleable)
@@ -85,7 +86,8 @@ class ProductDescription extends Component {
                 <ProductWarranty
                     item={product.warranties}
                     products={product.product_id}
-                    warranty_id={product.warranty_id} />
+                    warranty_id={product.warranty_id}
+                    percentage = {percentage}/>
                 <Modal item={product.product_id} cartId={cartId}/>
             </div>
         )

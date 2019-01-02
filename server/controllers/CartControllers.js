@@ -25,6 +25,7 @@ class CartControllers {
     RestClient.cartClient.getOneCart(cartId, {}, brand)
       .then(cart => {
         cart = _replaceImage(cart);
+        cart.percentage = calculateWarrantiesPercentage(cart);
         res.send(cart);
       })
       .catch(err => {
@@ -277,9 +278,6 @@ class CartControllers {
 }
 
 function _replaceImage(cart) {
-    console.log("-----------------");
-    console.log(cart.products);
-    console.log("-----------------");
     cart.products.map((product)=>{
         product.main_image.url = getProductImageCloudfrontV2(product.main_image.url)
     })
@@ -300,6 +298,25 @@ function getProductImageCloudfrontV2(url){
     }
 
     return url;
+}
+
+function calculateWarrantiesPercentage(cart) {
+    let porcentajeInteres;
+    cart.payment_options.map(function (payment_option) {
+        if (payment_option.card.name == "Visa") {
+            if (typeof payment_option.payment_methods != "undefined" && payment_option.payment_methods != null) {
+                payment_option.payment_methods.map(function (payment_method) {
+                    payment_method.payment_method_data.map(function (data) {
+                        if (porcentajeInteres == undefined && data.installment_price.installments == 12) {
+                            porcentajeInteres = (parseFloat(data.installment_price.surcharge) * 100) / parseFloat(data.installment_price.base_price);
+                        }
+                    });
+                });
+            }
+        }
+    });
+
+    return porcentajeInteres
 }
 
 module.exports = CartControllers;

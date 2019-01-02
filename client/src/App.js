@@ -102,7 +102,10 @@ class App extends Component {
               </div>
               <div className="product-summary-gbChk row">
                 <div className="product-gbChk col-md-8">
-                  <Product product={this.props.cart.products} />
+                  <Product
+                    product={this.props.cart.products}
+                    percentage={this.props.cart.percentage}
+                  />
                 </div>
                 <div className="summary-gbChk col-md-4">
                   <Summary
