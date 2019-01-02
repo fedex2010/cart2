@@ -13,11 +13,12 @@ class Product extends Component {
 
   render() {
     let products = this.props.product;
+    let percentage = this.props.percentage;
     if (products !== undefined) {
       return (
         <div>
             {
-                products.map(product => (<ProductDescription item={product} />))
+                products.map(product => (<ProductDescription item={product} percentage={percentage}/>))
             }
         </div>
       );

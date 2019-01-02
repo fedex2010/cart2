@@ -7,11 +7,14 @@ import {connect} from "react-redux";
 class ProductWarranty extends Component{
 
     _optionsRender(productWarranty){
+        let percentage = this.props.percentage;
         let li = []
         for (var i in productWarranty) {
             if (productWarranty.hasOwnProperty(i)) {
                 productWarranty[i].period=productWarranty[i].period.split(" ")
-                li.push({id:productWarranty[i].warranty_id,prod:productWarranty[i].period[0],price:productWarranty[i].price})
+                let interest = (parseFloat(percentage) * parseFloat(productWarranty[i].price)) / 100;
+                let installment_price = (productWarranty[i].price + interest) / 12;
+                li.push({id:productWarranty[i].warranty_id,prod:productWarranty[i].period[0],price:productWarranty[i].price,installment_price:installment_price})
             }
         }
 
@@ -55,7 +58,7 @@ class ProductWarranty extends Component{
                         {
                             liWarranty.map((item)=>{
                                 checked = (this.props.warranty_id != "DEFAULT_FACTORY" && this.props.warranty_id == item.id)?true:false;
-                                return (<li><label><input type="checkbox" value={item.id} checked={ checked } onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#">{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.round(item.price/12)}</strong></label></li>)
+                                return (<li><label><input type="checkbox" value={item.id} checked={ checked } onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#">{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
                             })
                         }
                     </ul>
