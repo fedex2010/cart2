@@ -45,9 +45,11 @@ class CartControllers {
             .then(cart => {
                 cart = _replaceImage(cart);
                 cart.percentage = calculateWarrantiesPercentage(cart);
+                res.cookie("epi.context",session_id);
                 res.cookie('cartId',cart.cart_id);
+                console.log('cookie created successfully');
                 console.log(cart.cart_id);
-                //res.send(cart);
+                res.send(cart);
             })
             .catch(err => {
                 res.status(500).send("Fail create cart");
@@ -73,31 +75,23 @@ class CartControllers {
 
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
-    let cartId = req.params.cartId;
     let products={};
     RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
-            let productsPromise = this._filterProduct(carousel.products,cartId,{},res)
-            productsPromise.then((productsResponse)=>{
-              return RestClient.productClient.getProducts(brand, productsResponse)
-                  .then(product => {
-                      products.id=carousel.id
-                      products.title=carousel.title
-                      product.map((prod)=>{
-                          prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url)
-                      })
-                      products.products=product;
-                      res.send(products);
-                  })
-                  .catch(err => {
-                      console.log(err);
-                      res.status(500).send("Fail get carousel product");
-                  });
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).send("Fail get carousel product filter");
-                });
+        return RestClient.productClient.getProducts(brand, carousel.products)
+          .then(product => {
+              products.id=carousel.id
+              products.title=carousel.title
+              product.map((prod)=>{
+                  prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url)
+              })
+              products.products=product
+            res.send(products);
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).send("Fail get carousel product");
+          });
       })
       .catch(err => {
         console.log(err);
@@ -319,19 +313,23 @@ class CartControllers {
 
   _filterProduct(products, cartId, req, res){
       const deferred = Q.defer();
-
-      this._getOneCart(cartId,req,res)
+      deferred.resolve(products)
+      return deferred.promise;
+      /*this._getOneCart(cartId,req,res)
           .then(cart => {
-              const productIds = cart.products.map(it => it.product_id);
-              console.log("filter: "+productIds);
-              deferred.resolve(products.filter(it => productIds.indexOf(it) == -1))
+              if(cart.products.length>=1) {
+                  const productIds = cart.products.map(it => it.product_id);
+                  deferred.resolve(products.filter(it => productIds.indexOf(it) == -1))
+              }else{
+                  deferred.resolve(products)
+              }
           })
           .catch(err => {
               logger.error("[" + cartId + "] Fail get cart carousel ,err:" + err);
               deferred.reject("Fail get cart carousel")
-          });
+          });*/
 
-      return deferred.promise;
+      //return deferred.promise;
   }
 }
 

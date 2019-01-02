@@ -10,6 +10,14 @@ export const fetchCart = id => dispatch => {
     });
 };
 
+export const getCarousel = (cartId) => dispatch => {
+    fetch("api/cart/carousel")
+        .then(response => response.json())
+        .then(response => {
+            dispatch({ type: SET_CAROUSEL, payload: response });
+        });
+};
+
 export const addProduct = product => dispatch => {
   fetch("api/cart/", {
     method: "POST",
@@ -21,15 +29,7 @@ export const addProduct = product => dispatch => {
   })
     .then(response => response.json())
     .then(response => {
-      dispatch({ type: SET_CURRENT_CART, payload: response });
-    });
-};
-
-export const getCarousel = (cartId) => dispatch => {
-  fetch("api/cart/" + cartId + "/carousel")
-    .then(response => response.json())
-    .then(response => {
-      dispatch({ type: SET_CAROUSEL, payload: response });
+        dispatch({ type: SET_CURRENT_CART, payload: response });
     });
 };
 

@@ -10,7 +10,7 @@ export default (state = initialState, action = {}) => {
     case SET_CURRENT_CART:
       return {
         ...state,
-        cart: action.payload
+        cart: action.payload,
       };
       case SET_CAROUSEL:
         return{

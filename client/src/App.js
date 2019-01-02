@@ -122,7 +122,7 @@ class App extends Component {
               </div>
               <div className="carousel row">
                 <div className="col-md-12">
-                  <Carousel />
+                  <Carousel data={this.props.cart.products}/>
                 </div>
               </div>
             </section>

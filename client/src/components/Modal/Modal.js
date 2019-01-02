@@ -13,8 +13,8 @@ class Modal extends Component {
   render() {
     let product = this.props.item;
     let cartId = this.props.cartId
-    console.log("Product",product)
-    console.log("CarTID",cartId)
+    //console.log("Product",product)
+    //console.log("CarTID",cartId)
       return(
 
         <div>
@@ -105,7 +105,6 @@ class Modal extends Component {
   }
 }
 const mapStateToProps = state => {
-    console.log(state); // state
     return { product: state.cartReducer.product };
 };
 
