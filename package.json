@@ -15,7 +15,7 @@
     "server": "cd server && npm run start",
     "normaGBJob": "cd client && node normaJob.js garbarino",
     "normaCMJob": "cd client && node normaJob.js compumundo",
-    "garba-cart": "npm run normaGBJob && npm-run-all --parallel client server-dev",
+    "garba-cart": "npm-run-all --parallel client server-dev",
     "compu-cart": "npm run normaCMJob && npm-run-all --parallel client server-dev",
     "start-ci": "npm run normaGBJob && npm-run-all --parallel client server"
   },
