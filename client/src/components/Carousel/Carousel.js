@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {getCarousel, addProduct} from "../../actions/CartAction";
 import Cookie from "js-cookie";
-
-
-import Swiper from "swiper";
-
-
-
-
+import Swiper from 'swiper'
 
 class Carousel extends Component {
 
@@ -17,52 +11,27 @@ class Carousel extends Component {
         this.props.getCarousel();
       }
 
-    
-
-    componentWillMount() {
-        var addScript = document.createElement('script');
-        addScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js');
-        document.body.appendChild(addScript);
-
-       
-
-        window.addEventListener("load", function() {
-            window.loaded = true;
-          });
-    
-          function logLoaded() {
-            
-            //initialize swiper when document ready
-            var mySwiper = new Swiper(".swiper-container", {
-              pagination: ".swiper-pagination",
-              slidesPerView: "auto",
-              slidesPerGroup: 4,
-              spaceBetween: 0,
-              simulateTouch: false,
-              paginationClickable: true,
-              navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev"
-              }
-            });
-          }
-    
-          (function listen() {
-            if (window.loaded) {
-              logLoaded();
-            } else {
-              console.log("notLoaded");
-              window.setTimeout(listen, 50);
-            }
-          })();
-
-    }
-
-
-   
+  
 
     componentDidMount(){
-    
+        window.onload = function () {
+            //initialize swiper when document ready
+            var mySwiper = new Swiper ('.swiper-container', {
+                slidesPerView: 'auto',
+                slidesPerGroup: 4,
+                spaceBetween: 0,
+                simulateTouch: false,
+                paginationClickable: true,
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                },
+            })
+          };
     }
 
 
@@ -79,6 +48,8 @@ class Carousel extends Component {
         alert("ficha")
     }
 
+
+
     render() {
     if (this.props.carousel.title != undefined) {
         const productIds = this.props.data.map((it => it.product_id));
@@ -90,19 +61,13 @@ class Carousel extends Component {
                         {this.props.carousel.title}
                     </h5>
                 </div>
-                <div className="carousel swiper-container">
-                    <a className="swiper-button-prev gb-carousel-module-control gb--prev">
-                        <span className="gb-icon-simple-bold-arrow-left" />
-                    </a>
-                    <a className="swiper-button-next gb-carousel-module-control gb--next">
-                        <span className="gb-icon-simple-bold-arrow-right" />
-                    </a>
-
-                    <div className=" carousel-slider carousel-slider--has-padding swiper-wrapper">
-                            {
-                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) == -1)).map(product => (
-                                    <div className="carousel-item hover-box swiper-slide carousel-item--with-actions">
-                                        <div className="carousel-item-content">
+                <div className="swiper-container">
+                <div className="carousel-slider carousel-slider--has-padding swiper-wrapper">
+                        {
+                            this.props.carousel.products.filter((it => productIds.indexOf(it.xid) == -1)).map(product => (
+                                <div className="carousel-item hover-box swiper-slide carousel-item--with-actions">
+                                    
+                                    <div className="carousel-item-content">
                                         <picture>
                                             <img
                                                 src={product.main_image.url}
@@ -119,17 +84,17 @@ class Carousel extends Component {
                                         </div>
                                         </div>
 
-                                            <div className="carousel-item-actions">
-                                                <a onClick={this.handleGetProduct.bind(this)}  className="button--link button--xs">Ver detalle</a>
-                                                <button className="button--primary button--xs" onClick={this.handleAddProduct.bind(this,product.xid,product.price)}>Agregar</button>
-                                            </div>
-
-                                        </div>
-                                    )
+                                        <div className="carousel-item-actions">
+                                            <a onClick={this.handleGetProduct.bind(this)}  className="button--link button--xs">Ver detalle</a>
+                                            <button className="button--primary button--xs" onClick={this.handleAddProduct.bind(this,product.xid,product.price)}>Agregar</button>
+                                        </div> 
+                                </div>
                                 )
-                            }
-
-                    </div>
+                            )
+                        }         
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
                 </div>
             </div>  
         );
