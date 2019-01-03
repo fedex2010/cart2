@@ -4,6 +4,9 @@ import {getCarousel, addProduct} from "../../actions/CartAction";
 import Cookie from "js-cookie";
 
 
+import Swiper from "swiper";
+
+
 
 
 
@@ -21,7 +24,37 @@ class Carousel extends Component {
         addScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js');
         document.body.appendChild(addScript);
 
-        console.log("append addScript");
+       
+
+        window.addEventListener("load", function() {
+            window.loaded = true;
+          });
+    
+          function logLoaded() {
+            
+            //initialize swiper when document ready
+            var mySwiper = new Swiper(".swiper-container", {
+              pagination: ".swiper-pagination",
+              slidesPerView: "auto",
+              slidesPerGroup: 4,
+              spaceBetween: 0,
+              simulateTouch: false,
+              paginationClickable: true,
+              navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev"
+              }
+            });
+          }
+    
+          (function listen() {
+            if (window.loaded) {
+              logLoaded();
+            } else {
+              console.log("notLoaded");
+              window.setTimeout(listen, 50);
+            }
+          })();
 
     }
 
@@ -29,7 +62,7 @@ class Carousel extends Component {
    
 
     componentDidMount(){
-      
+    
     }
 
 
