@@ -43,7 +43,7 @@ class Summary extends Component {
                   <label>Subtotal</label>
                   <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? this.props.subtotalPrice : '0'}</span>
                 </li>
-                <li>
+                <li className="displaynone">
                   <label>IVA</label>
                   <span className="summary-detail-value">$21.296</span>
                 </li>

@@ -206,7 +206,14 @@ class CartControllers {
 
     RestClient.promotion.addCoupon(cartId, couponCode, brand)
       .then(coupon => {
-        res.send(coupon);
+          this._getOneCart(cartId,req,res)
+              .then(cart => {
+                  res.send(cart);
+              })
+              .catch(err => {
+                  logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
+                  res.status(500).send("Fail get a update cart coupon");
+              });
       })
       .catch(err => {
         logger.error(

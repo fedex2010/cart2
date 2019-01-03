@@ -87,3 +87,20 @@ export const deleteProduct = (productId) => dispatch => {
              dispatch({ type: SET_CURRENT_CART, payload: response });
         });
 };
+
+export const addCoupon = (couponId,cartId) => dispatch => {
+    let data={};
+    data.coupon_code = couponId;
+    fetch("api/cart/"+cartId+"/cupon", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(response => {
+            dispatch({ type: SET_CURRENT_CART, payload: response });
+        });
+};
