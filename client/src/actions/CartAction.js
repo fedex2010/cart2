@@ -1,12 +1,15 @@
 import { SET_CURRENT_CART, ADD_PRODUCT_CART, SET_CAROUSEL } from "./Types";
 
 export const fetchCart = id => dispatch => {
+    console.log("fetchhh");
   fetch("/api/cart/" + id)
     .then(
             response => response.json()
         )
     .then(response => {
       return dispatch({ type: SET_CURRENT_CART, payload: response });
+    }).catch((err)=>{
+      console.log("errr"+err)
     });
 };
 
@@ -15,6 +18,8 @@ export const getCarousel = (cartId) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response });
+        }).catch((err)=>{
+            console.log("errr"+err)
         });
 };
 
@@ -30,6 +35,8 @@ export const addProduct = product => dispatch => {
     .then(response => response.json())
     .then(response => {
         dispatch({ type: SET_CURRENT_CART, payload: response });
+    }).catch((err)=>{
+      console.log("errr"+err)
     });
 };
 
@@ -49,6 +56,8 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
+        }).catch((err)=>{
+            console.log("errr"+err)
         });
 };
 
@@ -69,6 +78,8 @@ export const editWarranty =(cartId,productId,warrantyId) => dispatch =>{
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
+        }).catch((err)=>{
+            console.log("errr"+err)
         });
 
 };
@@ -84,7 +95,10 @@ export const deleteProduct = (productId) => dispatch => {
         })
         .then(response => response.json())
         .then(response => {
+            console.log("dispatch");
              dispatch({ type: SET_CURRENT_CART, payload: response });
+        }).catch((err)=>{
+            console.log("errr"+err)
         });
 };
 
@@ -102,5 +116,25 @@ export const addCoupon = (couponId,cartId) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
+        })
+        .catch((err)=>{
+            console.log("errr"+err)
         });
+};
+
+export const deleteCoupon = (couponId,cartId) => dispatch => {
+    fetch("api/cart/c_"+cartId+"/cupon/"+couponId, {
+        method: "DELETE",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+    })
+    .then(response => response.json())
+    .then(response => {
+        dispatch({ type: SET_CURRENT_CART, payload: response });
+    }).catch((err)=>{
+        this.fetchCart(cartId);
+        console.log("errr"+err)
+    });
 };

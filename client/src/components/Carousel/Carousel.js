@@ -47,9 +47,8 @@ class Carousel extends Component {
     }
 
     render() {
-    if (this.props.carousel.title != undefined) {
+    if (this.props.carousel.title != undefined && typeof this.props.data !== "undefined") {
         const productIds = this.props.data.map((it => it.product_id));
-
         return (
             <div className="card">
                 <div className="card-header">
@@ -178,7 +177,6 @@ class Carousel extends Component {
             </div>*/
 
 const mapStateToProps = state => {
-    console.log(state); // state
     return { carousel: state.cartReducer.carousel };
 };
 

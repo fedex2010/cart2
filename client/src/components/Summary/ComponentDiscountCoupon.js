@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import InputCouponApplied from "./InputCouponApplied";
+import Cookie from "js-cookie";
+import {deleteCoupon} from "../../actions/CartAction";
 
 class ComponentDiscountCoupon extends Component {
 
@@ -13,12 +15,20 @@ class ComponentDiscountCoupon extends Component {
     constructor() {
     super();
     this.state = {
+        item:{},
         selectedOption: 'discount-coupon1',
         checkedCoupon: false
     }
     }
     handleOptionChange = (changeEvent) => {
         this.setState({ selectedOption: changeEvent.target.value  })
+    }
+
+    _deleteCoupon(coupon,e){
+        let cartId = Cookie.get("cartId");
+        let couponId = coupon.coupon_id;
+        console.log("aaaaa"+cartId);
+        this.props.deleteCoupon("CHKTEST",cartId);
     }
 
   render() {
@@ -32,7 +42,8 @@ class ComponentDiscountCoupon extends Component {
     if (this.state.checkedCoupon) {
       displaynoneCheckboxDiscount = '';
     }
-    if (this.props.discountCoupon > 0) {
+    if (this.props.discountCoupon > 0 || this.props.coupon > 0) {
+
         return (
             <ul className="cart-additional-item">
             <li>
@@ -63,6 +74,9 @@ class ComponentDiscountCoupon extends Component {
           </ul>
         );
       } else {
+        let coupon = {}
+        if(typeof this.props.coupon != "undefined")
+            coupon = this.props.coupon[0];
         return (
             <div className="cart-additional-item">
             <label>
@@ -76,9 +90,20 @@ class ComponentDiscountCoupon extends Component {
             <div className={displaynoneCheckboxDiscount}>
                 <InputCouponApplied/>
             </div>
+            <div className="coupon-applied">
+                <span className="coupon-code">{coupon.coupon_id}</span>
+                <a href="#" onClick={this._deleteCoupon.bind(this,coupon)}>Eliminar</a>
+            </div>
           </div>
         );
     }
   }
 }
-export default ComponentDiscountCoupon;
+const mapStateToProps = state => {
+    return { item: state.cartReducer.item };
+};
+
+export default connect(
+    mapStateToProps,
+    { deleteCoupon }
+)(ComponentDiscountCoupon)

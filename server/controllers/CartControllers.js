@@ -219,7 +219,7 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
         );
-        res.status(500).send("Fail add coupon to cart");
+        res.status(500).send({erro:err});
       });
   }
 
@@ -227,10 +227,17 @@ class CartControllers {
     let cartId = req.params.cartId,
       couponCode = req.params.couponCode,
       brand = res.locals.xBrand.toLowerCase();
-
+    console.log("deleteeeeeeee");
     RestClient.promotion.deleteCoupon(cartId, couponCode, brand)
-      .then(coupon => {
-        res.send(coupon);
+      .then(() => {
+          this._getOneCart(cartId,req,res)
+              .then(cart => {
+                  res.send(cart);
+              })
+              .catch(err => {
+                  logger.error("[" + cartId + "] Fail get cart coupon delete ,err:" + err);
+                  res.status(500).send("Fail get a update cart coupon delete");
+              });
       })
       .catch(err => {
         logger.error(
