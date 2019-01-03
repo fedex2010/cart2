@@ -1,5 +1,6 @@
-const RestClient = require("../client"),
-  logger = require("../utils/logger");
+const   RestClient = require("../client"),
+        logger = require("../utils/logger"),
+        Q = require("q");
 
 class CartControllers {
   constructor() {
@@ -51,23 +52,34 @@ class CartControllers {
 
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
+    let cartId = req.params.cartId;
     let products={};
     RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
-        return RestClient.productClient.getProducts(brand, carousel.products)
-          .then(product => {
-              products.id=carousel.id
-              products.title=carousel.title
-              product.map((prod)=>{
-                  prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url)
-              })
-              products.products=product
-            res.send(products);
-          })
-          .catch(err => {
-            console.log(err);
-            res.status(500).send("Fail get carousel product");
-          });
+            let productsPromise = this._filterProduct(carousel.products,cartId,{},res)
+            productsPromise.then((productsResponse)=>{
+                console.log("prodpromise");
+                console.log(productsResponse);
+                console.log("prodpromise");
+              return RestClient.productClient.getProducts(brand, productsResponse)
+                  .then(product => {
+                      products.id=carousel.id
+                      products.title=carousel.title
+                      product.map((prod)=>{
+                          prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url)
+                      })
+                      products.products=product;
+                      res.send(products);
+                  })
+                  .catch(err => {
+                      console.log(err);
+                      res.status(500).send("Fail get carousel product");
+                  });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).send("Fail get carousel product filter");
+                });
       })
       .catch(err => {
         console.log(err);
@@ -82,7 +94,9 @@ class CartControllers {
     if (cartId != null) {
       return RestClient.cartClient.getOneCart(cartId, {}, brand)
         .then(cart => {
-          return cart;
+            cart = _replaceImage(cart);
+            cart.percentage = calculateWarrantiesPercentage(cart);
+            return cart;
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart _getOneCart ,err:" + err);
@@ -112,8 +126,15 @@ class CartControllers {
     this._getOneCart(cartId, req, res)
       .then(cart => {
         RestClient.productClient.addProduct(cart.cart_id, productId, 1, warranty_id, productPrice, "", "", brand )
-          .then(() => {
-            res.send(cart);
+          .then((cart) => {
+              this._getOneCart(cartId,req,res)
+                  .then(cart => {
+                      res.send(cart);
+                  })
+                  .catch(err => {
+                      logger.error("[" + cartId + "] Fail get cart add Product to cart,err:" + err);
+                      res.status(500).send("Fail get a add Product cart");
+                  });
           })
           .catch(err => {
             console.log(err);
@@ -157,7 +178,9 @@ class CartControllers {
 
     RestClient.productClient.deleteProduct(cartId, productId, brand)
       .then(cart => {
-        res.send(cart);
+          cart = _replaceImage(cart);
+          cart.percentage = calculateWarrantiesPercentage(cart);
+          res.send(cart);
       })
       .catch(e => {
         res.status(500).send("Something broke!");
@@ -274,6 +297,23 @@ class CartControllers {
         logger.error("[" + cartId + "] Fail set warranty to cart,err:" + err);
         res.status(500).send("Fail set warranty to cart");
       });
+  }
+
+  _filterProduct(products, cartId, req, res){
+      const deferred = Q.defer();
+
+      this._getOneCart(cartId,req,res)
+          .then(cart => {
+              const productIds = cart.products.map(it => it.product_id);
+              console.log("filter: "+productIds);
+              deferred.resolve(products.filter(it => productIds.indexOf(it) == -1))
+          })
+          .catch(err => {
+              logger.error("[" + cartId + "] Fail get cart carousel ,err:" + err);
+              deferred.reject("Fail get cart carousel")
+          });
+
+      return deferred.promise;
   }
 }
 

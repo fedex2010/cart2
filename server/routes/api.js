@@ -7,8 +7,8 @@ var express = require("express"),
 
 router.get("/",( req , res ) => controllers.cart.renderApp( req , res ))
 router.get("/cart/normandia", ( req , res) => controllers.normandia.getTemplate( req , res ))
-router.get("/health", function( req , res) { res.status(200).send("OK");});
-router.get("/cart/carousel", controllers.cart.getCarousel);
+router.get("/health", ( req , res) => { res.status(200).send("OK");});
+router.get("/cart/:cartId/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/cart/summary", controllers.cart.summary);
 router.get("/cart/c_:cartId/warranty/:productId", controllers.cart.warrantyMobile);
 router.get("/cart/:cartId", controllers.cart.getCart);
