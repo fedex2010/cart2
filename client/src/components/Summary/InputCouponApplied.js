@@ -24,7 +24,6 @@ class InputCouponApplied extends Component {
   render() {
     return (
       <div className="InputCouponApplied">
-      
         <div className="coupon-apply-form">
             {/*add class - form-control-error - to error input*/} 
             <input className="form-control form-control--sm" type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
@@ -39,7 +38,7 @@ class InputCouponApplied extends Component {
 }
 
 const mapStateToProps = state => {
-    return { input: state.cartReducer.input };
+    return { err: state.cartReducer.err };
 };
 
 export default connect(

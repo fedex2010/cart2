@@ -212,14 +212,14 @@ class CartControllers {
               })
               .catch(err => {
                   logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-                  res.status(500).send("Fail get a update cart coupon");
+                  res.status(200).send({erro:err});
               });
       })
       .catch(err => {
         logger.error(
           "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
         );
-        res.status(500).send({erro:err});
+        res.status(200).send({erro:err});
       });
   }
 
