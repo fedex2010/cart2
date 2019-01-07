@@ -9,6 +9,10 @@ class Alert extends Component {
     };
   }
 
+    _closeAlert(){
+      alert("cierroooo")
+    }
+
   _isBonificacion(cart){
       let cssMsj = "feedback feedback-success feedback-dismissible";
       let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
@@ -16,38 +20,26 @@ class Alert extends Component {
       let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status == 'VALID' && p.promotion.total_discount > 0;}).length > 0;
       let hasBonification = hasPriceMatchingDiscount || hasPolcom;
       let hasCoupon = cart.couponAmount > 0;
+      let msj = "";
 
       if(hasCoupon){
-          return(
-              <div className={cssMsj}>
-                  <button type="button" className="feedback--btn-close" />
-                  ¡Buenas noticias! Tenes un cupón de descuento aplicado.
-              </div>
-          );
+          msj = "¡Buenas noticias! Tenes un cupón de descuento aplicado."
       }else{
           if(hasCrosseling && hasBonification){
-              return(
-                  <div className={cssMsj}>
-                      <button type="button" className="feedback--btn-close" />
-                      ¡Buenas noticias! Tenés un descuento especial por producto combinado y bonificación.
-                  </div>
-              );
+            msj = "¡Buenas noticias! Tenés un descuento especial por producto combinado y bonificación.";
           }else if(hasCrosseling){
-              return(
-                  <div className={cssMsj}>
-                      <button type="button" className="feedback--btn-close" />
-                      ¡Buenas noticias! Tenés un descuento especial por producto combinado.
-                  </div>
-              );
+            msj = "¡Buenas noticias! Tenés un descuento especial por producto combinado.";
           }else if(hasBonification){
-              return(
-                  <div className={cssMsj}>
-                      <button type="button" className="feedback--btn-close" />
-                      ¡Buenas noticias! Tenés un descuento especial por bonificación.
-                  </div>
-              );
+            msj = "¡Buenas noticias! Tenés un descuento especial por bonificación.";
           }
       }
+
+      return(
+          <div className={cssMsj}>
+              <button type="button" onClick={this._closeAlert.bind(this)} className="feedback--btn-close" />
+              {msj}
+          </div>
+      );
 
   }
 
@@ -76,7 +68,6 @@ class Alert extends Component {
 
   render() {
       if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
-          console.log("alert entre cart ");
           return(
               <div className="alert-message-gbChk col-md-12">
                   {this._isBonificacion(this.props.cart)}
