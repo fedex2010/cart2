@@ -11,7 +11,7 @@ class CartControllers {
     let sellerId = "";
     let brand = res.locals.xBrand.toLowerCase();
 
-    return RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
+    RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
       .then(cart => {
         return cart;
       })
@@ -21,18 +21,41 @@ class CartControllers {
   }
 
   getCart(req, res) {
-    let brand = res.locals.xBrand.toLowerCase();
     let cartId = req.params.cartId;
-    RestClient.cartClient.getOneCart(cartId, {}, brand)
-      .then(cart => {
-        cart = _replaceImage(cart);
-        cart.percentage = calculateWarrantiesPercentage(cart);
-        res.send(cart);
-      })
-      .catch(err => {
-        logger.error("[" + cartId + "] Fail get cart,err:" + err);
-        res.status(500).send("Fail get cart");
-      });
+    let session_id = res.locals.session;
+    let sellerId = "";
+    let brand = res.locals.xBrand.toLowerCase();
+    console.log("************************");
+    console.log(cartId);
+    console.log("************************");
+    if(cartId!="undefined"){
+        RestClient.cartClient.getOneCart(cartId, {}, brand)
+            .then(cart => {
+                cart = _replaceImage(cart);
+                cart.percentage = calculateWarrantiesPercentage(cart);
+                res.send(cart);
+            })
+            .catch(err => {
+                logger.error("[" + cartId + "] Fail get cart,err:" + err);
+                res.status(500).send("Fail get cart");
+            });
+    }else{
+        console.log("nuevo1");
+        RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
+            .then(cart => {
+                cart = _replaceImage(cart);
+                cart.percentage = calculateWarrantiesPercentage(cart);
+                res.cookie("epi.context",session_id);
+                res.cookie('cartId',cart.cart_id);
+                console.log('cookie created successfully');
+                console.log(cart.cart_id);
+                res.send(cart);
+            })
+            .catch(err => {
+                res.status(500).send("Fail create cart");
+            });
+    }
+
   }
 
   isEmpresarias(req,res) {
@@ -52,34 +75,23 @@ class CartControllers {
 
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
-    let cartId = req.params.cartId;
     let products={};
     RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
-            let productsPromise = this._filterProduct(carousel.products,cartId,{},res)
-            productsPromise.then((productsResponse)=>{
-                console.log("prodpromise");
-                console.log(productsResponse);
-                console.log("prodpromise");
-              return RestClient.productClient.getProducts(brand, productsResponse)
-                  .then(product => {
-                      products.id=carousel.id
-                      products.title=carousel.title
-                      product.map((prod)=>{
-                          prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url)
-                      })
-                      products.products=product;
-                      res.send(products);
-                  })
-                  .catch(err => {
-                      console.log(err);
-                      res.status(500).send("Fail get carousel product");
-                  });
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).send("Fail get carousel product filter");
-                });
+        return RestClient.productClient.getProducts(brand, carousel.products)
+          .then(product => {
+              products.id=carousel.id
+              products.title=carousel.title
+              product.map((prod)=>{
+                  prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url)
+              })
+              products.products=product
+            res.send(products);
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).send("Fail get carousel product");
+          });
       })
       .catch(err => {
         console.log(err);
@@ -194,13 +206,20 @@ class CartControllers {
 
     RestClient.promotion.addCoupon(cartId, couponCode, brand)
       .then(coupon => {
-        res.send(coupon);
+          this._getOneCart(cartId,req,res)
+              .then(cart => {
+                  res.send(cart);
+              })
+              .catch(err => {
+                  logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
+                  res.status(200).send({erro:err});
+              });
       })
       .catch(err => {
         logger.error(
           "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
         );
-        res.status(500).send("Fail add coupon to cart");
+        res.status(200).send({erro:err});
       });
   }
 
@@ -208,10 +227,17 @@ class CartControllers {
     let cartId = req.params.cartId,
       couponCode = req.params.couponCode,
       brand = res.locals.xBrand.toLowerCase();
-
+    console.log("deleteeeeeeee");
     RestClient.promotion.deleteCoupon(cartId, couponCode, brand)
-      .then(coupon => {
-        res.send(coupon);
+      .then(() => {
+          this._getOneCart(cartId,req,res)
+              .then(cart => {
+                  res.send(cart);
+              })
+              .catch(err => {
+                  logger.error("[" + cartId + "] Fail get cart coupon delete ,err:" + err);
+                  res.status(500).send("Fail get a update cart coupon delete");
+              });
       })
       .catch(err => {
         logger.error(
@@ -301,19 +327,23 @@ class CartControllers {
 
   _filterProduct(products, cartId, req, res){
       const deferred = Q.defer();
-
-      this._getOneCart(cartId,req,res)
+      deferred.resolve(products)
+      return deferred.promise;
+      /*this._getOneCart(cartId,req,res)
           .then(cart => {
-              const productIds = cart.products.map(it => it.product_id);
-              console.log("filter: "+productIds);
-              deferred.resolve(products.filter(it => productIds.indexOf(it) == -1))
+              if(cart.products.length>=1) {
+                  const productIds = cart.products.map(it => it.product_id);
+                  deferred.resolve(products.filter(it => productIds.indexOf(it) == -1))
+              }else{
+                  deferred.resolve(products)
+              }
           })
           .catch(err => {
               logger.error("[" + cartId + "] Fail get cart carousel ,err:" + err);
               deferred.reject("Fail get cart carousel")
-          });
+          });*/
 
-      return deferred.promise;
+      //return deferred.promise;
   }
 }
 

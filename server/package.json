@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "server": "npm start",
+    "server-ci": "PORT=3000 npm start",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {

@@ -17,7 +17,7 @@ class Summary extends Component {
         totalWarranties: {},
         specialDiscountAmount: {},
         discountCoupon:{},
-        coupons : {},
+        coupons : [],
         totalDiscounts: {},
         totalPrice: {}
     };
@@ -27,6 +27,10 @@ class Summary extends Component {
   }
   render() {
     {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
+    let couponClass = "highlight-benefit displaynone"
+    if(typeof this.props.coupons !== "undefined"){
+      couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
+    }
     return (
         <div className="summary">
           {/* resumen de compra */}
@@ -43,7 +47,7 @@ class Summary extends Component {
                   <label>Subtotal</label>
                   <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? this.props.subtotalPrice : '0'}</span>
                 </li>
-                <li>
+                <li className="displaynone">
                   <label>IVA</label>
                   <span className="summary-detail-value">$21.296</span>
                 </li>
@@ -51,7 +55,7 @@ class Summary extends Component {
                   <label>Garantías</label>
                   <span className="summary-detail-value">${this.props.totalWarranties > 0 ? this.props.totalWarranties : '0'}</span>
                 </li>
-                <li className={this.props.coupons > 0 ? 'highlight-benefit' : 'highlight-benefit displaynone'}>
+                <li className={couponClass}>
                   <label>Descuento por cupón</label>
                   <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? this.props.totalDiscounts : '0'}</span>
                 </li>
@@ -68,7 +72,9 @@ class Summary extends Component {
               {/* cupones y descuentos */}
               <div className="cart-additionals">
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
-                <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount}/>       
+                <ComponentDiscountCoupon
+                    discountCoupon={this.props.specialDiscountAmount}
+                    coupon={this.props.coupons}/>
                 <ComponentMillasAP addMillasAP={this.props.addMillasAP}/>
               </div>          
             </div>

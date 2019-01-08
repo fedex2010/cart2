@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {fetchCart, getCarousel, addProduct} from "../../actions/CartAction";
+import {getCarousel, addProduct} from "../../actions/CartAction";
 import Cookie from "js-cookie";
 
 
@@ -11,29 +11,27 @@ class Carousel extends Component {
 
     constructor(props) {
         super(props)
-       
+        this.props.getCarousel();
       }
 
     
 
     componentWillMount() {
-        let cartId = Cookie.get("cartId")
-        this.props.getCarousel(cartId);
-
         var addScript = document.createElement('script');
         addScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js');
         document.body.appendChild(addScript);
 
-
         console.log("append addScript");
 
     }
+
 
    
 
     componentDidMount(){
       
     }
+
 
     handleAddProduct(product,price){
         var product = { xid: product, productPrice: price };
@@ -49,7 +47,8 @@ class Carousel extends Component {
     }
 
     render() {
-    if (this.props.carousel.title != undefined) {
+    if (this.props.carousel.title != undefined && typeof this.props.data !== "undefined") {
+        const productIds = this.props.data.map((it => it.product_id));
         return (
             <div className="card">
                 <div className="card-header">
@@ -67,7 +66,7 @@ class Carousel extends Component {
 
                     <div className=" carousel-slider carousel-slider--has-padding swiper-wrapper">
                             {
-                                this.props.carousel.products.map(product => (
+                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) == -1)).map(product => (
                                     <div className="carousel-item hover-box swiper-slide carousel-item--with-actions">
                                         <div className="carousel-item-content">
                                         <picture>
@@ -178,7 +177,6 @@ class Carousel extends Component {
             </div>*/
 
 const mapStateToProps = state => {
-    console.log(state); // state
     return { carousel: state.cartReducer.carousel };
 };
 
