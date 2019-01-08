@@ -126,5 +126,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { updateQuantityProduct, deleteProduct }
+  { updateQuantityProduct, deleteProduct, selectProduct }
 )(ProductDescription);
