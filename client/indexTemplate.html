@@ -16,12 +16,12 @@
     <!-- GARBA-UI -->
     <link
       rel="stylesheet"
-      href="http://ui-doc.garba.ninja/dist/stylesheets/styles.css"
+      href="%PUBLIC_URL%/garba-ui/css/styles.css"
     />
     <!-- GARBA-UI -->
     <!-- <norma CSS> -->
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300"
+      href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300"
       rel="stylesheet"
       type="text/css"
     />
@@ -34,7 +34,7 @@
 
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css"
+      href="//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css"
     />
     <title>Garbarino</title>
   </head>
@@ -43,70 +43,25 @@
     <div id="root"></div>
     <!-- <norma Footer> -->
 
-    <!-- ARREGLAR ESTO -->
     <script
       type="text/javascript"
-      src="http://code.jquery.com/jquery-latest.js"
+      src="//code.jquery.com/jquery-latest.js"
     ></script>
+
     <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js"></script>
-    <script type="text/javascript">
-      window.addEventListener("load", function() {
-        window.loaded = true;
-      });
-
-      function logLoaded() {
-        console.log("loaded");
-        //initialize swiper when document ready
-        var mySwiper = new Swiper(".swiper-container", {
-          pagination: ".swiper-pagination",
-          slidesPerView: "auto",
-          slidesPerGroup: 4,
-          spaceBetween: 0,
-          simulateTouch: false,
-          paginationClickable: true,
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev"
-          }
-        });
-      }
-
-      (function listen() {
-        if (window.loaded) {
-          logLoaded();
-        } else {
-          console.log("notLoaded");
-          window.setTimeout(listen, 50);
-        }
-      })();
-    </script>
-
-    <script
-      type="text/javascript"
-      src="http://code.jquery.com/jquery-latest.js"
-    ></script>
-
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- ARREGLAR ESTO -->
 
     <!-- GARBA-UI -->
-    <script src="http://ui-doc.garba.ninja/js/header.js"></script>
-    <script src="http://ui-doc.garba.ninja/js/popover-popup.js"></script>
-    <script src="http://ui-doc.garba.ninja/js/TweenLite.min.js"></script>
-    <script src="http://ui-doc.garba.ninja/js/EasePack.min.js"></script>
-    <script src="http://ui-doc.garba.ninja/js/rAF.js"></script>
-    <script src="http://ui-doc.garba.ninja/js/demo-3.js"></script>
-    <script src="http://ui-doc.garba.ninja/js/bootstrap.min.js"></script>
+    <script src="%PUBLIC_URL%/garba-ui/js/header.js"></script>
+    <script src="%PUBLIC_URL%/garba-ui/js/popover-popup.js"></script>
+    <script src="%PUBLIC_URL%/garba-ui/js/TweenLite.min.js"></script>
+    <script src="%PUBLIC_URL%/garba-ui/js/EasePack.min.js"></script>
+    <script src="%PUBLIC_URL%/garba-ui/js/rAF.js"></script>
+    <script src="%PUBLIC_URL%/garba-ui/js/demo-3.js"></script>
+    <script src="%PUBLIC_URL%/garba-ui/js/bootstrap.min.js"></script>
     <!-- GARBA-UI -->
     <!-- <norma Js> -->
   </body>
