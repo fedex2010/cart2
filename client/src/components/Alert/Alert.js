@@ -5,12 +5,17 @@ class Alert extends Component {
     super(props);
     this.state = {
       mensaje: this.props.mensaje,
-      tipo: this.props.tipo
+      tipo: this.props.tipo,
+      showAlert:true,
+      showSaleable:true
     };
   }
 
     _closeAlert(){
-      alert("cierroooo")
+        this.setState({ showAlert: false });
+    }
+    _closeSalable(){
+        this.setState({ showSaleable: false });
     }
 
   _isBonificacion(cart){
@@ -21,7 +26,7 @@ class Alert extends Component {
       let hasBonification = hasPriceMatchingDiscount || hasPolcom;
       let hasCoupon = cart.couponAmount > 0;
       let msj = "";
-
+      
       if(hasCoupon){
           msj = "¡Buenas noticias! Tenes un cupón de descuento aplicado."
       }else{
@@ -33,9 +38,8 @@ class Alert extends Component {
             msj = "¡Buenas noticias! Tenés un descuento especial por bonificación.";
           }
       }
-
       return(
-          <div className={cssMsj}>
+          <div className={cssMsj} style={{display: this.state.showAlert ? 'block' : 'none' }}>
               <button type="button" onClick={this._closeAlert.bind(this)} className="feedback--btn-close" />
               {msj}
           </div>
@@ -58,8 +62,8 @@ class Alert extends Component {
 
       if(salable){
           return(
-              <div className={cssMsj}>
-                  <button type="button" className="feedback--btn-close" />
+              <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
+                  <button type="button" onClick={this._closeSalable.bind(this)}  className="feedback--btn-close" />
                   {saleableFalse}
               </div>
           );

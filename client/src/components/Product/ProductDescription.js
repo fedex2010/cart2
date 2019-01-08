@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import ProductWarranty from "./ProductWarranty";
-import Modal from "../Modal/Modal";
+//import Modal from "../Modal/Modal";
 import { updateQuantityProduct ,deleteProduct} from "../../actions/CartAction";
 import {connect} from "react-redux";
 import Cookie from "js-cookie";
 
 class ProductDescription extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            productIdModal: {}
+        };
+      }
 
     _onSortChange(product_id,e){
         let cartId = Cookie.get("cartId")
@@ -27,6 +33,11 @@ class ProductDescription extends Component {
         return (!discount)?classDiscount:classDiscountNone;
     }
 
+    _showModal(productId){
+        console.log("POST",productId) 
+        this.setState({productIdModal:productId});
+    }
+
 
     render(){
         let product = this.props.item;
@@ -35,6 +46,7 @@ class ProductDescription extends Component {
 
         let showStatus      =   this._showStatus(product.validations.saleable)
         let showDiscount    =   this._showDiscount(product.validations.saleable);
+      
         return(
             <div className="cart-item card">
                 <div className="cart-item-detail"  itemScope  itemType="http://schema.org/Offer">
@@ -79,7 +91,7 @@ class ProductDescription extends Component {
                         <strong className="cart-item-column-data">${product.subtotal_price}</strong>
                     </div>
 
-                    <a className="has-tooltip gui-icon-trash icon--md" data-toggle="modal" data-target="#delete-product" >
+                    <a onClick={this._showModal.bind(this,product.product_id)} className="has-tooltip gui-icon-trash icon--md" data-toggle="modal" data-target="#delete-product" >
                         <span className="tooltip_bottomCenter">Eliminar</span>
                     </a>
                 </div>
@@ -87,8 +99,7 @@ class ProductDescription extends Component {
                     item={product.warranties}
                     products={product.product_id}
                     warranty_id={product.warranty_id}
-                    percentage = {percentage}/>
-                <Modal item={product.product_id} cartId={cartId}/>
+                    percentage = {percentage}/>            
             </div>
         )
     }

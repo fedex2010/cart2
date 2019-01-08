@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ProductDescription from "./ProductDescription";
-
+import Modal from "../Modal/Modal";
 
 class Product extends Component {
   constructor(props) {
@@ -10,16 +10,20 @@ class Product extends Component {
     };
   }
 
+ 
+
 
   render() {
     let products = this.props.product;
     let percentage = this.props.percentage;
+    
     if (products !== undefined) {
       return (
         <div>
             {
                 products.map(product => (<ProductDescription item={product} percentage={percentage}/>))
             }
+            <Modal productIdModal={this.state.productIdModal}/>
         </div>
       );
     } else {

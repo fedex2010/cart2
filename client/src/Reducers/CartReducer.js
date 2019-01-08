@@ -2,6 +2,7 @@ import {SET_CAROUSEL, SET_CURRENT_CART,SET_CURRENT_CART_ERROR} from "../actions/
 
 const initialState = {
   cart: {},
+  productSelected: {},
   carousel:{},
   err:{}
 };
