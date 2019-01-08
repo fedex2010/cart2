@@ -1,7 +1,7 @@
 import { SET_CURRENT_CART, ADD_PRODUCT_CART, SET_CAROUSEL } from "./Types";
 
 export const fetchCart = id => dispatch => {
-  fetch("/api/cart/" + id)
+  fetch("api/cart/" + id)
     .then(
             response => response.json()
         )
