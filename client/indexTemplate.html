@@ -54,38 +54,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js"></script>
-    <script type="text/javascript">
-      window.addEventListener("load", function() {
-        window.loaded = true;
-      });
-
-      function logLoaded() {
-        console.log("loaded");
-        //initialize swiper when document ready
-        var mySwiper = new Swiper(".swiper-container", {
-          pagination: ".swiper-pagination",
-          slidesPerView: "auto",
-          slidesPerGroup: 4,
-          spaceBetween: 0,
-          simulateTouch: false,
-          paginationClickable: true,
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev"
-          }
-        });
-      }
-
-      (function listen() {
-        if (window.loaded) {
-          logLoaded();
-        } else {
-          console.log("notLoaded");
-          window.setTimeout(listen, 50);
-        }
-      })();
-    </script>
-
+  
     <script
       type="text/javascript"
       src="http://code.jquery.com/jquery-latest.js"
