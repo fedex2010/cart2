@@ -61,7 +61,7 @@ class Carousel extends Component {
                         {this.props.carousel.title}
                     </h5>
                 </div>
-                <div className="swiper-container">
+                <div className="swiper-container" id="carrousel-carrito">
                 <div className="carousel-slider carousel-slider--has-padding swiper-wrapper">
                         {
                             this.props.carousel.products.filter((it => productIds.indexOf(it.xid) == -1)).map(product => (
