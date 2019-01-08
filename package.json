@@ -11,13 +11,15 @@
     "install-server": "cd server && npm install",
     "postinstall": "npm run clean && npm-run-all install-server install-client",
     "client": "cd client && npm run start",
+    "client-ci": "cd client && npm run build && npm run deploy-ci",
     "server-dev": "cd server && npm run dev",
     "server": "cd server && npm run start",
+    "server-ci": "cd server && npm run server-ci",
     "normaGBJob": "cd client && node normaJob.js garbarino",
     "normaCMJob": "cd client && node normaJob.js compumundo",
-    "garba-cart": "npm run normaGBJob && npm-run-all --parallel client serve-dev",
+    "garba-cart": "npm run normaGBJob && npm-run-all --parallel client server-dev",
     "compu-cart": "npm run normaCMJob && npm-run-all --parallel client server-dev",
-    "start-ci": "npm run normaGBJob && npm-run-all --parallel client server"
+    "start-ci": "npm run normaGBJob && npm-run-all --parallel client-ci server-ci"
   },
   "keywords": [],
   "author": "",

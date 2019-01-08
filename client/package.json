@@ -18,15 +18,17 @@
     "redux-logger": "^3.0.6"
   },
   "scripts": {
-    "start": "./node_modules/.bin/react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-ci": "aws s3 sync build/ s3://cart-ui-ci.garbarino.com/cart"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "proxy": "http://localhost:3001",
+  "homepage": "https://ci.garbarino.com/cart",
   "browserslist": [
     ">0.2%",
     "not dead",
