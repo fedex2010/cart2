@@ -192,6 +192,10 @@ class CartControllers {
       .then(cart => {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
+          console.log("------------------",cart)
+          
+
+
           res.send(cart);
       })
       .catch(e => {

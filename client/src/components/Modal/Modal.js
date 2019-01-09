@@ -48,6 +48,7 @@ class Modal extends Component {
                   Cerrar
                 </button>
                 <button
+                  data-dismiss="modal"
                   className="button--primary"
                   type="button"
                   onClick={this._handleDeleteProductS.bind(

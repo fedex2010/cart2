@@ -108,7 +108,6 @@ export const deleteProduct = productId => dispatch => {
   })
     .then(response => response.json())
     .then(response => {
-      console.log("dispatch");
       dispatch({ type: SET_CURRENT_CART, payload: response });
     })
     .catch(err => {
