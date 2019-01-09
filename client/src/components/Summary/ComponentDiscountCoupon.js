@@ -91,7 +91,8 @@ class ComponentDiscountCoupon extends Component {
                 <InputCouponApplied/>
             </div>
             <div className="coupon-applied">
-        {/*<span className="coupon-code">{coupon.coupon_id}</span>*/}
+                {/*<span className="coupon-code">{coupon.coupon_id}</span>*/}
+
                 <a href="#" onClick={this._deleteCoupon.bind(this,coupon)}>Eliminar</a>
             </div>
           </div>
