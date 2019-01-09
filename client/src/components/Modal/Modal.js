@@ -11,7 +11,7 @@ class Modal extends Component {
   }
 
   _handleDeleteProductS(productIdModal) {
-    this.props.deleteProduct(productIdModal)
+    this.props.deleteProduct(productIdModal);
   }
 
   render() {

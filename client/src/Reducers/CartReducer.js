@@ -1,4 +1,9 @@
-import {SET_CAROUSEL, SET_CURRENT_CART,SET_CURRENT_CART_ERROR} from "../actions/Types";
+import {
+  SET_CAROUSEL,
+  SET_CURRENT_CART,
+  SET_CURRENT_CART_ERROR,
+  SET_SELECTED_PRODUCT
+} from "../actions/Types";
 
 const initialState = {
   cart: {},
@@ -12,18 +17,23 @@ export default (state = initialState, action = {}) => {
     case SET_CURRENT_CART:
       return {
         ...state,
-        cart: action.payload,
+        cart: action.payload
       };
-      case SET_CURRENT_CART_ERROR:
-          return {
-              ...state,
-              err: action.payload,
-          };
-      case SET_CAROUSEL:
-        return{
-            ...state,
-            carousel: action.payload
-        }
+    case SET_CURRENT_CART_ERROR:
+      return {
+        ...state,
+        err: action.payload
+      };
+    case SET_CAROUSEL:
+      return {
+        ...state,
+        carousel: action.payload
+      };
+    case SET_SELECTED_PRODUCT:
+      return {
+        ...state,
+        selectedProduct: action.payload
+      };
     default:
       return state;
   }
