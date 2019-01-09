@@ -32,16 +32,21 @@ class PromotionClient{
     }
 
     setLoyaltyCode(cartId, loyaltyId, code, brand) {
+        let data = JSON.stringify({'code': code});
         let options = {
-            headers: {
-                'X-Brand':brand
-            }
-        }
+            headers : {'Content-Type':'application/json','X-Brand':brand},
+            data: data
+        };
 
-        return this._restConnector.putWithOptions( `${CHECKOUT_CORE_URL}/carts/${cartId}/loyalties/${loyaltyId}`, {
-            headers: {'Content-Type': 'application/json'},
-            data: JSON.stringify({'code': code})
-        })
+        return this._restConnector.putWithOptions( `${CHECKOUT_CORE_URL}/carts/${cartId}/loyalties/${loyaltyId}`, options)
+    }
+
+    deleteLoyaltyCode(cartId, loyaltyId, brand) {
+        let options = {
+            headers : {'Content-Type':'application/json','X-Brand':brand}
+        };
+
+        return this._restConnector.delete( `${CHECKOUT_CORE_URL}/carts/${cartId}/loyalties/${loyaltyId}`, options)
     }
 }
 
