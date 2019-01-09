@@ -11,28 +11,30 @@ class Carousel extends Component {
         this.props.getCarousel();
       }
 
+
+   
+
   
 
-    componentDidMount(){
-        window.onload = function () {
+    handleImageLoadedSwiper() {
             //initialize swiper when document ready
             var mySwiper = new Swiper ('.swiper-container', {
-                slidesPerView: 'auto',
-                slidesPerGroup: 4,
-                spaceBetween: 0,
-                simulateTouch: false,
-                paginationClickable: true,
-                pagination: {
-                  el: '.swiper-pagination',
-                  clickable: true,
-                },
-                navigation: {
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
-                },
-            })
-          };
+            slidesPerView: 'auto',
+            slidesPerGroup: 4,
+            spaceBetween: 0,
+            simulateTouch: false,
+            paginationClickable: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        })
     }
+
 
 
     handleAddProduct(product,price){
@@ -71,7 +73,8 @@ class Carousel extends Component {
                                             <img
                                                 src={product.main_image.url}
                                                 alt={product.description}
-                                                itemProp="image"/>
+                                                itemProp="image"
+                                                onLoad={this.handleImageLoadedSwiper.bind(this)}/>
                                         </picture>
                                         <h3>{product.description}</h3>
                                         <div className="itemBox--price">

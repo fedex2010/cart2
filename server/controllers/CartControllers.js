@@ -212,10 +212,15 @@ class CartControllers {
 
     RestClient.productClient
       .deleteProduct(cartId, productId, brand)
-      .then(cart => {
-        cart = _replaceImage(cart);
-        cart.percentage = calculateWarrantiesPercentage(cart);
-        res.status(200).send(cart);
+      .then(() => {
+        this._getOneCart(cartId, req, res)
+        .then(cart => {
+          res.send(cart);
+        })
+        .catch(err => {
+          logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
+          res.status(200).send({ erro: err });
+        });
       })
       .catch(err => {
         console.log(err);

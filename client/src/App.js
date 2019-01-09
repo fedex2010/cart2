@@ -20,6 +20,8 @@ class App extends Component {
     this.props.fetchCart(cartId);
   }
 
+
+
   render() {
     let specialDiscountAmount = 0;
 
