@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { selectProduct } from "../../actions/CartAction";
+import { selectProduct, deleteProduct } from "../../actions/CartAction";
 
 class Modal extends Component {
   constructor(props) {
@@ -11,9 +11,7 @@ class Modal extends Component {
   }
 
   _handleDeleteProductS(productIdModal) {
-    debugger;
-    console.log("llegue al modal2", productIdModal);
-    //this.props.deleteProduct(productIdModal)
+    this.props.deleteProduct(productIdModal)
   }
 
   render() {
@@ -54,7 +52,7 @@ class Modal extends Component {
                   type="button"
                   onClick={this._handleDeleteProductS.bind(
                     this,
-                    this.props.selectProduct
+                    this.props.productIdModal
                   )}
                 >
                   Eliminar
@@ -307,12 +305,10 @@ class Modal extends Component {
 }
 
 const mapStateToProps = state => {
-  debugger;
-  console.log(state); // state
   return { productIdModal: state.cartReducer.selectedProduct };
 };
 
 export default connect(
   mapStateToProps,
-  { selectProduct }
+  { selectProduct, deleteProduct }
 )(Modal);
