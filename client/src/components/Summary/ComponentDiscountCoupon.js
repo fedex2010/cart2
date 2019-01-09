@@ -27,14 +27,14 @@ class ComponentDiscountCoupon extends Component {
     _deleteCoupon(coupon,e){
         let cartId = Cookie.get("cartId");
         let couponId = coupon.coupon_id;
-        console.log("aaaaa"+cartId);
-        this.props.deleteCoupon("CHKTEST",cartId);
+        this.props.deleteCoupon(couponId,cartId);
     }
 
   render() {
     let displayNoneCoupon = 'displaynone';
     let displaynoneCheckboxDiscount = 'displaynone';
-    
+    let coupon = {}
+
     if(this.state.selectedOption === 'discount-coupon2') {
        displayNoneCoupon = '';
     }
@@ -43,7 +43,8 @@ class ComponentDiscountCoupon extends Component {
       displaynoneCheckboxDiscount = '';
     }
     if (this.props.discountCoupon > 0 || this.props.coupon > 0) {
-
+        if(typeof this.props.coupon != "undefined" && typeof this.props.coupon[0] != "undefined")
+            coupon = this.props.coupon[0];
         return (
             <ul className="cart-additional-item">
             <li>
@@ -70,12 +71,16 @@ class ComponentDiscountCoupon extends Component {
               <div className={displayNoneCoupon}>
                 <InputCouponApplied/>
               </div>
+                <div className="coupon-applied">
+                    <span className="coupon-code">{coupon.coupon_id}</span>
+                    <a href="#" onClick={this._deleteCoupon.bind(this,coupon)}>Eliminar</a>
+                </div>
             </li>
           </ul>
         );
       } else {
         let coupon = {}
-        if(typeof this.props.coupon != "undefined")
+        if(typeof this.props.coupon != "undefined" && typeof this.props.coupon[0] != "undefined")
             coupon = this.props.coupon[0];
         return (
             <div className="cart-additional-item">
@@ -95,6 +100,7 @@ class ComponentDiscountCoupon extends Component {
 
                 <a href="#" onClick={this._deleteCoupon.bind(this,coupon)}>Eliminar</a>
             </div>
+
           </div>
         );
     }

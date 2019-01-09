@@ -57,11 +57,13 @@ class App extends Component {
                 </div>
                 <div className="summary-gbChk col-md-4">
                   <Summary
+                    products={this.props.cart.products}
                     sellerId={this.props.cart.seller_id}
                     subtotalPrice={this.props.cart.subtotal_price}
                     totalWarranties={this.props.cart.total_warranties}
                     specialDiscountAmount={specialDiscountAmount}
                     coupons={this.props.cart.coupons}
+                    addMillasAP={this.props.cart.loyalties}
                     totalDiscounts={this.props.cart.total_discounts}
                     totalPrice={this.props.cart.total_price}
                   />
