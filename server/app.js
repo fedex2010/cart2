@@ -7,6 +7,7 @@ var async = require("async");
 var indexRouter = require("./routes/index");
 var apiRouter = require("./routes/api");
 var uuid = require("uuid");
+var morgan = require("morgan");
 
 var app = express();
 
@@ -14,6 +15,7 @@ var app = express();
 // app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "jade");
 
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

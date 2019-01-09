@@ -218,6 +218,7 @@ class CartControllers {
         res.status(200).send(cart);
       })
       .catch(err => {
+        console.log(err);
         res.status(304).send({ erro: err });
       });
   }
@@ -382,9 +383,14 @@ class CartControllers {
 
 function _replaceImage(cart) {
   cart.products.map(product => {
-    product.main_image.url = getProductImageCloudfrontV2(
-      product.main_image.url
-    );
+    if (typeof product.main_image !== "undefined") {
+      product.main_image.url = getProductImageCloudfrontV2(
+        product.main_image.url
+      );
+    } else {
+      product.main_image = {};
+      product.main_image.url = "";
+    }
   });
   return cart;
 }

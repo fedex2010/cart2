@@ -1,11 +1,12 @@
 import {
   SET_CURRENT_CART,
   SET_CAROUSEL,
-  SET_CURRENT_CART_ERROR
+  SET_CURRENT_CART_ERROR,
+  SET_SELECTED_PRODUCT
 } from "./Types";
 
 export const selectProduct = productId => dispatch => {
-  return dispatch({ type: SET_CURRENT_CART, payload: productId });
+  return dispatch({ type: SET_SELECTED_PRODUCT, payload: productId });
 };
 
 export const fetchCart = id => dispatch => {
@@ -98,7 +99,6 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
 };
 
 export const deleteProduct = productId => dispatch => {
-  console.log("deleteProduct");
   fetch("/api/cart/" + productId, {
     method: "DELETE",
     headers: {
@@ -108,7 +108,6 @@ export const deleteProduct = productId => dispatch => {
   })
     .then(response => response.json())
     .then(response => {
-      console.log("dispatch");
       dispatch({ type: SET_CURRENT_CART, payload: response });
     })
     .catch(err => {

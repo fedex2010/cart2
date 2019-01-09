@@ -23,7 +23,7 @@ class Product extends Component {
             {
                 products.map(product => (<ProductDescription item={product} percentage={percentage}/>))
             }
-            <Modal productIdModal={this.state.productIdModal}/>
+            <Modal/>
         </div>
       );
     } else {
