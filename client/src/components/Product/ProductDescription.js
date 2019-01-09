@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import ProductWarranty from "./ProductWarranty";
 //import Modal from "../Modal/Modal";
-import {
-  updateQuantityProduct,
-  deleteProduct,
-  selectProduct
-} from "../../actions/CartAction";
+import {  updateQuantityProduct,  deleteProduct,  selectProduct} from "../../actions/CartAction";
 import { connect } from "react-redux";
 import Cookie from "js-cookie";
 
