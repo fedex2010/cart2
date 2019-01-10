@@ -68,6 +68,7 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
 };
 
 export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
+  dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
   let data = {};
   data.cartId = cartId;
   data.product_id = productId;
