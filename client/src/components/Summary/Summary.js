@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
+import Cookie from "js-cookie";
 
 import StickySummary from "./StickySummary";
 
@@ -29,6 +30,7 @@ class Summary extends Component {
     {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
     let couponClass = "highlight-benefit displaynone";
     let products="";
+    let empresarias = Cookie.get("empresarias");
       if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
     }
@@ -52,10 +54,17 @@ class Summary extends Component {
                   <label>Subtotal</label>
                   <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? this.props.subtotalPrice : '0'}</span>
                 </li>
-                <li className="displaynone">
+                
+
+                {empresarias ? (
+                  <li>
                   <label>IVA</label>
                   <span className="summary-detail-value">$21.296</span>
                 </li>
+                ) : (
+                  <li className="displaynone"></li>
+                )}
+
                 <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'}>
                   <label>Garantías</label>
                   <span className="summary-detail-value">${this.props.totalWarranties > 0 ? this.props.totalWarranties : '0'}</span>
@@ -75,11 +84,18 @@ class Summary extends Component {
               </ul>
 
               {/* cupones y descuentos */}
-              <div className="cart-additionals">
+              {!empresarias ? (
+                <div className="cart-additionals">
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
                 <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons}/>
                 <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
-              </div>          
+              </div>
+              ) : (
+                <div></div>
+              )}
+
+              
+
             </div>
             <div className="cart-actions">
               <a className="button--link" href="#">

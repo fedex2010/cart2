@@ -53,6 +53,7 @@ class Carousel extends Component {
 
 
     render() {
+        let empresarias = Cookie.get("empresarias");
     if (this.props.carousel.title != undefined && typeof this.props.data !== "undefined") {
         const productIds = this.props.data.map((it => it.product_id));
         return (
@@ -102,81 +103,11 @@ class Carousel extends Component {
         );
     } else {
         return (
-            <div className="card">
-                <div className="card-header">
-                    <h5 className="card-title">
-
-                    </h5>
-                </div>
-                <div className="carousel swiper-container">
-                    <a className="swiper-button-prev gb-carousel-module-control gb--prev">
-                        <span className="gb-icon-simple-bold-arrow-left" />
-                    </a>
-                    <a className="swiper-button-next gb-carousel-module-control gb--next">
-                        <span className="gb-icon-simple-bold-arrow-right" />
-                    </a>
-
-                    <div className=" carousel-slider carousel-slider--has-padding swiper-wrapper">
-
-                    </div>
-                </div>
-            </div>
+            <div></div>
         );
     }
   }
 }
-
-/*
-        <div className="carousel-item hover-box swiper-slide">
-              <picture>
-                <img
-                  src="https://via.placeholder.com/160x160"
-                  alt="product name"
-                  itemProp="image"
-                />
-              </picture>
-              <h3>Samsung 32" Full HD UN32F5000 DF</h3>
-              <div className="itemBox--price">
-                <span className="value-item">$4.799</span>
-                <span className="value-note">
-                  <del>$6324</del>
-                  <span className="value-item--discount">24% OFF</span>
-                </span>
-              </div>
-              <a href="/producto/af78e79d85" className="btn_see_detail">
-                Ver detalle
-              </a>
-              <button className="button--primary button--xs button__is-loading">
-                Agregar
-              </button>
-            </div>
-
-        <div className="carousel-item hover-box swiper-slide">
-              <picture>
-                <img
-                  src="https://via.placeholder.com/160x160"
-                  alt="product name"
-                  itemProp="image"
-                />
-              </picture>
-              <h3>Samsung 32" Full HD UN32F5000 DF</h3>
-              <div className="itemBox--price">
-                <span className="value-item">$4.799</span>
-                <span className="value-note">
-                  <span
-                    className="benefits ellipsis-text"
-                    title="-$2.000 de bonificación"
-                  >
-                    -$2.000 de bonificación
-                  </span>
-                </span>
-              </div>
-              <a href="/producto/af78e79d85" className="btn_see_detail">
-                Ver detalle
-              </a>
-              <button className="button--primary button--xs">Agregar</button>
-            </div>*/
-
 const mapStateToProps = state => {
     return { carousel: state.cartReducer.carousel };
 };

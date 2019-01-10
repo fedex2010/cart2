@@ -73,8 +73,10 @@ class CartControllers {
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let products = {};
-    RestClient.productClient
-      .getProductsCarousel(brand)
+    if (req.headers["x-subdomain"] == "empresas") {
+      return {};
+    }
+    RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
         return RestClient.productClient
           .getProducts(brand, carousel.products)
