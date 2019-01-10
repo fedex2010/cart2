@@ -43,6 +43,8 @@ class ProductDescription extends Component {
     let percentage = this.props.percentage;
     let showStatus = this._showStatus(product.validations.saleable);
     let showDiscount = this._showDiscount(product.validations.saleable);
+    let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
+
 
     return (
       <div className="cart-item card">
@@ -80,6 +82,7 @@ class ProductDescription extends Component {
               className="form-control form-control--sm"
               value={product.quantity}
               onChange={this._onSortChange.bind(this, product.product_id)}
+              disabled={isDisabled}
             >
               <option value="1">1</option>
               <option value="2">2</option>
