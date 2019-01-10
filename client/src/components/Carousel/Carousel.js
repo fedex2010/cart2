@@ -53,10 +53,9 @@ class Carousel extends Component {
 
     render() {
     if (this.props.carousel.title != undefined && typeof this.props.data !== "undefined") {
-        let classLoading = this.props.operationStatus === "LOADING" ? "card card--is-loading" : "card"
         const productIds = this.props.data.map((it => it.product_id));
         return (
-            <div className={classLoading}>
+            <div className="card">
                 <div className="card-header">
                     <h5 className="card-title">
                         {this.props.carousel.title}
