@@ -6,9 +6,9 @@ import "./App.scss";
 import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
+//import Carousel from "./components/Carousel/Carousel";
 import Carousel from "./components/Carousel/Carousel";
 import { fetchCart } from "./actions/CartAction";
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -69,11 +69,16 @@ class App extends Component {
                   />
                 </div>
               </div>
+              
+              
+              <br/>
+              
               <div className="carousel row">
                 <div className="col-md-12">
-                  <Carousel data={this.props.cart.products}/>
+                  <Carousel data={this.props.cart.products} />
                 </div>
               </div>
+
             </section>
           </div>
         </div>
