@@ -15,6 +15,7 @@ class Summary extends Component {
     this.state = {
         sellerId:{},
         subtotalPrice:{},
+        subtotalBasePrice: {},
         totalWarranties: {},
         specialDiscountAmount: {},
         discountCoupon:{},
@@ -59,7 +60,7 @@ class Summary extends Component {
                 {empresarias ? (
                   <li>
                   <label>IVA</label>
-                  <span className="summary-detail-value">$21.296</span>
+                  <span className="summary-detail-value">${this.props.subtotalBasePrice - this.props.subtotalPrice}</span>
                 </li>
                 ) : (
                   <li className="displaynone"></li>
