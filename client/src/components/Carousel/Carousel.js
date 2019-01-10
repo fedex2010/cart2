@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {getCarousel, addProduct} from "../../actions/CartAction";
-import Cookie from "js-cookie";
 import Swiper from 'swiper'
 
 class Carousel extends Component {
@@ -54,9 +53,10 @@ class Carousel extends Component {
 
     render() {
     if (this.props.carousel.title != undefined && typeof this.props.data !== "undefined") {
+        let classLoading = this.props.operationStatus === "LOADING" ? "card card--is-loading" : "card"
         const productIds = this.props.data.map((it => it.product_id));
         return (
-            <div className="card">
+            <div className={classLoading}>
                 <div className="card-header">
                     <h5 className="card-title">
                         {this.props.carousel.title}
@@ -178,7 +178,7 @@ class Carousel extends Component {
             </div>*/
 
 const mapStateToProps = state => {
-    return { carousel: state.cartReducer.carousel };
+    return { carousel: state.cartReducer.carousel, operationStatus: state.cartReducer.operationStatus };
 };
 
 export default connect(
