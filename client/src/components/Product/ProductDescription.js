@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ProductWarranty from "./ProductWarranty";
-//import Modal from "../Modal/Modal";
 import {  updateQuantityProduct,  deleteProduct,  selectProduct} from "../../actions/CartAction";
 import { connect } from "react-redux";
 import Cookie from "js-cookie";
@@ -9,7 +8,8 @@ class ProductDescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productIdModal: {}
+      productIdModal: {},
+      operationStatus:"SUCCESSFUL"
     };
   }
 
@@ -41,10 +41,10 @@ class ProductDescription extends Component {
   render() {
     let product = this.props.item;
     let percentage = this.props.percentage;
-    let cartId = Cookie.get("cartId");
-
     let showStatus = this._showStatus(product.validations.saleable);
     let showDiscount = this._showDiscount(product.validations.saleable);
+    let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
+
 
     return (
       <div className="cart-item card">
@@ -82,6 +82,7 @@ class ProductDescription extends Component {
               className="form-control form-control--sm"
               value={product.quantity}
               onChange={this._onSortChange.bind(this, product.product_id)}
+              disabled={isDisabled}
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -117,7 +118,7 @@ class ProductDescription extends Component {
 }
 
 const mapStateToProps = state => {
-  return { product: state.cartReducer.product };
+  return { product: state.cartReducer.product, operationStatus: state.cartReducer.operationStatus };
 };
 
 export default connect(

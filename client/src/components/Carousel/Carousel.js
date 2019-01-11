@@ -12,7 +12,6 @@ class Carousel extends Component {
     }
 
     handleAddProduct(product,price){
-        alert("jajaj")
         var product = { xid: product, productPrice: price };
         this.props.addProduct(product);
     }
@@ -121,7 +120,7 @@ class Carousel extends Component {
 
 
 const mapStateToProps = state => {
-    return { carousel: state.cartReducer.carousel };
+    return { carousel: state.cartReducer.carousel, operationStatus: state.cartReducer.operationStatus };
 };
 
 export default connect(

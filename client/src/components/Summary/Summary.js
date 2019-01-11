@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 
-import StickySummary from "./StickySummary";
-
 
 class Summary extends Component {
     
@@ -36,8 +34,10 @@ class Summary extends Component {
         products = this.props.products;
     }
 
+    let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
+
     return (
-        <div className="summary">
+        <div className={classLoading}>
           {/* resumen de compra */}
           <div className="purchase-summary">
             {/*add class - card--is-loading - en  <div className="card cart-summary card--is-loading"> para el loading*/}
@@ -95,4 +95,11 @@ class Summary extends Component {
     );
   }
 }
-export default Summary;
+const mapStateToProps = state => {
+    return { operationStatus: state.cartReducer.operationStatus };
+};
+
+export default connect(
+    mapStateToProps,
+    { })
+    (Summary)
