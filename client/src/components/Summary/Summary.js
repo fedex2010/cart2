@@ -5,7 +5,6 @@ import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 import Cookie from "js-cookie";
 
-import StickySummary from "./StickySummary";
 
 
 class Summary extends Component {
@@ -35,7 +34,7 @@ class Summary extends Component {
       if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
     }
-    if(this.props.products != undefined){
+    if(this.props.products !== undefined){
         products = this.props.products;
     }
 
@@ -57,13 +56,13 @@ class Summary extends Component {
                 </li>
                 
 
-                {empresarias ? (
-                  <li>
-                  <label>IVA</label>
-                  <span className="summary-detail-value">${this.props.subtotalBasePrice - this.props.subtotalPrice}</span>
-                </li>
+                {!empresarias ? (
+                 <li className="displaynone"></li>
                 ) : (
-                  <li className="displaynone"></li>
+                  <li>
+                    <label>IVA</label>
+                    <span className="summary-detail-value">${this.props.subtotalPrice - this.props.subtotalBasePrice}</span>
+                  </li>
                 )}
 
                 <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'}>
