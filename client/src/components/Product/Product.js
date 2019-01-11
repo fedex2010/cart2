@@ -10,7 +10,9 @@ class Product extends Component {
     };
   }
 
- 
+  componentDidMount(){
+      document.body.classList.remove('full-page--is-loading');
+  }
 
 
   render() {
