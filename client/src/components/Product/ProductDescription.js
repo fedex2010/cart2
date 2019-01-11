@@ -62,7 +62,6 @@ class ProductDescription extends Component {
               </a>
             </h3>
             <span className={showStatus}>Agotado</span>
-            <span className={showDiscount}>Bonificación aplicada</span>
           </div>
           <div className="cart-item-column">
             <label>Precio:</label>
