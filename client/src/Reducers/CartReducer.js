@@ -20,16 +20,19 @@ export default (state = initialState, action = {}) => {
           return {
               ...state,
               err: action.payload,
+              operationStatus:action.operationStatus
           };
       case SET_CAROUSEL:
         return{
             ...state,
-            carousel: action.payload
+            carousel: action.payload,
+            operationStatus:action.operationStatus
         }
       case SET_SELECTED_PRODUCT:
         return{
             ...state,
-            selectedProduct: action.payload
+            selectedProduct: action.payload,
+            operationStatus:action.operationStatus
         }
     default:
       return state;

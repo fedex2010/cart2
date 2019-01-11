@@ -106,7 +106,8 @@ ul.cart-additional-item {
 .coupon-apply-form {
 	.form-control {
 		margin-right: $spacer-sm;
-		width: calc(100% - 85px);
+		width: calc(100% - 90px);
+		display: inline-block;
 	}
 }
 
