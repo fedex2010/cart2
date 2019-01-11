@@ -26,12 +26,6 @@ class ProductDescription extends Component {
     return !saleable ? clasStatus : clasStatusNone;
   }
 
-  _showDiscount(discount) {
-    let classDiscount = "cart-item-tag cart-item-tag--success";
-    let classDiscountNone = "cart-item-tag cart-item-tag--success displaynone";
-
-    return !discount ? classDiscount : classDiscountNone;
-  }
 
   _showModal(productId) {
     console.log("POST", productId);
@@ -42,7 +36,6 @@ class ProductDescription extends Component {
     let product = this.props.item;
     let percentage = this.props.percentage;
     let showStatus = this._showStatus(product.validations.saleable);
-    let showDiscount = this._showDiscount(product.validations.saleable);
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
 
 
