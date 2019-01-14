@@ -58,7 +58,8 @@ class ProductWarranty extends Component{
                         {
                             liWarranty.map((item)=>{
                                 checked = (this.props.warranty_id !== "DEFAULT_FACTORY" && this.props.warranty_id === item.id)?true:false;
-                                return (<li><label><input type="checkbox" value={item.id} checked={ checked } onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#">{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
+                                return (<li><label><input type="checkbox" value={item.id} checked={ checked } onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#" data-toggle="modal"
+                                data-target="#warranty-modal">{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
                             })
                         }
                     </ul>

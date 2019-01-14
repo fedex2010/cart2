@@ -56,7 +56,7 @@ class Summary extends Component {
                 </li>
                 
 
-                {!empresarias ? (
+                {empresarias ? (
                  <li className="displaynone"></li>
                 ) : (
                   <li>
@@ -84,7 +84,7 @@ class Summary extends Component {
               </ul>
 
               {/* cupones y descuentos */}
-              {!empresarias ? (
+              {empresarias ? (
                 <div className="cart-additionals">
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
                 <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons}/>

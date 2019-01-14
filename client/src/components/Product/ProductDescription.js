@@ -45,7 +45,7 @@ class ProductDescription extends Component {
 
     let showStatus = this._showStatus(product.validations.saleable);
     let showDiscount = this._showDiscount(product.validations.saleable);
-    if(!empresarias) {
+    if(empresarias) {
       return (
         <div className="cart-item card">
           <div
