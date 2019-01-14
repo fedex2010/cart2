@@ -5,6 +5,37 @@ import {getCarousel, addProduct} from "../../actions/CartAction";
 
 import Swiper from 'react-id-swiper';
 
+/*
+#js-prev1{
+  margin-left:0px;
+  background-color:black;
+  height:100px;
+  width:60px;
+}
+#js-next1{
+  margin-right:0px;
+}
+
+#js-prev1,#js-next1{
+  opacity: 0;
+  visibility: hidden;
+  transition: all 700ms;
+}
+
+.lunchbox:hover #js-prev1, .lunchbox:hover #js-next1{
+  visibility: visible;
+  opacity: 1;
+  margin: 0;
+}
+
+.lunchbox:hover #js-next1{
+    margin-right: 30px;  
+}
+.lunchbox:hover #js-prev1{
+    margin-left: 30px;  
+}
+*/
+
 class Carousel extends Component {
     constructor(props) {
         super(props)
@@ -34,7 +65,10 @@ class Carousel extends Component {
             navigation: {
               nextEl: '.swiper-button-next',
               prevEl: '.swiper-button-prev',
-            }
+            },            
+                    
+            renderPrevButton: () => <a className="gb-carousel-module-control gb--prev swiper-button-prev" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="prev" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-left"></span></a>,
+            renderNextButton: () => <a className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></a>,
           };
 
 
