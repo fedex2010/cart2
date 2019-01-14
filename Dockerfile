@@ -11,7 +11,6 @@ WORKDIR /usr/src/app
 
 # Bundle app source
 ADD package.json /usr/src/app/package.json
-ADD client/package.json /usr/src/app/client/package.json
 ADD server/package.json /usr/src/app/server/package.json
 
 # Install app dependencies
@@ -21,4 +20,4 @@ RUN yarn install --no-optional --production
 COPY . /usr/src/app
 
 EXPOSE 3000
-CMD yarn start-ci
+CMD yarn server-ci

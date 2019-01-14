@@ -6,7 +6,7 @@
   "scripts": {
     "install-client": "cd client && yarn install",
     "install-server": "cd server && yarn install",
-    "postinstall": "npm-run-all install-server install-client",
+    "postinstall": "npm-run-all install-server",
     "client": "cd client && yarn run start",
     "client-ci": "cd client && yarn run build && yarn run deploy-ci",
     "server-dev": "cd server && yarn run dev",
