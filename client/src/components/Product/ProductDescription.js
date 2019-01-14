@@ -37,10 +37,10 @@ class ProductDescription extends Component {
     let percentage = this.props.percentage;
     let showStatus = this._showStatus(product.validations.saleable);
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
-
+    let idProduct  = "productId_"+product.product_id;
 
     return (
-      <div className="cart-item card">
+      <div className="cart-item card" id={idProduct}>
         <div
           className="cart-item-detail"
           itemScope
