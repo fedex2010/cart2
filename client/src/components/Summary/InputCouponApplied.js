@@ -20,6 +20,11 @@ class InputCouponApplied extends Component {
       let couponId = e.target.value;
       this.setState({ input: couponId });
   }
+
+  _showError(){
+    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code == 400)? "error-msj" : "error-msj hide";
+    return(<p className={classError}>Código de cupón inválido.</p>);
+  }
  
   render() {
     return (
@@ -30,7 +35,7 @@ class InputCouponApplied extends Component {
             {/*add class - button__is-loading - to loading button */}
             <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm">Aplicar</button>
             {/*remove class - hide - to error message*/} 
-            <p className="error-msj hide">Código de cupón inválido.</p>
+            {this._showError()}
         </div>
       </div>
     );

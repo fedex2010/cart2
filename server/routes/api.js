@@ -15,14 +15,15 @@ router.get("/cart/:cartId", ( req , res) => controllers.cart.getCart( req , res 
 
 router.post("/cart", urlencodedParser, ( req , res) => controllers.cart.addProduct(req , res));
 router.post("/cart/:cartId/cupon", jsonParser, ( req , res) => controllers.cart.setCoupon(req , res));
-router.post("/cart/c_:cartId/aaPlus", jsonParser, controllers.cart.setAAPlus);
+router.post("/cart/c_:cartId/aaPlus", jsonParser, ( req , res) => controllers.cart.setAAPlus(req , res));
 router.post("/cart/setWarranty", jsonParser, ( req , res) => controllers.cart.setWarranty( req , res));
-
 router.put("/cart/:cartId", urlencodedParser, ( req , res) =>  controllers.cart.editProduct( req , res));
 
 router.delete("/cart/:productId", urlencodedParser, (req , res) => controllers.cart.deleteProduct( req , res));
+
 router.delete( "/cart/c_:cartId/cupon/:couponCode", ( req , res) => controllers.cart.deleteCoupon( req , res));
 router.delete("/cart/c_:cartId/aaPlus", ( req , res) => controllers.cart.deleteAAPlus( req , res));
+
 
 module.exports = router;
 /*

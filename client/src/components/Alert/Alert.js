@@ -38,13 +38,14 @@ class Alert extends Component {
             msj = "¡Buenas noticias! Tenés un descuento especial por bonificación.";
           }
       }
-      return(
-          <div className={cssMsj} style={{display: this.state.showAlert ? 'block' : 'none' }}>
-              <button type="button" onClick={this._closeAlert.bind(this)} className="feedback--btn-close" />
-              {msj}
-          </div>
-      );
-
+      if(msj !== "") {
+          return(
+              <div className={cssMsj} style={{display: this.state.showAlert ? 'block' : 'none' }}>
+                  <button type="button" onClick={this._closeAlert.bind(this)} className="feedback--btn-close" />
+                  {msj}
+              </div>
+          );
+      }
   }
 
   _isSaleable(cart){
