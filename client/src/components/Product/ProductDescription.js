@@ -38,7 +38,6 @@ class ProductDescription extends Component {
   }
 
   render() {
-    debugger;
     let product = this.props.item;
     let percentage = this.props.percentage;
     let cartId = Cookie.get("cartId");
