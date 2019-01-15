@@ -10,13 +10,13 @@ jobs:
           at: ~/garbarino-com/cart-ui
       - restore_cache:
           keys:
-            - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}-v2
             - yarn-cache-{{ .Branch }}
             - yarn-cache-
       - run: yarn install
       - run: yarn install-client
       - save_cache:
-          key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}-v2
           paths: 
             - node_modules
             - client/node_modules
@@ -34,7 +34,7 @@ jobs:
         - run: yarn install
         - run: yarn install-client
         - run: CI=false yarn build-garba
-        - run: CI=falseyarn build-compu
+        - run: CI=false yarn build-compu
         - persist_to_workspace:
             root: .
             paths: .
