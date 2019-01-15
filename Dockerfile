@@ -20,4 +20,4 @@ RUN yarn install --no-optional --production
 COPY . /usr/src/app
 
 EXPOSE 3000
-CMD yarn server-ci
+CMD yarn server-$APP_ENV

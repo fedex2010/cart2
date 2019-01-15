@@ -7,25 +7,31 @@
     "install-client": "cd client && yarn install",
     "install-server": "cd server && yarn install",
     "postinstall": "npm-run-all install-server",
-    "client": "cd client && yarn run start",
-    "client-ci": "cd client && yarn run build && yarn run deploy-ci",
-    "server-dev": "cd server && yarn run dev",
-    "server": "cd server && yarn run start",
+
+    "norma-garba": "cd client && node normaJob.js garbarino",
+    "norma-compu": "cd client && node normaJob.js compumundo",
+
+    "server-dev": "cd server && yarn run server-dev",
+    "server-prod": "cd server && yarn run server-prod",
+    "server-staging": "cd server && yarn run server-staging",
     "server-ci": "cd server && yarn run server-ci",
-    "normaGBJob": "cd client && node normaJob.js garbarino",
-    "normaCMJob": "cd client && node normaJob.js compumundo",
-    "garba-cart": "yarn run normaGBJob && npm-run-all --parallel client server-dev",
-    "compu-cart": "yarn run normaCMJob && npm-run-all --parallel client server-dev",
-    "start-ci": "npm-run-all --parallel server-ci deploy-client-ci",
-    "deploy-client-ci": "yarn normaGBJob && yarn client-ci"
+
+    "client": "cd client && yarn run start",
+    "garba-cart": "yarn run norma-garba && npm-run-all --parallel client server-dev",
+    "compu-cart": "yarn run norma-garba && npm-run-all --parallel client server-dev",
+
+    "build-client": "cd client && yarn build",
+    "mv-client-garba": "cd client && mv build build-garba",
+    "mv-client-compu": "cd client && mv build build-compu",
+    "build-garba": "yarn norma-garba && yarn build-client && yarn mv-client-garba",
+    "build-compu": "yarn norma-compu && yarn build-client && yarn mv-client-compu"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "node-fetch": "^2.3.0",
-    "npm-run-all": "^4.1.5",
-    "react": "^16.7.0"
+    "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
   }
