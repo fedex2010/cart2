@@ -32,8 +32,9 @@ jobs:
         - attach_workspace:
             at: ~/garbarino-com/cart-ui
         - run: yarn install
-        - run: yarn build-garba
-        - run: yarn build-compu
+        - run: yarn install-client
+        - run: CI=false yarn build-garba
+        - run: CI=false yarn build-compu
         - persist_to_workspace:
             root: .
             paths: .
