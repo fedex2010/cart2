@@ -33,11 +33,12 @@ class ProductDescription extends Component {
     return !discount ? classDiscount : classDiscountNone;
   }
 
-  _showModal(productId) {
-    this.props.selectProduct(productId);
+  _showModal(product) {
+    this.props.selectProduct(product);
   }
 
   render() {
+    debugger;
     let product = this.props.item;
     let percentage = this.props.percentage;
     let cartId = Cookie.get("cartId");
@@ -97,7 +98,7 @@ class ProductDescription extends Component {
             </div>
   
             <a
-              onClick={this._showModal.bind(this, product.product_id)}
+              onClick={this._showModal.bind(this, product)}
               className="has-tooltip gui-icon-trash icon--md"
               data-toggle="modal"
               data-target="#delete-product"
@@ -106,6 +107,7 @@ class ProductDescription extends Component {
             </a>
           </div>
           <ProductWarranty
+            currentProduct={product}
             item={product.warranties}
             products={product.product_id}
             warranty_id={product.warranty_id}
@@ -149,7 +151,7 @@ class ProductDescription extends Component {
               <select
                 className="form-control form-control--sm"
                 value={product.quantity}
-                onChange={this._onSortChange.bind(this, product.product_id)}
+                onChange={this._onSortChange.bind(this, product)}
               >
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -165,7 +167,7 @@ class ProductDescription extends Component {
             </div>
   
             <a
-              onClick={this._showModal.bind(this, product.product_id)}
+              onClick={this._showModal.bind(this, product)}
               className="has-tooltip gui-icon-trash icon--md"
               data-toggle="modal"
               data-target="#delete-product"

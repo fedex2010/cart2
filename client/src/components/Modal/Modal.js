@@ -1,20 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { selectProduct, deleteProduct } from "../../actions/CartAction";
+import { selectProduct, deleteProduct, editWarranty } from "../../actions/CartAction";
+import Cookie from "js-cookie";
 
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productIdModal: this.props.productIdModal
+      showModalWarranty:true,
+      productIdModal: {},
+      warrantyIdModal: {},
+      idWarranty: this.props.idWarranty
     };
   }
 
   _handleDeleteProductS(productIdModal) {
     this.props.deleteProduct(productIdModal);
   }
+  _showTermAndCondition(){
+    this.setState({ showModalWarranty: false });
+  }
+  _hideTermAndCondition(){
+    this.setState({ showModalWarranty: true });
+  }
+
+  _onSelectOption(id,product_id,event){
+    let cartId = Cookie.get("cartId");
+    if(!event.target.checked) id="DEFAULT_FACTORY";
+    this.props.editWarranty(cartId,product_id,id);
+  }
 
   render() {
+    let product_id = this.props.products;
     return (
       <div>
         {/* MODAL ELIMINAR PRODUCTO*/}
@@ -72,7 +89,7 @@ class Modal extends Component {
         >
           <div className="gui-modal-dialog gui-modal-md">
             {/* info garantías */}
-            <div className="gui-modal-content" id="warranty-info">
+            <div className={`gui-modal-content ${this.state.showModalWarranty ? '' : 'hide'}`}  id="warranty-info">
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">
                   Extendé tu protección por $2.000
@@ -80,6 +97,7 @@ class Modal extends Component {
                 <a
                   className="gui-modal-title--action-link"
                   id="show-warranties-tyc"
+                  onClick={this._showTermAndCondition.bind(this)}
                 >
                   Ver términos y condiciones
                 </a>
@@ -117,18 +135,19 @@ class Modal extends Component {
                 >
                   No, gracias
                 </button>
-                <button className="button--primary" type="button">
+                <button className="button--primary" type="button" onClick={this._onSelectOption.bind(this,product_id)}>
                   Agregar
                 </button>
               </div>
             </div>
             {/* info TyC */}
-            <div className="gui-modal-content hide" id="warranty-tyc">
+            <div className={`gui-modal-content ${this.state.showModalWarranty ? 'hide' : ''}`} id="warranty-tyc">
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">Garantía de reparación</h5>
                 <a
                   className="gui-modal-title--action-link"
                   id="hide-warranties-tyc"
+                  onClick={this._hideTermAndCondition.bind(this)}
                 >
                   Volver
                 </a>
@@ -293,7 +312,7 @@ class Modal extends Component {
                 </p>
               </div>
               <div className="gui-modal-footer">
-                <button className="button--link" type="button">
+                <button className="button--link" type="button"  onClick={this._hideTermAndCondition.bind(this)}>
                   Volver
                 </button>
               </div>
@@ -306,10 +325,12 @@ class Modal extends Component {
 }
 
 const mapStateToProps = state => {
-  return { productIdModal: state.cartReducer.selectedProduct };
-};
+  return { productIdModal: state.cartReducer.selectedProduct.product_id,
+    warrantyIdModal: state.cartReducer.selectedProduct.warranty_id
+    }
+  };
 
 export default connect(
   mapStateToProps,
-  { selectProduct, deleteProduct }
+  { selectProduct, deleteProduct, editWarranty }
 )(Modal);

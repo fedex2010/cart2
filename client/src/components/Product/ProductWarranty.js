@@ -1,17 +1,28 @@
 import React, {Component} from "react"
 import Cookie from "js-cookie";
-import {editWarranty} from "../../actions/CartAction";
+import {editWarranty,selectProduct} from "../../actions/CartAction";
 import {connect} from "react-redux";
 
 
 class ProductWarranty extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+          idWarranty: ""  
+        };
+      }
 
     _optionsRender(productWarranty){
         let percentage = this.props.percentage;
         let li = []
+        console.log("ENTRAAA2-------------------------",productWarranty)
+
         for (var i in productWarranty) {
             if (productWarranty.hasOwnProperty(i)) {
-                productWarranty[i].period=productWarranty[i].period.split(" ")
+                console.log("ENTRAAA3-------------------------",productWarranty[i])
+                if(productWarranty[i].period.length==1){
+                    productWarranty[i].period=productWarranty[i].period.split(" ")
+                }
                 let interest = (parseFloat(percentage) * parseFloat(productWarranty[i].price)) / 100;
                 let installment_price = (productWarranty[i].price + interest) / 12;
                 li.push({id:productWarranty[i].warranty_id,prod:productWarranty[i].period[0],price:productWarranty[i].price,installment_price:installment_price})
@@ -36,15 +47,21 @@ class ProductWarranty extends Component{
         let cartId = Cookie.get("cartId");
         if(!event.target.checked) id="DEFAULT_FACTORY";
         this.props.editWarranty(cartId,product_id,id);
+       
     }
 
-
+    _showModal(product) {
+        debugger;
+        this.props.selectProduct(product);
+      }
 
     render(){
+        debugger;
         if(typeof this.props.item !== "undefined"){
-            let productsWarranty = this.props.item;
+            let productsWarranty = this.props.item; 
             let product_id       = this.props.products;
             let checked;
+            console.log("ENTRAAA-------------------------",productsWarranty)
             let liWarranty = this._optionsRender(productsWarranty);
 
             return  (
@@ -59,7 +76,7 @@ class ProductWarranty extends Component{
                             liWarranty.map((item)=>{
                                 checked = (this.props.warranty_id !== "DEFAULT_FACTORY" && this.props.warranty_id === item.id)?true:false;
                                 return (<li><label><input type="checkbox" value={item.id} checked={ checked } onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#" data-toggle="modal"
-                                data-target="#warranty-modal">{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
+                                data-target="#warranty-modal" onClick={this._showModal.bind(this, this.props.currentProduct)} >{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
                             })
                         }
                     </ul>
@@ -74,10 +91,10 @@ class ProductWarranty extends Component{
 
 
 const mapStateToProps = state => {
-    return { product: state.cartReducer.product };
+    return { currentProduct: state.cartReducer.selectedProduct };
 };
 
 export default connect(
     mapStateToProps,
-    { editWarranty }
+    { editWarranty,selectProduct }
 )(ProductWarranty)
