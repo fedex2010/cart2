@@ -22,7 +22,7 @@ class Alert extends Component {
       let cssMsj = "feedback feedback-success feedback-dismissible";
       let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
       let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
-      let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status == 'VALID' && p.promotion.total_discount > 0;}).length > 0;
+      let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
       let hasBonification = hasPriceMatchingDiscount || hasPolcom;
       let hasCoupon = cart.couponAmount > 0;
       let msj = "";
@@ -51,7 +51,6 @@ class Alert extends Component {
   _isSaleable(cart){
       let cssMsj = "feedback feedback-error feedback-dismissible";
       let saleableFalse = " El producto seleccionado está agotado. Eliminalo para poder continuar.";
-      let alert = [];
       let salable = false;
 
       cart.products.map((product)=>{

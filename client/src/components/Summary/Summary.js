@@ -30,7 +30,7 @@ class Summary extends Component {
       if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
     }
-    if(this.props.products != undefined){
+    if(this.props.products !== undefined){
         products = this.props.products;
     }
 

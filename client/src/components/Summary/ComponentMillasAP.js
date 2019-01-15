@@ -103,11 +103,11 @@ class ComponentMillasAP extends Component {
         displaynoneCheckboxAP ='';
     }
 
-    if(typeof this.props.products != "undefined" && this.props.products != "" ){
+    if(typeof this.props.products !== "undefined" && this.props.products !== "" ){
         let loyalties = "cart-additional-item millasAPBorder displaynone";
         let products = this.props.products
         products.map((i=>{
-            if(typeof i.loyalties != "undefined"){
+            if(typeof i.loyalties !== "undefined"){
                 loyalties = "cart-additional-item millasAPBorder";
             }
         }))
