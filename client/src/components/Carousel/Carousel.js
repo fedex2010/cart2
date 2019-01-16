@@ -5,37 +5,6 @@ import {getCarousel, addProduct} from "../../actions/CartAction";
 
 import Swiper from 'react-id-swiper';
 
-/*
-#js-prev1{
-  margin-left:0px;
-  background-color:black;
-  height:100px;
-  width:60px;
-}
-#js-next1{
-  margin-right:0px;
-}
-
-#js-prev1,#js-next1{
-  opacity: 0;
-  visibility: hidden;
-  transition: all 700ms;
-}
-
-.lunchbox:hover #js-prev1, .lunchbox:hover #js-next1{
-  visibility: visible;
-  opacity: 1;
-  margin: 0;
-}
-
-.lunchbox:hover #js-next1{
-    margin-right: 30px;  
-}
-.lunchbox:hover #js-prev1{
-    margin-left: 30px;  
-}
-*/
-
 class Carousel extends Component {
     constructor(props) {
         super(props)
@@ -43,14 +12,11 @@ class Carousel extends Component {
     }
 
     handleAddProduct(product,price){
-        var product = { xid: product, productPrice: price };
-        this.props.addProduct(product);
+        let  products = { xid: product, productPrice: price };
+        this.props.addProduct(products);
     }
 
     handleGetProduct(e){
-        //var product = e.target.value;
-        //console.log(product);
-        //window.location.href = '/producto/' + product;
         alert("ficha")
     }
 
@@ -72,7 +38,7 @@ class Carousel extends Component {
           };
 
 
-          if (this.props.carousel.title != undefined && typeof this.props.data !== "undefined") { 
+          if (this.props.carousel.title !== undefined && typeof this.props.data !== "undefined") {
             const productIds = this.props.data.map((it => it.product_id));
             return (
                 <div className="card">
@@ -85,7 +51,7 @@ class Carousel extends Component {
                         <div className="carousel-slider carousel-slider--has-padding swiper-wrapper">
                         <Swiper {...params}>
                             {
-                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) == -1)).map(product => (
+                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) === -1)).map(product => (
                                     <div className="carousel-item hover-box swiper-slide carousel-item--with-actions">
                                         
                                         <div className="carousel-item-content">
