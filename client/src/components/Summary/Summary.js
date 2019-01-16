@@ -57,14 +57,12 @@ class Summary extends Component {
                 </li>
 
 
-                {empresarias ? (
-                 <li className="displaynone"></li>
-                ) : (
-                  <li>
-                    <label>IVA</label>
-                    <span className="summary-detail-value">${this.props.subtotalPrice - this.props.subtotalBasePrice}</span>
-                  </li>
-                )}
+               
+                <li className={`${empresarias ? '' : 'displaynone'}`}>
+                  <label>IVA</label>
+                  <span className="summary-detail-value">${this.props.subtotalPrice - this.props.subtotalBasePrice}</span>
+                </li>
+               
 
                 <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'}>
                   <label>Garantías</label>
@@ -84,17 +82,12 @@ class Summary extends Component {
                 </li>
               </ul>
 
-              {/* cupones y descuentos */}
-              {empresarias ? (
-                <div className="cart-additionals">
+              <div className="" className={`${empresarias ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
                 <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons}/>
                 <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
               </div>
-              ) : (
-                <div></div>
-              )}
-
+             
 
 
             </div>
