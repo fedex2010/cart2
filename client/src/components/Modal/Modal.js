@@ -24,10 +24,9 @@ class Modal extends Component {
     this.setState({ showModalWarranty: true });
   }
 
-  _onSelectOption(id,product_id,event){
+  _onSelectOption(){
     let cartId = Cookie.get("cartId");
-    if(!event.target.checked) id="DEFAULT_FACTORY";
-    this.props.editWarranty(cartId,product_id,id);
+    this.props.editWarranty(cartId,this.props.productIdModal,this.props.warrantyIdModal);
   }
 
   render() {
@@ -89,7 +88,7 @@ class Modal extends Component {
         >
           <div className="gui-modal-dialog gui-modal-md">
             {/* info garantías */}
-            <div className={`gui-modal-content ${this.state.showModalWarranty ? '' : 'hide'}`}  id="warranty-info">
+            <div className={`gui-modal-content ${this.state.showModalWarranty ? '' : 'hide'}`}   id="warranty-info">
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">
                   Extendé tu protección por $2.000
@@ -135,7 +134,7 @@ class Modal extends Component {
                 >
                   No, gracias
                 </button>
-                <button className="button--primary" type="button" onClick={this._onSelectOption.bind(this,product_id)}>
+                <button className="button--primary" type="button" onClick={this._onSelectOption.bind(this)} data-dismiss="modal">
                   Agregar
                 </button>
               </div>
@@ -326,7 +325,7 @@ class Modal extends Component {
 
 const mapStateToProps = state => {
   return { productIdModal: state.cartReducer.selectedProduct.product_id,
-    warrantyIdModal: state.cartReducer.selectedProduct.warranty_id
+    warrantyIdModal: state.cartReducer.selectedProduct.selectedWarranty_id
     }
   };
 

@@ -90,7 +90,7 @@ class ProductDescription extends Component {
           </div>
 
           <a
-            onClick={this._showModal.bind(this, product.product_id)}
+            onClick={this._showModal.bind(this, product)}
             className="has-tooltip gui-icon-trash icon--md"
             data-toggle="modal"
             data-target="#delete-product"
@@ -99,6 +99,7 @@ class ProductDescription extends Component {
           </a>
         </div>
         <ProductWarranty
+          current={product}
           item={product.warranties}
           products={product.product_id}
           warranty_id={product.warranty_id}

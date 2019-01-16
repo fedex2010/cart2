@@ -45,18 +45,16 @@ class ProductWarranty extends Component{
 
     _onSelectOption(id,product_id,event){
         let cartId = Cookie.get("cartId");
-        if(!event.target.checked) id="DEFAULT_FACTORY";
         this.props.editWarranty(cartId,product_id,id);
        
     }
 
-    _showModal(product) {
-        debugger;
+    _showModal(product,warranty_id) {
+        product.selectedWarranty_id = warranty_id;
         this.props.selectProduct(product);
       }
 
     render(){
-        debugger;
         if(typeof this.props.item !== "undefined"){
             let productsWarranty = this.props.item; 
             let product_id       = this.props.products;
@@ -76,7 +74,7 @@ class ProductWarranty extends Component{
                             liWarranty.map((item)=>{
                                 checked = (this.props.warranty_id !== "DEFAULT_FACTORY" && this.props.warranty_id === item.id)?true:false;
                                 return (<li><label><input type="checkbox" value={item.id} checked={ checked } onClick={this._onSelectOption.bind(this,item.id,product_id)} /><a href="#" data-toggle="modal"
-                                data-target="#warranty-modal" onClick={this._showModal.bind(this, this.props.currentProduct)} >{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
+                                data-target="#warranty-modal" onClick={this._showModal.bind(this, this.props.current, item.id)} >{item.prod} meses</a> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
                             })
                         }
                     </ul>
