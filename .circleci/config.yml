@@ -70,7 +70,14 @@ workflows:
   version: 2
   build_and_deploy_elb:
     jobs:
-      - checkout_code
+      - checkout_code:
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+            tags:
+              only: /^CHECKOUT-.*/
       - build_client:
           requires:
             - checkout_code
