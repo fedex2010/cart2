@@ -6,7 +6,6 @@ import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 import Cookie from "js-cookie";
 
 
-
 class Summary extends Component {
     
   constructor(props) {
@@ -38,8 +37,10 @@ class Summary extends Component {
         products = this.props.products;
     }
 
+    let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
+
     return (
-        <div className="summary">
+        <div className={classLoading}>
           {/* resumen de compra */}
           <div className="purchase-summary">
             {/*add class - card--is-loading - en  <div className="card cart-summary card--is-loading"> para el loading*/}
@@ -54,7 +55,7 @@ class Summary extends Component {
                   <label>Subtotal</label>
                   <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? this.props.subtotalPrice : '0'}</span>
                 </li>
-                
+
 
                 {empresarias ? (
                  <li className="displaynone"></li>
@@ -94,7 +95,7 @@ class Summary extends Component {
                 <div></div>
               )}
 
-              
+
 
             </div>
             <div className="cart-actions">
@@ -111,4 +112,11 @@ class Summary extends Component {
     );
   }
 }
-export default Summary;
+const mapStateToProps = state => {
+    return { operationStatus: state.cartReducer.operationStatus };
+};
+
+export default connect(
+    mapStateToProps,
+    { })
+    (Summary)

@@ -78,17 +78,25 @@ class CartControllers {
     }
     RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
+        
         return RestClient.productClient
           .getProducts(brand, carousel.products)
           .then(product => {
             products.id = carousel.id;
             products.title = carousel.title;
+
+            product = product.filter(prod => prod.enabled_for_sale)
+
             product.map(prod => {
               prod.main_image.url = getProductImageCloudfrontV2(
                 prod.main_image.url
               );
             });
+
             products.products = product;
+
+           
+
             res.send(products);
           })
           .catch(err => {
