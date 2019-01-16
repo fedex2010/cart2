@@ -41,6 +41,11 @@ jobs:
   deploy_elb:
       machine: true
       working_directory: ~/garbarino-com/cart-ui
+      environment:
+        AWS_ACCESS_KEY_ID: "AKIAJWUHQPWQHWC4SAXQ"
+        AWS_SECRET_ACCESS_KEY: "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"
+        AWS_DEFAULT_REGION: "us-east-1"
+        
       steps:
         - attach_workspace:
             at: ~/garbarino-com/cart-ui
