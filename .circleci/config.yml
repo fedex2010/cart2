@@ -75,11 +75,20 @@ workflows:
           requires:
             - checkout_code
           filters:
+            branches:
+              only:
+                - develop
+                - master
             tags:
-              only: /.*/
+              only: /^CHECKOUT-.*/
+
       - deploy_elb:
           requires:
             - build_client
           filters:
+            branches:
+              only:
+                - develop
+                - master
             tags:
               only: /^CHECKOUT-.*/
