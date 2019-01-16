@@ -73,13 +73,13 @@ workflows:
       - checkout_code
       - build_client:
           requires:
-          - checkout_code
+            - checkout_code
           filters:
             tags:
               only: /.*/
       - deploy_elb:
           requires:
-          - build_client
+            - build_client
           filters:
             tags:
               only: /^CHECKOUT-.*/
