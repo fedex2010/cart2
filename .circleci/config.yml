@@ -54,7 +54,7 @@ jobs:
         - run:
             name: Deploy All Branches
             command: |
-              if [[ "$CIRCLE_TAG" =~ CHECKOUT-* ]]
+              if [[ "${CIRCLE_TAG}" =~ CHECKOUT-* ]]
               then
                 aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$CIRCLE_SHA1-SNAPSHOT-$CIRCLE_TAG-$CIRCLE_BUILD_NUM.zip
                 aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $CIRCLE_SHA1-$CIRCLE_TAG-$CIRCLE_BUILD_NUM --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$CIRCLE_SHA1-SNAPSHOT-$CIRCLE_TAG-$CIRCLE_BUILD_NUM.zip --region us-east-1
@@ -74,6 +74,9 @@ workflows:
       - build_client:
           requires:
           - checkout_code
+          filters:
+            tags:
+              only: /.*/
       - deploy_elb:
           requires:
           - build_client
