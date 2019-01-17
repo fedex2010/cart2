@@ -39,6 +39,8 @@ class Summary extends Component {
 
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
+    let subtotal = (this.props.subtotalBasePrice && this.props.subtotalPrice) ? this.props.subtotalBasePrice - this.props.subtotalPrice:0;
+
     return (
         <div className={classLoading}>
           {/* resumen de compra */}
@@ -60,7 +62,7 @@ class Summary extends Component {
                
                 <li className={`${empresarias ? '' : 'displaynone'}`}>
                   <label>IVA</label>
-                  <span className="summary-detail-value">${this.props.subtotalBasePrice - this.props.subtotalPrice}</span>
+                  <span className="summary-detail-value">${subtotal}</span>
                 </li>
                
 
