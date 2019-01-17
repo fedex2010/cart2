@@ -127,7 +127,7 @@ class ComponentMillasAP extends Component {
 }
 
 const mapStateToProps = state => {
-    return { item: state.cartReducer.item };
+    return { err: state.cartReducer.err };
 };
 
 export default connect(
