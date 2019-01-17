@@ -44,6 +44,7 @@ class CartControllers {
         .then(cart => {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
+          cart = this._getEmpresarias(req, res,cart);
           res.cookie("epi.context", session_id);
           res.cookie("cartId", cart.cart_id);
           res.send(cart);
@@ -128,17 +129,18 @@ class CartControllers {
 
     if (cartId != null) {
       return RestClient.cartClient
-        .getOneCart(cartId, {}, brand)
+        .getOneCart(cartId, {}, brand,true,false)
         .then(cart => {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
+          cart = this._getEmpresarias(req, res,cart);
           return cart;
         })
         .catch(err => {
           logger.error(
             "[" + cartId + "] Fail get cart _getOneCart ,err:" + err
           );
-          res.status(500).send("Fail get one cart");
+          res.status(304).send({ erro: err });
         });
     } else {
       return this.getNewCart(req, res)
@@ -147,7 +149,7 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart getNewCart ,err:" + err);
-          res.status(500).send("Fail get a new cart");
+          res.status(304).send({ erro: err });
         });
     }
   }
@@ -227,7 +229,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -250,7 +252,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -276,7 +278,7 @@ class CartControllers {
             logger.error(
               "[" + cartId + "] Fail get cart coupon delete ,err:" + err
             );
-            res.status(500).send("Fail get a update cart coupon delete");
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -309,7 +311,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -333,7 +335,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
