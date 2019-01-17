@@ -27,9 +27,8 @@ class ProductDescription extends Component {
   }
 
 
-  _showModal(productId) {
-    console.log("POST", productId);
-    this.props.selectProduct(productId);
+  _showModal(product) {
+    this.props.selectProduct(product);
   }
 
   render() {
@@ -38,6 +37,7 @@ class ProductDescription extends Component {
     let showStatus = this._showStatus(product.validations.saleable);
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
     let idProduct  = "productId_"+product.product_id;
+    let empresarias = (Cookie.get("empresarias")==true?true:false);
 
     return (
       <div className="cart-item card" id={idProduct}>
@@ -63,9 +63,9 @@ class ProductDescription extends Component {
             </h3>
             <span className={showStatus}>Agotado</span>
           </div>
-          <div className="cart-item-column">
+          <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Precio:</label>
-            <span className="cart-item-column-data">${product.price}</span>
+            <span className="cart-item-column-data">${product.price} {`${empresarias ? '+ IVA' : ''}`}</span>
           </div>
 
           <div className="cart-item-column">
@@ -82,15 +82,15 @@ class ProductDescription extends Component {
               <option value="4">4</option>
             </select>
           </div>
-          <div className="cart-item-column">
+          <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Subtotal:</label>
             <strong className="cart-item-column-data">
-              ${product.subtotal_price}
+              ${product.subtotal_price} {`${empresarias ? '+ IVA' : ''}`}
             </strong>
           </div>
 
           <a
-            onClick={this._showModal.bind(this, product.product_id)}
+            onClick={this._showModal.bind(this, product)}
             className="has-tooltip gui-icon-trash icon--md"
             data-toggle="modal"
             data-target="#delete-product"
@@ -99,6 +99,7 @@ class ProductDescription extends Component {
           </a>
         </div>
         <ProductWarranty
+          current={product}
           item={product.warranties}
           products={product.product_id}
           warranty_id={product.warranty_id}

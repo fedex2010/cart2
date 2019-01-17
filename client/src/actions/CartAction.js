@@ -1,8 +1,9 @@
 import { SET_CURRENT_CART, SET_CAROUSEL ,SET_CURRENT_CART_ERROR,SET_SELECTED_PRODUCT} from "./Types";
 
-export const selectProduct = productId => dispatch => {
-    return dispatch({ type: SET_SELECTED_PRODUCT, payload: productId });
+export const selectProduct = product => dispatch => {
+    return dispatch({ type: SET_SELECTED_PRODUCT, payload: product });
 };
+
 
 export const fetchCart = id => dispatch => {
   fetch("/api/cart/" + id)

@@ -54,6 +54,12 @@ header .gb-wrapper {
   display: none !important;
 }
 
+/*PRODUCT EMPRESARIAS*/
+
+.column-empresarias {
+  flex: 0 0 100px !important;
+}
+
 @import "./styles/GUI/_variables/_variables.scss";
 @import "./styles/GUI/_variables/_variables-garba.scss";
 @import "./styles/GUI/_mixins/mixins.scss";
