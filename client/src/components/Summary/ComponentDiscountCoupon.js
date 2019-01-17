@@ -27,9 +27,9 @@ class ComponentDiscountCoupon extends Component {
           return (
               <div className="coupon-applied">
                   <span className="coupon-code">{coupon.coupon_id}</span>
-                  <a href="#" onClick={this._deleteCoupon.bind(this, coupon)}>
+                  <button className="link-to-button" onClick={this._deleteCoupon.bind(this, coupon)}>
                       Eliminar
-                  </a>
+                  </button>
               </div>
           );
       }

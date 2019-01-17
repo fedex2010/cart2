@@ -54,8 +54,7 @@ class Alert extends Component {
       let saleableFalse = " El producto seleccionado está agotado. Eliminalo para poder continuar.";
       let salable = false;
 
-      cart.products.map((product)=>{
-
+      cart.products.forEach((product)=>{
           if(!product.validations.saleable){
               salable=true;
           }
@@ -74,13 +73,10 @@ class Alert extends Component {
   _isPriceChange(cart){
       let cssMsj = "feedback feedback-info feedback-dismissible";
       let msg = "";
-      console.log("_isPriceChange");
       if (cart.price_change){
-          console.log("_isPriceChange if");
           let changesInPrice = "";
           let changesInWarranty = "";
-          cart.products.map((product,key)=>{
-              console.log("_isPriceChange Map: "+key);
+          cart.products.forEach( product=>{
               if (product.hasOwnProperty('price_delta')){
                   if (product.price_delta > 0){
                       changesInPrice += "UP";
@@ -102,65 +98,45 @@ class Alert extends Component {
           let warrantiesDown = (changesInWarranty.match(/DOWN/g) || []).length;
 
           if (pricesUp > 0){
-              console.log("_isPriceChange pricesUp > 0");
               if (pricesUp > 1){
-                  console.log("_isPriceChange pricesUp > 1");
                   if(warrantiesUP > 0 || warrantiesDown > 0){
-                      console.log("_isPriceChange warrantiesUP > 0 || warrantiesDown > 0");
                       msg =  "Algunos productos y garantías han cambiado sus precios.";
                   } else{
-                      console.log("_isPriceChange else warrantiesUP > 0 || warrantiesDown > 0");
                       msg =  "Algunos productos han cambiado su precio.";
                   }
               }else if(warrantiesUP > 0 || warrantiesDown > 0){
-                  console.log("_isPriceChange if warrantiesUP > 0 || warrantiesDown > 0");
                   msg = "Algunos productos y garantías han cambiado sus precios.";
               }else if (pricesDown > 0){
-                  console.log("_isPriceChange else warrantiesUP > 0 || warrantiesDown > 0");
                   msg =  "Algunos productos han cambiado su precio.";
               }else{
                   msg = "Hubo un cambio en el precio de tu producto.";
               }
           }else if(pricesDown > 0){
-              console.log("_isPriceChange else if(pricesDown > 0)");
               if(pricesDown > 1){
-                  console.log("_isPriceChange pricesDown > 1");
                   if(warrantiesDown > 0){
-                      console.log("_isPriceChange warrantiesDown > 0");
                       msg = "¡Buenas noticias! Algunos productos y garantías bajaron de precio.";
                   }else if(warrantiesUP > 0){
-                      console.log("_isPriceChange else if warrantiesDown > 0");
                       msg =  "Algunos productos y garantías han cambiado sus precios.";
                   }else {
-                      console.log("_isPriceChange else warrantiesDown > 0");
                       msg = "¡Buenas noticias! Algunos productos bajaron de precio.";
                   }
               }else if(warrantiesDown > 0){
-                  console.log("_isPriceChange else if(warrantiesDown > 0)");
                   msg = "¡Buenas noticias! Tu producto y la garantía bajaron de precio.";
               }else if(warrantiesUP > 0){
-                  console.log("_isPriceChange else if(warrantiesUP > 0)");
                   msg =  "Algunos productos y garantías han cambiado sus precios.";
               }else{
-                  console.log("_isPriceChange else 1)");
                   msg = "¡Buenas noticias! Tu producto bajó de precio.";
               }
           }else if(warrantiesUP > 0){
-              console.log("_isPriceChange else if(warrantiesUP > 0)");
               if (warrantiesUP > 1 || warrantiesDown > 0){
-                  console.log("_isPriceChange if (warrantiesUP > 1 || warrantiesDown > 0){");
                   msg = "Algunas garantías han cambiado su precio.";
               }else {
-                  console.log("_isPriceChange else (warrantiesUP > 1 || warrantiesDown > 0){");
                   msg = "Hubo un cambio en el precio de tu garantía.";
               }
           }else{
-              console.log("_isPriceChange else 2");
               if (warrantiesDown > 1){
-                  console.log("_isPriceChange if (warrantiesDown > 1){");
                   msg = "¡Buenas noticias! Algunas garantías bajaron de precio.";
               }else{
-                  console.log("_isPriceChange else (warrantiesDown > 1){");
                   msg = "¡Buenas noticias! Tu garantía bajó de precio.";
               }
           }
@@ -174,7 +150,6 @@ class Alert extends Component {
               </div>
           );
       }
-      console.log("Fin _isPriceChange");
   }
 
   render() {

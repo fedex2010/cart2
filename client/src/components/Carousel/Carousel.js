@@ -33,8 +33,8 @@ class Carousel extends Component {
               prevEl: '.swiper-button-prev',
             },
 
-            renderPrevButton: () => <a className="gb-carousel-module-control gb--prev swiper-button-prev" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="prev" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-left"></span></a>,
-            renderNextButton: () => <a className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></a>,
+            renderPrevButton: () => <button className="gb-carousel-module-control gb--prev swiper-button-prev" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="prev" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-left"></span></button>,
+            renderNextButton: () => <button className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></button>,
           };
 
 
@@ -74,7 +74,8 @@ class Carousel extends Component {
                                             </div>
 
                                             <div className="carousel-item-actions">
-                                                <a onClick={this.handleGetProduct.bind(this,product.xid)} className="button--link button--xs">Ver detalle</a>
+
+                                                <button onClick={this.handleGetProduct.bind(this)} className="button--link button--xs">Ver detalle</button>
                                                 <button onClick={this.handleAddProduct.bind(this,product.xid,product.price)} className="button--primary button--xs">Agregar</button>
                                             </div>
                                     </div>

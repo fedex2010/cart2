@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 import Cookie from "js-cookie";
@@ -26,10 +25,9 @@ class Summary extends Component {
     
   }
   render() {
-    // add class -summary-absolute or summary-fixed - en el div contenedor summary
     let couponClass = "highlight-benefit displaynone";
     let products="";
-    let empresarias = (Cookie.get("empresarias")==true?true:false);
+    let empresarias = (Cookie.get("empresarias")===true?true:false);
       if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
     }
@@ -82,7 +80,7 @@ class Summary extends Component {
                 </li>
               </ul>
 
-              <div className="" className={`${empresarias ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
+              <div  className={`${empresarias ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
                 <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons}/>
                 <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
@@ -92,9 +90,9 @@ class Summary extends Component {
 
             </div>
             <div className="cart-actions">
-              <a className="button--link" href="#">
+              <button className="button--link">
                 COMPRAR MÁS PRODUCTOS
-              </a>
+              </button>
               <button type="button" className="button--primary">
                 Continuar
               </button>
@@ -109,7 +107,4 @@ const mapStateToProps = state => {
     return { operationStatus: state.cartReducer.operationStatus };
 };
 
-export default connect(
-    mapStateToProps,
-    { })
-    (Summary)
+export default connect(mapStateToProps,{})(Summary)
