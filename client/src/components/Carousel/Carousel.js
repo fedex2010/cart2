@@ -89,25 +89,7 @@ class Carousel extends Component {
 
           }else{
             return (
-                <div className="card">
-                    <div className="card-header">
-                        <h5 className="card-title">
-
-                        </h5>
-                    </div>
-                    <div className="carousel swiper-container">
-                        <a className="swiper-button-prev gb-carousel-module-control gb--prev">
-                            <span className="gb-icon-simple-bold-arrow-left" />
-                        </a>
-                        <a className="swiper-button-next gb-carousel-module-control gb--next">
-                            <span className="gb-icon-simple-bold-arrow-right" />
-                        </a>
-
-                        <div className=" carousel-slider carousel-slider--has-padding swiper-wrapper">
-
-                        </div>
-                    </div>
-                </div>
+                <div></div>
             );
           }
 
