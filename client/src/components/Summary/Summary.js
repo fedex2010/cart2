@@ -1,8 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Cookie from "js-cookie";
 
 import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
+
+function SuccessMessage(){
+  let salesman = Cookie.get("epi.salesman");
+
+  console.log("*///////////////")
+  console.log( Cookie.get() )
+  console.log("*///////////////")
+
+  if(salesman){
+    return <p className="alert alert-success fade in alert-dismissable salesman">Vendedor: {salesman}</p>
+  }
+  return null 
+}
 
 
 class Summary extends Component {
@@ -35,6 +49,7 @@ class Summary extends Component {
     }
 
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
+    let zaraz = '<p className="alert alert-success fade in alert-dismissable salesman">Vendedor: few</p>'
 
     return (
         <div className={classLoading}>
@@ -46,6 +61,8 @@ class Summary extends Component {
               <div className="cart-summary-header">
                 <span className="cart-summary-title">Resumen de compra</span>
               </div>
+
+              <SuccessMessage />
 
               <ul className="summary-detail">
                 <li>

@@ -1,13 +1,22 @@
 const RestClient = require("../client"),
-  logger = require("../utils/logger"),
-  Q = require("q");
+logger = require("../utils/logger"),
+sessionService = require("../services/session_service"),
+Q = require("q");
 
 class CartControllers {
   constructor() {}
 
+  sellerLoginAction (req, res)  {
+    sessionService.clearSessionCookies(res)
+    
+    res.cookie('epi.salesman', req.body.vendedor)
+       .status(200)
+       .send({ ok : true });
+  }
+
   getNewCart(req, res) {
     let session_id = res.locals.session;
-    let sellerId = "";
+    let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
 
     RestClient.cartClient
@@ -23,7 +32,7 @@ class CartControllers {
   getCart(req, res) {
     let cartId = req.params.cartId;
     let session_id = res.locals.session;
-    let sellerId = "";
+    let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
 
     if (cartId != "undefined") {
