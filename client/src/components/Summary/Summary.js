@@ -28,7 +28,7 @@ class Summary extends Component {
   render() {
     let couponClass = "highlight-benefit displaynone";
     let products="";
-    let empresarias = Cookie.get("empresarias");
+    let empresarias = (Cookie.get("empresarias")==true?true:false);
       if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
     }
@@ -59,7 +59,7 @@ class Summary extends Component {
                
                 <li className={`${empresarias ? '' : 'displaynone'}`}>
                   <label>IVA</label>
-                  <span className="summary-detail-value">${this.props.subtotalPrice - this.props.subtotalBasePrice}</span>
+                  <span className="summary-detail-value">${this.props.subtotalBasePrice - this.props.subtotalPrice}</span>
                 </li>
                
 
