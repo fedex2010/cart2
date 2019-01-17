@@ -93,13 +93,13 @@ class Modal extends Component {
                 <h5 className="gui-modal-title">
                   Extendé tu protección por $2.000
                 </h5>
-                <a
-                  className="gui-modal-title--action-link"
+                <button
+                  className="gui-modal-title--action-link link-to-button"
                   id="show-warranties-tyc"
                   onClick={this._showTermAndCondition.bind(this)}
                 >
                   Ver términos y condiciones
-                </a>
+                </button>
                 <button
                   className="button--icon gui-icon-close button--icon-md"
                   type="button"
@@ -109,7 +109,7 @@ class Modal extends Component {
               <div className="gui-modal-body warranty-info">
                 <h5>¿Por qué contratar una garantía de reparación?</h5>
                 <picture>
-                  <img src="https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/garantia-extendida/033335bd1fed9313f2feffb2b74890a79be791f3ff9ace2b2c6eafa535a5ee8f" />
+                  <img src="https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/garantia-extendida/033335bd1fed9313f2feffb2b74890a79be791f3ff9ace2b2c6eafa535a5ee8f" alt="icon"/>
                 </picture>
                 <ul className="checkmark-list">
                   <li>Mayor tiempo de protección.</li>
@@ -143,13 +143,13 @@ class Modal extends Component {
             <div className={`gui-modal-content ${this.state.showModalWarranty ? 'hide' : ''}`} id="warranty-tyc">
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">Garantía de reparación</h5>
-                <a
-                  className="gui-modal-title--action-link"
+                <button
+                  className="gui-modal-title--action-link link-to-button"
                   id="hide-warranties-tyc"
                   onClick={this._hideTermAndCondition.bind(this)}
                 >
                   Volver
-                </a>
+                </button>
                 <button
                   className="button--icon gui-icon-close button--icon-md"
                   type="button"

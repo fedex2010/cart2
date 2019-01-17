@@ -35,7 +35,7 @@ class ComponentMillasAP extends Component {
           return (
               <div className="coupon-applied">
                   <span className="coupon-code">{this.props.addMillasAP[0].code}</span>
-                  <a href="#" onClick={this._setMillasEmpty.bind(this)}>Eliminar</a>
+                  <button className="link-to-button" onClick={this._setMillasEmpty.bind(this)}>Eliminar</button>
                   <p className="coupon-msj">
                       Sumaste {this.props.addMillasAP[0].value} millas Aerolíneas Plus.
                   </p>
@@ -71,7 +71,7 @@ class ComponentMillasAP extends Component {
                             millas en Aerolíneas Plus
                         </p>
                         <p>
-                            <a data-target="#arplus-tyc">Ver bases y condiciones</a>
+                            <button className="link-to-button" data-target="#arplus-tyc">Ver bases y condiciones</button>
                         </p>
                     </span>
                 </span>

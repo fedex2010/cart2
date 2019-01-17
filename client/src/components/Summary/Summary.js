@@ -26,7 +26,6 @@ class Summary extends Component {
     
   }
   render() {
-    {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
     let couponClass = "highlight-benefit displaynone";
     let products="";
     let empresarias = Cookie.get("empresarias");
@@ -92,9 +91,9 @@ class Summary extends Component {
 
             </div>
             <div className="cart-actions">
-              <a className="button--link" href="#">
+              <button className="button--link">
                 COMPRAR MÁS PRODUCTOS
-              </a>
+              </button>
               <button type="button" className="button--primary">
                 Continuar
               </button>
