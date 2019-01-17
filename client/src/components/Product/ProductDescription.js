@@ -89,14 +89,14 @@ class ProductDescription extends Component {
             </strong>
           </div>
 
-          <a
+          <button
             onClick={this._showModal.bind(this, product)}
             className="has-tooltip gui-icon-trash icon--md"
             data-toggle="modal"
             data-target="#delete-product"
           >
             <span className="tooltip_bottomCenter">Eliminar</span>
-          </a>
+          </button>
         </div>
         <ProductWarranty
           current={product}
