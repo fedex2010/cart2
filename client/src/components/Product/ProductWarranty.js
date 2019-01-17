@@ -56,6 +56,7 @@ class ProductWarranty extends Component{
         if(typeof this.props.item !== "undefined"){
             let productsWarranty = this.props.item; 
             let product_id       = this.props.products;
+            let classDelta       = this.props.classDelta;
             let checked;
             let liWarranty = this._optionsRender(productsWarranty);
             let empresarias = (Cookie.get("empresarias")==='true'?true:false);
@@ -69,6 +70,7 @@ class ProductWarranty extends Component{
                         <strong>¡Extendé tu protección</strong> y llevate{" "}
                         <span className="benefits">GRATIS</span> 60 días de cobertura
                         por robo y daños!
+                        <span className={classDelta}>Precio Modificado</span>
                     </p>
                     <ul className="cart-item-warranties--list">
                         {
