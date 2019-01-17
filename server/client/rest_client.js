@@ -14,8 +14,10 @@ class RestClient {
     getOneCart(cartId,options={},brand,include=true,refresh=false) {
         let url = `${CHECKOUT_CORE_URL}/carts/` + cartId ;
 
-        url = (include) ? url+"?include=cartdata":url;
-        url =(refresh && include) ? url+"&refresh=true":(refresh && !include)?"?refresh=true":url;
+        //url = (include) ? url+"?include=cartdata":url;
+        //url =(refresh && include) ? url+"&refresh=true":(refresh && !include)?"?refresh=true":url;
+
+        url=url+"?refresh=true&include=cartdata";
 
         options.headers = {"Content-Type": "application/json", "X-Brand": brand};
         console.log("url: "+url)

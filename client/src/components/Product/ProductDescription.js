@@ -35,24 +35,18 @@ class ProductDescription extends Component {
     let product = this.props.item;
     let percentage = this.props.percentage;
     let showStatus = this._showStatus(product.validations.saleable);
+    let showChangePrice = (product.price_delta) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
+    let warranty_delta_class  = (product.delta_warranty_price) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
     let idProduct  = "productId_"+product.product_id;
     let empresarias = (Cookie.get("empresarias")===true?true:false);
 
     return (
       <div className="cart-item card" id={idProduct}>
-        <div
-          className="cart-item-detail"
-          itemScope
-          itemType="http://schema.org/Offer"
-        >
+        <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
           <div className="cart-item-column">
             <picture className="cart-item-image">
-              <img
-                src={product.main_image.url}
-                alt="product name"
-                itemProp="image"
-              />
+              <img src={product.main_image.url} alt="product name" itemProp="image"/>
             </picture>
           </div>
           <div className="cart-item-column cart-item-column-lg">
@@ -62,6 +56,7 @@ class ProductDescription extends Component {
               </a>
             </h3>
             <span className={showStatus}>Agotado</span>
+            <span className={showChangePrice}>Precio Modificado</span>
           </div>
           <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Precio:</label>
@@ -104,6 +99,7 @@ class ProductDescription extends Component {
           products={product.product_id}
           warranty_id={product.warranty_id}
           percentage={percentage}
+          classDelta={warranty_delta_class}
         />
       </div>
     );
