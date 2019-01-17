@@ -23,9 +23,6 @@ class ComponentDiscountCoupon extends Component {
     };
 
     _showDelete(coupon){
-      console.log("coupon")
-      console.log(coupon)
-      console.log("coupon")
       if(coupon.coupon_id){
           return (
               <div className="coupon-applied">

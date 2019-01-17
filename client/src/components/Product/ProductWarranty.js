@@ -15,7 +15,6 @@ class ProductWarranty extends Component{
     _optionsRender(productWarranty){
         let percentage = this.props.percentage;
         let li = []
-        console.log("ENTRAAA2-------------------------",productWarranty)
 
         for (var i in productWarranty) {
             if (productWarranty.hasOwnProperty(i)) {
@@ -58,7 +57,6 @@ class ProductWarranty extends Component{
             let productsWarranty = this.props.item; 
             let product_id       = this.props.products;
             let checked;
-            console.log("ENTRAAA-------------------------",productsWarranty)
             let liWarranty = this._optionsRender(productsWarranty);
 
             return  (
