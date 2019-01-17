@@ -23,9 +23,6 @@ class ComponentDiscountCoupon extends Component {
     };
 
     _showDelete(coupon){
-      console.log("coupon")
-      console.log(coupon)
-      console.log("coupon")
       if(coupon.coupon_id){
           return (
               <div className="coupon-applied">
@@ -90,7 +87,7 @@ class ComponentDiscountCoupon extends Component {
             return (
                 <div className="cart-additional-item">
                     <label>
-                        <input type="checkbox" checked="checked" value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />{" "}
+                        <input type="checkbox"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />{" "}
                         Tengo cupón de descuento
                     </label>
                     <div className={displaynoneCheckboxDiscount}>

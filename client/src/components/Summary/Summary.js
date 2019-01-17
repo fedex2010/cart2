@@ -24,7 +24,7 @@ class Summary extends Component {
     
   }
   render() {
-    {/* add class -summary-absolute or summary-fixed - en el div contenedor summary */}
+    // add class -summary-absolute or summary-fixed - en el div contenedor summary
     let couponClass = "highlight-benefit displaynone";
     let products="";
       if(typeof this.props.coupons !== "undefined"){

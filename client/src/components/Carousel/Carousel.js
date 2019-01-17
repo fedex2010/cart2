@@ -16,8 +16,8 @@ class Carousel extends Component {
         this.props.addProduct(products);
     }
 
-    handleGetProduct(e){
-        alert("ficha")
+    handleGetProduct(productId){
+        window.location = "/producto/"+productId
     }
 
     render() {
@@ -51,8 +51,8 @@ class Carousel extends Component {
                         <div className="carousel-slider carousel-slider--has-padding swiper-wrapper">
                         <Swiper {...params}>
                             {
-                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) === -1)).map(product => (
-                                    <div className="carousel-item hover-box swiper-slide carousel-item--with-actions">
+                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) === -1)).map((product, i) => (
+                                    <div key={i} className="carousel-item hover-box swiper-slide carousel-item--with-actions">
                                         
                                         <div className="carousel-item-content">
                                             <picture>
@@ -73,7 +73,7 @@ class Carousel extends Component {
                                             </div>
 
                                             <div className="carousel-item-actions">
-                                                <a onClick={this.handleGetProduct.bind(this)} className="button--link button--xs">Ver detalle</a>
+                                                <a onClick={this.handleGetProduct.bind(this,product.xid)} className="button--link button--xs">Ver detalle</a>
                                                 <button onClick={this.handleAddProduct.bind(this,product.xid,product.price)} className="button--primary button--xs">Agregar</button>
                                             </div> 
                                     </div>
