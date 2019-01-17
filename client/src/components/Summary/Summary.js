@@ -4,7 +4,6 @@ import Cookie from "js-cookie";
 
 import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
-import Cookie from "js-cookie";
 
 function SuccessMessage(){
   let salesman = Cookie.get("epi.salesman");
@@ -49,7 +48,6 @@ class Summary extends Component {
     }
 
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
-    let zaraz = '<p className="alert alert-success fade in alert-dismissable salesman">Vendedor: few</p>'
 
     let subtotal = (this.props.subtotalBasePrice && this.props.subtotalPrice) ? this.props.subtotalBasePrice - this.props.subtotalPrice:0;
 
