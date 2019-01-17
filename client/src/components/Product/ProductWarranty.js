@@ -58,6 +58,10 @@ class ProductWarranty extends Component{
             let product_id       = this.props.products;
             let checked;
             let liWarranty = this._optionsRender(productsWarranty);
+            let empresarias = (Cookie.get("empresarias")=='true'?true:false);
+            if(empresarias){
+                return (<div></div>);
+            }
 
             return  (
                 <div className="cart-item-warranties">

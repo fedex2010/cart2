@@ -28,7 +28,8 @@ class Summary extends Component {
   render() {
     let couponClass = "highlight-benefit displaynone";
     let products="";
-    let empresarias = (Cookie.get("empresarias")==true?true:false);
+    console.log("cookie"+Cookie.get("empresarias"));
+    let empresarias = (Cookie.get("empresarias")=='true'?true:false);
       if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
     }

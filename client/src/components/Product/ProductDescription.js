@@ -37,7 +37,7 @@ class ProductDescription extends Component {
     let showStatus = this._showStatus(product.validations.saleable);
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
     let idProduct  = "productId_"+product.product_id;
-    let empresarias = (Cookie.get("empresarias")==true?true:false);
+    let empresarias = (Cookie.get("empresarias")=='true'?true:false);
 
     return (
       <div className="cart-item card" id={idProduct}>
