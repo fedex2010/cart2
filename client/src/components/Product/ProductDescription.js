@@ -57,7 +57,7 @@ class ProductDescription extends Component {
           </div>
           <div className="cart-item-column cart-item-column-lg">
             <h3 className="cart-item-name">
-              <a href="#" title="" itemProp="url">
+              <a href={'/producto/'+ product.product_id} title={product.product_id} itemProp="url" target="_blank" rel="noopener noreferrer">
                 {product.description}
               </a>
             </h3>
