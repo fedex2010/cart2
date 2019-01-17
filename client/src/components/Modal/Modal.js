@@ -30,7 +30,6 @@ class Modal extends Component {
   }
 
   render() {
-    let product_id = this.props.products;
     return (
       <div>
         {/* MODAL ELIMINAR PRODUCTO*/}
