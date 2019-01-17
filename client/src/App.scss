@@ -17,9 +17,23 @@
 header .gb-wrapper {
   margin-bottom: 0px;
 }
+.millasAPBorder {
+  border-top: 1px solid #ddd;
+  padding: 15px 0 0;
+  margin-top: 10px;
+}
+/*LINK TO BUTTON*/
+.link-to-button {
+  background-color: transparent;
+  border: 0;
+  color: #4A90E2;
+  padding: 0;
+}
+.link-to-button:hover {
+  text-decoration: underline;
+}
 
 /*MODAL*/
-
 .modal-open .gui-modal {
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -114,6 +128,12 @@ header .gb-wrapper {
   border-color: #2e6da4;
 }
 
+
+/*PRODUCT EMPRESARIAS*/
+
+.column-empresarias {
+  flex: 0 0 100px !important;
+}
 
 @import "./styles/GUI/_variables/_variables.scss";
 @import "./styles/GUI/_variables/_variables-garba.scss";

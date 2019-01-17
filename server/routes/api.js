@@ -13,6 +13,7 @@ router.get("/cart/summary", ( req , res) => controllers.cart.summary( req , res 
 router.get("/cart/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));
 router.get("/cart/:cartId", ( req , res) => controllers.cart.getCart( req , res ));
 
+router.post("/cart/fake_product_view/:productId", urlencodedParser, ( req , res) => controllers.cart.fake_product(req , res));
 router.post("/cart", urlencodedParser, ( req , res) => controllers.cart.addProduct(req , res));
 router.post("/cart/:cartId/cupon", jsonParser, ( req , res) => controllers.cart.setCoupon(req , res));
 router.post("/cart/c_:cartId/aaPlus", jsonParser, ( req , res) => controllers.cart.setAAPlus(req , res));

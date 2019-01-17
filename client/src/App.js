@@ -60,6 +60,7 @@ class App extends Component {
                     products={this.props.cart.products}
                     sellerId={this.props.cart.seller_id}
                     subtotalPrice={this.props.cart.subtotal_price}
+                    subtotalBasePrice={this.props.cart.subtotal_base_price}
                     totalWarranties={this.props.cart.total_warranties}
                     specialDiscountAmount={specialDiscountAmount}
                     coupons={this.props.cart.coupons}

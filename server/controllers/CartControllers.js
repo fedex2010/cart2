@@ -34,13 +34,14 @@ class CartControllers {
     let session_id = res.locals.session;
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
+    this._isEmpresarias(req, res);
 
     if (cartId != "undefined") {
-      RestClient.cartClient
-        .getOneCart(cartId, {}, brand)
+      RestClient.cartClient.getOneCart(cartId, {}, brand,true,true)
         .then(cart => {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
+          cart = this._getEmpresarias(req, res,cart);
           res.send(cart);
         })
         .catch(err => {
@@ -48,12 +49,11 @@ class CartControllers {
           res.status(500).send("Fail get cart");
         });
     } else {
-      console.log("nuevo1");
-      RestClient.cartClient
-        .newCart(session_id, sellerId, false, null, "WEB", brand)
+      RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
         .then(cart => {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
+          cart = this._getEmpresarias(req, res,cart);
           res.cookie("epi.context", session_id);
           res.cookie("cartId", cart.cart_id);
           res.send(cart);
@@ -64,26 +64,45 @@ class CartControllers {
     }
   }
 
-  isEmpresarias(req, res) {
-    console.log("isEmpresarios", res);
-    const cookies = new Cookies();
-
+  _isEmpresarias(req, res) {
     if (typeof req.headers["x-subdomain"] != "undefined") {
       if (req.headers["x-subdomain"] == "empresas") {
-        res.cookies.set("empresarias", true);
+        res.cookie("empresarias", true);
       } else {
-        res.cookies.set("empresarias", false);
+        res.cookie("empresarias", false);
       }
     } else {
-      res.cookies.set("empresarias", false);
+      res.cookie("empresarias", false);
     }
+  }
+  _getEmpresarias(req,res,cart){
+      if (typeof req.headers["x-subdomain"] != "undefined") {
+          if (req.headers["x-subdomain"] == "empresas") {
+              cart.subtotal_without_vat=0
+              cart.products.forEach((i)=>{
+                  cart.subtotal_without_vat+=(i.price*i.quantity)-(i.price_without_vat*i.quantity)
+                  let priceAux=i.subtotal_price;
+                  i.subtotal_price = i.subtotal_base_price;
+                  i.subtotal_base_price = priceAux;
+                  i.price = i.price_without_vat
+              })
+              let subTotal = cart.subtotal_price
+              let total = cart.total_base_price;
+
+              cart.subtotal_price = cart.subtotal_base_price;
+              cart.subtotal_base_price = subTotal;
+          }
+      }
+      return cart;
   }
 
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let products = {};
-    RestClient.productClient
-      .getProductsCarousel(brand)
+    if (req.headers["x-subdomain"] == "empresas") {
+      return {};
+    }
+    RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
         
         return RestClient.productClient
@@ -99,11 +118,7 @@ class CartControllers {
                 prod.main_image.url
               );
             });
-
             products.products = product;
-
-           
-
             res.send(products);
           })
           .catch(err => {
@@ -123,17 +138,18 @@ class CartControllers {
 
     if (cartId != null) {
       return RestClient.cartClient
-        .getOneCart(cartId, {}, brand)
+        .getOneCart(cartId, {}, brand,true,false)
         .then(cart => {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
+          cart = this._getEmpresarias(req, res,cart);
           return cart;
         })
         .catch(err => {
           logger.error(
             "[" + cartId + "] Fail get cart _getOneCart ,err:" + err
           );
-          res.status(500).send("Fail get one cart");
+          res.status(304).send({ erro: err });
         });
     } else {
       return this.getNewCart(req, res)
@@ -142,7 +158,7 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart getNewCart ,err:" + err);
-          res.status(500).send("Fail get a new cart");
+          res.status(304).send({ erro: err });
         });
     }
   }
@@ -158,18 +174,8 @@ class CartControllers {
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
-        RestClient.productClient
-          .addProduct(
-            cart.cart_id,
-            productId,
-            1,
-            warranty_id,
-            productPrice,
-            "",
-            "",
-            brand
-          )
-          .then(cart => {
+        RestClient.productClient.addProduct(cart.cart_id, productId, 1,warranty_id, productPrice, "", "",brand)
+          .then(() => {
             this._getOneCart(cartId, req, res)
               .then(cart => {
                 res.send(cart);
@@ -232,7 +238,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -255,7 +261,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -281,7 +287,7 @@ class CartControllers {
             logger.error(
               "[" + cartId + "] Fail get cart coupon delete ,err:" + err
             );
-            res.status(500).send("Fail get a update cart coupon delete");
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -314,7 +320,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -338,7 +344,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -390,6 +396,15 @@ class CartControllers {
         logger.error("[" + cartId + "] Fail set warranty to cart,err:" + err);
         res.status(304).send({ erro: err });
       });
+  }
+
+  fake_product(req,res){
+      let cartId = res.locals.cartId;
+      if(cartId){
+          console.log("----if----"+cartId);
+      }else{
+          console.log("----else----"+cartId);
+      }
   }
 }
 
@@ -452,5 +467,6 @@ function calculateWarrantiesPercentage(cart) {
 
   return porcentajeInteres;
 }
+
 
 module.exports = CartControllers;

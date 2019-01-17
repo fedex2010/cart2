@@ -71,7 +71,9 @@
    .gui-icon-trash {
       position: absolute;
       right: $spacer-base;
-
+      background-color: transparent;
+      border: 0;
+      color: $blue;
    	&:hover {
    		text-decoration: none;
    	}
@@ -113,6 +115,10 @@
 
 .cart-item-tag--error {
    background-color: $error;
+}
+
+.cart-item-tag--info {
+   background-color: $info;
 }
 
 .cart-item-tag--success {
