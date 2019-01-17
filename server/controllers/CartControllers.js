@@ -388,6 +388,15 @@ class CartControllers {
         res.status(304).send({ erro: err });
       });
   }
+
+  fake_product(req,res){
+      let cartId = res.locals.cartId;
+      if(cartId){
+          console.log("----if----"+cartId);
+      }else{
+          console.log("----else----"+cartId);
+      }
+  }
 }
 
 function _replaceImage(cart) {
