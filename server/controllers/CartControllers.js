@@ -26,6 +26,7 @@ class CartControllers {
     let sellerId = "";
     let brand = res.locals.xBrand.toLowerCase();
     this._isEmpresarias(req, res);
+    this._brandDomain(req, res);
 
     if (cartId != "undefined") {
       RestClient.cartClient.getOneCart(cartId, {}, brand,true,true)
@@ -64,6 +65,15 @@ class CartControllers {
       }
     } else {
       res.cookie("empresarias", false);
+    }
+  }
+  _brandDomain(req, res) {
+    if (typeof req.headers["x-subdomain"] != "undefined") {
+      if (req.headers["x-subdomain"] == "garbarino") {
+        res.cookie("garbarino", true);
+      } else if(req.headers["x-subdomain"] == "compumundo") {
+        res.cookie("garbarino", false);
+      }
     }
   }
   _getEmpresarias(req,res,cart){

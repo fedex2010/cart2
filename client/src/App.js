@@ -6,8 +6,8 @@ import "./App.scss";
 import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
-//import Carousel from "./components/Carousel/Carousel";
 import Carousel from "./components/Carousel/Carousel";
+import Error from "./components/Error/Error";
 import { fetchCart } from "./actions/CartAction";
 class App extends Component {
   constructor(props) {
@@ -53,6 +53,7 @@ class App extends Component {
                     product={this.props.cart.products}
                     percentage={this.props.cart.percentage}
                   />
+                  <Error/>
                 </div>
                 <div className="summary-gbChk col-md-4">
                   <Summary
