@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Cookie from "js-cookie";
 import GarbaError from "./GarbaError";
 import CompuError from "./CompuError";
-import Prod from "./Prod";
+//import Prod from "./Prod";
 
-let config = require("../server/config/config");
 
 class Error extends Component {
     constructor(props) {
@@ -34,9 +33,7 @@ class Error extends Component {
      }else{
         error = <CompuError/>
      }
-     if(config === "prod"){
-        prod = <Prod/>
-     }
+    
     return(
         <div className="error-page" data-view="root">
             <div class="gb-wrapper gb--fixed-width">
@@ -50,10 +47,8 @@ class Error extends Component {
                         <button class="gb-button primary" id="reset-cookie-button">Volver al inicio</button>
 
                     </div>
-                </div>
-                <input type="hidden" id="errorGralAnalytics" value={eventAnalytics}/>          
+                </div>          
             </div>
-            <Prod/>
         </div>
     );  
   }
