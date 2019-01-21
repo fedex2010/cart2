@@ -5,7 +5,8 @@ const initialState = {
   selectedProduct: {},
   carousel: {},
   err: {},
-  operationStatus: "INITIAL"
+  operationStatus: "INITIAL",
+  xBrand:""
 };
 
 export default (state = initialState, action = {}) => {

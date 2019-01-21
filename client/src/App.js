@@ -89,7 +89,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { cart: state.cartReducer.cart, err : state.cartReducer.err };
+  return { cart: state.cartReducer.cart, err : state.cartReducer.err, xBrand: state.cartReducer.xBrand };
 };
 
 export default connect(
