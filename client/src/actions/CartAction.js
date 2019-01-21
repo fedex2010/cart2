@@ -6,14 +6,10 @@ export const selectProduct = product => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-    console.log("pendejo")
   fetch("/api/cart/" + id)
     .then(response => response.json())
     .then(response => {
         const brand = window.xBrand;
-        console.log("*************");
-        console.log(brand);
-        console.log("*************");
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
         }else{
