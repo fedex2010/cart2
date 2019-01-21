@@ -9,6 +9,7 @@ import Summary from "./components/Summary/Summary";
 import Carousel from "./components/Carousel/Carousel";
 import Error from "./components/Error/Error";
 import { fetchCart } from "./actions/CartAction";
+
 class App extends Component {
   constructor(props) {
     super(props);

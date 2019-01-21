@@ -67,6 +67,9 @@ function cookie(req, res, next) {
   if (cartCookie) {
     setCartContextFromCookie(res, cartCookie);
   }
+
+  res.locals.sellerId = req.cookies["epi.salesman"] || "";
+
   next();
 }
 

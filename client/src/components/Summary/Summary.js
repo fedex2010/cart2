@@ -1,8 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Cookie from "js-cookie";
+
 import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
-import Cookie from "js-cookie";
+
+function SuccessMessage(){
+  let salesman = Cookie.get("epi.salesman");
+
+  if(salesman){
+    return <p className="alert alert-success fade in alert-dismissable salesman">Vendedor: {salesman}</p>
+  }
+  return null 
+}
 
 
 class Summary extends Component {
@@ -51,6 +61,8 @@ class Summary extends Component {
               <div className="cart-summary-header">
                 <span className="cart-summary-title">Resumen de compra</span>
               </div>
+
+              <SuccessMessage />
 
               <ul className="summary-detail">
                 <li>

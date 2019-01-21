@@ -19,12 +19,14 @@ router.post("/cart/:cartId/cupon", jsonParser, ( req , res) => controllers.cart.
 router.post("/cart/c_:cartId/aaPlus", jsonParser, ( req , res) => controllers.cart.setAAPlus(req , res));
 router.post("/cart/setWarranty", jsonParser, ( req , res) => controllers.cart.setWarranty( req , res));
 router.put("/cart/:cartId", urlencodedParser, ( req , res) =>  controllers.cart.editProduct( req , res));
+router.post("/cart/vendedor", urlencodedParser, ( req , res) =>  controllers.cart.sellerLoginAction( req , res));
+
 
 router.delete("/cart/:productId", urlencodedParser, (req , res) => controllers.cart.deleteProduct( req , res));
 
 router.delete( "/cart/c_:cartId/cupon/:couponCode", ( req , res) => controllers.cart.deleteCoupon( req , res));
 router.delete("/cart/c_:cartId/aaPlus", ( req , res) => controllers.cart.deleteAAPlus( req , res));
-
+  
 
 module.exports = router;
 /*
@@ -52,7 +54,6 @@ router.get('/getCartStatusWithWarranties/:cartId', cartController.getCartStatusW
 router.get('/error', cartController.error);--------------LIMBO
 router.post('/sendCart', jsonParser, cartController.sendCart);--------------LIMBO
 router.get('/vendedor', cartController.sellerLogin);--------------LIMBO
-router.post('/vendedor', urlencodedParser, cartController.sellerLoginAction);--------------LIMBO
 
 
 
