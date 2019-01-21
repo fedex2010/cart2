@@ -18,7 +18,7 @@ class ProductWarranty extends Component{
 
         for (var i in productWarranty) {
             if (productWarranty.hasOwnProperty(i)) {
-                if(productWarranty[i].period.length >= 1){
+                if(productWarranty[i].period.length <= 1){
                     productWarranty[i].period=productWarranty[i].period.split(" ")
                 }
                 let interest = (parseFloat(percentage) * parseFloat(productWarranty[i].price)) / 100;
