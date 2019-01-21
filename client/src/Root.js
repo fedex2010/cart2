@@ -6,13 +6,15 @@ import { Redirect } from 'react-router';
 
 import App from './App'
 import VendedorPage from './pages/VendedorPage'
+import ErrorPage from "./components/Error/Error";
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
       <div>
         <Route path="/carrito" component={App} exact />  
-        <Route path="/carrito/vendedor" component={VendedorPage} />  
+        <Route path="/carrito/vendedor" component={VendedorPage} />
+        <Route path="/error" component={ErrorPage} />  
       </div>
     </Router>
   </Provider>

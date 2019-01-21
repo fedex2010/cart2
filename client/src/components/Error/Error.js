@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router';
 import Cookie from "js-cookie";
 import GarbaError from "./GarbaError";
 import CompuError from "./CompuError";
@@ -12,6 +13,11 @@ class Error extends Component {
         
         };
     }
+
+
+  componentDidMount(){
+    document.body.classList.remove('full-page--is-loading');
+  }
 
     _resetCookie(){
         setTimeout( function() {

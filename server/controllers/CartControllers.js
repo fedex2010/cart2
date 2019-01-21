@@ -76,15 +76,6 @@ class CartControllers {
       res.cookie("empresarias", false);
     }
   }
-  _brandDomain(req, res) {
-    if (typeof req.headers["x-subdomain"] != "undefined") {
-      if (req.headers["x-subdomain"] == "garbarino") {
-        res.cookie("garbarino", true);
-      } else if(req.headers["x-subdomain"] == "compumundo") {
-        res.cookie("garbarino", false);
-      }
-    }
-  }
   _getEmpresarias(req,res,cart){
       if (typeof req.headers["x-subdomain"] != "undefined") {
           if (req.headers["x-subdomain"] == "empresas") {
