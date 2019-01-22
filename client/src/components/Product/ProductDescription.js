@@ -40,6 +40,7 @@ class ProductDescription extends Component {
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
     let idProduct  = "productId_"+product.product_id;
     let empresarias = (Cookie.get("empresarias")===true?true:false);
+    let idQuantity = "idQuantity_"+product.product_id;
 
     return (
       <div className="cart-item card" id={idProduct}>
@@ -70,6 +71,7 @@ class ProductDescription extends Component {
               value={product.quantity}
               onChange={this._onSortChange.bind(this, product.product_id)}
               disabled={isDisabled}
+              id={idQuantity}
             >
               <option value="1">1</option>
               <option value="2">2</option>

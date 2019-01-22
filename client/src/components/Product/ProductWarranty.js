@@ -18,7 +18,7 @@ class ProductWarranty extends Component{
 
         for (var i in productWarranty) {
             if (productWarranty.hasOwnProperty(i)) {
-                if(productWarranty[i].period.length >= 1){
+                if(productWarranty[i].period.length <= 1){
                     productWarranty[i].period=productWarranty[i].period.split(" ")
                 }
                 let interest = (parseFloat(percentage) * parseFloat(productWarranty[i].price)) / 100;
@@ -75,8 +75,9 @@ class ProductWarranty extends Component{
                     <ul className="cart-item-warranties--list">
                         {
                             liWarranty.map((item, i)=>{
+                                let garexId = "garex_"+item.prod+"_"+product_id;
                                 checked = (this.props.warranty_id !== "DEFAULT_FACTORY" && this.props.warranty_id === item.id)?true:false;
-                                return (<li key={i} ><label><input type="checkbox" value={item.id} checked={ checked } onChange={this._onSelectOption.bind(this,item.id,product_id)} /><button className="link-to-button" data-toggle="modal"
+                                return (<li key={i} ><label><input type="checkbox" value={item.id} checked={ checked } onChange={this._onSelectOption.bind(this,item.id,product_id)}  id={garexId}/><button className="link-to-button" data-toggle="modal"
                                 data-target="#warranty-modal" onClick={this._showModal.bind(this, this.props.current, item.id)} >{item.prod} meses</button> de protección por{" "}<strong>${item.price}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
 
                             })
