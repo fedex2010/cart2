@@ -14,6 +14,7 @@ class Carousel extends Component {
     handleAddProduct(product,price){
         let  products = { xid: product, productPrice: price };
         this.props.addProduct(products);
+        window.scrollTo(0, 0)
     }
 
     handleGetProduct(productId){
