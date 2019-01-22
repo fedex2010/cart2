@@ -27,45 +27,41 @@ class ProductDescription extends Component {
   }
 
 
-  _showModal(productId) {
-    console.log("POST", productId);
-    this.props.selectProduct(productId);
+  _showModal(product) {
+    this.props.selectProduct(product);
   }
 
   render() {
     let product = this.props.item;
     let percentage = this.props.percentage;
     let showStatus = this._showStatus(product.validations.saleable);
+    let showChangePrice = (product.price_delta) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
+    let warranty_delta_class  = (product.delta_warranty_price) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
     let idProduct  = "productId_"+product.product_id;
+    let empresarias = (Cookie.get("empresarias")===true?true:false);
+    let idQuantity = "idQuantity_"+product.product_id;
 
     return (
       <div className="cart-item card" id={idProduct}>
-        <div
-          className="cart-item-detail"
-          itemScope
-          itemType="http://schema.org/Offer"
-        >
+        <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
           <div className="cart-item-column">
             <picture className="cart-item-image">
-              <img
-                src={product.main_image.url}
-                alt="product name"
-                itemProp="image"
-              />
+              <img src={product.main_image.url} alt="product name" itemProp="image"/>
             </picture>
           </div>
           <div className="cart-item-column cart-item-column-lg">
             <h3 className="cart-item-name">
-              <a href="#" title="" itemProp="url">
+              <a href={'/producto/'+ product.product_id} title={product.product_id} itemProp="url" target="_blank" rel="noopener noreferrer">
                 {product.description}
               </a>
             </h3>
             <span className={showStatus}>Agotado</span>
+            <span className={showChangePrice}>Precio Modificado</span>
           </div>
-          <div className="cart-item-column">
+          <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Precio:</label>
-            <span className="cart-item-column-data">${product.price}</span>
+            <span className="cart-item-column-data precio-texto">${product.price} {`${empresarias ? '+ IVA' : ''}`}</span>
           </div>
 
           <div className="cart-item-column">
@@ -75,6 +71,7 @@ class ProductDescription extends Component {
               value={product.quantity}
               onChange={this._onSortChange.bind(this, product.product_id)}
               disabled={isDisabled}
+              id={idQuantity}
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -82,27 +79,29 @@ class ProductDescription extends Component {
               <option value="4">4</option>
             </select>
           </div>
-          <div className="cart-item-column">
+          <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Subtotal:</label>
-            <strong className="cart-item-column-data">
-              ${product.subtotal_price}
+            <strong className="cart-item-column-data precio-texto">
+              ${product.subtotal_price} {`${empresarias ? '+ IVA' : ''}`}
             </strong>
           </div>
 
-          <a
-            onClick={this._showModal.bind(this, product.product_id)}
+          <button
+            onClick={this._showModal.bind(this, product)}
             className="has-tooltip gui-icon-trash icon--md"
             data-toggle="modal"
             data-target="#delete-product"
           >
             <span className="tooltip_bottomCenter">Eliminar</span>
-          </a>
+          </button>
         </div>
         <ProductWarranty
+          current={product}
           item={product.warranties}
           products={product.product_id}
           warranty_id={product.warranty_id}
           percentage={percentage}
+          classDelta={warranty_delta_class}
         />
       </div>
     );
@@ -110,7 +109,7 @@ class ProductDescription extends Component {
 }
 
 const mapStateToProps = state => {
-  return { product: state.cartReducer.product, operationStatus: state.cartReducer.operationStatus };
+  return { product: state.cartReducer.product, operationStatus: state.cartReducer.operationStatus,xBrand: state.cartReducer.xBrand };
 };
 
 export default connect(

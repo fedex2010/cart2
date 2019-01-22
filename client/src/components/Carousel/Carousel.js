@@ -14,10 +14,11 @@ class Carousel extends Component {
     handleAddProduct(product,price){
         let  products = { xid: product, productPrice: price };
         this.props.addProduct(products);
+        window.scrollTo(0, 0)
     }
 
-    handleGetProduct(e){
-        alert("ficha")
+    handleGetProduct(productId){
+        window.location = "/producto/"+productId
     }
 
     render() {
@@ -27,14 +28,14 @@ class Carousel extends Component {
             spaceBetween: 0,
             simulateTouch: false,
             paginationClickable: true,
-           
+
             navigation: {
               nextEl: '.swiper-button-next',
               prevEl: '.swiper-button-prev',
-            },            
-                    
-            renderPrevButton: () => <a className="gb-carousel-module-control gb--prev swiper-button-prev" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="prev" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-left"></span></a>,
-            renderNextButton: () => <a className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></a>,
+            },
+
+            renderPrevButton: () => <button className="gb-carousel-module-control gb--prev swiper-button-prev" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="prev" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-left"></span></button>,
+            renderNextButton: () => <button className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></button>,
           };
 
 
@@ -51,9 +52,10 @@ class Carousel extends Component {
                         <div className="carousel-slider carousel-slider--has-padding swiper-wrapper">
                         <Swiper {...params}>
                             {
-                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) === -1)).map(product => (
-                                    <div className="carousel-item hover-box swiper-slide carousel-item--with-actions">
+                                this.props.carousel.products.filter((it => productIds.indexOf(it.xid) === -1)).map((product, i) => (
+                                    <div key={i} className="carousel-item hover-box swiper-slide carousel-item--with-actions">
                                         
+
                                         <div className="carousel-item-content">
                                             <picture>
                                                 <img
@@ -73,45 +75,28 @@ class Carousel extends Component {
                                             </div>
 
                                             <div className="carousel-item-actions">
-                                                <a onClick={this.handleGetProduct.bind(this)} className="button--link button--xs">Ver detalle</a>
+
+                                                <button onClick={this.handleGetProduct.bind(this)} className="button--link button--xs">Ver detalle</button>
                                                 <button onClick={this.handleAddProduct.bind(this,product.xid,product.price)} className="button--primary button--xs">Agregar</button>
-                                            </div> 
+                                            </div>
                                     </div>
                                     )
                                 )
-                            }      
-                        </Swiper>   
+                            }
+                        </Swiper>
                         </div>
-                        
+
                     </div>
-                </div>  
+                </div>
             );
 
           }else{
             return (
-                <div className="card">
-                    <div className="card-header">
-                        <h5 className="card-title">
-    
-                        </h5>
-                    </div>
-                    <div className="carousel swiper-container">
-                        <a className="swiper-button-prev gb-carousel-module-control gb--prev">
-                            <span className="gb-icon-simple-bold-arrow-left" />
-                        </a>
-                        <a className="swiper-button-next gb-carousel-module-control gb--next">
-                            <span className="gb-icon-simple-bold-arrow-right" />
-                        </a>
-    
-                        <div className=" carousel-slider carousel-slider--has-padding swiper-wrapper">
-    
-                        </div>
-                    </div>
-                </div>
+                <div></div>
             );
           }
 
-        
+
       }
 }
 

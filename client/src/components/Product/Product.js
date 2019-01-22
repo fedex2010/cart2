@@ -23,7 +23,7 @@ class Product extends Component {
       return (
         <div>
             {
-                products.map(product => (<ProductDescription item={product} percentage={percentage}/>))
+                products.map((product, i) => (<ProductDescription key={i} item={product} percentage={percentage}/>))
             }
             <Modal/>
         </div>

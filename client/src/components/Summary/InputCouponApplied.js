@@ -22,8 +22,8 @@ class InputCouponApplied extends Component {
   }
 
   _showError(){
-    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === 400)? "error-msj" : "error-msj hide";
-    return(<p className={classError}>Código de cupón inválido.</p>);
+    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400")? "error-msj" : "error-msj hide";
+    return(<p className={classError} id="alert-coupon-fail">Código de cupón inválido.</p>);
   }
  
   render() {

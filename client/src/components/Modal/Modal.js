@@ -1,17 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { selectProduct, deleteProduct } from "../../actions/CartAction";
+import { selectProduct, deleteProduct, editWarranty } from "../../actions/CartAction";
+import Cookie from "js-cookie";
 
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productIdModal: this.props.productIdModal
+      showModalWarranty:true,
+      productIdModal: {},
+      warrantyIdModal: {},
+      idWarranty: this.props.idWarranty
     };
   }
 
   _handleDeleteProductS(productIdModal) {
     this.props.deleteProduct(productIdModal);
+  }
+  _showTermAndCondition(){
+    this.setState({ showModalWarranty: false });
+  }
+  _hideTermAndCondition(){
+    this.setState({ showModalWarranty: true });
+  }
+
+  _onSelectOption(){
+    let cartId = Cookie.get("cartId");
+    this.props.editWarranty(cartId,this.props.productIdModal,this.props.warrantyIdModal);
   }
 
   render() {
@@ -72,17 +87,18 @@ class Modal extends Component {
         >
           <div className="gui-modal-dialog gui-modal-md">
             {/* info garantías */}
-            <div className="gui-modal-content" id="warranty-info">
+            <div className={`gui-modal-content ${this.state.showModalWarranty ? '' : 'hide'}`}   id="warranty-info">
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">
                   Extendé tu protección por $2.000
                 </h5>
-                <a
-                  className="gui-modal-title--action-link"
+                <button
+                  className="gui-modal-title--action-link link-to-button"
                   id="show-warranties-tyc"
+                  onClick={this._showTermAndCondition.bind(this)}
                 >
                   Ver términos y condiciones
-                </a>
+                </button>
                 <button
                   className="button--icon gui-icon-close button--icon-md"
                   type="button"
@@ -92,7 +108,7 @@ class Modal extends Component {
               <div className="gui-modal-body warranty-info">
                 <h5>¿Por qué contratar una garantía de reparación?</h5>
                 <picture>
-                  <img src="https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/garantia-extendida/033335bd1fed9313f2feffb2b74890a79be791f3ff9ace2b2c6eafa535a5ee8f" />
+                  <img src="https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/garantia-extendida/033335bd1fed9313f2feffb2b74890a79be791f3ff9ace2b2c6eafa535a5ee8f" alt="icon"/>
                 </picture>
                 <ul className="checkmark-list">
                   <li>Mayor tiempo de protección.</li>
@@ -117,21 +133,22 @@ class Modal extends Component {
                 >
                   No, gracias
                 </button>
-                <button className="button--primary" type="button">
+                <button className="button--primary" type="button" onClick={this._onSelectOption.bind(this)} data-dismiss="modal">
                   Agregar
                 </button>
               </div>
             </div>
             {/* info TyC */}
-            <div className="gui-modal-content hide" id="warranty-tyc">
+            <div className={`gui-modal-content ${this.state.showModalWarranty ? 'hide' : ''}`} id="warranty-tyc">
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">Garantía de reparación</h5>
-                <a
-                  className="gui-modal-title--action-link"
+                <button
+                  className="gui-modal-title--action-link link-to-button"
                   id="hide-warranties-tyc"
+                  onClick={this._hideTermAndCondition.bind(this)}
                 >
                   Volver
-                </a>
+                </button>
                 <button
                   className="button--icon gui-icon-close button--icon-md"
                   type="button"
@@ -293,7 +310,7 @@ class Modal extends Component {
                 </p>
               </div>
               <div className="gui-modal-footer">
-                <button className="button--link" type="button">
+                <button className="button--link" type="button"  onClick={this._hideTermAndCondition.bind(this)}>
                   Volver
                 </button>
               </div>
@@ -306,10 +323,12 @@ class Modal extends Component {
 }
 
 const mapStateToProps = state => {
-  return { productIdModal: state.cartReducer.selectedProduct };
-};
+  return { productIdModal: state.cartReducer.selectedProduct.product_id,
+    warrantyIdModal: state.cartReducer.selectedProduct.selectedWarranty_id
+    }
+  };
 
 export default connect(
   mapStateToProps,
-  { selectProduct, deleteProduct }
+  { selectProduct, deleteProduct, editWarranty }
 )(Modal);

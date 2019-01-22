@@ -9,6 +9,7 @@ import Summary from "./components/Summary/Summary";
 //import Carousel from "./components/Carousel/Carousel";
 import Carousel from "./components/Carousel/Carousel";
 import { fetchCart } from "./actions/CartAction";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -54,11 +55,12 @@ class App extends Component {
                     percentage={this.props.cart.percentage}
                   />
                 </div>
-                <div className="summary-gbChk col-md-4">
+                <div className="summary-gbChk col-md-4" data-role="resumenCompra">
                   <Summary
                     products={this.props.cart.products}
                     sellerId={this.props.cart.seller_id}
                     subtotalPrice={this.props.cart.subtotal_price}
+                    subtotalBasePrice={this.props.cart.subtotal_base_price}
                     totalWarranties={this.props.cart.total_warranties}
                     specialDiscountAmount={specialDiscountAmount}
                     coupons={this.props.cart.coupons}
@@ -87,7 +89,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { cart: state.cartReducer.cart };
+  return { cart: state.cartReducer.cart, err : state.cartReducer.err, xBrand: state.cartReducer.xBrand };
 };
 
 export default connect(
