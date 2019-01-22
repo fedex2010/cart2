@@ -107,7 +107,7 @@ class ProductDescription extends Component {
 }
 
 const mapStateToProps = state => {
-  return { product: state.cartReducer.product, operationStatus: state.cartReducer.operationStatus };
+  return { product: state.cartReducer.product, operationStatus: state.cartReducer.operationStatus,xBrand: state.cartReducer.xBrand };
 };
 
 export default connect(

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router';
-import Cookie from "js-cookie";
+import { connect } from "react-redux";
 import GarbaError from "./GarbaError";
 import CompuError from "./CompuError";
-//import Prod from "./Prod";
 
 
-class Error extends Component {
+
+class ErrorPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,22 +18,14 @@ class Error extends Component {
     document.body.classList.remove('full-page--is-loading');
   }
 
-    _resetCookie(){
-        setTimeout( function() {
-                document.getElementById("reset-cookie-button").onclick = function () {
-                document.cookie = "epi.context=; expires=-1; path=/;";
-                document.cookie = "cartId=; expires=-1; path=/;";
-    
-                window.location.replace("/carrito/resetCookieAndGoHome");
-            }
-        }, 500)    
+    _resetCookie(){  
     }
 
   
   render() {
       let error;
-      let brand = Cookie.get("garbarino");
-     if(brand){
+      let brand = window.xBrand;
+     if(brand === "garbarino"){
         error = <GarbaError/>
      }else{
         error = <CompuError/>
@@ -51,12 +42,21 @@ class Error extends Component {
                         <h2 class="gb-error-title">Ocurrió un error al procesar tu compra.</h2>
                         <p>Por favor, intentá realizarla nuevamente</p>
                         <button class="gb-button primary" id="reset-cookie-button">Volver al inicio</button>
-
                     </div>
-                </div>          
+                </div>  
+                {/*<input type="hidden" id="errorGralAnalytics" value="{{eventAnalytics}}"/>*/}     
             </div>
+           {/* <Prod/>*/}   
         </div>
     );  
   }
 }
-export default Error;
+
+const mapStateToProps = state => {
+    return { err : state.cartReducer.err, xBrand: state.cartReducer.xBrand };
+  };
+  
+  export default connect(
+    mapStateToProps 
+  )(ErrorPage);
+  

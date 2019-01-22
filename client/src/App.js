@@ -7,7 +7,6 @@ import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
 import Carousel from "./components/Carousel/Carousel";
-import Error from "./components/Error/Error";
 import { fetchCart } from "./actions/CartAction";
 
 class App extends Component {
@@ -54,7 +53,6 @@ class App extends Component {
                     product={this.props.cart.products}
                     percentage={this.props.cart.percentage}
                   />
-                  <Error/>
                 </div>
                 <div className="summary-gbChk col-md-4">
                   <Summary
@@ -90,7 +88,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { cart: state.cartReducer.cart };
+  return { cart: state.cartReducer.cart, err : state.cartReducer.err, xBrand: state.cartReducer.xBrand };
 };
 
 export default connect(

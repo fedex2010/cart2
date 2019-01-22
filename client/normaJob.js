@@ -5,6 +5,7 @@ let config = require("../server/config/config");
 var newIndex;
 var jsInlineList = "";
 var cssInlineList = "";
+var jsBrand = "";
 var data = fs.readFileSync("indexTemplate.html", "utf-8");
 
 var baseUrl = config.normandia.base_url[process.argv[2]];
@@ -30,7 +31,14 @@ fetch(baseUrl)
       jsInlineList += jsTemplate.replace("<inline Js>", js);
     });
 
+    var brand=
+
+    jsBrand='  <script>\n' +
+        '        window.xBrand ="' + process.argv[2] +'";\n' +
+        '    </script>';
+
     newIndex = newIndex.replace("<!-- <norma Js> -->", jsInlineList);
+    newIndex = newIndex.replace("<!-- <norma Js Brand> -->", jsBrand);
     newIndex = newIndex.replace("<!-- <norma Header> -->", json.headerHtml);
     newIndex = newIndex.replace("<!-- <norma Footer> -->", json.footerHtml);
 

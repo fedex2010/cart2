@@ -35,8 +35,6 @@ class CartControllers {
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
     this._isEmpresarias(req, res);
-    this._brandDomain(req, res);
-
     if (cartId != "undefined") {
       RestClient.cartClient.getOneCart(cartId, {}, brand,true,true)
         .then(cart => {
@@ -47,7 +45,7 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
-          res.status(500).send("Fail get cart");
+          res.status(304).send({ erro: err });
         });
     } else {
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
@@ -60,7 +58,7 @@ class CartControllers {
           res.send(cart);
         })
         .catch(err => {
-          res.status(500).send("Fail create cart");
+            res.status(304).send({ erro: err });
         });
     }
   }

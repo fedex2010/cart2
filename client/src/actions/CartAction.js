@@ -7,13 +7,19 @@ export const selectProduct = product => dispatch => {
 
 export const fetchCart = id => dispatch => {
   fetch("/api/cart/" + id)
-    .then(
-            response => response.json()
-        )
+    .then(response => response.json())
     .then(response => {
-      return dispatch({ type: SET_CURRENT_CART, payload: response });
-    }).catch((err)=>{
-      console.log("errr"+err)
+        const brand = window.xBrand;
+        if (typeof response.erro === "undefined") {
+            dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
+        }else{
+            console.log("aca1");
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+        }
+    }).catch((response)=>{
+      if (typeof response.erro !== "undefined") {
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+      }
     });
 };
 
@@ -22,8 +28,9 @@ export const getCarousel = (cartId) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response });
-        }).catch((err)=>{
-            console.log("errr"+err)
+        }).catch((response)=>{
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+            console.log("errr"+response)
         });
 };
 
@@ -40,8 +47,9 @@ export const addProduct = product => dispatch => {
     .then(response => response.json())
     .then(response => {
         dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL"  });
-    }).catch((err)=>{
-      console.log("errr"+err)
+    }).catch((response)=>{
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+        console.log("errr"+response)
     });
 };
 
