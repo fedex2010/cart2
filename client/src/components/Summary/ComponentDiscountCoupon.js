@@ -60,7 +60,7 @@ class ComponentDiscountCoupon extends Component {
                 <ul className="cart-additional-item">
                     <li>
                         <label>
-                            <input type="radio"  name="discount-coupon"  value="discount-coupon1" checked={this.state.selectedOption === "discount-coupon1"} onChange={this.handleOptionChange}              />{" "}
+                            <input type="radio" id="add-coupon" name="discount-coupon"  value="discount-coupon1" checked={this.state.selectedOption === "discount-coupon1"} onChange={this.handleOptionChange}              />{" "}
                             Descuento especial
                         </label>
                     </li>
@@ -87,7 +87,7 @@ class ComponentDiscountCoupon extends Component {
             return (
                 <div className="cart-additional-item">
                     <label>
-                        <input type="checkbox"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />{" "}
+                        <input type="checkbox" id="add-coupon"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />{" "}
                         Tengo cupón de descuento
                     </label>
                     <div className={displaynoneCheckboxDiscount}>

@@ -55,7 +55,7 @@ class App extends Component {
                     percentage={this.props.cart.percentage}
                   />
                 </div>
-                <div className="summary-gbChk col-md-4">
+                <div className="summary-gbChk col-md-4" data-role="resumenCompra">
                   <Summary
                     products={this.props.cart.products}
                     sellerId={this.props.cart.seller_id}

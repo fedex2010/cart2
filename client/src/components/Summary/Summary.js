@@ -65,32 +65,32 @@ class Summary extends Component {
               <SuccessMessage />
 
               <ul className="summary-detail">
-                <li>
+                <li id="subtotal">
                   <label>Subtotal</label>
                   <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? this.props.subtotalPrice : '0'}</span>
                 </li>
 
 
                
-                <li className={`${empresarias ? '' : 'displaynone'}`}>
+                <li className={`${empresarias ? '' : 'displaynone'}`} id="empresarias">
                   <label>IVA</label>
                   <span className="summary-detail-value">${subtotal}</span>
                 </li>
                
 
-                <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'}>
+                <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'} id="warranty">
                   <label>Garantías</label>
                   <span className="summary-detail-value">${this.props.totalWarranties > 0 ? this.props.totalWarranties : '0'}</span>
                 </li>
-                <li className={couponClass}>
+                <li className={couponClass} id="coupon">
                   <label>Descuento por cupón</label>
                   <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? this.props.totalDiscounts : '0'}</span>
                 </li>
-                <li className={this.props.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'}>
+                <li className={this.props.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'} id="special-discount-line">
                   <label>Descuento especial</label>
                   <span className="summary-detail-value">- ${this.props.specialDiscountAmount}</span>
                 </li>
-                <li className="summary-total">
+                <li className="summary-total" id="total">
                   <label>Total</label>
                   <span className="summary-detail-value">${this.props.totalPrice > 0 ? this.props.totalPrice : '0'}</span>
                 </li>

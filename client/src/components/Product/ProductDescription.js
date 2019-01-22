@@ -61,7 +61,7 @@ class ProductDescription extends Component {
           </div>
           <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Precio:</label>
-            <span className="cart-item-column-data">${product.price} {`${empresarias ? '+ IVA' : ''}`}</span>
+            <span className="cart-item-column-data precio-texto">${product.price} {`${empresarias ? '+ IVA' : ''}`}</span>
           </div>
 
           <div className="cart-item-column">
@@ -81,7 +81,7 @@ class ProductDescription extends Component {
           </div>
           <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Subtotal:</label>
-            <strong className="cart-item-column-data">
+            <strong className="cart-item-column-data precio-texto">
               ${product.subtotal_price} {`${empresarias ? '+ IVA' : ''}`}
             </strong>
           </div>
