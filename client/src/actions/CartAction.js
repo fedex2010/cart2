@@ -6,7 +6,7 @@ export const selectProduct = product => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-  fetch("/api/cart/" + id)
+  fetch("api/cart/" + id)
     .then(response => response.json())
     .then(response => {
         const brand = window.xBrand;

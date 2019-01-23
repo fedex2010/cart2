@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "server": "npm start",
-    "dev": "nodemon ./bin/www"
+    "server-ci": "PORT=3000 yarn start",
+    "server-staging": "PORT=3000 yarn start",
+    "server-prod": "PORT=3000 yarn start",
+    "server-dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "async": "^2.6.1",
