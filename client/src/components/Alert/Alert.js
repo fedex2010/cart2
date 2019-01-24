@@ -156,8 +156,13 @@ class Alert extends Component {
     }
 
   _showError(err){
-    let classError = (err)? "error-msj" : "error-msj hide";
+    let classError = (Object.keys(err).length > 0)? "error-msj" : "error-msj hide";
     let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
+
+    console.log(classError)
+    console.log(cssMsj)
+    console.log(Object.keys(err).length)
+
     let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
       return(
           <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
@@ -168,29 +173,24 @@ class Alert extends Component {
   }
 
   render() {
-    console.log("_---------------------------------")
-    console.log("_-------------HOLA--------------------")
-    console.log(this.props)
-    console.log("_---------------------------------")
-
-        if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
-            return(
-                <div className="alert-message-gbChk col-md-12">
-                    {this._isBonificacion(this.props.cart)}
-                    {this._isSaleable(this.props.cart)}
-                    {this._isPriceChange(this.props.cart)}
-                    {this._showError(this.props.err)}
+    if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
+        return(
+            <div className="alert-message-gbChk col-md-12">
+                {this._isBonificacion(this.props.cart)}
+                {this._isSaleable(this.props.cart)}
+                {this._isPriceChange(this.props.cart)}
+                {this._showError(this.props.err)}
+            </div>
+        );
+    }else{
+        return(
+            <div className="alert-message-gbChk col-md-12">
+                <div className="displaynone">
+                    <button type="button" className="feedback--btn-close" />
                 </div>
-            );
-        }else{
-            return(
-                <div className="alert-message-gbChk col-md-12">
-                    <div className="displaynone">
-                        <button type="button" className="feedback--btn-close" />
-                    </div>
-                </div>
-            );
-        }
+            </div>
+        );
+    }
   }
 }
 
