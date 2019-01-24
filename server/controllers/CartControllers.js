@@ -19,8 +19,7 @@ class CartControllers {
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
 
-    RestClient.cartClient
-      .newCart(session_id, sellerId, false, null, "WEB", brand)
+    return RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
       .then(cart => {
         return cart;
       })
@@ -136,8 +135,8 @@ class CartControllers {
     let brand = res.locals.xBrand.toLowerCase();
 
     if (cartId != null) {
-      return RestClient.cartClient
-        .getOneCart(cartId, {}, brand,true,false)
+      console.log("cart no null");
+      return RestClient.cartClient.getOneCart(cartId, {}, brand,true,false)
         .then(cart => {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
@@ -151,6 +150,7 @@ class CartControllers {
           res.status(304).send({ erro: err });
         });
     } else {
+      console.log("cart si null");
       return this.getNewCart(req, res)
         .then(cart => {
           return cart;
@@ -173,9 +173,15 @@ class CartControllers {
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
+
+        console.log("--------------------------"+cart);
+
+          console.log(cart);
+
         RestClient.productClient.addProduct(cart.cart_id, productId, 1,warranty_id, productPrice, "", "",brand)
           .then(() => {
-            this._getOneCart(cartId, req, res)
+              console.log("------------ADD --------------");
+            this._getOneCart(cart.cart_id, req, res)
               .then(cart => {
                 res.send(cart);
               })
