@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 
 class Alert extends Component {
     constructor(props) {
@@ -154,9 +156,9 @@ class Alert extends Component {
     }
 
   _showError(err){
-    let cssMsj = "feedback feedback-error feedback-dismissible";
-    let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
     let classError = (err)? "error-msj" : "error-msj hide";
+    let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
+    let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
       return(
           <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
               <button type="button" onClick={this._closeSalable.bind(this)}  className="feedback--btn-close" />
@@ -166,23 +168,23 @@ class Alert extends Component {
   }
 
   render() {
-        if (this.props.err !== undefined) {
-            return this._showError( this.props.err )
-        }else if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
-            console.log("PRIMERO")
+    console.log("_---------------------------------")
+    console.log("_-------------HOLA--------------------")
+    console.log(this.props)
+    console.log("_---------------------------------")
+
+        if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
             return(
                 <div className="alert-message-gbChk col-md-12">
                     {this._isBonificacion(this.props.cart)}
                     {this._isSaleable(this.props.cart)}
                     {this._isPriceChange(this.props.cart)}
+                    {this._showError(this.props.err)}
                 </div>
             );
         }else{
-            console.log("SEGUNDO")
-
             return(
                 <div className="alert-message-gbChk col-md-12">
-                        hola
                     <div className="displaynone">
                         <button type="button" className="feedback--btn-close" />
                     </div>
@@ -191,4 +193,10 @@ class Alert extends Component {
         }
   }
 }
-export default Alert;
+
+
+const mapStateToProps = state => {
+    return { err: state.cartReducer.err, operationStatus: state.cartReducer.operationStatus };
+};
+
+export default connect(mapStateToProps)(Alert)

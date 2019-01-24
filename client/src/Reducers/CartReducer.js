@@ -18,15 +18,11 @@ export default (state = initialState, action = {}) => {
         operationStatus:action.operationStatus
       };
       case SET_CURRENT_CART_ERROR:
-      console.log("SETENADO ERROR")
-      let errorr = {
+        return {
             ...state,
-            err: { cause : { code : 700 } },
+            err: { cause : { code : 700 } , message : "un mensaje", tipo : "un tipo" },
             operationStatus:action.operationStatus
-        }
-        console.log( errorr )
-      
-          return errorr ;
+        }      
       case SET_CAROUSEL:
         return{
             ...state,

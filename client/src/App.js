@@ -49,7 +49,7 @@ class App extends Component {
             <section>
               <h1 className="cart-title">Mi Carrito</h1>
               <div className="row">
-                  <Alert cart={this.props.cart} err={this.props.err} />
+                  <Alert cart={this.props.cart} />
               </div>
               <div className="product-summary-gbChk row">
                 <div className="product-gbChk col-md-8">

@@ -23,12 +23,15 @@ export const fetchCart = id => dispatch => {
     });
 };
 
+
 export const getCarousel = (cartId) => dispatch => {
+    
     fetch("api/cart/carousel")
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response });
         }).catch((response)=>{
+
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304});
         });
 };
