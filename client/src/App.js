@@ -14,13 +14,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    console.log("----------------}")
+    console.log(this.props)
+    console.log("----------------}")
   }
+
   componentWillMount() {
     let cartId = Cookie.get("cartId");
     this.props.fetchCart(cartId);
   }
-
-
 
   render() {
     let specialDiscountAmount = 0;
@@ -46,7 +49,7 @@ class App extends Component {
             <section>
               <h1 className="cart-title">Mi Carrito</h1>
               <div className="row">
-                  <Alert cart={this.props.cart}/>
+                  <Alert cart={this.props.cart} err={this.props.err} />
               </div>
               <div className="product-summary-gbChk row">
                 <div className="product-gbChk col-md-8">

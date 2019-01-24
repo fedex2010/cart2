@@ -166,23 +166,29 @@ class Alert extends Component {
   }
 
   render() {
-      if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
-          return(
-              <div className="alert-message-gbChk col-md-12">
-                  {this._isBonificacion(this.props.cart)}
-                  {this._isSaleable(this.props.cart)}
-                  {this._isPriceChange(this.props.cart)}
-              </div>
-          );
-      }else{
-          return(
-              <div className="alert-message-gbChk col-md-12">
-                  <div className="displaynone">
-                      <button type="button" className="feedback--btn-close" />
-                  </div>
-              </div>
-          );
-      }
+        if (this.props.err !== undefined) {
+            return this._showError( this.props.err )
+        }else if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
+            console.log("PRIMERO")
+            return(
+                <div className="alert-message-gbChk col-md-12">
+                    {this._isBonificacion(this.props.cart)}
+                    {this._isSaleable(this.props.cart)}
+                    {this._isPriceChange(this.props.cart)}
+                </div>
+            );
+        }else{
+            console.log("SEGUNDO")
+
+            return(
+                <div className="alert-message-gbChk col-md-12">
+                        hola
+                    <div className="displaynone">
+                        <button type="button" className="feedback--btn-close" />
+                    </div>
+                </div>
+            );
+        }
   }
 }
 export default Alert;

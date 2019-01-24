@@ -29,8 +29,7 @@ export const getCarousel = (cartId) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response });
         }).catch((response)=>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
-            console.log("errr"+response)
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304});
         });
 };
 
