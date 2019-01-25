@@ -20,9 +20,9 @@ export default (state = initialState, action = {}) => {
       case SET_CURRENT_CART_ERROR:
         return {
             ...state,
-            err: { cause : { code : 700 } , message : "un mensaje", tipo : "un tipo" },
+            err: action.payload.erro,
             operationStatus:action.operationStatus
-        }      
+        };
       case SET_CAROUSEL:
         return{
             ...state,

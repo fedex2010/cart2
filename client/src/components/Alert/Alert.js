@@ -156,12 +156,9 @@ class Alert extends Component {
     }
 
   _showError(err){
+                      //err not empty
     let classError = (Object.keys(err).length > 0)? "error-msj" : "error-msj hide";
     let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
-
-    console.log(classError)
-    console.log(cssMsj)
-    console.log(Object.keys(err).length)
 
     let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
       return(
@@ -173,7 +170,8 @@ class Alert extends Component {
   }
 
   render() {
-    if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
+    
+    if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {    
         return(
             <div className="alert-message-gbChk col-md-12">
                 {this._isBonificacion(this.props.cart)}
