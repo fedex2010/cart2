@@ -148,7 +148,13 @@ ul.cart-additional-item {
 
 //resumen sticky
 .purchase-summary--fixed {
-	position: fixed;
+	display: block;
+	position: sticky !important;
+	vertical-align: top;
+	display: inline-block;
+	height: auto;
+	top: 0;
+	/*position: fixed;
 	top: 30px;
 	width: calc(33.33333333% - 40px);
 	max-width: 415px;
@@ -161,5 +167,6 @@ ul.cart-additional-item {
 		position: static;
 		max-width: 100%;
 		width: 100%;
-	}
+	}*/
 }
+

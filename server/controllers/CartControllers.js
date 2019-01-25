@@ -173,25 +173,14 @@ class CartControllers {
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
-
-        console.log("--------------------------"+cart);
-
-          console.log(cart);
-
         RestClient.productClient.addProduct(cart.cart_id, productId, 1,warranty_id, productPrice, "", "",brand)
           .then(() => {
-              console.log("------------ADD --------------");
             this._getOneCart(cart.cart_id, req, res)
               .then(cart => {
                 res.send(cart);
               })
               .catch(err => {
-                logger.error(
-                  "[" +
-                    cartId +
-                    "] Fail get cart add Product to cart,err:" +
-                    err
-                );
+                logger.error("[" + cartId + "] Fail get cart add Product to cart,err:" + err);
                 res.status(500).send("Fail get a add Product cart");
               });
           })

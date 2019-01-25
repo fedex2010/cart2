@@ -6,7 +6,6 @@ import "./App.scss";
 import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
-//import Carousel from "./components/Carousel/Carousel";
 import Carousel from "./components/Carousel/Carousel";
 import { fetchCart } from "./actions/CartAction";
 
@@ -20,11 +19,17 @@ class App extends Component {
     this.props.fetchCart(cartId);
   }
 
-
+  _productCant(products){
+      let count = products.length;
+      console.log("---------"+count)
+      let classSummary = (count >=3 )?"summary-gbChk col-md-4 purchase-summary--fixed":"summary-gbChk col-md-4";
+      console.log("classSummary"+classSummary)
+      return classSummary;
+  }
 
   render() {
     let specialDiscountAmount = 0;
-
+    let classSummary = "";
     if (this.props.cart !== undefined) {
       if (
         this.props.cart.discount_details !== undefined &&
@@ -39,6 +44,11 @@ class App extends Component {
         ) {
           specialDiscountAmount += this.props.cart.discount_details[0].amount;
         }
+      }
+      console.log(this.props.cart);
+      if(this.props.cart.products){
+          classSummary = this._productCant(this.props.cart.products);
+          console.log("classSummary"+classSummary)
       }
       return (
         <div className="App">
@@ -55,7 +65,7 @@ class App extends Component {
                     percentage={this.props.cart.percentage}
                   />
                 </div>
-                <div className="summary-gbChk col-md-4" data-role="resumenCompra">
+                <div className={classSummary} data-role="resumenCompra">
                   <Summary
                     products={this.props.cart.products}
                     sellerId={this.props.cart.seller_id}

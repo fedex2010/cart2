@@ -60,13 +60,13 @@ class Summary extends Component {
       return num.replace(",00", "")
   }
   componentWillUpdate(){
-    
+
   }
   render() {
     let couponClass = "highlight-benefit displaynone";
     let products="";
 
-    
+
 
     let empresarias = (Cookie.get("empresarias")==='true'?true:false);
       if(typeof this.props.coupons !== "undefined"){
