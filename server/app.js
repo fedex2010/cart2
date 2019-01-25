@@ -1,13 +1,13 @@
-const createError = require("http-errors"),
-      express = require("express"),
+const express = require("express"),
+      createError = require("http-errors"),
       logger = require("./utils/logger"),
       async = require("async"),
-      indexRouter = require("./routes/index"),
-      cartRouter = require("./routes/cart"),
       uuid = require("uuid"),
       morgan = require("morgan"),
       sessionService = require('./services/session_service'),
-      cookieParser   = require('cookie-parser');
+      cookieParser   = require('cookie-parser'),
+      indexRouter = require("./routes/index"),
+      cartRouter = require("./routes/cart");
 
 let app = express();
 
@@ -69,7 +69,7 @@ function sessionMiddleware( req , res ,next) {
   } else {
       sessionService.setSessionContextFromCookie(res, sessionCookie)
   }
-  
+
   if (cartCookie) {
       sessionService.setCartContextFromCookie(res, cartCookie)
   }
