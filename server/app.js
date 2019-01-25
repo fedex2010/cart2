@@ -1,15 +1,15 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("./utils/logger");
-var async = require("async");
-var indexRouter = require("./routes/index");
-var apiRouter = require("./routes/api");
-var uuid = require("uuid");
-var morgan = require("morgan");
+const createError = require("http-errors"),
+      express = require("express"),
+      logger = require("./utils/logger"),
+      async = require("async"),
+      indexRouter = require("./routes/index"),
+      cartRouter = require("./routes/cart"),
+      uuid = require("uuid"),
+      morgan = require("morgan"),
+      sessionService = require('./services/session_service'),
+      controllers = require("./controllers");
 
-var app = express();
+let app = express();
 
 // view engine setupS
 // app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +24,12 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(parallel([cookie]));
 
 app.use("/", indexRouter);
-app.use("/api", apiRouter);
+//app.get("/api/",( req , res ) => controllers.cart.renderApp( req , res ))
+app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
+app.use("/api/cart", sessionMiddleware , cartRouter);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,6 +60,25 @@ function parallel(middlewares) {
   };
 }
 
+function sessionMiddleware( req , res ,next) {
+  /*let sessionCookie = req.cookies['epi.context']
+  if (!sessionCookie) {
+      sessionService.generateSessionCookie(res)
+  } else {
+      sessionService.setSessionContextFromCookie(res, sessionCookie)
+  }
+  let cartCookie = req.cookies['cartId']
+  if (cartCookie) {
+      sessionService.setCartContextFromCookie(res, cartCookie)
+  }*/
+  console.log("SETEANDO SESSION COOKIES")
+  console.log(req.originalUrl)
+
+  next()
+}
+
+
+/*NEGRO *************************************************/
 function cookie(req, res, next) {
   let sessionCookie = req.cookies["epi.context"];
   let cartCookie = req.cookies["cartId"];

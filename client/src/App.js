@@ -14,15 +14,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
-    console.log("----------------}")
-    console.log(this.props)
-    console.log("----------------}")
   }
 
   componentWillMount() {
     let cartId = Cookie.get("cartId");
     this.props.fetchCart(cartId);
+    
+    //Cookie.set("5c49ca2fe4b0a4ca40512d20");
+    //this.props.fetchCart("5c49ca2fe4b0a4ca40512d20");
   }
 
   render() {
