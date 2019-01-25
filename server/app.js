@@ -7,7 +7,7 @@ const createError = require("http-errors"),
       uuid = require("uuid"),
       morgan = require("morgan"),
       sessionService = require('./services/session_service'),
-      controllers = require("./controllers");
+      cookieParser   = require('cookie-parser');
 
 let app = express();
 
@@ -18,7 +18,7 @@ app.set("view engine", "jade");
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(cookieParser());
+app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 
 //app.use(parallel([cookie]));
@@ -61,18 +61,19 @@ function parallel(middlewares) {
 }
 
 function sessionMiddleware( req , res ,next) {
-  /*let sessionCookie = req.cookies['epi.context']
+  let sessionCookie = req.cookies['epi.context']
+  let cartCookie = req.cookies['cartId']
+
   if (!sessionCookie) {
       sessionService.generateSessionCookie(res)
   } else {
       sessionService.setSessionContextFromCookie(res, sessionCookie)
   }
-  let cartCookie = req.cookies['cartId']
+  
   if (cartCookie) {
       sessionService.setCartContextFromCookie(res, cartCookie)
-  }*/
-  console.log("SETEANDO SESSION COOKIES")
-  console.log(req.originalUrl)
+  }
+  console.log("MIDDLEWARE SESSION COOKIES")
 
   next()
 }
