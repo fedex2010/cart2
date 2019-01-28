@@ -5,6 +5,7 @@ const initialState = {
   selectedProduct: {},
   carousel: {},
   err: {},
+  redirectTo: "",
   operationStatus: "INITIAL",
   xBrand:""
 };
@@ -21,6 +22,7 @@ export default (state = initialState, action = {}) => {
         return {
             ...state,
             err: action.payload.erro,
+            redirectTo: "/error",
             operationStatus:action.operationStatus
         };
       case SET_CAROUSEL:

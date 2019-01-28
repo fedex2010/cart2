@@ -44,7 +44,7 @@ class CartControllers {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res,cart);
-          res.send(cart);
+          res.status(200).send(cart);
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
@@ -58,7 +58,7 @@ class CartControllers {
           cart = this._getEmpresarias(req, res,cart);
           res.cookie("epi.context", session_id);
           res.cookie("cartId", cart.cart_id);
-          res.send(cart);
+          res.status(200).send(cart);
         })
         .catch(err => {
             logger.error("[" + cartId + "]Fail create cart: " + err);  
@@ -135,7 +135,7 @@ class CartControllers {
               );
             });
             products.products = product;
-            res.send(products);
+            res.status(200).send(products);
           })
           .catch(err => {
             logger.error("Fail get carousel product: " + err);
@@ -201,7 +201,7 @@ class CartControllers {
               console.log("------------ADD --------------");
             this._getOneCart(cart.cart_id, req, res)
               .then(cart => {
-                res.send(cart);
+                res.status(200).send(cart);
               })
               .catch(err => {
                 logger.error(
@@ -236,7 +236,7 @@ class CartControllers {
       .then(product => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            res.send(cart);
+            res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" +cartId +"] Fail get a update cart: " +err);
@@ -259,7 +259,7 @@ class CartControllers {
       .then(() => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            res.send(cart);
+            res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
@@ -282,7 +282,7 @@ class CartControllers {
       .then(coupon => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            res.send(cart);
+            res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
@@ -306,7 +306,7 @@ class CartControllers {
       .then(() => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            res.send(cart);
+            res.status(200).send(cart);
           })
           .catch(err => {
             logger.error(
@@ -342,7 +342,7 @@ class CartControllers {
       .then(() => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            res.send(cart);
+            res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
@@ -366,7 +366,7 @@ class CartControllers {
       .then(loyalty => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            res.send(cart);
+            res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
@@ -399,7 +399,7 @@ class CartControllers {
   }
 
   warrantyMobile(req, res) {
-    res.send("ok");
+    res.status(200).send("ok");
   }
 
   setWarranty(req, res) {
@@ -412,7 +412,7 @@ class CartControllers {
       .then(product => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            res.send(cart);
+            res.status(200).send(cart);
           })
           .catch(err => {
             logger.error(
