@@ -118,7 +118,8 @@ class CartControllers {
       return {};
     }
 
-    RestClient.productClient.getProductsCarousel("brand")
+  
+    RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
         return RestClient.productClient
           .getProducts(brand, carousel.products)
