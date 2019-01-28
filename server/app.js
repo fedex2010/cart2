@@ -73,49 +73,14 @@ function sessionMiddleware( req , res ,next) {
   if (cartCookie) {
       sessionService.setCartContextFromCookie(res, cartCookie)
   }
-  console.log("MIDDLEWARE SESSION COOKIES")
-
-  next()
-}
-
-
-/*NEGRO *************************************************/
-function cookie(req, res, next) {
-  let sessionCookie = req.cookies["epi.context"];
-  let cartCookie = req.cookies["cartId"];
-
-  if (!sessionCookie) {
-    generateSessionCookie(res);
-  } else {
-    setSessionContextFromCookie(res, sessionCookie);
-  }
-  if (cartCookie) {
-    setCartContextFromCookie(res, cartCookie);
-  }
 
   res.locals.sellerId = req.cookies["epi.salesman"] || "";
+  console.log("MIDDLEWARE SESSION COOKIES")
 
-  next();
-}
+  //DONDE SE DEBERIA DE EJECUTAR EL SGTE
+  //sessionService.setSessionCookie()
 
-function setCartContextFromCookie(res, cartCookie) {
-  res.locals.cartId = cartCookie;
-}
-
-function generateSessionCookie(res) {
-  setSessionCookie(res, "chkw-" + uuid.v4().substr(5));
-}
-
-function setSessionContextFromCookie(res, sessionCookie) {
-  res.locals.session = JSON.parse(sessionCookie.replace(/\\/g, "")).userId;
-}
-
-function setSessionCookie(res, session_id) {
-  logger.info("[", session_id, "] Setting new user session");
-  res.locals.session = session_id;
-  res.cookie("epi.context", '"{\\"userId\\":\\"' + session_id + '\\"}"', {
-    encode: String
-  });
+  next()
 }
 
 module.exports = app;

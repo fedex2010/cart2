@@ -17,6 +17,7 @@ export const fetchCart = id => dispatch => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
         }
     }).catch((response)=>{
+        console.log(response)
         dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
     });
 };
@@ -29,6 +30,9 @@ export const getCarousel = (cartId) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response });
         }).catch((response)=>{            
+            console.log("HOAHAO")
+            console.log(response)
+
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
 };
