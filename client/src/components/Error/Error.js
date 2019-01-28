@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import GarbaError from "./GarbaError";
-import CompuError from "./CompuError";
+import config from "../../config/config";
 
 
 
@@ -13,30 +12,32 @@ class ErrorPage extends Component {
         };
     }
 
-
   componentDidMount(){
     document.body.classList.remove('full-page--is-loading');
   }
 
-    _resetCookie(){  
-    }
-
+  _errorImage(brand){
+      let svgGarba="garba_error.svg"
+      let svgCompu="compu_error.svg"
+      let svg = (brand === "garbarino")?svgGarba:svgCompu;
+      let url = config.cloudfront.url+"/statics/images/"+svg
+      return(
+          <object type="image/svg+xml" data={url} title="No hay resultados">
+              <img src={url} alt="No hay resultados"/>
+          </object>
+      );
+  }
   
   render() {
-      let error;
-      let brand = window.xBrand;
-     if(brand === "garbarino"){
-        error = <GarbaError/>
-     }else{
-        error = <CompuError/>
-     }
-    
+    let error;
+    let brand = window.xBrand;
+
     return(
         <div className="error-page" data-view="root">
             <div class="gb-wrapper gb--fixed-width">
                 <div class="gb-error">
                     <div class="gb-error-image">
-                        {error}
+                        {this._errorImage(brand)}
                     </div>
                     <div class="gb-error-content">
                         <h2 class="gb-error-title">Ocurrió un error al procesar tu compra.</h2>
