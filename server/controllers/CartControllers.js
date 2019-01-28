@@ -24,7 +24,8 @@ class CartControllers {
         return cart;
       })
       .catch(err => {
-        res.status(500).send("Fail create cart");
+        logger.error("[" + session_id + " - session_id] Fail create cart: " + err);
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -33,8 +34,11 @@ class CartControllers {
     let session_id = res.locals.session;
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
+
     this._isEmpresarias(req, res);
+
     if (cartId != "undefined") {
+
       RestClient.cartClient.getOneCart(cartId, {}, brand,true,true)
         .then(cart => {
           cart = _replaceImage(cart);
@@ -44,7 +48,7 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
-          res.status(304).send({ erro: err });
+          res.status(500).send( this.getErrorMessage( err,304 )  );
         });
     } else {
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
@@ -57,7 +61,8 @@ class CartControllers {
           res.send(cart);
         })
         .catch(err => {
-            res.status(304).send({ erro: err });
+            logger.error("[" + cartId + "]Fail create cart: " + err);
+            res.status(500).send( this.getErrorMessage( err,304 )  );
         });
     }
   }
@@ -94,15 +99,28 @@ class CartControllers {
       return cart;
   }
 
+  getErrorMessage(err,code){
+    let error = {
+                  erro:{
+                    cause : {
+                      code : code,
+                      message : err.message
+                    }
+                  }
+                }
+    return error
+  }
+
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let products = {};
     if (req.headers["x-subdomain"] == "empresas") {
       return {};
     }
+
+
     RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
-        
         return RestClient.productClient
           .getProducts(brand, carousel.products)
           .then(product => {
@@ -120,13 +138,13 @@ class CartControllers {
             res.send(products);
           })
           .catch(err => {
-            console.log(err);
-            res.status(500).send("Fail get carousel product");
+            logger.error("Fail get carousel product: " + err);
+            res.status(500).send( this.getErrorMessage( err,304 )  );
           });
       })
       .catch(err => {
-        console.log(err);
-        res.status(500).send("Fail get carousel");
+        logger.error("Fail get carousel: " + err);
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -147,7 +165,7 @@ class CartControllers {
           logger.error(
             "[" + cartId + "] Fail get cart _getOneCart ,err:" + err
           );
-          res.status(304).send({ erro: err });
+          res.status(500).send( this.getErrorMessage( err,304 )  );
         });
     } else {
       console.log("cart si null");
@@ -157,7 +175,7 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart getNewCart ,err:" + err);
-          res.status(304).send({ erro: err });
+          res.status(500).send( this.getErrorMessage( err,304 )  );
         });
     }
   }
@@ -185,12 +203,13 @@ class CartControllers {
               });
           })
           .catch(err => {
-            console.log(err);
-            res.status(500).send("Fail update product to cart");
+            logger.error("[" +cartId +"] Fail update product to cart: " +err);
+            res.status(500).send( this.getErrorMessage( err,304 )  );
           });
       })
       .catch(err => {
-        res.status(500).send("Fail get to cart");
+        logger.error("[" +cartId +"] Fail get to cart: " +err);
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -209,12 +228,13 @@ class CartControllers {
             res.send(cart);
           })
           .catch(err => {
-            res.status(500).send("Fail get a update cart");
+            logger.error("[" +cartId +"] Fail get a update cart: " +err);
+            res.status(500).send( this.getErrorMessage( err,304 )  );
           });
       })
       .catch(err => {
-        console.log(err);
-        res.status(500).send("Fail add product to cart");
+        logger.error("[" +cartId +"] Fail add product to cart: " +err);
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -232,12 +252,12 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(304).send({ erro: err });
+            res.status(500).send( this.getErrorMessage( err,304 )  );
           });
       })
       .catch(err => {
-        console.log(err);
-        res.status(304).send({ erro: err });
+        logger.error("[" + cartId + "] Fail to delete product ,err:" + err);
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -255,14 +275,14 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(304).send({ erro: err });
+            res.status(500).send( this.getErrorMessage( err,304 )  );
           });
       })
       .catch(err => {
         logger.error(
           "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
         );
-        res.status(200).send({ erro: err });
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -281,7 +301,7 @@ class CartControllers {
             logger.error(
               "[" + cartId + "] Fail get cart coupon delete ,err:" + err
             );
-            res.status(304).send({ erro: err });
+            res.status(500).send({ erro: err });
           });
       })
       .catch(err => {
@@ -293,7 +313,8 @@ class CartControllers {
             ",err:" +
             err
         );
-        res.status(500).send("Fail delete coupon to cart");
+        err.message = "Fail delete coupon to cart"
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -314,14 +335,14 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(304).send({ erro: err });
+            res.status(500).send( this.getErrorMessage( err,304 )  );
           });
       })
       .catch(err => {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
-        res.status(304).send({ erro: err });
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -338,14 +359,14 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(304).send({ erro: err });
+            res.status(500).send( this.getErrorMessage( err,304 )  );
           });
       })
       .catch(err => {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
-        res.status(304).send({ erro: err });
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -359,7 +380,10 @@ class CartControllers {
         res.json({ products_count: cart.products.length });
       })
       .catch(err => {
-        res.status(500).send("Fail get cart");
+        logger.error(
+          "[" + cartId + "] Fail get cart: ,err:" + err
+        );
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 
@@ -388,7 +412,7 @@ class CartControllers {
       })
       .catch(err => {
         logger.error("[" + cartId + "] Fail set warranty to cart,err:" + err);
-        res.status(304).send({ erro: err });
+        res.status(500).send( this.getErrorMessage( err,304 )  );
       });
   }
 

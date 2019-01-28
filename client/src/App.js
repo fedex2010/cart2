@@ -14,6 +14,7 @@ class App extends Component {
     super(props);
     this.state = {};
   }
+
   componentWillMount() {
     let cartId = Cookie.get("cartId");
     this.props.fetchCart(cartId);

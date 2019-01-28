@@ -14,23 +14,27 @@ export const fetchCart = id => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
         }else{
             console.log("aca1");
+            console.log(response);
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
         }
     }).catch((response)=>{
-      if (typeof response.erro !== "undefined") {
+        console.log(response)
         dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
-      }
     });
 };
 
+
 export const getCarousel = (cartId) => dispatch => {
+    
     fetch("api/cart/carousel")
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response });
-        }).catch((response)=>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
-            console.log("errr"+response)
+        }).catch((response)=>{            
+            console.log("HOAHAO")
+            console.log(response)
+
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
 };
 
@@ -48,8 +52,7 @@ export const addProduct = product => dispatch => {
     .then(response => {
         dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL"  });
     }).catch((response)=>{
-        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
-        console.log("errr"+response)
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
     });
 };
 
@@ -71,8 +74,8 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response ,operationStatus: "SUCCESSFUL" });
-        }).catch((err)=>{
-            console.log("errr"+err)
+        }).catch((response)=>{
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
 };
 
@@ -94,8 +97,8 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
-        }).catch((err)=>{
-            console.log("errr"+err)
+        }).catch((response)=>{
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
 
 };
@@ -115,8 +118,7 @@ export const deleteProduct = (productId) => dispatch => {
             console.log("dispatch");
              dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((response)=>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
-            console.log("errr"+response)
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
 };
 
@@ -141,8 +143,7 @@ export const addCoupon = (couponId,cartId) => dispatch => {
         }
     })
     .catch((response)=>{
-        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.cause.code});
-        console.log("err:"+response)
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
     });
 };
 
@@ -160,7 +161,7 @@ export const deleteCoupon = (couponId, cartId) => dispatch => {
       dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL' });
     })
     .catch(response => {
-        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
     });
 };
 
@@ -181,7 +182,7 @@ export const setLoyalties = (code,cartId) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
         }).catch((response)=>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
 };
 
@@ -198,6 +199,6 @@ export const deleteLoyalties = (cartId) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response,operationStatus: 'SUCCESSFUL' });
         }).catch((response)=>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
 };

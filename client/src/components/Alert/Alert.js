@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 
 class Alert extends Component {
     constructor(props) {
@@ -154,9 +156,17 @@ class Alert extends Component {
     }
 
   _showError(err){
-    let cssMsj = "feedback feedback-error feedback-dismissible";
+                      //err not empty
+    let classError = "error-msj hide"
+
+    if(Object.keys(err).length > 0){
+        classError = "error-msj" 
+        console.error("Mostrando error : " + JSON.stringify( err ) )
+    }
+
+    let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
+
     let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
-    let classError = (err)? "error-msj" : "error-msj hide";
       return(
           <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
               <button type="button" onClick={this._closeSalable.bind(this)}  className="feedback--btn-close" />
@@ -166,23 +176,32 @@ class Alert extends Component {
   }
 
   render() {
-      if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {
-          return(
-              <div className="alert-message-gbChk col-md-12">
-                  {this._isBonificacion(this.props.cart)}
-                  {this._isSaleable(this.props.cart)}
-                  {this._isPriceChange(this.props.cart)}
-              </div>
-          );
-      }else{
-          return(
-              <div className="alert-message-gbChk col-md-12">
-                  <div className="displaynone">
-                      <button type="button" className="feedback--btn-close" />
-                  </div>
-              </div>
-          );
-      }
+    
+    if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {    
+        return(
+            <div className="alert-message-gbChk col-md-12">
+                {this._isBonificacion(this.props.cart)}
+                {this._isSaleable(this.props.cart)}
+                {this._isPriceChange(this.props.cart)}
+                {this._showError(this.props.err)}
+            </div>
+        );
+    }else{
+        return(
+            <div className="alert-message-gbChk col-md-12">
+                {this._showError(this.props.err)}
+                <div className="displaynone">
+                    <button type="button" className="feedback--btn-close" />
+                </div>
+            </div>
+        );
+    }
   }
 }
-export default Alert;
+
+
+const mapStateToProps = state => {
+    return { err: state.cartReducer.err, operationStatus: state.cartReducer.operationStatus };
+};
+
+export default connect(mapStateToProps)(Alert)
