@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router'
 import Cookie from "js-cookie";
 import "./App.scss";
 
@@ -18,12 +19,14 @@ class App extends Component {
   componentWillMount() {
     let cartId = Cookie.get("cartId");
     this.props.fetchCart(cartId);
-    
-    //Cookie.set("5c49ca2fe4b0a4ca40512d20");
-    //this.props.fetchCart("5c49ca2fe4b0a4ca40512d20");
   }
 
   render() {
+
+    if (this.props.redirectTo !== "" ) {
+      return (<Redirect to={this.props.redirectTo}/>);
+   }
+
     let specialDiscountAmount = 0;
 
     if (this.props.cart !== undefined) {
@@ -90,7 +93,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { cart: state.cartReducer.cart, err : state.cartReducer.err, xBrand: state.cartReducer.xBrand };
+  return { 
+    cart: state.cartReducer.cart, 
+    err : state.cartReducer.err, 
+    redirectTo : state.cartReducer.redirectTo, 
+    xBrand: state.cartReducer.xBrand };
 };
 
 export default connect(
