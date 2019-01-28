@@ -18,11 +18,11 @@ export default (state = initialState, action = {}) => {
         operationStatus:action.operationStatus
       };
       case SET_CURRENT_CART_ERROR:
-          return {
-              ...state,
-              err: action.payload.erro,
-              operationStatus:action.operationStatus
-          };
+        return {
+            ...state,
+            err: action.payload.erro,
+            operationStatus:action.operationStatus
+        };
       case SET_CAROUSEL:
         return{
             ...state,

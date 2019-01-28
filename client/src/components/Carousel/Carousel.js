@@ -14,6 +14,7 @@ class Carousel extends Component {
     handleAddProduct(product,price){
         let  products = { xid: product, productPrice: price };
         this.props.addProduct(products);
+        window.scrollTo(0, 0)
     }
 
     handleGetProduct(productId){
@@ -37,9 +38,10 @@ class Carousel extends Component {
             renderNextButton: () => <button className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></button>,
           };
 
-
+          
           if (this.props.carousel.title !== undefined && typeof this.props.data !== "undefined") {
             const productIds = this.props.data.map((it => it.product_id));
+
             return (
                 <div className="card">
                     <div className="card-header">
@@ -74,8 +76,7 @@ class Carousel extends Component {
                                             </div>
 
                                             <div className="carousel-item-actions">
-
-                                                <button onClick={this.handleGetProduct.bind(this)} className="button--link button--xs">Ver detalle</button>
+                                                <a href={'/producto/'+ product.xid} title={product.xid} itemProp="url" target="_blank" className="button--link button--xs">Ver detalle</a>
                                                 <button onClick={this.handleAddProduct.bind(this,product.xid,product.price)} className="button--primary button--xs">Agregar</button>
                                             </div>
                                     </div>

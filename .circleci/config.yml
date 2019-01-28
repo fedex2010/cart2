@@ -1,0 +1,108 @@
+version: 2
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/node:8-browsers
+    working_directory: ~/garbarino-com/cart-ui
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/garbarino-com/cart-ui
+      - restore_cache:
+          keys:
+            - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}-v2
+            - yarn-cache-{{ .Branch }}
+            - yarn-cache-
+      - run: yarn install
+      - run: yarn install-client
+      - save_cache:
+          key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}-v2
+          paths: 
+            - node_modules
+            - client/node_modules
+            - server/node_modules
+      - persist_to_workspace:
+          root: .
+          paths: .
+  build_client:
+      docker:
+        - image: circleci/node:8-browsers
+      working_directory: ~/garbarino-com/cart-ui
+      steps:
+        - attach_workspace:
+            at: ~/garbarino-com/cart-ui
+        - run: yarn install
+        - run: yarn install-client
+        - run: CI=false yarn build-garba
+        - run: CI=false yarn build-compu
+        - persist_to_workspace:
+            root: .
+            paths: .
+  deploy_elb:
+      machine: true
+      working_directory: ~/garbarino-com/cart-ui
+      environment:
+        AWS_ACCESS_KEY_ID: "AKIAJWUHQPWQHWC4SAXQ"
+        AWS_SECRET_ACCESS_KEY: "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"
+        AWS_DEFAULT_REGION: "us-east-1"
+
+      steps:
+        - attach_workspace:
+            at: ~/garbarino-com/cart-ui
+        - run:
+            name: Install aws dependencies
+            command: |
+              sudo apt-get update
+              sudo apt-get install awscli
+        - run: zip  -r /tmp/app.zip . -x "node_modules/*" -x "client/node_modules/*" -x "server/node_modules/*" -x ".git/*"
+        - run:
+            name: Deploy All Branches
+            command: |
+              PACKAGE_VERSION=$(grep '"version":' package.json | cut -d\" -f4)
+              if [[ "${CIRCLE_TAG}" =~ CHECKOUT-* ]]
+              then
+                PACKAGE_LABEL=v$PACKAGE_VERSION-SNAPSHOT-$CIRCLE_TAG-$CIRCLE_BUILD_NUM
+                aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$PACKAGE_LABEL.zip
+                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $PACKAGE_LABEL --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
+              elif [ "$CIRCLE_BRANCH" == "develop" ]
+              then
+                PACKAGE_LABEL=v$PACKAGE_VERSION-SNAPSHOT-$CIRCLE_BUILD_NUM
+                aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$PACKAGE_LABEL.zip
+                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $PACKAGE_LABEL --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
+                aws elasticbeanstalk update-environment --environment-name cart-ui-ci --version-label $PACKAGE_LABEL --region us-east-1
+              else
+                echo "Something wrong!?!"
+              fi
+workflows:
+  version: 2
+  build_and_deploy_elb:
+    jobs:
+      - checkout_code:
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+            tags:
+              only: /^CHECKOUT-.*/
+      - build_client:
+          requires:
+            - checkout_code
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+            tags:
+              only: /^CHECKOUT-.*/
+
+      - deploy_elb:
+          requires:
+            - build_client
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+            tags:
+              only: /^CHECKOUT-.*/

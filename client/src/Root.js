@@ -12,9 +12,9 @@ const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
       <div>
-        <Route path="/carrito" component={App} exact />  
+        <Route path="/reactcart" component={App} exact />
         <Route path="/carrito/vendedor" component={VendedorPage} />
-        <Route path="/error" component={ErrorPage} />  
+        <Route path="/error" component={ErrorPage} />
       </div>
     </Router>
   </Provider>

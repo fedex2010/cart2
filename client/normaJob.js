@@ -33,7 +33,7 @@ fetch(baseUrl)
 
     var brand=
 
-    jsBrand='  <script>\n' +
+    jsBrand='<script>\n' +
         '        window.xBrand ="' + process.argv[2] +'";\n' +
         '    </script>';
 

@@ -30,6 +30,34 @@ class ProductDescription extends Component {
   _showModal(product) {
     this.props.selectProduct(product);
   }
+  _formatPrice(value, decimals) {
+    if(value == undefined){
+        return 0;
+    }
+      /**
+       * Number.prototype.format(n, x, s, c)
+       *
+       * @param integer n: length of decimal
+       * @param integer x: length of whole part
+       * @param mixed   s: sections delimiter
+       * @param mixed   c: decimal delimiter
+       */
+      if(!decimals){
+          decimals = 0;
+      }
+
+      var n = decimals,
+          x = 3,
+          s = ".",
+          c = ",";
+
+      var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+          num = value.toFixed(Math.max(0, ~~n));
+
+    
+      num = (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+      return num.replace(",00", "")
+  }
 
   render() {
     let product = this.props.item;
@@ -41,6 +69,9 @@ class ProductDescription extends Component {
     let idProduct  = "productId_"+product.product_id;
     let empresarias = (Cookie.get("empresarias")===true?true:false);
     let idQuantity = "idQuantity_"+product.product_id;
+
+    let priceRound = this._formatPrice(product.price);
+    let subtotalPriceRound = this._formatPrice(product.subtotal_price);
 
     return (
       <div className="cart-item card" id={idProduct}>
@@ -61,7 +92,7 @@ class ProductDescription extends Component {
           </div>
           <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Precio:</label>
-            <span className="cart-item-column-data">${product.price} {`${empresarias ? '+ IVA' : ''}`}</span>
+            <span className="cart-item-column-data precio-texto">${priceRound} {`${empresarias ? '+ IVA' : ''}`}</span>
           </div>
 
           <div className="cart-item-column">
@@ -81,8 +112,8 @@ class ProductDescription extends Component {
           </div>
           <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
             <label>Subtotal:</label>
-            <strong className="cart-item-column-data">
-              ${product.subtotal_price} {`${empresarias ? '+ IVA' : ''}`}
+            <strong className="cart-item-column-data precio-texto">
+              ${subtotalPriceRound} {`${empresarias ? '+ IVA' : ''}`}
             </strong>
           </div>
 

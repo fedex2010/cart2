@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.384.0",
     "garba-ui": "^3.1.4",
     "js-cookie": "^2.2.0",
     "node-sass": "^4.11.0",
@@ -21,12 +22,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-ci": "node deployToS3.js cart-ui-ci.garbarino.com/cart"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "proxy": "http://localhost:3001",
+  "homepage": "https://ci.garbarino.com/reactcart",
   "browserslist": [
     ">0.2%",
     "not dead",

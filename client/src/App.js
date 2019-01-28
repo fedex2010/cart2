@@ -14,12 +14,14 @@ class App extends Component {
     super(props);
     this.state = {};
   }
+
   componentWillMount() {
     let cartId = Cookie.get("cartId");
     this.props.fetchCart(cartId);
+    
+    //Cookie.set("5c49ca2fe4b0a4ca40512d20");
+    //this.props.fetchCart("5c49ca2fe4b0a4ca40512d20");
   }
-
-
 
   render() {
     let specialDiscountAmount = 0;
@@ -45,7 +47,7 @@ class App extends Component {
             <section>
               <h1 className="cart-title">Mi Carrito</h1>
               <div className="row">
-                  <Alert cart={this.props.cart}/>
+                  <Alert cart={this.props.cart} />
               </div>
               <div className="product-summary-gbChk row">
                 <div className="product-gbChk col-md-8">
@@ -54,7 +56,7 @@ class App extends Component {
                     percentage={this.props.cart.percentage}
                   />
                 </div>
-                <div className="summary-gbChk col-md-4">
+                <div className="summary-gbChk col-md-4" data-role="resumenCompra">
                   <Summary
                     products={this.props.cart.products}
                     sellerId={this.props.cart.seller_id}
