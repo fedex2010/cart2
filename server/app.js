@@ -83,15 +83,6 @@ function sessionMiddleware( req , res ,next) {
       logger.warn('x-brand header not present. Set garbarino by default');
   }
 
-  console.log("MIDDLEWARE SESSION COOKIES")
-
-  console.log("--------------------")
-  console.log(req.originalUrl)
-  console.log(req.hostname)
-  console.log("-------req.params.cartId-------------")
-  console.log(req.params.cartId)
-  console.log("--------------------")
-  
   //DONDE SE DEBERIA DE EJECUTAR EL SGTE
   //sessionService.setSessionCookie()
 
