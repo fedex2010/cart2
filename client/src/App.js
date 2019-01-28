@@ -22,7 +22,7 @@ class App extends Component {
   _productCant(products){
       let count = products.length;
       console.log("---------"+count)
-      let classSummary = (count >=3 )?"summary-gbChk col-md-4 purchase-summary--fixed":"summary-gbChk col-md-4";
+      let classSummary = (count >=3 )?"purchase-summary--fixed":"";
       console.log("classSummary"+classSummary)
       return classSummary;
   }
@@ -59,25 +59,27 @@ class App extends Component {
                   <Alert cart={this.props.cart}/>
               </div>
               <div className="product-summary-gbChk row">
-                <div className="product-gbChk col-md-8">
+                <div className="product-gbChk col-md-8 ">
                   <Product
                     product={this.props.cart.products}
                     percentage={this.props.cart.percentage}
                   />
                 </div>
-                <div className={classSummary} data-role="resumenCompra">
-                  <Summary
-                    products={this.props.cart.products}
-                    sellerId={this.props.cart.seller_id}
-                    subtotalPrice={this.props.cart.subtotal_price}
-                    subtotalBasePrice={this.props.cart.subtotal_base_price}
-                    totalWarranties={this.props.cart.total_warranties}
-                    specialDiscountAmount={specialDiscountAmount}
-                    coupons={this.props.cart.coupons}
-                    addMillasAP={this.props.cart.loyalties}
-                    totalDiscounts={this.props.cart.total_discounts}
-                    totalPrice={this.props.cart.total_price}
-                  />
+                <div className="summary-gbChk col-md-4" data-role="resumenCompra">
+                  <div className={classSummary}>
+                    <Summary
+                      products={this.props.cart.products}
+                      sellerId={this.props.cart.seller_id}
+                      subtotalPrice={this.props.cart.subtotal_price}
+                      subtotalBasePrice={this.props.cart.subtotal_base_price}
+                      totalWarranties={this.props.cart.total_warranties}
+                      specialDiscountAmount={specialDiscountAmount}
+                      coupons={this.props.cart.coupons}
+                      addMillasAP={this.props.cart.loyalties}
+                      totalDiscounts={this.props.cart.total_discounts}
+                      totalPrice={this.props.cart.total_price}
+                    />
+                  </div>
                 </div>
               </div>
               

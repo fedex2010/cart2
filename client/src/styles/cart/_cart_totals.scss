@@ -139,9 +139,10 @@ ul.cart-additional-item {
 .cart-actions {
 	margin-bottom: $spacer-lg;
 	padding-top: $spacer-base;
+	text-align: right;
 
-	.button--primary {
-		float: right;
+	.button--link {
+		float: left;
 	}
 }
 
@@ -149,24 +150,15 @@ ul.cart-additional-item {
 //resumen sticky
 .purchase-summary--fixed {
 	display: block;
-	position: sticky !important;
-	vertical-align: top;
-	display: inline-block;
-	height: auto;
-	top: 0;
-	/*position: fixed;
+	position: sticky;
 	top: 30px;
-	width: calc(33.33333333% - 40px);
-	max-width: 415px;
-	z-index: 2;
+
 	@media (max-width: 1024px){
-		width: calc(41.66666667% - 38px);
+		top: 80px;
 	}
 
 	@media (max-width: 767px){
 		position: static;
-		max-width: 100%;
-		width: 100%;
-	}*/
+	}
 }
 
