@@ -34,8 +34,18 @@ class CartControllers {
     let session_id = res.locals.session;
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
+
     this._isEmpresarias(req, res);
+
+    console.log("-------CONTROLLER-------------")
+    console.log(req.originalUrl)
+    console.log(req.hostname)
+    console.log("-------req.params.cartId-------------")
+    console.log(req.params.cartId)
+    console.log("--------------------")
+  
     if (cartId != "undefined") {
+  
       RestClient.cartClient.getOneCart(cartId, {}, brand,true,true)
         .then(cart => {
           cart = _replaceImage(cart);
@@ -114,7 +124,8 @@ class CartControllers {
     if (req.headers["x-subdomain"] == "empresas") {
       return {};
     }
-    RestClient.productClient.getProductsCarousel(brand)
+
+    RestClient.productClient.getProductsCarousel("brand")
       .then(carousel => {
         return RestClient.productClient
           .getProducts(brand, carousel.products)

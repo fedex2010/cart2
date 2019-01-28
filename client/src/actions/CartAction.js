@@ -14,6 +14,7 @@ export const fetchCart = id => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
         }else{
             console.log("aca1");
+            console.log(response);
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
         }
     }).catch((response)=>{

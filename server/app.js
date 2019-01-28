@@ -77,6 +77,13 @@ function sessionMiddleware( req , res ,next) {
   res.locals.sellerId = req.cookies["epi.salesman"] || "";
   console.log("MIDDLEWARE SESSION COOKIES")
 
+  console.log("--------------------")
+  console.log(req.originalUrl)
+  console.log(req.hostname)
+  console.log("-------req.params.cartId-------------")
+  console.log(req.params.cartId)
+  console.log("--------------------")
+  
   //DONDE SE DEBERIA DE EJECUTAR EL SGTE
   //sessionService.setSessionCookie()
 
