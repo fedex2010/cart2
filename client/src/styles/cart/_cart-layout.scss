@@ -11,3 +11,10 @@
 .feedback {
 	margin-bottom: $spacer-lg ;
 }
+
+@media (max-width: 768px){
+  .product-gbChk,
+  .summary-gbChk {
+    width: 100%;
+  }
+}

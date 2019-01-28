@@ -36,9 +36,9 @@ class CartControllers {
     let brand = res.locals.xBrand.toLowerCase();
 
     this._isEmpresarias(req, res);
-  
+
     if (cartId != "undefined") {
-  
+
       RestClient.cartClient.getOneCart(cartId, {}, brand,true,true)
         .then(cart => {
           cart = _replaceImage(cart);
@@ -61,7 +61,7 @@ class CartControllers {
           res.status(200).send(cart);
         })
         .catch(err => {
-            logger.error("[" + cartId + "]Fail create cart: " + err);  
+            logger.error("[" + cartId + "]Fail create cart: " + err);
             res.status(500).send( this.getErrorMessage( err,304 )  );
         });
     }
@@ -100,7 +100,7 @@ class CartControllers {
   }
 
   getErrorMessage(err,code){
-    let error = { 
+    let error = {
                   erro:{
                     cause : {
                       code : code,
@@ -108,7 +108,7 @@ class CartControllers {
                     }
                   }
                 }
-    return error    
+    return error
   }
 
   getCarousel(req, res) {
@@ -118,7 +118,7 @@ class CartControllers {
       return {};
     }
 
-  
+
     RestClient.productClient.getProductsCarousel(brand)
       .then(carousel => {
         return RestClient.productClient
@@ -191,26 +191,15 @@ class CartControllers {
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
-
-        console.log("--------------------------"+cart);
-
-          console.log(cart);
-
         RestClient.productClient.addProduct(cart.cart_id, productId, 1,warranty_id, productPrice, "", "",brand)
           .then(() => {
-              console.log("------------ADD --------------");
             this._getOneCart(cart.cart_id, req, res)
               .then(cart => {
                 res.status(200).send(cart);
               })
               .catch(err => {
-                logger.error(
-                  "[" +
-                    cartId +
-                    "] Fail get cart add Product to cart,err:" +
-                    err
-                );
-                res.status(500).send({ erro: err });
+                logger.error("[" + cartId + "] Fail get cart add Product to cart,err:" + err);
+                res.status(500).send("Fail get a add Product cart");
               });
           })
           .catch(err => {

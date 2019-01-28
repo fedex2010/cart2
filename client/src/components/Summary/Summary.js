@@ -31,6 +31,7 @@ class Summary extends Component {
         totalPrice: {}
     };
   }
+
   _formatPrice(value, decimals) {
     if(value == undefined){
         return 0;
@@ -59,15 +60,11 @@ class Summary extends Component {
       num = (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
       return num.replace(",00", "")
   }
-  componentWillUpdate(){
-    
-  }
+
+
   render() {
     let couponClass = "highlight-benefit displaynone";
     let products="";
-
-    
-
     let empresarias = (Cookie.get("empresarias")==='true'?true:false);
       if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';

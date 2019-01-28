@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 
-//app.use(parallel([cookie]));
+app.use(parallel([cookie]));
 
 app.use("/", indexRouter);
 //app.get("/api/",( req , res ) => controllers.cart.renderApp( req , res ))
