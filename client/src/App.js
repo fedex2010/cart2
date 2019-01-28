@@ -6,7 +6,6 @@ import "./App.scss";
 import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
-//import Carousel from "./components/Carousel/Carousel";
 import Carousel from "./components/Carousel/Carousel";
 import { fetchCart } from "./actions/CartAction";
 
