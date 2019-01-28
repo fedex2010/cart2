@@ -36,13 +36,6 @@ class CartControllers {
     let brand = res.locals.xBrand.toLowerCase();
 
     this._isEmpresarias(req, res);
-
-    console.log("-------CONTROLLER-------------")
-    console.log(req.originalUrl)
-    console.log(req.hostname)
-    console.log("-------req.params.cartId-------------")
-    console.log(req.params.cartId)
-    console.log("--------------------")
   
     if (cartId != "undefined") {
   

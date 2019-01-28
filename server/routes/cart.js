@@ -6,14 +6,14 @@ var express = require("express"),
     jsonParser = bodyParser.json()
 
 
-router.post("/", urlencodedParser, ( req , res) => controllers.cart.addProduct(req , res));
 router.get("/normandia", ( req , res) => controllers.normandia.getTemplate( req , res ))
 router.get("/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/summary", ( req , res) => controllers.cart.summary( req , res ));
-router.get("/:cartId", ( req , res) => controllers.cart.getCart( req , res ));
 router.get("/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));
+router.get("/:cartId", ( req , res) => controllers.cart.getCart( req , res ));
 
 router.post("/fake_product_view/:productId", urlencodedParser, ( req , res) => controllers.cart.fake_product(req , res));
+router.post("/", urlencodedParser, ( req , res) => controllers.cart.addProduct(req , res));
 router.post("/:cartId/cupon", jsonParser, ( req , res) => controllers.cart.setCoupon(req , res));
 router.post("/c_:cartId/aaPlus", jsonParser, ( req , res) => controllers.cart.setAAPlus(req , res));
 router.post("/setWarranty", jsonParser, ( req , res) => controllers.cart.setWarranty( req , res));
@@ -26,11 +26,6 @@ router.delete( "/c_:cartId/cupon/:couponCode", ( req , res) => controllers.cart.
 router.delete("/c_:cartId/aaPlus", ( req , res) => controllers.cart.deleteAAPlus( req , res));
   
 module.exports = router;
-
-
-
-
-
 
 
 
