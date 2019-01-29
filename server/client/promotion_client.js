@@ -10,6 +10,22 @@ class PromotionClient{
     constructor() {
         this._restConnector = new RestConnector();
     }
+    
+    //NUEVO
+    getPromotion(promotionId, xBrand) {
+        let url     = `${CHECKOUT_CORE_URL}/cross_selling/product/${promotionId}`,
+            options = {};
+
+        options.headers = {
+                            "Content-Type": "application/json", 
+                            "X-Brand": xBrand
+                        };
+        options.timeout = 2000
+
+        logger.info('Calling: ', url, ", options: ", options )
+    
+        return this._restConnector.getWithOptions(url,options)
+    }
 
     addCoupon(cartId, coupon, brand) {
         let url     = `${CHECKOUT_CORE_URL}/carts/${cartId}/coupons`,

@@ -192,9 +192,35 @@ class CartControllers {
     const cartId = res.locals.cartId;
     const brand = res.locals.xBrand.toLowerCase();
 
+    const promotionPromise = promotionId ? RestClient.promotion.getPromotion(promotionId,brand): Q()
+
     var self = this;
 
+    //
+
     this._getOneCart(cartId, req, res)
+        .then(cart => {
+          return promotionPromise
+                  // Agrega todos los productos de la promo que faltan 
+                  .then( promotion => {
+                    if (promotion){
+                      let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
+                      logger.info("[", cartId, "] promo xids=", promotion.xids, "missing=", missing)
+
+                      return missing.reduce((ac, promoProductId) =>
+                                                           
+                                              ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null, null, null, null) )
+                                              .then(_ => self.waitProcessingCart(cart))
+                                              , Q(cart).then(_ => self.waitProcessingCart(cart)))
+                                              .catch(err=> {
+                                                logger.error ("Error adding Promotion products", err)
+                                                return cart
+                                              })
+                    }else{
+                      return Q(cart)
+                    }
+                  })
+        })
       .then(cart => {
         return productIds.reduce( (ac, aProductId) => 
                                     ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, aProductId, 1,warranty_id, productPrice, "", "",brand) )
