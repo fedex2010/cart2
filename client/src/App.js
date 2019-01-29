@@ -52,7 +52,7 @@ class App extends Component {
           specialDiscountAmount += this.props.cart.discount_details[0].amount;
         }
       }
-      console.log(this.props.cart);
+
       if(this.props.cart.products){
           classSummary = this._productCant(this.props.cart.products);
           console.log("classSummary"+classSummary)

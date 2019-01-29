@@ -56,8 +56,12 @@ class CartControllers {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res,cart);
-          res.cookie("epi.context", session_id);
-          res.cookie("cartId", cart.cart_id);
+          
+          //res.cookie("epi.context", session_id);
+          sessionService.setSessionCookie(res, session_id) //Setea la cookie con el nuevo carrito
+          //res.cookie("cartId", cart.cart_id);
+          sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
+
           res.status(200).send(cart);
         })
         .catch(err => {
@@ -198,11 +202,13 @@ class CartControllers {
                 res.status(200).send(cart);
               })
               .catch(err => {
+        
                 logger.error("[" + cartId + "] Fail get cart add Product to cart,err:" + err);
                 res.status(500).send("Fail get a add Product cart");
               });
           })
           .catch(err => {
+        
             logger.error("[" +cartId +"] Fail update product to cart: " +err);
             res.status(500).send( this.getErrorMessage( err,304 )  );
           });

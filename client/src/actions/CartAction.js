@@ -5,6 +5,9 @@ function handleErrors(response) {
         return response.json().then( json => {
             let err = new Error("algo salió mal")
             err.response = json
+
+            console.error( "Error Payload: " + JSON.stringify(json) )
+
             throw err
         })
     }
