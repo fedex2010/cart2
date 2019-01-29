@@ -5,6 +5,7 @@ const express = require("express"),
       uuid = require("uuid"),
       morgan = require("morgan"),
       sessionService = require('./services/session_service'),
+      errorService = require('./services/error_service'),
       cookieParser   = require('cookie-parser'),
       indexRouter = require("./routes/index"),
       cartRouter = require("./routes/cart");
@@ -30,19 +31,19 @@ app.use("/api/cart", sessionMiddleware , cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  let err = errorService.getErrorObject( "path not found",404 )
+  logger.error("path not found");
+
+  res.status(404).send(err)
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  let enviroment = req.app.get("env").toLowerCase()
+  let errorMessage = ( enviroment !== "production" && enviroment !== "prod" )? err.message : "something was wrong!!!";
+  logger.error(errorMessage);
 
-  // render the error page
-  res.status(err.status || 500);
-  console.log(err);
-  // res.render("error");
+  res.status(500).send( errorService.getErrorObject( errorMessage,500 ) )
 });
 
 function parallel(middlewares) {
@@ -61,23 +62,28 @@ function sessionMiddleware( req , res ,next) {
   let sessionCookie = req.cookies['epi.context']
   let cartCookie = req.cookies['cartId']
 
-  if (!sessionCookie) {
-      sessionService.generateSessionCookie(res)
-  } else {
-    sessionService.setSessionContextFromCookie(res, sessionCookie)
-  }
+  try{
+    if (!sessionCookie) {
+        sessionService.generateSessionCookie(res)
+    } else {
+      sessionService.setSessionContextFromCookie(res, sessionCookie)
+    }
 
-  if (cartCookie) {
-      sessionService.setCartContextFromCookie(res, cartCookie)
-  }
+    if (cartCookie) {
+        sessionService.setCartContextFromCookie(res, cartCookie)
+    }
 
-  res.locals.sellerId = req.cookies["epi.salesman"] || "";
-  
-  if(req.headers['x-brand'])
-      res.locals.xBrand = req.headers['x-brand'].toLowerCase();
-    else {
-      res.locals.xBrand = 'garbarino';
-      logger.warn('x-brand header not present. Set garbarino by default');
+    res.locals.sellerId = req.cookies["epi.salesman"] || "";
+    
+    if(req.headers['x-brand'])
+        res.locals.xBrand = req.headers['x-brand'].toLowerCase();
+      else {
+        res.locals.xBrand = 'garbarino';
+        logger.warn('x-brand header not present. Set garbarino by default');
+    }
+
+  }catch(err){
+    next(err)
   }
 
   next()
