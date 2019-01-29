@@ -29,7 +29,6 @@ class ErrorPage extends Component {
   }
   
   render() {
-    let error;
     let brand = window.xBrand;
 
     return(
