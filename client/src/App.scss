@@ -22,6 +22,26 @@ header .gb-wrapper {
   padding: 15px 0 0;
   margin-top: 10px;
 }
+/*ERROR*/
+.gb-error {
+  .gb-error-image {
+    text-align: right;
+    object {
+      width: 250px!important;
+      top: 0!important;
+    }
+    img {
+      width: 250px!important;
+      top: 0!important;
+    }
+  }
+  .gb-error-content {
+    padding: 70px 30px!important;
+    p {
+      margin-bottom: 20px;
+    }
+  }
+}
 /*LINK TO BUTTON*/
 .link-to-button {
   background-color: transparent;

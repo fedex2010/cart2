@@ -23,9 +23,7 @@ class App extends Component {
 
   _productCant(products){
       let count = products.length;
-      console.log("---------"+count)
       let classSummary = (count >=3 )?"purchase-summary--fixed":"";
-      console.log("classSummary"+classSummary)
       return classSummary;
   }
 
@@ -52,10 +50,8 @@ class App extends Component {
           specialDiscountAmount += this.props.cart.discount_details[0].amount;
         }
       }
-
       if(this.props.cart.products){
           classSummary = this._productCant(this.props.cart.products);
-          console.log("classSummary"+classSummary)
       }
       return (
         <div className="App">
