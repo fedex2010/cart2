@@ -34,15 +34,15 @@ class ErrorPage extends Component {
 
     return(
         <div className="error-page" data-view="root">
-            <div class="gb-wrapper gb--fixed-width">
-                <div class="gb-error">
-                    <div class="gb-error-image">
+            <div className="gb-wrapper gb--fixed-width">
+                <div className="gb-error">
+                    <div className="gb-error-image">
                         {this._errorImage(brand)}
                     </div>
-                    <div class="gb-error-content">
-                        <h2 class="gb-error-title">Ocurrió un error al procesar tu compra.</h2>
+                    <div className="gb-error-content">
+                        <h2 className="gb-error-title">Ocurrió un error al procesar tu compra.</h2>
                         <p>Por favor, intentá realizarla nuevamente</p>
-                        <button class="gb-button primary" id="reset-cookie-button">Volver al inicio</button>
+                        <button className="gb-button primary" id="reset-cookie-button">Volver al inicio</button>
                     </div>
                 </div>  
                 {/*<input type="hidden" id="errorGralAnalytics" value="{{eventAnalytics}}"/>*/}     
