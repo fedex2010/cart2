@@ -32,8 +32,8 @@ class App extends Component {
   render() {
 
     if (this.props.redirectTo !== "" ) {
-      return (<Redirect to={this.props.redirectTo}/>);
-   }
+        return (<Redirect to={this.props.redirectTo}/>);
+    }
 
     let specialDiscountAmount = 0;
     let classSummary = "";

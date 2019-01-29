@@ -32,6 +32,10 @@ class Summary extends Component {
     };
   }
 
+  _continue(e){
+      window.location = "/compra/entrega";
+  }
+
   _formatPrice(value, decimals) {
     if(value == undefined){
         return 0;
@@ -60,7 +64,6 @@ class Summary extends Component {
       num = (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
       return num.replace(",00", "")
   }
-
 
   render() {
     let couponClass = "highlight-benefit displaynone";
@@ -142,7 +145,7 @@ class Summary extends Component {
               <button className="button--link">
                 COMPRAR MÁS PRODUCTOS
               </button>
-              <button type="button" className="button--primary">
+              <button type="button" className="button--primary" onClick={this._continue.bind()}>
                 Continuar
               </button>
             </div>
