@@ -1,13 +1,61 @@
 const RestConnector = require('./rest_connector');
+const Rest_client = require('./rest_client');
 let config  = require('../config/config'),
-    logger  = require('../utils/logger');
-
+    logger  = require('../utils/logger'),
+    Q = require("q");
 
 const CHECKOUT_CORE_URL = config.services.checkout_core.base_url;
 const NEW_CART_TIMEOUT = config.services.new_cart_timeout || 2000;
 const SEARCHLIST = config.searchList.url;
 
+class ProductUpdater {
+    constructor(_cartId, _product,brand){
+        this.brand = brand
+        this.cartId = _cartId
+        this.product = _product
+        this.productId = this.product.product_id
+        this.apiClient = new Rest_client();
+        this.data = {product_id: this.productId}
+        this.execute = this.voidExecutor
+    }
+
+    withQuantity(_qty){
+        if (_qty != this.product.quantity){
+            this.data.quantity = _qty
+            this.execute = this.putExecutor
+        }
+        return this
+    }
+
+    withWarranty(_warranty){
+        if (_warranty && _warranty != this.product.warranty_id){
+            this.data.warranty = _warranty
+            this.execute = this.putExecutor
+        }
+        return this
+    }
+
+    withPromotion(_promotionId){
+        if (_promotionId && (!this.product.promotion || this.product.promotion.id != _promotionId)){
+            this.data.promotion = {id: _promotionId}
+            this.execute = this.putExecutor
+        }
+        return this
+    }
+
+    putExecutor(){
+        return this.apiClient.updateProductObj(this.cartId, this.productId, this.data,this.brand)
+    }
+
+    voidExecutor(){
+        return Q(this.product)
+    }
+}
 class ProductClient{
+    getProductUpdater(cartId,product,brand){
+        return new ProductUpdater(cartId, product,brand)
+    }
+
     constructor() {
         this._restConnector = new RestConnector();
     }
@@ -20,6 +68,8 @@ class ProductClient{
         var url = CHECKOUT_CORE_URL + "/products?ids=" + products.sort().join(",") + "&include=warranties,specifications";
         return this._restConnector.get(url, options);
     }
+
+    
 
     addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null,brand){
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,

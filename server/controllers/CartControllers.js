@@ -182,6 +182,32 @@ class CartControllers {
             })
   }
 
+  addProductToCart(cart, productId, warranty_id, productPrice, promotionId, session_id,brand){
+    console.log("zarazaaaaaaaaaaaaaaaaaa")
+    console.log(cart)
+    console.log(productId)
+    console.log(warranty_id)
+    console.log(productPrice)
+    console.log(promotionId)
+    console.log(session_id)
+    console.log(brand)
+
+    const cartId = cart.cart_id
+    logger.info("[cartId=", cartId, "] Adding product", productId)
+    let product = cart.products.find( p=> p.product_id == productId);
+    
+    if (product) {
+        logger.info("[cartId=", cartId, "] Product", productId, "already added")
+        return RestClient.productClient.getProductUpdater(cartId,product,brand)
+                .withWarranty(warranty_id)
+                .withPromotion(promotionId)
+                .execute()
+    }else{
+        
+        return RestClient.productClient.addProduct(cartId,productId, 1, warranty_id, productPrice, promotionId, session_id)
+    }
+  }
+
   addProduct(req, res) {
     
     const body = req.body || {};
@@ -190,13 +216,11 @@ class CartControllers {
     const warranty_id = body.warranty_id;
     const productPrice = body.price;
     const cartId = res.locals.cartId;
-    const brand = res.locals.xBrand.toLowerCase();
-
+    const brand  = res.locals.xBrand.toLowerCase();
+    
     const promotionPromise = promotionId ? RestClient.promotion.getPromotion(promotionId,brand): Q()
 
     var self = this;
-
-    //
 
     this._getOneCart(cartId, req, res)
         .then(cart => {
@@ -208,22 +232,22 @@ class CartControllers {
                       logger.info("[", cartId, "] promo xids=", promotion.xids, "missing=", missing)
 
                       return missing.reduce((ac, promoProductId) =>
-                                                           
-                                              ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null, null, null, null) )
-                                              .then(_ => self.waitProcessingCart(cart))
-                                              , Q(cart).then(_ => self.waitProcessingCart(cart)))
-                                              .catch(err=> {
-                                                logger.error ("Error adding Promotion products", err)
-                                                return cart
-                                              })
+                                                                                 
+                                ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null, null, null, null) )
+                                .then(_ => self.waitProcessingCart(cart))
+                                , Q(cart).then(_ => self.waitProcessingCart(cart)))
+                                .catch(err=> {
+                                  logger.error ("Error adding Promotion products", err)
+                                  return cart
+                                })
                     }else{
                       return Q(cart)
                     }
                   })
         })
       .then(cart => {
-        return productIds.reduce( (ac, aProductId) => 
-                                    ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, aProductId, 1,warranty_id, productPrice, "", "",brand) )
+        return productIds.slice(1).reduce( (ac, aProductId) =>        
+                                    ac.then(_ => self.addProductToCart(cart, aProductId,warranty_id, productPrice,promotionId,cart.session,brand) )
                                       .then(_ => self.waitProcessingCart(cart,req,res)), Q(cart) 
                               )
                             .catch(err=> {
@@ -231,6 +255,7 @@ class CartControllers {
                               return cart
                             })
       })
+      .then(cart => self.addProductToCart(cart, productIds[0], warranty_id, productPrice, promotionId, promotionId,cart.session ,brand) )
       .then(cart => {
         res.status(200).send(cart);
       })

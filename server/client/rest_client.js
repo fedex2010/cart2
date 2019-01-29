@@ -45,6 +45,16 @@ class RestClient {
 
         return this._restConnector.postWithoutErrors(url, options);
     }
+
+    updateProductObj(cartId, productId, obj,xBrand){
+        let url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
+            options = {
+                headers : {'Content-Type':'application/json','X-Brand':xBrand,'hola':xBrand},
+                data : JSON.stringify(obj)
+            }
+    
+        return this._restConnector.putWithOptions(url, options);
+    }
 }
 
 module.exports = RestClient;
