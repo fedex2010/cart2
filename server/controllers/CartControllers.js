@@ -174,41 +174,47 @@ class CartControllers {
     }
   }
 
+  waitProcessingCart(cart,req,res){
+    
+    return this._getOneCart(cart.cart_id, req, res)
+            .then(cart => {
+              return cart.status != 'PROCESSING' ? cart : Q.delay(50).then(_ => waitProcessingCart(cart))
+            })
+  }
+
   addProduct(req, res) {
     
     const body = req.body || {};
-    const productId = body.xid;
+    const productIds = body.xid.split(",")
     const promotionId = body.promotion_id;
     const warranty_id = body.warranty_id;
     const productPrice = body.price;
     const cartId = res.locals.cartId;
     const brand = res.locals.xBrand.toLowerCase();
 
+    var self = this;
+
     this._getOneCart(cartId, req, res)
       .then(cart => {
-        RestClient.productClient.addProduct(cart.cart_id, productId, 1,warranty_id, productPrice, "", "",brand)
-          .then(() => {
-            this._getOneCart(cart.cart_id, req, res)
-              .then(cart => {
-                res.status(200).send(cart);
-              })
-              .catch(err => {
-        
-                logger.error("[" + cartId + "] Fail get cart add Product to cart,err:" + err);
-                res.status(500).send("Fail get a add Product cart");
-              });
-          })
-          .catch(err => {
-        
-            logger.error("[" +cartId +"] Fail update product to cart: " +err);
-            res.status(500).send( errorService.getErrorObject( err.message,304 )  );
-          });
+        return productIds.reduce( (ac, aProductId) => 
+                                    ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, aProductId, 1,warranty_id, productPrice, "", "",brand) )
+                                      .then(_ => self.waitProcessingCart(cart,req,res)), Q(cart) 
+                              )
+                            .catch(err=> {
+                              logger.error ("Error adding associated products", err)
+                              return cart
+                            })
+      })
+      .then(cart => {
+        res.status(200).send(cart);
       })
       .catch(err => {
         logger.error("[" +cartId +"] Fail get to cart: " +err);
         res.status(500).send( errorService.getErrorObject( err.message,304 )  );
-      });
+      })
   }
+
+
 
   editProduct(req, res) {
     let body = req.body || {};
