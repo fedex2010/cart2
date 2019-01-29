@@ -28,9 +28,6 @@ app.use("/", indexRouter);
 app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
 app.use("/api/cart", sessionMiddleware , cartRouter);
 
-
-
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -67,7 +64,7 @@ function sessionMiddleware( req , res ,next) {
   if (!sessionCookie) {
       sessionService.generateSessionCookie(res)
   } else {
-      sessionService.setSessionContextFromCookie(res, sessionCookie)
+    sessionService.setSessionContextFromCookie(res, sessionCookie)
   }
 
   if (cartCookie) {
@@ -82,9 +79,6 @@ function sessionMiddleware( req , res ,next) {
       res.locals.xBrand = 'garbarino';
       logger.warn('x-brand header not present. Set garbarino by default');
   }
-
-  //DONDE SE DEBERIA DE EJECUTAR EL SGTE
-  //sessionService.setSessionCookie()
 
   next()
 }
