@@ -209,11 +209,12 @@ class CartControllers {
     const promotionId = body.promotion_id;
     const warranty_id = body.warranty_id;
     const productPrice = body.price;
-    const cartId = res.locals.cartId;
     const brand  = res.locals.xBrand.toLowerCase();
     
     const promotionPromise = promotionId ? RestClient.promotion.getPromotion(promotionId,brand): Q()
 
+    let cartId = res.locals.cartId;
+    
     var self = this;
 
     this._getOneCart(cartId, req, res)
@@ -221,6 +222,7 @@ class CartControllers {
           return promotionPromise
                   // Agrega todos los productos de la promo que faltan 
                   .then( promotion => {
+                    cartId = cart.cart_id
                     if (promotion){
                       let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
                       logger.info("[", cartId, "] promo xids=", promotion.xids, "missing=", missing)
@@ -250,9 +252,11 @@ class CartControllers {
                             })
       })
       .then(cart => self.addProductToCart(cart, productIds[0], warranty_id, productPrice, promotionId, promotionId,cart.session ,brand) )
-      .then(cart => {
-        res.status(200).send(cart);
-      })
+
+      .then(product => this._getOneCart(cartId,req,res) )
+
+      .then(cart => res.status(200).send(cart) )
+
       .catch(err => {
         logger.error("[" +cartId +"] Fail get to cart: " +err);
         res.status(500).send( errorService.getErrorObject( err.message,304 )  );
