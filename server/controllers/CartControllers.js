@@ -213,7 +213,6 @@ class CartControllers {
   }
 
   addProduct(req, res) {
-
     const body = req.body || {};
     const productIds = body.xid.split(",")
     const promotionId = body.promotion_id;

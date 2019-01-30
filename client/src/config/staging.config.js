@@ -12,6 +12,10 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
           },
           experiment_key: "120032359-126",
           maps_key: "AIzaSyBTGseCoifrBnclGBt6j2XMg5-bxGu-vG4"
+      },
+      home_url:{
+          garbarino   :   "https://staging.garbarino.com",
+          compumundo  :   "https://staging.compumundo.com.ar"
       }
   };
   return config;
