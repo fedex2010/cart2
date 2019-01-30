@@ -27,6 +27,66 @@ class App extends Component {
       return classSummary;
   }
 
+  _generateDataLayerForGTM(cart, userType=null){
+        let dataLayer = [];
+        let cartProductsIds = [];
+        let cartTotal = cart.total_price || null;
+
+        if (cartTotal !== null) {
+            cartTotal = cartTotal.toString();
+        }
+
+        if(cart.products.length>=1){
+            cart.products.forEach(function (product) {
+                cartProductsIds.push(product.product_id);
+            });
+        }else{
+            cartProductsIds.push([]);
+        }
+
+        let main = {
+            event: "none",
+            pagetype: "cart",
+            prodID: cartProductsIds.toString(),
+            totalvalue: cartTotal
+        };
+
+        let ecommerce = {
+            event: "checkout",
+            virtualurl: "/mi-carrito.html",
+            typeUser: userType,
+            ecommerce: {
+                checkout:{
+                    actionField: {
+                        action: 'checkout',
+                        step: 1
+                    },
+                    products: cart.products.map((product) => {
+                        let details = product.details || {}
+                        return {
+                            brand: details.brand,
+                            category: details.category||details.category_id,
+                            id: product.product_id,
+                            name: details.description,
+                            price: product.price,
+                            quantity: product.quantity,
+                            variant:""
+                        }
+                    })
+                }
+            }
+        }
+
+        dataLayer.push(main);
+        dataLayer.push(ecommerce);
+
+        return JSON.stringify(dataLayer);
+    };
+
+  _setDataLayer(cart) {
+    window.dataLayer.push(this._generateDataLayerForGTM(cart, null));
+  }
+
   render() {
 
     if (this.props.redirectTo !== "" ) {
@@ -52,6 +112,9 @@ class App extends Component {
       }
       if(this.props.cart.products){
           classSummary = this._productCant(this.props.cart.products);
+      }
+      if (this.props.cart && this.props.cart.products) {
+        this._setDataLayer(this.props.cart);
       }
       return (
         <div className="App">

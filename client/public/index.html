@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+          if (typeof dataLayer === 'undefined') {
+              dataLayer = [];
+          }
+      </script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MSSSZ7');</script>
     <meta charset="utf-8" />
     <meta name="description" />
     <meta
@@ -16,7 +26,7 @@
     <link
       rel="stylesheet"
       href="%PUBLIC_URL%/garba-ui/css/styles.css"/>
-    <link href="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <link href="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/stylesheets/style.css" rel="stylesheet" type="text/css">
     <link href="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.68-SNAPSHOT-1091-5ecdd42990812e1593cde4ce9323d67e6c979914/stylesheets/style-popups.css" rel="stylesheet" type="text/css">
     
     <link
@@ -244,7 +254,7 @@
 
                 <li class="gb--right-items-1025">
                     <a href="https://www.garbarino.com/credito-garbarino/" class="gb--creditos-img">
-                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/credito-garbarino.svg" width="84px" height="39px">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/credito-garbarino.svg" width="84px" height="39px">
                         </object>
                     </a>
                 </li>
@@ -255,19 +265,19 @@
                         Nuevo
                     </div>-->
                     <a href="https://seguros.garbarino.com?utm_source=garbarino.com&utm_medium=banner_header" class="gb--seguros">
-                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/SegurosHeader.svg" width="105px" height="39px">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/SegurosHeader.svg" width="105px" height="39px">
                         </object>
                     </a>
                 </li>
                 <li class="gb--right-items-1025">
                     <a href="https://listas.garbarino.com/?utm_medium=desktop-header&utm_source=garbarino.com/">
-                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/listas_garbarino.svg" width="114px" height="39px">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/listas_garbarino.svg" width="114px" height="39px">
                         </object>
                     </a>
                 </li>
                 <li class="gb--right-items-1025">
                     <a href="https://www.garbarinoviajes.com.ar/?utm_medium=desktop-header&utm_source=garbarino.com/">
-                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/viajes_garbarino.svg" width="105px" height="39px">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/viajes_garbarino.svg" width="105px" height="39px">
                         </object>
                     </a>
                 </li>
@@ -317,7 +327,7 @@
 
             <div class="header-links">
                 <div class="user-options">
-					<span class="gb-spinner"></span>
+                    <span class="gb-spinner"></span>
                     <p class="session_ma"><span id="username">Iniciar sesión</span></p>
                     <div class="user-options-account-button">
                         <strong>Mi cuenta</strong>
@@ -1430,237 +1440,250 @@
 
     <div id="root" style="min-height: 500px;"></div>
     <footer>
-    <div class="gb-newsletter-subscribe">
-      <div class="gb-newsletter-container">
-        <div class="gb-newsletter-subscription">
-            <div class="gb-newsletter-subscription-title">
-                <p>¡Recibí las mejores ofertas!</p>
-            </div>
-            <div id="subscribe-popover" class="gb-newsletter-subscription-form">
-                <div id="subscribe-status" class="gb-newsletter-popover gb--success">
-                    <span id="subscribe-close" class="gb-popover-close">&#10006;</span>
-                    <p id="subscribe-message"></p>
-                </div>
-                <form id="newsletter-subscription-e" name="newsletter-subscription" action="#" method="post">
-                    <input type="email" id="newsletter-subscription" placeholder="Ingresa tu e-mail"/>
-                    <input id="subscribe-action" class="subscribe" type="submit" value="SUSCRIBIRME" />
-                    <div class="spinner-cont display-none">
+   <div class="inner-wrapper-footer">
+         <div class="footer-section gb-newsletter-subscribe">
+            <div class="gb-newsletter-subscription">
+               <p class="gb-newsletter-subscription-title">¡Recibí las mejores ofertas!</p>
+               <div id="subscribe-popover" class="gb-newsletter-subscription-form">
+                  <div id="subscribe-status" class="gb-newsletter-popover gb--success">
+                     <a id="subscribe-close" class="gb-popover-close"><span class="gb-icon-close"></span></a>
+                     <p id="subscribe-message"></p>
+                  </div>
+                  <form id="newsletter-subscription-e" name="newsletter-subscription" action="#" method="post">
+                     <input type="email" id="newsletter-subscription" placeholder="Ingresa tu e-mail"/>
+                     <input id="subscribe-action" class="subscribe" type="submit" value="SUSCRIBIRME" />
+                     <div class="spinner-cont display-none">
                         <button class="gb-button loading subscribe-load">
-                            <span class="gb-spinner"></span>
-                            Suscribiendo
+                           <span class="gb-spinner"></span>
+                           Suscribiendo
                         </button>
-                    </div>
-                </form>
+                     </div>
+                  </form>
+               </div>
             </div>
-        </div>
-        <div class="gb-social-media">
-            <ul class="social">
-                <li><a href="https://www.facebook.com/GarbarinoGarantiaDeConfianza" target="_blank" rel="external nofollow"><i class="gb-icon-facebook"></i></a></li>
-                <li><a href="https://twitter.com/garbarino" target="_blank" rel="external nofollow"><i class="gb-icon-twitter"></i></a></li>
-                <li><a href="https://www.youtube.com/user/garbarinocom" target="_blank" rel="external nofollow"><i class="gb-icon-youtube"></i></a></li>
-                <li><a href="https://plus.google.com/+garbarino/posts" target="_blank" rel="external nofollow"><i class="gb-icon-gplus"></i></a></li>
-                <li><a href="https://www.instagram.com/garbarinoarg/" target="_blank" rel="external nofollow"><i class="gb-icon-instagram"></i></a></li>
-            </ul>
-        </div>
+            <div class="gb-social-media">
+               <ul class="social">
+                  <li>
+                     <a href="https://www.facebook.com/GarbarinoGarantiaDeConfianza" 
+                        target="_blank" 
+                        rel="external nofollow" 
+                        title="Facebook">
+                        <i class="gb-icon-facebook"></i>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://twitter.com/garbarino" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="Twitter">
+                        <i class="gb-icon-twitter"></i>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://www.youtube.com/user/garbarinocom" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="YouTube">
+                        <i class="gb-icon-youtube"></i>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://www.instagram.com/garbarinoarg/" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="Instagram">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/instagram.svg">
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://ar.pinterest.com/garbarino/" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="Pinterest">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/pinterest.svg">
+                     </a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+
+      <div class="footer-section gb-footer-links">
+         <div class="gb-menu-links">
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Celulares Samsung</h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Categorías</h2>
+                  <ul>
+                           <li><a href="/productos/celulares-libres/4359">Celulares</a></li>
+                           <li><a href="/productos/notebooks/4363">Notebooks</a></li>
+                           <li><a href="/productos/computadoras-de-escritorio/4365">Computadoras</a></li>
+                           <li><a href="/productos/parlantes/4348">Parlantes</a></li>
+                           <li><a href="/productos/tv-led-y-video/4340">Televisores</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Preguntas frecuentes </h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Empresas Garbarino</h2>
+                  <ul>
+                           <li><a href="//www.garbarinoviajes.com.ar/?utm_medium=bannerfooter&amp;utm_source=garbarino.com">Garbarino Viajes</a></li>
+                           <li><a href="//listas.garbarino.com/?utm_medium=footer&amp;utm_source=garbarino.com">Listas de Regalos</a></li>
+                           <li><a data-target="#venta-a-empresas" data-toggle="modal">Venta a Empresas</a></li>
+                           <li><a href="//seguros.garbarino.com/">Seguros</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Garbarino</h2>
+                  <ul>
+                           <li><a href="//sustentable.garbarino.com/">Garbarino Sustentable</a></li>
+                           <li><a data-target="#prensa" data-toggle="modal">Prensa</a></li>
+                           <li><a href="//www.garbarino.com/apps">Bajá ¡GRATIS! nuestra app</a></li>
+                           <li><a href="//www.garbarino.com/aerolineas-plus">Aerolíneas Plus</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Servicios</h2>
+                  <ul>
+                           <li><a href="//www.garbarino.com/ayuda">Atención al Cliente</a></li>
+                           <li><a data-target="#venta-telefonica" data-toggle="modal">Venta Telefónica</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Marcas</h2>
+                  <ul>
+                           <li><a href="/marcas/samsung">Samsung</a></li>
+                           <li><a href="/marcas/LG">LG</a></li>
+                           <li><a href="/marcas/Phillips">Phillips</a></li>
+                           <li><a href="/marcas/Sony">Sony</a></li>
+                           <li><a href="/marcas">Todas las marcas</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Preguntas frecuentes </h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Ayuda</h2>
+                  <ul>
+                           <li><a href="/preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+                           <li><a href="https://www.garbarino.com/sucursales">Nuestros locales</a></li>
+                           <li><a href="/tyc.html">Terminos y condiciones</a></li>
+                           <li><a href="/politicas-de-privacidad.html">Políticas de privacidad</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Lo más buscado</h2>
+                  <ul>
+                           <li><a href="//www.garbarino.com/listado/gaming-mundo-playstation">Playstation</a></li>
+                           <li><a href="//www.garbarino.com/productos/celulares-libres/lg/4359">Celulares LG</a></li>
+                           <li><a href="//www.garbarino.com/productos/herramientas/4861">Herramientas</a></li>
+                           <li><a href="//ci.garbarino.com/productos/smart-tv-led/4274">Cambie un link</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Marcas</h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Terminos y condiciones </h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Políticas de privacidad </h2>
+                  <ul>
+                  </ul>
+               </div>
+         </div>
       </div>
-    </div>
 
-        <div class="gb-footer-empresas">
-            <div class="gb-wrapper">
-                <div class="row">
+         <div class="footer-section gb-footer-empresas gb-footer-empresas-garba">
+            <ul>
+               <li>
+                  <a href="https://www.garbarino.com/credito-garbarino">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/logo-credito-propio.svg" alt="Crédito Garbarino">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://listas.garbarino.com?utm_source=garbarino.com&utm_medium=banner_footer">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/footer_listas_garbarino.svg" alt="Listas de regalos">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://www.garbarino.com/venta-empresas">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/garbarino-ventaempresas-footer.svg" alt="Garbarino venta a empresas">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://www.garbarinoviajes.com.ar/?utm_medium=bannerfooter&utm_source=garbarino.com">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/garbarino-viajes-footer.svg" alt="Garbarino viajes">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://seguros.garbarino.com?utm_source=garbarino.com&utm_medium=banner_footer">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/SegurosFooter.svg" alt="Garbarino seguros">
+                  </a>
+               </li>
+               <li>
+                  <a href="http://sustentable.garbarino.com">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/footer/g-sustentable.svg" alt="Garbarino sustentable">
+                  </a>
+               </li>
+            </ul>
+         </div>
+   </div>
 
-                    <div class="col-md-2 col-sm-2 credito-propio">
-                        <a href="https://www.garbarino.com/credito-garbarino" class="svg">
-                            <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/logo-credito-propio.svg" alt="Crédito Garbarino">
-                        </a>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2">
-                        <a href="https://listas.garbarino.com?utm_source=garbarino.com&utm_medium=banner_footer" class="svg">
-                            <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/footer_listas_garbarino.svg"
-                                alt="Listas de regalos">
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-sm-2">
-                        <a href="https://www.garbarino.com/venta-empresas" class="svg">
-                            <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/garbarino-ventaempresas-footer.svg"
-                                alt="Garbarino venta a empresas">
-                        </a>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2">
-                        <a class="gb-viajes svg" href="https://www.garbarinoviajes.com.ar/?utm_medium=bannerfooter&utm_source=garbarino.com">
-                            <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/garbarino-viajes-footer.svg"
-                                    alt="Garbarino viajes">
-                        </a>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2">
-                        <a class="svg" href="https://seguros.garbarino.com?utm_source=garbarino.com&utm_medium=banner_footer">
-                            <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/SegurosFooter.svg" alt="Garbarino seguros">
-                        </a>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2">
-                        <a class="sustentable" href="http://sustentable.garbarino.com">
-                            <img  src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/logo_sustentable.svg" alt="Garbarino sustentable">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <div class="gb-footer-links">
-        <div class="gb-wrapper">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 gb-menu-links">
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Celulares Samsung</h2>
-                      <ul>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Categorías</h2>
-                      <ul>
-                            <li><a href="/productos/celulares-libres/4359">Celulares</a></li>
-                            <li><a href="/productos/notebooks/4363">Notebooks</a></li>
-                            <li><a href="/productos/computadoras-de-escritorio/4365">Computadoras</a></li>
-                            <li><a href="/productos/parlantes/4348">Parlantes</a></li>
-                            <li><a href="/productos/tv-led-y-video/4340">Televisores</a></li>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Preguntas frecuentes </h2>
-                      <ul>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Empresas Garbarino</h2>
-                      <ul>
-                            <li><a href="//www.garbarinoviajes.com.ar/?utm_medium=bannerfooter&amp;utm_source=garbarino.com">Garbarino Viajes</a></li>
-                            <li><a href="//listas.garbarino.com/?utm_medium=footer&amp;utm_source=garbarino.com">Listas de Regalos</a></li>
-                            <li><a data-target="#venta-a-empresas" data-toggle="modal">Venta a Empresas</a></li>
-                            <li><a href="//seguros.garbarino.com/">Seguros</a></li>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Garbarino</h2>
-                      <ul>
-                            <li><a href="//sustentable.garbarino.com/">Garbarino Sustentable</a></li>
-                            <li><a data-target="#prensa" data-toggle="modal">Prensa</a></li>
-                            <li><a href="//www.garbarino.com/apps">Bajá ¡GRATIS! nuestra app</a></li>
-                            <li><a href="//www.garbarino.com/aerolineas-plus">Aerolíneas Plus</a></li>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Servicios</h2>
-                      <ul>
-                            <li><a href="//www.garbarino.com/ayuda">Atención al Cliente</a></li>
-                            <li><a data-target="#venta-telefonica" data-toggle="modal">Venta Telefónica</a></li>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Marcas</h2>
-                      <ul>
-                            <li><a href="/marcas/samsung">Samsung</a></li>
-                            <li><a href="/marcas/LG">LG</a></li>
-                            <li><a href="/marcas/Phillips">Phillips</a></li>
-                            <li><a href="/marcas/Sony">Sony</a></li>
-                            <li><a href="/marcas">Todas las marcas</a></li>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Preguntas frecuentes </h2>
-                      <ul>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Ayuda</h2>
-                      <ul>
-                            <li><a href="/preguntas-frecuentes.html">Preguntas frecuentes</a></li>
-                            <li><a href="https://www.garbarino.com/sucursales">Nuestros locales</a></li>
-                            <li><a href="/tyc.html">Terminos y condiciones</a></li>
-                            <li><a href="/politicas-de-privacidad.html">Políticas de privacidad</a></li>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Lo más buscado</h2>
-                      <ul>
-                            <li><a href="//www.garbarino.com/listado/gaming-mundo-playstation">Playstation</a></li>
-                            <li><a href="//www.garbarino.com/productos/celulares-libres/lg/4359">Celulares LG</a></li>
-                            <li><a href="//www.garbarino.com/productos/herramientas/4861">Herramientas</a></li>
-                            <li><a href="//ci.garbarino.com/productos/smart-tv-led/4274">Cambie un link</a></li>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Marcas</h2>
-                      <ul>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Terminos y condiciones </h2>
-                      <ul>
-                      </ul>
-                    </div>
-                    <div class="gb-footer-links-container">
-                      <h2 class="gb-menu-links-title">Políticas de privacidad </h2>
-                      <ul>
-                      </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-        <div class="gb-footer-legal">
+      <div class="gb-footer-legal">
+         <div class="inner-wrapper-footer">
             <div class="gb-footer-disclaimer">
-                <div class="gb-wrapper">
-                    <span>Copyright &copy; 2018 Garbarino S.A.I.C.e.I.</span>
-                    <p>
-                        El uso de este sitio web implica la aceptación de los Términos y Condiciones y de las Políticas de Privacidad de Garbarino S.A.I.C.e.I. Las fotos son a modo ilustrativo. La venta de cualquiera de los productos publicados está sujeta a la verificación de stock. Los precios online para los productos presentados/publicados en www.garbarino.com.ar y/o www.garbarino.com son válidos exclusivamente para la compra vía internet en las páginas antes mencionadas.
-                    </p>
-                </div>
-
+               <strong>Copyright &copy; 2019 Garbarino S.A.I.C.e.I.</strong>
+               <p class="gb-footer-disclaimer-text">El uso de este sitio web implica la aceptación de los Términos y Condiciones y de las Políticas de Privacidad de Garbarino S.A.I.C.e.I. Las fotos son a modo ilustrativo. La venta de cualquiera de los productos publicados está sujeta a la verificación de stock. Los precios online para los productos presentados/publicados en www.garbarino.com.ar y/o www.garbarino.com son válidos exclusivamente para la compra vía internet en las páginas antes mencionadas.
+               </p>
+               <ul class="inline-list">
+                  <li><a href="https://www.garbarino.com/ayuda">Centro de Ayuda</a></li>
+                  <li><a href="https://www.garbarino.com/informacion-legal" rel="nofollow">Información Legal</a></li>
+               </ul>
             </div>
             <div class="gb-footer-logoslegal">
-                <div class="gb-wrapper">
-                    <ul>
-                        <li><span>Copyright &copy; 2018 Garbarino S.A.I.C.e.I.</span></li>
-                        <li class="centro-ayuda-informacion-legal">
-                            <div class="gb-wrap-ayuda-info-legal"><a href="https://www.garbarino.com/ayuda"><i class="fa fa-question-circle fa-2"></i> Centro de Ayuda </a>| <a href="https://www.garbarino.com/informacion-legal" rel="nofollow">Información Legal</a></div>
-
-                        </li>
-
-                    </ul>
-                    <ul>
-                        <li class="gb-fical-data gb-icon-footer">
-                            <a title="Data Fiscal" href="https://servicios1.afip.gov.ar/clavefiscal/qr/response.aspx?qr=zmrZfIUdESKk3NoXhDUG3A,," target="_blank">
-                                <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/datafiscal.png" alt="Data Fiscal" />
-                            </a>
-                        </li>
-                        <li class="hide-other-logos-mobile gb-icon-footer">
-                            <a title="Datos Personales" href="http://www.jus.gov.ar/datos-personales.aspx/" target="_blank" rel="external nofollow">
-                                <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/datos-personales.jpg"  alt="Datos Personales" />
-                            </a>
-                        </li>
-                        <li class="hide-other-logos-mobile gb-icon-footer">
-                            <a title="Sello CACE" href="https://www.econfianza.org/ar/?c=minisitio&amp;s=281" target="_blank" rel="external nofollow">
-                                <img border="0" src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/sello_cace.jpg"  alt="Sello Cace">
-                            </a>
-                        </li>
-                        <li class="hide-other-logos-mobile gb-icon-footer">
-                            <a title="Somos una empresa verde" data-target="#environment-modal" data-toggle="modal">
-                                <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/ambiental.png" alt="Somos una empresa verde" />
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+               <ul class="inline-list">
+                  <li>
+                     <a title="Data Fiscal" href="https://servicios1.afip.gov.ar/clavefiscal/qr/response.aspx?qr=zmrZfIUdESKk3NoXhDUG3A,," target="_blank">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/datafiscal.png" alt="Data Fiscal" />
+                     </a>
+                  </li>
+                  <li>
+                     <a title="Datos Personales" href="http://www.jus.gov.ar/datos-personales.aspx/" target="_blank" rel="external nofollow">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/datos-personales.jpg"  alt="Datos Personales" />
+                     </a>
+                  </li>
+                  <li>
+                     <a title="Sello CACE" href="https://www.econfianza.org/ar/?c=minisitio&amp;s=281" target="_blank" rel="external nofollow">
+                        <img border="0" src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/sello_cace.jpg"  alt="Sello Cace">
+                     </a>
+                  </li>
+                  <li>
+                     <a title="Somos una empresa verde" data-target="#environment-modal" data-toggle="modal">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/ambiental.png" alt="Somos una empresa verde" />
+                     </a>
+                  </li>
+               </ul>
             </div>
+         </div>
+      </div>
 
 
-    </div>
 </footer>
-<!-- Smart Banner-->
+
+
+
 <div class="gb-home-banner">
     <div id="smartbanner" class="closed">
         <div class="iosDiv">
@@ -1799,7 +1822,7 @@
             </div>
             <div class="modal-body">
                 <div class="gb-sales-popup-info">
-                    <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/garbarino-dialog.png" alt="logo Garbarino dialog">
+                    <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/garbarino-dialog.png" alt="logo Garbarino dialog">
                     <h6>0810-444-0092</h6>
                     <p>OPCIÓN VENTA A EMPRESAS<br>
                     Lunes a Viernes de 9 a 18 hs.</p>
@@ -1823,7 +1846,7 @@
 			</div>
 			<div class="modal-body">
                 <div class="gb-phone-sales-popup-info">
-                    <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/images/garbarino-dialog.png" alt="logo Garbarino dialog">
+                    <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/images/garbarino-dialog.png" alt="logo Garbarino dialog">
                     <h6>0810-888-7110</h6>
                     <p>Lunes a Viernes de 9 a 21 hs. - Sábados de 9 a 18 hs. - Domingos y Feriados de 10 a 16 hs. </p>
                 </div>
@@ -1902,7 +1925,7 @@
     <script>
         window.xBrand ="garbarino";
     </script>
-    <script src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.18-SNAPSHOT-1f510bd26f3e835e0abf84e72d7083766a40809a-1034/garbarino/js/normi.min.js" crossorigin="anonymous"></script>
+    <script src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.22-SNAPSHOT-3b51d8f100bf43e5262ba0ed7ac4c303de8155c9-1046/garbarino/js/normi.min.js" crossorigin="anonymous"></script>
     <script src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.68-SNAPSHOT-1091-5ecdd42990812e1593cde4ce9323d67e6c979914/js/flow.min.js" crossorigin="anonymous"></script>
     
   </body>

@@ -39,7 +39,11 @@ class CartControllers {
 
     console.log("tiro newrelic.addCustomParameter('cookieCartId', cartId);"+cartId);
 
-    newrelic.addCustomParameter('cookieCartId', cartId);
+    console.log("*****************");
+    console.log(newrelic);
+    console.log("*****************");
+
+    //newrelic.addCustomParameter('cookieCartId', cartId);
 
     this._isEmpresarias(req, res);
 
@@ -54,7 +58,7 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
-          newrelic.noticeError(err)
+          //relic.noticeError(err)
           res.status(500).send( errorService.getErrorObject( err.message,304 )  );
         });
     } else {
@@ -71,7 +75,7 @@ class CartControllers {
           res.status(200).send(cart);
         })
         .catch(err => {
-            newrelic.noticeError(err)
+            //newrelic.noticeError(err)
             logger.error("[" + cartId + "]Fail create cart: " + err);
             res.status(500).send( errorService.getErrorObject( err.message,304 )  );
         });
@@ -205,9 +209,9 @@ class CartControllers {
       gb_session_id = req.cookies['gb_session_id'];
     }
 
-    newrelic.addCustomParameter("epi_context", epi_context);
-    newrelic.addCustomParameter("gb_anonymous_session_id", gb_anonymous_session_id);
-    newrelic.addCustomParameter("gb_session_id", gb_session_id);
+    //newrelic.addCustomParameter("epi_context", epi_context);
+    //newrelic.addCustomParameter("gb_anonymous_session_id", gb_anonymous_session_id);
+    //newrelic.addCustomParameter("gb_session_id", gb_session_id);
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
@@ -215,10 +219,10 @@ class CartControllers {
           .then(() => {
             this._getOneCart(cart.cart_id, req, res)
               .then(cart => {
-                newrelic.setTransactionName(`carrito(${cart.status})`)
-                newrelic.addCustomParameter("cartId", cartId)
-                newrelic.addCustomParameter("CartStatus", cart.status)
-                newrelic.addCustomParameter("cart", cart)
+                //newrelic.setTransactionName(`carrito(${cart.status})`)
+                //newrelic.addCustomParameter("cartId", cartId)
+                //newrelic.addCustomParameter("CartStatus", cart.status)
+                //newrelic.addCustomParameter("cart", cart)
                 res.status(200).send(cart);
               })
               .catch(err => {
@@ -228,13 +232,13 @@ class CartControllers {
               });
           })
           .catch(err => {
-            newrelic.noticeError(err)
+            //newrelic.noticeError(err)
             logger.error("[" +cartId +"] Fail update product to cart: " +err);
             res.status(500).send( errorService.getErrorObject( err.message,304 )  );
           });
       })
       .catch(err => {
-        newrelic.noticeError(err)
+        //newrelic.noticeError(err)
         logger.error("[" +cartId +"] Fail get to cart: " +err);
         res.status(500).send( errorService.getErrorObject( err.message,304 )  );
       });
@@ -255,13 +259,13 @@ class CartControllers {
             res.status(200).send(cart);
           })
           .catch(err => {
-            newrelic.noticeError(err)
+            //newrelic.noticeError(err)
             logger.error("[" +cartId +"] Fail get a update cart: " +err);
             res.status(500).send( errorService.getErrorObject( err.message,304 )  );
           });
       })
       .catch(err => {
-        newrelic.noticeError(err)
+        //newrelic.noticeError(err)
         logger.error("[" +cartId +"] Fail add product to cart: " +err);
         res.status(500).send( errorService.getErrorObject( err.message,304 )  );
       });
@@ -280,13 +284,13 @@ class CartControllers {
             res.status(200).send(cart);
           })
           .catch(err => {
-            newrelic.noticeError(err)
+            //newrelic.noticeError(err)
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
             res.status(500).send( errorService.getErrorObject( err.message,304 )  );
           });
       })
       .catch(err => {
-        newrelic.noticeError(err)
+        //newrelic.noticeError(err)
         logger.error("[" + cartId + "] Fail to delete product ,err:" + err);
         res.status(500).send( errorService.getErrorObject( err.message,304 )  );
       });
@@ -310,7 +314,7 @@ class CartControllers {
           });
       })
       .catch(err => {
-        newrelic.noticeError(err)
+        //newrelic.noticeError(err)
         logger.error(
           "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
         );

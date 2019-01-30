@@ -4,6 +4,14 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
   var config = {
       cloudfront: {
           url: "http://localhost:3000"
+      },
+      google: {
+          gtm_id:{
+              garbarino:"GTM-MSSSZ7",
+              compumundo:"GTM-3S2LZG"
+          },
+          experiment_key: "120032359-126",
+          maps_key: "AIzaSyBTGseCoifrBnclGBt6j2XMg5-bxGu-vG4"
       }
   };
   return config;

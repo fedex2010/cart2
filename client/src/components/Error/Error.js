@@ -43,10 +43,8 @@ class ErrorPage extends Component {
                         <p>Por favor, intentá realizarla nuevamente</p>
                         <button className="gb-button primary" id="reset-cookie-button">Volver al inicio</button>
                     </div>
-                </div>  
-                {/*<input type="hidden" id="errorGralAnalytics" value="{{eventAnalytics}}"/>*/}     
+                </div>
             </div>
-           {/* <Prod/>*/}   
         </div>
     );  
   }
