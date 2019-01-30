@@ -53,6 +53,9 @@ class ProductUpdater {
 }
 class ProductClient{
     getProductUpdater(cartId,product,brand){
+        console.log("----------------------")
+        console.log( cartId, product , brand   )
+        console.log("----------------------")
         return new ProductUpdater(cartId, product,brand)
     }
 
