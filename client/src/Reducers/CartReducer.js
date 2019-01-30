@@ -22,7 +22,7 @@ export default (state = initialState, action = {}) => {
         return {
             ...state,
             err: action.payload.erro,
-            redirectTo: "/error",
+            redirectTo: "/carrito/error",
             operationStatus:action.operationStatus
         };
       case SET_CAROUSEL:
