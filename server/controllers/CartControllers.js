@@ -192,20 +192,13 @@ class CartControllers {
     let product = cart.products.find( p=> p.product_id == productId);
     
     if (product) {
-      console.log("-------------------------------")
-      console.log("HAY PRODUCTO")
-      console.log("-------------------------------")
-
         logger.info("[cartId=", cartId, "] Product", productId, "already added")
         return RestClient.productClient.getProductUpdater(cartId,product,brand)
                 .withWarranty(warranty_id)
                 .withPromotion(promotionId)
                 .execute()
     }else{
-      console.log("-------------------------------")
-      console.log("NO HAY PRODUCTO")
-      console.log("-------------------------------")
-        return RestClient.productClient.addProduct(cartId,        productId,     1, warranty_id, productPrice, promotionId, session_id,brand)
+        return RestClient.productClient.addProduct(cartId, productId, 1, warranty_id, productPrice, promotionId, session_id,brand)
     }
   }
 
@@ -233,7 +226,7 @@ class CartControllers {
                       logger.info("[", cartId, "] promo xids=", promotion.xids, "missing=", missing)
 
                       return missing.reduce((ac, promoProductId) =>
-                                //AGREGO  YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
+                                //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
                                 ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null,null, null, null,brand) )
                                 .then(_ => self.waitProcessingCart(cart))
                                 , Q(cart).then(_ => self.waitProcessingCart(cart)))
