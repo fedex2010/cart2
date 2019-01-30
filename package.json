@@ -9,19 +9,15 @@
     "install-server": "cd server && yarn install",
     "install-for-dev": "yarn rm-node-module && yarn install && yarn install-client",
     "postinstall": "npm-run-all install-server",
-
     "norma-garba": "cd client && node normaJob.js garbarino",
     "norma-compu": "cd client && node normaJob.js compumundo",
-
     "server-dev": "cd server && yarn run server-dev",
     "server-prod": "cd server && yarn run server-prod",
     "server-staging": "cd server && yarn run server-staging",
     "server-ci": "cd server && yarn run server-ci",
-
     "client": "cd client && yarn run start",
     "garba-cart": "yarn run norma-garba && npm-run-all --parallel client server-dev",
     "compu-cart": "yarn run norma-garba && npm-run-all --parallel client server-dev",
-
     "build-client": "cd client && yarn build",
     "mv-client-garba": "cd client && mv build build-garba",
     "mv-client-compu": "cd client && mv build build-compu",
@@ -32,6 +28,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "newrelic": "^5.2.0",
     "node-fetch": "^2.3.0",
     "npm-run-all": "^4.1.5"
   },

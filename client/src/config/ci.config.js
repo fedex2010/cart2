@@ -3,7 +3,7 @@
 module.exports = (ROOT_PATH, timeoutRatio) => {
   var config = {
       cloudfront: {
-          url: "http://localhost:3000"
+          url: "//dj4i04i24axgu.cloudfront.net/checkout-ui"
       },
       google: {
           gtm_id:{

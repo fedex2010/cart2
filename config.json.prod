@@ -1,0 +1,6 @@
+{
+  "nrlicense": "c1593a6ba53870eb64095106a15c615f48d7d1e7",
+  "nrguid": "com.newrelic.pm2plugin",
+  "nrversion": "1.0.3",
+  "nrurl": "https://platform-api.newrelic.com/platform/v1/metrics"
+}
