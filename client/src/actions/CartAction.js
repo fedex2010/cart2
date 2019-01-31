@@ -157,6 +157,7 @@ export const addCoupon = (couponId,cartId) => dispatch => {
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL', operationResult: 200,});
         }else{
+            response.erro.cause.code = 700
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304,});
         }
     })

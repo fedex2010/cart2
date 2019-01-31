@@ -169,8 +169,9 @@ class Alert extends Component {
     let classError = "error-msj hide"
 
     if(Object.keys(err).length > 0){
-        classError = "error-msj" 
-        console.error("Mostrando error : " + JSON.stringify( err ) )
+        if(this.props.err.cause.code > 304 &&  this.props.err.cause.code != 700){
+            classError = "error-msj" 
+        }
     }
 
     let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
@@ -198,7 +199,6 @@ class Alert extends Component {
     }else{
         return(
             <div className="alert-message-gbChk col-md-12">
-                {this._showError(this.props.err)}
                 <div className="displaynone">
                     <button type="button" className="feedback--btn-close" />
                 </div>

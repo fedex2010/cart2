@@ -16,6 +16,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         cart: action.payload || state.cart,
+        err: {},
         operationStatus:action.operationStatus
       };
       case SET_CURRENT_CART_ERROR:
