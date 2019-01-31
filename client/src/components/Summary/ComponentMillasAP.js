@@ -10,7 +10,8 @@ class ComponentMillasAP extends Component {
      this.state = {
         millasAP: true,
         checkedAP: false,
-        input:""
+        input:"",
+        value: ''
      }
   }
   handleCheckAP = () => {
@@ -44,9 +45,9 @@ class ComponentMillasAP extends Component {
       }
   }
 
-    _handleInput(e){
-        let couponId = e.target.value;
-        this.setState({ input: couponId });
+    _handleInput = ({target: {value}}) => {
+        this.setState(state => value.length <= 9 && !isNaN(Number(value)) && {value} || state)
+        this.setState({ input: value })
     }
 
     _onChange() {
@@ -81,10 +82,11 @@ class ComponentMillasAP extends Component {
                           className="form-control form-control--sm"
                           type="number"
                           placeholder="Ingresá tu número de socio"
-                          min="999999"
-                          max="99999999"
+                          minLength="999999"
+                          maxLength="99999999"
                           autoComplete="off"
                           onChange={this._handleInput.bind(this)}
+                          value={this.state.value}
                       />
                       <button className="button--primary button--sm" onClick={this._setMillas.bind(this)}>
                           Alicar
