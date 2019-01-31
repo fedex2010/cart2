@@ -55,7 +55,7 @@ class CartControllers {
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
           //relic.noticeError(err)
-          res.status(500).send( { erro: err } );
+          res.status(304).send( { erro: err } );
         });
     } else {
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
@@ -73,7 +73,7 @@ class CartControllers {
         .catch(err => {
             newrelic.noticeError(err)
             logger.error("[" + cartId + "]Fail create cart: " + err);
-            res.status(500).send( { erro: err } );
+            res.status(304).send( { erro: err } );
         });
     }
   }
@@ -165,7 +165,7 @@ class CartControllers {
           logger.error(
             "[" + cartId + "] Fail get cart _getOneCart ,err:" + err
           );
-          res.status(500).send( { erro: err } );
+          res.status(304).send( { erro: err } );
         });
     } else {
       console.log("cart si null");
@@ -175,7 +175,7 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart getNewCart ,err:" + err);
-          res.status(500).send( { erro: err } );
+          res.status(304).send( { erro: err } );
         });
     }
   }
@@ -332,13 +332,13 @@ class CartControllers {
           .catch(err => {
             newrelic.noticeError(err)
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(500).send( { erro: err } );
+            res.status(304).send( { erro: err } );
           });
       })
       .catch(err => {
         newrelic.noticeError(err)
         logger.error("[" + cartId + "] Fail to delete product ,err:" + err);
-        res.status(500).send( { erro: err } );
+        res.status(304).send( { erro: err } );
       });
   }
 
@@ -356,7 +356,7 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(500).send( { erro: err } );
+            res.status(304).send( { erro: err } );
           });
       })
       .catch(err => {
@@ -383,7 +383,7 @@ class CartControllers {
             logger.error(
               "[" + cartId + "] Fail get cart coupon delete ,err:" + err
             );
-            res.status(500).send({ erro: err });
+            res.status(304).send({ erro: err });
           });
       })
       .catch(err => {
@@ -417,14 +417,14 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(500).send( { erro: err } );
+            res.status(304).send( { erro: err } );
           });
       })
       .catch(err => {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
-        res.status(500).send( { erro: err } );
+        res.status(304).send( { erro: err } );
       });
   }
 
@@ -441,14 +441,14 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(500).send( { erro: err } );
+            res.status(304).send( { erro: err } );
           });
       })
       .catch(err => {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
-        res.status(500).send( { erro: err } );
+        res.status(304).send( { erro: err } );
       });
   }
 
@@ -494,7 +494,7 @@ class CartControllers {
       })
       .catch(err => {
         logger.error("[" + cartId + "] Fail set warranty to cart,err:" + err);
-        res.status(500).send( { erro: err } );
+        res.status(304).send( { erro: err } );
       });
   }
 
