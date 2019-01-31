@@ -29,9 +29,8 @@ export const fetchCart = id => dispatch => {
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
         }else{
-            console.log("aca1");
             console.log(response);
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304 });
         }
     }).catch( ( {response} ) =>{
         dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
@@ -158,8 +157,6 @@ export const addCoupon = (couponId,cartId) => dispatch => {
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL', operationResult: 200,});
         }else{
-            console.log("response")
-
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304,});
         }
     })

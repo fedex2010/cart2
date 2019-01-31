@@ -55,7 +55,7 @@ class CartControllers {
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
           //relic.noticeError(err)
-          res.status(304).send( { erro: err } );
+          res.status(200).send( { erro: err } );
         });
     } else {
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
@@ -73,7 +73,7 @@ class CartControllers {
         .catch(err => {
             newrelic.noticeError(err)
             logger.error("[" + cartId + "]Fail create cart: " + err);
-            res.status(304).send( { erro: err } );
+            res.status(200).send( { erro: err } );
         });
     }
   }
