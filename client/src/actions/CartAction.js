@@ -152,15 +152,19 @@ export const addCoupon = (couponId,cartId) => dispatch => {
         body: JSON.stringify(data)
     })
     //.then( handleErrors )
-    .then(response => response.json())
+    .then(response => { console.log(response.status);  return  response.json()} )
     .then(response => {
+
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL', operationResult: 200,});
         }else{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+            console.log("response")
+
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304,});
         }
     })
     .catch( ( {response} ) =>{
+        console.log("catch")
         dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
     });
 };

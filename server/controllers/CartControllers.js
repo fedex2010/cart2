@@ -364,7 +364,7 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
         );
-        res.status(500).send( { erro: err } );
+        res.status(200).send( { erro: err } );
       });
   }
 

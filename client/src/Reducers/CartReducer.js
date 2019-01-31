@@ -19,10 +19,18 @@ export default (state = initialState, action = {}) => {
         operationStatus:action.operationStatus
       };
       case SET_CURRENT_CART_ERROR:
+        console.log( action.payload.erro )
+        let url = ""
+
+        if( action.operationStatus > 304 ){
+          console.log( action.payload.erro.cause.code )
+          url = "/carrito/error"
+        }
+
         return {
             ...state,
             err: action.payload.erro,
-            redirectTo: "/carrito/error",
+            redirectTo: url,
             operationStatus:action.operationStatus
         };
       case SET_CAROUSEL:
