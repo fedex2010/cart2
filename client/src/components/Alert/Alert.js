@@ -27,9 +27,18 @@ class Alert extends Component {
       let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
       let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
       let hasBonification = hasPriceMatchingDiscount || hasPolcom;
+      cart.couponAmount=0;
+      cart.discount_details.map(function(discount_detail) {
+          switch (discount_detail.source) {
+              case "COUPON":
+                  cart.couponAmount +=discount_detail.amount;
+                  break;
+          }
+      });
+
       let hasCoupon = cart.couponAmount > 0;
       let msj = "";
-      
+      console.log(hasCoupon);
       if(hasCoupon){
           msj = "¡Buenas noticias! Tenes un cupón de descuento aplicado."
       }else{
