@@ -16,7 +16,7 @@ class App extends Component {
 
     this.state = {};
 
-    let productParam = this.props.location.search
+    let productParam = this.props.location.search || ""
 
     if(productParam != ""){
       this.state.productParam = productParam.substr(1)
@@ -24,15 +24,18 @@ class App extends Component {
   }
 
   componentWillMount() {
-    /*if(this.state.productParam != ""){
+    console.log("this.state.productPara")
+    console.log(this.state.productParam)
+
+    if(this.state.productParam){
+      console.log("------------------------------------")
+      console.log( "HOLALALA" )
       let productId = this.state.productParam
       this.props.fetchNewCartByProduct( productId );    
     }else{
       let cartId = Cookie.get("cartId");
-      this.props.fetchCart(cartId);    
-    }*/
-    let cartId = Cookie.get("cartId");
-    this.props.fetchCart(cartId);    
+       this.props.fetchCart(cartId);    
+    }
   }
   
 
