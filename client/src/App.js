@@ -13,13 +13,29 @@ import { fetchCart } from "./actions/CartAction";
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this._defaultFetcherFunction = this._defaultFetcherFunction.bind(this);
+    this._paramFetcherFunction = this._paramFetcherFunction.bind(this);
+
     this.state = {};
+
+    let productParam = this.props.location.search
+
+    if(productParam != ""){
+      this.state.productParam = productParam.substr(1)
+    }
   }
 
   componentWillMount() {
-    let cartId = Cookie.get("cartId");
-    this.props.fetchCart(cartId);
+    if(this.state.productParam != ""){
+      let productId = this.state.productParam
+      this.props.fetchNewCartByProduct( productId );    
+    }else{
+      let cartId = Cookie.get("cartId");
+      this.props.fetchCart(cartId);    
+    }
   }
+  
 
   _productCant(products){
       let count = products.length;

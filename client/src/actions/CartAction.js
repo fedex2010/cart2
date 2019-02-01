@@ -29,13 +29,28 @@ export const fetchCart = id => dispatch => {
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
         }else{
-            console.log(response);
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304 });
         }
     }).catch( ( {response} ) =>{
         dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
     });
 };
+
+export const fetchNewCartByProduct = productId => dispatch => {
+    fetch("api/cart/newByProductId/" + productId)
+      .then( handleErrors )
+      .then(response => response.json())
+      .then(response => {
+          const brand = window.xBrand;
+          if (typeof response.erro === "undefined") {
+              dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
+          }else{
+              dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+          }
+      }).catch( ( {response} ) =>{
+          dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+      });
+  };
 
 
 export const getCarousel = (cartId) => dispatch => {
