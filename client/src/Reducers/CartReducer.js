@@ -20,10 +20,6 @@ export default (state = initialState, action = {}) => {
         operationStatus:action.operationStatus
       };
       case SET_CURRENT_CART_ERROR:
-        console.log("-------action.payload.erro----------------")
-        console.log(action.payload.erro)
-        console.log("-----------------------")
-
         let url = ""
 
         if( action.operationResult > 404 ){

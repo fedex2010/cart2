@@ -63,9 +63,8 @@ class CartControllers {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res,cart);
-          //res.cookie("epi.context", session_id);
+          
           sessionService.setSessionCookie(res, session_id) //Setea la cookie con el nuevo carrito
-          //res.cookie("cartId", cart.cart_id);
           sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
 
           res.status(200).send(cart);

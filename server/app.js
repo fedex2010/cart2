@@ -60,12 +60,6 @@ function parallel(middlewares) {
 
 function sessionMiddleware( req , res ,next) {
   try{
-    if ( req.path.search("newByProductId") != -1 ){
-
-      sessionService.clearSessionCookies(res);
-      sessionService.generateSessionCookie(res)
-
-    }else{
       let sessionCookie = req.cookies['epi.context']
       let cartCookie = req.cookies['cartId']
   
@@ -80,7 +74,7 @@ function sessionMiddleware( req , res ,next) {
       }
   
       res.locals.sellerId = req.cookies["epi.salesman"] || "";    
-    }
+
 
     if(req.headers['x-brand'])
         res.locals.xBrand = req.headers['x-brand'].toLowerCase();

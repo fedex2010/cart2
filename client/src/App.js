@@ -24,13 +24,15 @@ class App extends Component {
   }
 
   componentWillMount() {
-    if(this.state.productParam != ""){
+    /*if(this.state.productParam != ""){
       let productId = this.state.productParam
       this.props.fetchNewCartByProduct( productId );    
     }else{
       let cartId = Cookie.get("cartId");
       this.props.fetchCart(cartId);    
-    }
+    }*/
+    let cartId = Cookie.get("cartId");
+    this.props.fetchCart(cartId);    
   }
   
 
