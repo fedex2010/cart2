@@ -115,7 +115,6 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
         }).catch( ( {response} ) =>{
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
         });
-
 };
 
 export const deleteProduct = (productId) => dispatch => {
