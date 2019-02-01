@@ -35,7 +35,9 @@ class Summary extends Component {
 
     componentDidMount () {
     this.timeoutId = setTimeout(function () {
+      console.log(this.state.show)
             this.setState({show: true});
+            console.log(this.state.show)
         }.bind(this), 2000);
     }
 
@@ -79,7 +81,7 @@ class Summary extends Component {
   }
 
   render() {
-    let couponClass = "displaynone";
+    let couponClass = "";
     let products="";
     let empresarias = (Cookie.get("empresarias")==='true'?true:false);
     if(typeof this.props.coupons !== "undefined"){
