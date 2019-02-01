@@ -43,14 +43,15 @@ class ProductWarranty extends Component{
 
     _onSelectOption(id,product_id,event){
         let cartId = Cookie.get("cartId");
+        if(!event.target.checked) id="DEFAULT_FACTORY";
         this.props.editWarranty(cartId,product_id,id);
-       
     }
 
     _showModal(product,warranty_id) {
         product.selectedWarranty_id = warranty_id;
         this.props.selectProduct(product);
       }
+
     _formatPrice(value, decimals) {
         if(value == undefined){
             return 0;
