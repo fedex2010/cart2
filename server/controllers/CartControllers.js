@@ -295,9 +295,9 @@ class CartControllers {
     const brand  = res.locals.xBrand.toLowerCase();
     
     this._getOneCart(null, req, res)
-        .then(cart => {this.addProductToCart(cart, productId, null, null,null, res.locals.session ,brand); return cart } )
-        .then(cart => this._getOneCart(cart.cart_id,req,res) )
-        .then(cart => res.status(200).send(cart) )
+        .then(cart => {this.addProductToCart(cart, productId, null, null,null, res.locals.session ,brand); return cart.cart_id } )
+        .then(cart_id => this._getOneCart(cart_id,req,res) )
+        .then(newCart => res.status(200).send(newCart) )
 
         .catch(err => {
           logger.error("[" +cartId +"] Fail get to cart: " +err);

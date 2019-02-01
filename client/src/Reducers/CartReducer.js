@@ -20,11 +20,13 @@ export default (state = initialState, action = {}) => {
         operationStatus:action.operationStatus
       };
       case SET_CURRENT_CART_ERROR:
-        console.log( action.payload.erro )
+        console.log("-------action.payload.erro----------------")
+        console.log(action.payload.erro)
+        console.log("-----------------------")
+
         let url = ""
 
-        if( action.operationStatus > 304 ){
-          console.log( action.payload.erro.cause.code )
+        if( action.operationResult > 404 ){
           url = "/carrito/error"
         }
 

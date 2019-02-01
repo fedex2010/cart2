@@ -8,14 +8,11 @@ import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
 import Carousel from "./components/Carousel/Carousel";
-import { fetchCart } from "./actions/CartAction";
+import { fetchCart , fetchNewCartByProduct } from "./actions/CartAction";
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this._defaultFetcherFunction = this._defaultFetcherFunction.bind(this);
-    this._paramFetcherFunction = this._paramFetcherFunction.bind(this);
 
     this.state = {};
 
@@ -192,5 +189,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchCart }
+  { fetchCart ,fetchNewCartByProduct}
 )(App);

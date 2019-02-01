@@ -165,14 +165,11 @@ class Alert extends Component {
     }
 
   _showError(err){
-                      //err not empty
-    let classError = "error-msj hide"
-
-    if(Object.keys(err).length > 0){
-        if(this.props.err.cause.code > 304 &&  this.props.err.cause.code != 700){
-            classError = "error-msj" 
-        }
-    }
+    console.log("jxicoajfeiow")
+    console.log( this.props.err.cause )
+    console.log( this.props.err.cause )
+    
+    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "404")? "error-msj" : "error-msj hide";
 
     let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
 
