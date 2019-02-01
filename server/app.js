@@ -59,22 +59,23 @@ function parallel(middlewares) {
 }
 
 function sessionMiddleware( req , res ,next) {
-  let sessionCookie = req.cookies['epi.context']
-  let cartCookie = req.cookies['cartId']
-
   try{
-    if (!sessionCookie) {
-        sessionService.generateSessionCookie(res)
-    } else {
-      sessionService.setSessionContextFromCookie(res, sessionCookie)
-    }
+      let sessionCookie = req.cookies['epi.context']
+      let cartCookie = req.cookies['cartId']
+  
+      if (!sessionCookie) {
+          sessionService.generateSessionCookie(res)
+      } else {
+        sessionService.setSessionContextFromCookie(res, sessionCookie)
+      }
+  
+      if (cartCookie) {
+          sessionService.setCartContextFromCookie(res, cartCookie)
+      }
+  
+      res.locals.sellerId = req.cookies["epi.salesman"] || "";    
 
-    if (cartCookie) {
-        sessionService.setCartContextFromCookie(res, cartCookie)
-    }
 
-    res.locals.sellerId = req.cookies["epi.salesman"] || "";
-    
     if(req.headers['x-brand'])
         res.locals.xBrand = req.headers['x-brand'].toLowerCase();
       else {
@@ -85,7 +86,6 @@ function sessionMiddleware( req , res ,next) {
   }catch(err){
     next(err)
   }
-
   next()
 }
 
