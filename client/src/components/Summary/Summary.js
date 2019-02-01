@@ -28,11 +28,24 @@ class Summary extends Component {
         discountCoupon:{},
         coupons : [],
         totalDiscounts: {},
-        totalPrice: {}
+        totalPrice: {},
+        show:true
     };
   }
 
-  _continue(e){
+    componentDidMount () {
+    this.timeoutId = setTimeout(function () {
+            this.setState({show: true});
+        }.bind(this), 2000);
+    }
+
+    componentWillUnmount () {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+    }
+
+    _continue(e){
       window.location = "/compra/entrega";
   }
 
@@ -66,11 +79,11 @@ class Summary extends Component {
   }
 
   render() {
-    let couponClass = "highlight-benefit displaynone";
+    let couponClass = "displaynone";
     let products="";
     let empresarias = (Cookie.get("empresarias")==='true'?true:false);
-      if(typeof this.props.coupons !== "undefined"){
-      couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
+    if(typeof this.props.coupons !== "undefined"){
+      couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'displaynone';
     }
     if(this.props.products !== undefined){
         products = this.props.products;
@@ -118,7 +131,7 @@ class Summary extends Component {
                   <label>Garantías</label>
                   <span className="summary-detail-value">${this.props.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
                 </li>
-                <li className={couponClass} id="coupon">
+                <li className={this.state.show && !this.props.coupons ? "displaynone" : couponClass} id="coupon">
                   <label>Descuento por cupón</label>
                   <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>
                 </li>
