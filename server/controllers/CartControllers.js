@@ -156,6 +156,7 @@ class CartControllers {
       console.log("cart no null");
       return RestClient.cartClient.getOneCart(cartId, {}, brand,true,false)
         .then(cart => {
+
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res,cart);
@@ -171,6 +172,7 @@ class CartControllers {
       console.log("cart si null");
       return this.getNewCart(req, res)
         .then(cart => {
+    
           return cart;
         })
         .catch(err => {
@@ -188,25 +190,6 @@ class CartControllers {
             })
   }
 
-  addProductToCart(cart, productId, warranty_id, productPrice, promotionId, session_id,brand){
-    
-    console.log(session_id)
-    console.log(brand)
-
-    const cartId = cart.cart_id
-    logger.info("[cartId="+ cartId+ "] Adding product"+ productId)
-    let product = cart.products.find( p=> p.product_id == productId);
-    
-    if (product) {
-        logger.info("[cartId="+ cartId+ "] Product"+ productId+ "already added")
-        return RestClient.productClient.getProductUpdater(cartId,product,brand)
-                .withWarranty(warranty_id)
-                .withPromotion(promotionId)
-                .execute()
-    }else{
-        return RestClient.productClient.addProduct(cartId, productId, 1, warranty_id, productPrice, promotionId, session_id,brand)
-    }
-  }
 
   addProduct(req, res) {
     const body = req.body || {};
@@ -288,7 +271,39 @@ class CartControllers {
       })
   }
 
+  addProductToCart(cart, productId, warranty_id, productPrice, promotionId, session_id,brand){
+    
+    const cartId = cart.cart_id
+    logger.info("[cartId="+ cartId+ "] Adding product"+ productId)
+    let product = cart.products.find( p=> p.product_id == productId);
+     
+    if (product) {
+        logger.info("[cartId="+ cartId+ "] Product"+ productId+ "already added")
+        return RestClient.productClient.getProductUpdater(cartId,product,brand)
+                .withWarranty(warranty_id)
+                .withPromotion(promotionId)
+                .execute()
+    }else{
+        return RestClient.productClient.addProduct(cartId, productId, 1, warranty_id, productPrice, promotionId,session_id,brand)
+    }
+  }
 
+
+  newByProductId(req, res) {
+
+    const productId = req.params.productId
+    const brand  = res.locals.xBrand.toLowerCase();
+    
+    this._getOneCart(null, req, res)
+        .then(cart => {this.addProductToCart(cart, productId, null, null,null, res.locals.session ,brand); return cart } )
+        .then(cart => this._getOneCart(cart.cart_id,req,res) )
+        .then(cart => res.status(200).send(cart) )
+
+        .catch(err => {
+          logger.error("[" +cartId +"] Fail get to cart: " +err);
+          res.status(500).send( errorService.getErrorObject( err.message,304 )  );
+        })
+  }
 
   editProduct(req, res) {
     let body = req.body || {};
