@@ -30,7 +30,7 @@ class App extends Component {
     if(this.state.productParam){
       console.log("------------------------------------")
       console.log( "HOLALALA" )
-      let productId = this.state.productParam
+      let productId = this.state.productParam.split("=")[1]
       this.props.fetchNewCartByProduct( productId );    
     }else{
       let cartId = Cookie.get("cartId");
