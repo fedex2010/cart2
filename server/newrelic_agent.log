@@ -56,3 +56,7 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"MacBook-Pro-de-Julio.local","pid":53235,"time":"2019-02-01T12:45:05.050Z","msg":"Module not enabled in configuration; not starting."}
 {"v":0,"level":30,"name":"newrelic","hostname":"MacBook-Pro-de-Julio.local","pid":53565,"time":"2019-02-01T13:05:26.190Z","msg":"Using New Relic for Node.js. Agent version: 5.2.0; Node version: v9.0.0."}
 {"v":0,"level":30,"name":"newrelic","hostname":"MacBook-Pro-de-Julio.local","pid":53565,"time":"2019-02-01T13:05:26.194Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Ignacios-MacBook-Pro-2.local","pid":80228,"time":"2019-02-01T16:30:44.614Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Ignacios-MacBook-Pro-2.local","pid":80228,"time":"2019-02-01T16:30:44.618Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Ignacios-MacBook-Pro-2.local","pid":80332,"time":"2019-02-01T16:32:22.569Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Ignacios-MacBook-Pro-2.local","pid":80332,"time":"2019-02-01T16:32:22.573Z","msg":"Module not enabled in configuration; not starting."}

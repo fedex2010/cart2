@@ -7,11 +7,12 @@ class InputCouponApplied extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            input: ""
+            input: "",
         }
     }
 
   _addCoupon(e){
+    
       let cartId = Cookie.get("cartId");
       this.props.addCoupon(this.state.input,cartId);
   }
@@ -27,6 +28,7 @@ class InputCouponApplied extends Component {
   }
  
   render() {
+    
     return (
       <div className="InputCouponApplied">
         <div className="coupon-apply-form">
