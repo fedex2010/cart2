@@ -20,7 +20,6 @@ class RestClient {
         url=url+"?refresh=true&include=cartdata";
 
         options.headers = {"Content-Type": "application/json", "X-Brand": brand};
-        console.log("url: "+url)
         return this._restConnector.get(url,options);
     }
 
