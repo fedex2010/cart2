@@ -24,7 +24,7 @@ exports.setSessionCookie = (res, session_id) => {
 }
 
 exports.generateSessionCookie = (res) => {
-    this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))
+    this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))   
 }
 
 exports.clearSessionCookies = (res) => {
