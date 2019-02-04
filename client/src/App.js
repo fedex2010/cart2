@@ -8,18 +8,20 @@ import Alert from "./components/Alert/Alert";
 import Product from "./components/Product/Product";
 import Summary from "./components/Summary/Summary";
 import Carousel from "./components/Carousel/Carousel";
-import { fetchCart } from "./actions/CartAction";
+import { fetchCart , fetchNewCartByProduct } from "./actions/CartAction";
 
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
   componentWillMount() {
     let cartId = Cookie.get("cartId");
-    this.props.fetchCart(cartId);
+    this.props.fetchCart(cartId);    
   }
+  
 
   _productCant(products){
       let count = products.length;
@@ -176,5 +178,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchCart }
+  { fetchCart ,fetchNewCartByProduct}
 )(App);

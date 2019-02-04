@@ -15,7 +15,8 @@ class ComponentDiscountCoupon extends Component {
         this.state = {
             item: {},
             selectedOption: "discount-coupon1",
-            checkedCoupon: false
+            checkedCoupon: false,
+            displaynoneShowCoupon: "displaynone"
         };
     }
     handleOptionChange = changeEvent => {
@@ -23,7 +24,9 @@ class ComponentDiscountCoupon extends Component {
     };
 
     _showDelete(coupon){
+        this.state.displaynoneShowCoupon = "";
       if(coupon.coupon_id){
+      
           return (
               <div className="coupon-applied">
                   <span className="coupon-code">{coupon.coupon_id}</span>
@@ -39,12 +42,13 @@ class ComponentDiscountCoupon extends Component {
         let cartId = Cookie.get("cartId");
         let couponId = coupon.coupon_id;
         this.props.deleteCoupon(couponId, cartId);
+       
     }
 
     render() {
         let displayNoneCoupon = "displaynone";
         let displaynoneCheckboxDiscount = "displaynone";
-        let coupon = {};
+        let coupon = {}
 
         if (this.state.selectedOption === "discount-coupon2") {
             displayNoneCoupon = "";
@@ -84,14 +88,17 @@ class ComponentDiscountCoupon extends Component {
             );
         } else {
             let coupon = (this.props.coupon && this.props.coupon[0])? this.props.coupon[0] : {};
+            console.log("coupon.null",coupon.status != "VALID")
             return (
                 <div className="cart-additional-item">
-                    <label>
-                        <input type="checkbox" id="add-coupon"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />{" "}
-                        Tengo cupón de descuento
-                    </label>
-                    <div className={displaynoneCheckboxDiscount}>
-                        <InputCouponApplied />
+                    <div className={coupon.status == "VALID" ? 'displaynone' : '' }>
+                        <label>
+                            <input type="checkbox" id="add-coupon"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />{" "}
+                            Tengo cupón de descuento
+                        </label>
+                        <div className={displaynoneCheckboxDiscount}>
+                            <InputCouponApplied />
+                        </div>
                     </div>
                     {this._showDelete(coupon)}
                 </div>

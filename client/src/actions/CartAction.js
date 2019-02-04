@@ -29,13 +29,28 @@ export const fetchCart = id => dispatch => {
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
         }else{
-            console.log(response);
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304 });
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code });
         }
     }).catch( ( {response} ) =>{
-        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
     });
 };
+
+export const fetchNewCartByProduct = productId => dispatch => {
+    fetch("api/cart/newByProductId/" + productId)
+      .then( handleErrors )
+      .then(response => response.json())
+      .then(response => {
+          const brand = window.xBrand;
+          if (typeof response.erro === "undefined") {
+              dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:brand});
+          }else{
+              dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code,});
+          }
+      }).catch( ( {response} ) =>{
+          dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500,});
+      });
+  };
 
 
 export const getCarousel = (cartId) => dispatch => {
@@ -65,7 +80,7 @@ export const addProduct = product => dispatch => {
     .then(response => {
         dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL"  });
     }).catch( ( {response} ) =>{
-        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
     });
 };
 
@@ -89,7 +104,7 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response ,operationStatus: "SUCCESSFUL" });
         }).catch( ( {response} ) =>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
         });
 };
 
@@ -113,9 +128,8 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
         }).catch( ( {response} ) =>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
         });
-
 };
 
 export const deleteProduct = (productId) => dispatch => {
@@ -134,7 +148,7 @@ export const deleteProduct = (productId) => dispatch => {
             console.log("dispatch");
              dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch( ( {response} ) =>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult:500});
         });
 };
 
@@ -142,6 +156,9 @@ export const addCoupon = (couponId,cartId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
     let data={};
     data.coupon_code = couponId;
+    
+    console.log(data)
+
     fetch("api/cart/"+cartId+"/cupon", {
         method: "POST",
         headers: {
@@ -157,13 +174,11 @@ export const addCoupon = (couponId,cartId) => dispatch => {
         if (typeof response.erro === "undefined") {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL', operationResult: 200,});
         }else{
-            response.erro.cause.code = 700
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 304,});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 400,});
         }
     })
     .catch( ( {response} ) =>{
-        console.log("catch")
-        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
     });
 };
 
@@ -182,7 +197,7 @@ export const deleteCoupon = (couponId, cartId) => dispatch => {
       dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL' });
     })
     .catch(( {response} ) => {
-        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
     });
 };
 
@@ -204,7 +219,7 @@ export const setLoyalties = (code,cartId) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
         }).catch( ( {response} ) =>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult:500});
         });
 };
 
@@ -222,6 +237,6 @@ export const deleteLoyalties = (cartId) => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response,operationStatus: 'SUCCESSFUL' });
         }).catch( ( {response} ) =>{
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code});
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
         });
 };

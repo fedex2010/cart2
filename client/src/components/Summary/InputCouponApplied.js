@@ -7,11 +7,12 @@ class InputCouponApplied extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            input: ""
+            input: "",
         }
     }
 
   _addCoupon(e){
+    
       let cartId = Cookie.get("cartId");
       this.props.addCoupon(this.state.input,cartId);
   }
@@ -22,11 +23,12 @@ class InputCouponApplied extends Component {
   }
 
   _showError(){
-    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === 700)? "error-msj" : "error-msj hide";
+    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400")? "error-msj" : "error-msj hide";
     return(<p className={classError} id="alert-coupon-fail">Código de cupón inválido.</p>);
   }
  
   render() {
+    
     return (
       <div className="InputCouponApplied">
         <div className="coupon-apply-form">
