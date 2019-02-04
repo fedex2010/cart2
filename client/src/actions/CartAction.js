@@ -134,7 +134,7 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
 
 export const deleteProduct = (productId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
-    fetch("/api/cart/" + productId,
+    fetch("api/cart/" + productId,
         {
             method: "DELETE",
             headers: {
