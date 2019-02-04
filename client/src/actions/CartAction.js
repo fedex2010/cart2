@@ -37,8 +37,8 @@ export const fetchCart = id => dispatch => {
 };
 
 export const fetchNewCartByProduct = productId => dispatch => {
-    fetch("api/cart/newByProductId/" + productId)
-      .then( handleErrors )
+    fetch("api/cart/newCartByProductId/" + productId)
+      //.then( handleErrors )
       .then(response => response.json())
       .then(response => {
           const brand = window.xBrand;

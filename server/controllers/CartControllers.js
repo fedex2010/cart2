@@ -288,18 +288,34 @@ class CartControllers {
   }
 
 
-  newByProductId(req, res) {
+  newCartByProductId(req, res) {
 
     const productId = req.params.productId
     const brand  = res.locals.xBrand.toLowerCase();
     
     this._getOneCart(null, req, res)
-        .then(cart => {this.addProductToCart(cart, productId, null, null,null, res.locals.session ,brand); return cart.cart_id } )
-        .then(cart_id => this._getOneCart(cart_id,req,res) )
-        .then(newCart => res.status(200).send(newCart) )
+        .then(cart => {
+          RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand)
+            .then(product => {
+              console.log("------------------")
+              console.log(product)
 
+              this._getOneCart(cart.cart_id,req,res)
+              .then( cart => res.status(200).send(cart) )
+              .catch(err => {
+
+                logger.error("Fail get to cart with id: " +cart.cart_id);
+                res.status(500).send( errorService.getErrorObject( err.message,304 )  );      
+                
+              })
+            })
+            .catch(err => {
+              logger.error("Fail get product with id: " +productId);
+              res.status(500).send( errorService.getErrorObject( err.message,304 )  );
+            })
+        })    
         .catch(err => {
-          logger.error("[" +cartId +"] Fail get to cart: " +err);
+          logger.error("Fail get to cart by product with id: " +productId);
           res.status(500).send( errorService.getErrorObject( err.message,304 )  );
         })
   }

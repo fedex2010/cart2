@@ -24,12 +24,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    console.log("this.state.productPara")
-    console.log(this.state.productParam)
-
     if(this.state.productParam){
-      console.log("------------------------------------")
-      console.log( "HOLALALA" )
       let productId = this.state.productParam.split("=")[1]
       this.props.fetchNewCartByProduct( productId );    
     }else{

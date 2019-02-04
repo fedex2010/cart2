@@ -28,12 +28,14 @@ exports.generateSessionCookie = (res) => {
 }
 
 exports.clearSessionCookies = (res) => {
-    console.log("***********************")
-    console.log("DESTRUYENDO COOKIE")
-    console.log("***********************")
     logger.info("[", res.locals.session, "] [", res.locals.cartId, "] Cleaning user and cart sessions")
     res.locals.cartId = null
     res.clearCookie('cartId', { path: '/' })
     res.locals.session = null
     res.clearCookie('epi.context', { path: '/' })
+}
+
+exports.resetSessionCookies = (res) => {
+    this.clearSessionCookies(res)
+    this.generateSessionCookie(res)
 }
