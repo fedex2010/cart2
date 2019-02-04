@@ -4,3 +4,5 @@ npm-debug.log
 .idea/
 .vscode/
 server/*.log
+server/newrelic_agent.log
+newrelic_agent.log
