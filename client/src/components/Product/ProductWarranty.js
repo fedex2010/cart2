@@ -18,8 +18,8 @@ class ProductWarranty extends Component{
 
         for (var i in productWarranty) {
             if (productWarranty.hasOwnProperty(i)) {
-                if(productWarranty[i].period.length <= 1){
-                    productWarranty[i].period=productWarranty[i].period.split(" ")
+                if(typeof productWarranty[i].period === "string"){
+                    productWarranty[i].period=productWarranty[i].period.split(' ')
                 }
                 let interest = (parseFloat(percentage) * parseFloat(productWarranty[i].price)) / 100;
                 let installment_price = (productWarranty[i].price + interest) / 12;
@@ -43,14 +43,15 @@ class ProductWarranty extends Component{
 
     _onSelectOption(id,product_id,event){
         let cartId = Cookie.get("cartId");
+        if(!event.target.checked) id="DEFAULT_FACTORY";
         this.props.editWarranty(cartId,product_id,id);
-       
     }
 
     _showModal(product,warranty_id) {
         product.selectedWarranty_id = warranty_id;
         this.props.selectProduct(product);
       }
+
     _formatPrice(value, decimals) {
         if(value == undefined){
             return 0;

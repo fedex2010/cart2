@@ -15,6 +15,7 @@ const Root = ({ store }) => (
         <Route path="/reactcart" component={App} exact />
         <Route path="/carrito/vendedor" component={VendedorPage} />
         <Route path="/carrito/error" component={ErrorPage} />
+        <Route path="/reactcart/error" component={ErrorPage} />
       </div>
     </Router>
   </Provider>

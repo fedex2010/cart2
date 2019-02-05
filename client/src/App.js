@@ -16,7 +16,7 @@ class App extends Component {
 
     this.state = {};
 
-    let productParam = this.props.location.search || ""
+    let productParam = this.props.location.search || "";
 
     if(productParam != ""){
       this.state.productParam = productParam.substr(1)

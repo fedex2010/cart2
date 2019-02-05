@@ -6,8 +6,6 @@ function handleErrors(response) {
             let err = new Error("algo salió mal")
             err.response = json
 
-            console.error( "Error Payload: " + JSON.stringify(json) )
-
             throw err
         })
     }
@@ -75,7 +73,7 @@ export const addProduct = product => dispatch => {
     },
     body: JSON.stringify(product)
   })
-    //.then( handleErrors )
+    .then( handleErrors )
     .then(response => response.json())
     .then(response => {
         dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL"  });
@@ -134,7 +132,7 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
 
 export const deleteProduct = (productId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
-    fetch("/api/cart/" + productId,
+    fetch("api/cart/" + productId,
         {
             method: "DELETE",
             headers: {

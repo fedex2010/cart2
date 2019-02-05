@@ -4,7 +4,7 @@ const WinstonCloudWatch = require('winston-cloudwatch');
 var env = process.env.APP_ENV || 'dev';
 var cloudwatchTransport = new WinstonCloudWatch({
     logGroupName: 'application-logs',
-    logStreamName: 'chk-ui-' + process.env.APP_ENV,
+    logStreamName: 'cart-ui-' + process.env.APP_ENV,
     awsRegion: 'us-east-1'
 });
 
