@@ -14,18 +14,23 @@ exports.getErrorObject = (message,code) =>{
 }
 
 exports.checkErrorObject = (err = {} ) => {
+    
     let errorMessage = err.message || "Internal server error"
     let errorCode = err.code || 500
-
+    
     let erro = err
 
     if( !erro.hasOwnProperty("cause") ){
+
         errorMessage = erro.message || errorMessage
         errorCode = erro.code || errorCode
     }else{
+    
         errorMessage = erro.cause.message || errorMessage
         errorCode = erro.cause.code || errorCode
     }
+
+    //console.log( this.getErrorObject(errorMessage,errorCode) )
     
     return this.getErrorObject(errorMessage,errorCode)
 }

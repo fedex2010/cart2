@@ -43,12 +43,13 @@ class CartControllers {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res,cart);
+          
           res.status(200).send(cart);
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
           //relic.noticeError(err)
-          res.status(200).send( errorService.checkErrorObject(err) );
+          res.status(500).send( errorService.checkErrorObject(errror) );
         });
     } else {
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
@@ -65,7 +66,7 @@ class CartControllers {
         .catch(err => {
             newrelic.noticeError(err)
             logger.error("[" + cartId + "]Fail create cart: " + err);
-            res.status(200).send( errorService.checkErrorObject(err) );
+            res.status(500).send( errorService.checkErrorObject(errror) );
         });
     }
   }
@@ -369,11 +370,12 @@ class CartControllers {
       .then(coupon => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
+            //throw new Error("AJAJAJ")
             res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            res.status(200).send( errorService.checkErrorObject(err) );
+            res.status(500).send( errorService.checkErrorObject(err) );
           });
       })
       .catch(err => {
@@ -381,7 +383,7 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
         );
-        res.status(200).send( errorService.checkErrorObject(err) );
+        res.status(500).send( errorService.checkErrorObject(err) );
       });
   }
 
@@ -400,7 +402,7 @@ class CartControllers {
             logger.error(
               "[" + cartId + "] Fail get cart coupon delete ,err:" + err
             );
-            res.status(200).send(errorService.checkErrorObject(err));
+            res.status(500).send(errorService.checkErrorObject(err));
           });
       })
       .catch(err => {
@@ -454,6 +456,7 @@ class CartControllers {
       .then(loyalty => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
+            
             res.status(200).send(cart);
           })
           .catch(err => {
