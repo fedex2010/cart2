@@ -8,7 +8,7 @@ class InputCouponApplied extends Component {
         super(props);
         this.state = {
             input: "",
-            disabled: "disabled"
+            disabled: "disabled" 
         }
     }
 
@@ -31,6 +31,8 @@ class InputCouponApplied extends Component {
 
   _showError(){
     let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400")? "error-msj" : "error-msj hide";
+   
+    
     return(<p className={classError} id="alert-coupon-fail">Código de cupón inválido.</p>);
   }
  
@@ -40,7 +42,8 @@ class InputCouponApplied extends Component {
       <div className="InputCouponApplied">
         <div className="coupon-apply-form">
             {/*add class - form-control-error - to error input*/} 
-            <input className="form-control form-control--sm" type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
+            
+            <input className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
             {/*add class - button__is-loading - to loading button */}
             <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" disabled={this.state.disabled}>Aplicar</button>
             {/*remove class - hide - to error message*/} 

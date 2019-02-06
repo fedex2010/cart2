@@ -101,7 +101,7 @@ class ComponentMillasAP extends Component {
   render() {
     let displaynoneCheckboxAP = 'displaynone';
 
-    if(this.state.checkedAP){
+    if(!this.state.checkedAP){
         displaynoneCheckboxAP ='';
     }
 
