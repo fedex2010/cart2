@@ -82,7 +82,7 @@ class ProductWarranty extends Component{
     }
 
     render(){
-        if(typeof this.props.item !== "undefined"){
+        if(typeof this.props.item !== "undefined" && this.props.percentage){
             let productsWarranty = this.props.item; 
             let product_id       = this.props.products;
             let classDelta       = this.props.classDelta;

@@ -46,7 +46,7 @@ class ComponentMillasAP extends Component {
   }
 
     _handleInput = ({target: {value}}) => {
-        this.setState(state => value.length <= 9 && !isNaN(Number(value)) && {value} || state)
+        this.setState(state => value.length <= 8 && !isNaN(Number(value)) && {value} || state)
         this.setState({ input: value })
     }
 
@@ -89,7 +89,7 @@ class ComponentMillasAP extends Component {
                           value={this.state.value}
                       />
                       <button className="button--primary button--sm" onClick={this._setMillas.bind(this)}>
-                          Alicar
+                          Aplicar
                       </button>
                   </div>
               </div>
