@@ -8,6 +8,7 @@ class InputCouponApplied extends Component {
         super(props);
         this.state = {
             input: "",
+            disabled: "disabled"
         }
     }
 
@@ -18,6 +19,12 @@ class InputCouponApplied extends Component {
   }
 
   _handleInput(e){
+      if(e.target.value.length > 0){
+        this.setState({ disabled: "" });
+      }else {
+        this.setState({ disabled: "disabled" });
+      }
+
       let couponId = e.target.value;
       this.setState({ input: couponId });
   }
@@ -35,7 +42,7 @@ class InputCouponApplied extends Component {
             {/*add class - form-control-error - to error input*/} 
             <input className="form-control form-control--sm" type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
             {/*add class - button__is-loading - to loading button */}
-            <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm">Aplicar</button>
+            <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" disabled={this.state.disabled}>Aplicar</button>
             {/*remove class - hide - to error message*/} 
             {this._showError()}
         </div>
