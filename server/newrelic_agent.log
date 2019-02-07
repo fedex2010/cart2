@@ -766,3 +766,7 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":8717,"time":"2019-02-07T12:20:45.390Z","msg":"Module not enabled in configuration; not starting."}
 {"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":8787,"time":"2019-02-07T12:21:10.191Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v8.12.0."}
 {"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":8787,"time":"2019-02-07T12:21:10.195Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":9290,"time":"2019-02-07T12:23:31.501Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":9290,"time":"2019-02-07T12:23:31.505Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":9427,"time":"2019-02-07T12:23:37.222Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":9427,"time":"2019-02-07T12:23:37.228Z","msg":"Module not enabled in configuration; not starting."}

@@ -23,7 +23,7 @@ export const selectProduct = product => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-  fetch("api/cart/" + id)
+  fetch("api/cart/" + id,{  credentials: 'include'  })
     .then( handleErrors )
     .then(response => response.json())
     .then(response => {
@@ -40,7 +40,7 @@ export const fetchCart = id => dispatch => {
 };
 
 export const fetchNewCartByProduct = productId => dispatch => {
-    fetch("api/cart/newCartByProductId/" + productId)
+    fetch("api/cart/newCartByProductId/" + productId,{  credentials: 'include'  })
         .then( handleErrors )
         .then(response => response.json())
         .then(response => {
@@ -59,7 +59,7 @@ export const fetchNewCartByProduct = productId => dispatch => {
 
 export const getCarousel = (cartId) => dispatch => {
     
-    fetch("api/cart/carousel")
+    fetch("api/cart/carousel",{  credentials: 'include'  })
         //.then( handleErrors )
         .then(response => response.json())
         .then(response => {  
@@ -73,6 +73,7 @@ export const addProduct = product => dispatch => {
   dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
   fetch("api/cart/", {
     method: "POST",
+    credentials: 'include',
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -97,6 +98,7 @@ export const updateQuantityProduct = (cartId,product,quantity) => dispatch => {
 
     fetch("api/cart/"+cartId, {
         method: "PUT",
+        credentials: 'include',
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -121,6 +123,7 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
 
     fetch("api/cart/setWarranty", {
         method: "POST",
+        credentials: 'include',
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -141,6 +144,7 @@ export const deleteProduct = (productId) => dispatch => {
     fetch("api/cart/" + productId,
         {
             method: "DELETE",
+            credentials: 'include',
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
@@ -162,6 +166,7 @@ export const addCoupon = (couponId,cartId) => dispatch => {
     
     fetch("api/cart/"+cartId+"/cupon", {
         method: "POST",
+        credentials: 'include',
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -187,6 +192,7 @@ export const deleteCoupon = (couponId, cartId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
   fetch("api/cart/c_" + cartId + "/cupon/" + couponId, {
     method: "DELETE",
+    credentials: 'include',
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -209,6 +215,7 @@ export const setLoyalties = (code,cartId) => dispatch => {
 
     fetch("api/cart/c_" + cartId + "/aaPlus", {
         method: "POST",
+        credentials: 'include',
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -228,6 +235,7 @@ export const deleteLoyalties = (cartId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
     fetch("api/cart/c_" + cartId + "/aaPlus", {
         method: "DELETE",
+        credentials: 'include',
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
