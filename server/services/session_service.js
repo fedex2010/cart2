@@ -24,14 +24,18 @@ exports.setSessionCookie = (res, session_id) => {
 }
 
 exports.generateSessionCookie = (res) => {
-    this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))
+    this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))   
 }
 
 exports.clearSessionCookies = (res) => {
-
     logger.info("["+ res.locals.session+ "] ["+ res.locals.cartId+ "] Cleaning user and cart sessions")
     res.locals.cartId = null
     res.clearCookie('cartId', { path: '/' })
     res.locals.session = null
     res.clearCookie('epi.context', { path: '/' })
+}
+
+exports.resetSessionCookies = (res) => {
+    this.clearSessionCookies(res)
+    this.generateSessionCookie(res)
 }

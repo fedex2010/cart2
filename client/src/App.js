@@ -15,11 +15,22 @@ class App extends Component {
     super(props);
 
     this.state = {};
+
+    let productParam = this.props.location.search || "";
+
+    if(productParam != ""){
+      this.state.productParam = productParam.substr(1)
+    }
   }
 
   componentWillMount() {
-    let cartId = Cookie.get("cartId");
-    this.props.fetchCart(cartId);    
+    if(this.state.productParam){
+      let productId = this.state.productParam.split("=")[1]
+      this.props.fetchNewCartByProduct( productId );    
+    }else{
+      let cartId = Cookie.get("cartId");
+       this.props.fetchCart(cartId);    
+    }
   }
   
 
