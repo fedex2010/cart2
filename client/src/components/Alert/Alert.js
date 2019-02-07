@@ -169,7 +169,7 @@ class Alert extends Component {
     console.log( this.props.err.cause )
     console.log( this.props.err.cause )
     
-    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "404")? "error-msj" : "error-msj hide";
+    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code == 404)? "error-msj" : "error-msj hide";
 
     let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
 
@@ -194,11 +194,10 @@ class Alert extends Component {
             </div>
         );
     }else{
+        //si falla el carrito entra aca
         return(
             <div className="alert-message-gbChk col-md-12">
-                <div className="displaynone">
-                    <button type="button" className="feedback--btn-close" />
-                </div>
+                {this._showError(this.props.err)}
             </div>
         );
     }

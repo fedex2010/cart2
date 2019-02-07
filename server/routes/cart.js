@@ -3,13 +3,14 @@ var express = require("express"),
     controllers = require("../controllers"),
     bodyParser = require("body-parser"),
     urlencodedParser = bodyParser.urlencoded({ extended: false }),
-    jsonParser = bodyParser.json()
+    sessionService = require('../services/session_service'),
+    jsonParser = bodyParser.json();
 
 router.get("/normandia", ( req , res) => controllers.normandia.getTemplate( req , res ))
 router.get("/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/summary", ( req , res) => controllers.cart.summary( req , res ));
 router.get("/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));
-router.get("/newByProductId/:productId", ( req , res) => controllers.cart.newByProductId( req , res ));
+router.get("/newCartByProductId/:productId", ( req , res) => controllers.cart.newCartByProductId( req , res ));
 router.get("/:cartId", ( req , res) => controllers.cart.getCart( req , res ));
 
 router.post("/fake_product_view/:productId", urlencodedParser, ( req , res) => controllers.cart.fake_product(req , res));
@@ -25,6 +26,7 @@ router.delete("/:productId", urlencodedParser, (req , res) => controllers.cart.d
 router.delete( "/c_:cartId/cupon/:couponCode", ( req , res) => controllers.cart.deleteCoupon( req , res));
 router.delete("/c_:cartId/aaPlus", ( req , res) => controllers.cart.deleteAAPlus( req , res));
   
+
 module.exports = router;
 
 

@@ -60,6 +60,11 @@ function parallel(middlewares) {
 
 function sessionMiddleware( req , res ,next) {
   try{
+    
+    if( req.path.includes("newCartByProductId") ){
+      sessionService.resetSessionCookies(res)
+
+    }else{
       let sessionCookie = req.cookies['epi.context']
       let cartCookie = req.cookies['cartId']
   
@@ -72,9 +77,9 @@ function sessionMiddleware( req , res ,next) {
       if (cartCookie) {
           sessionService.setCartContextFromCookie(res, cartCookie)
       }
-  
-      res.locals.sellerId = req.cookies["epi.salesman"] || "";    
+    }
 
+    res.locals.sellerId = req.cookies["epi.salesman"] || "";    
 
     if(req.headers['x-brand'])
         res.locals.xBrand = req.headers['x-brand'].toLowerCase();
