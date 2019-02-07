@@ -126,6 +126,7 @@ class CartControllers {
               prod.main_image.url = getProductImageCloudfrontV2(
                 prod.main_image.url
               );
+              prod.price = Math.ceil(prod.price)
             });
             products.products = product;
             res.status(200).send(products);

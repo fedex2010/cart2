@@ -39,7 +39,7 @@ class Modal extends Component {
           tabIndex="-1"
           role="dialog"
         >
-          <div className="gui-modal-dialog gui-modal-sm modal-dialog--is-centered">
+          <div className="gui-modal-dialog gui-modal-md modal-dialog--is-centered">
             <div className="gui-modal-content">
               <div className="gui-modal-header">
                 <button
