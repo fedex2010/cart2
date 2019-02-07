@@ -241,3 +241,5 @@ export const deleteLoyalties = (cartId) => dispatch => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: 500});
         });
 };
+
+

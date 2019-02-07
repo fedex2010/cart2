@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from "react-redux";
 import {getCarousel, addProduct} from "../../actions/CartAction";
+import {formatNumbers} from "../../utils/FormatNumbers";
 
 import Swiper from 'react-id-swiper';
 
@@ -67,9 +68,9 @@ class Carousel extends Component {
                                             </picture>
                                             <h3>{product.description}</h3>
                                             <div className="itemBox--price">
-                                                <span className="value-item">${product.price}</span>
+                                                <span className="value-item">${ formatNumbers(product.price.toString() )}</span>
                                                 <span className="value-note">
-                                                <del>${product.list_price}</del>
+                                                <del>${ formatNumbers(product.list_price.toString())}</del>
                                                 <span className="value-item--discount">{product.discount}% OFF</span>
                                                 </span>
                                             </div>
