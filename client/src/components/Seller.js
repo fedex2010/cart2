@@ -1,7 +1,7 @@
 import React, { Component} from "react";
 import { Redirect } from 'react-router';
 
-class VendedorPage extends Component {
+class Vendedor extends Component {
   constructor(props) {
     super(props);
     this.state = { redirect: false , errorSubmit : false};
@@ -70,4 +70,4 @@ class VendedorPage extends Component {
   }
 }
 
-export default VendedorPage
+export default Vendedor

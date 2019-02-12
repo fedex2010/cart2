@@ -23,8 +23,6 @@ export const selectProduct = product => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-    console.log("----------------")
-    console.log("RAKAJRJAJRA")
   fetch("api/cart/" + id,{  credentials: 'include'  })
     .then( handleErrors )
     .then(response => response.json())

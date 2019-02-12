@@ -16,7 +16,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         cart: action.payload || state.cart,
-        redirectTo: action.payload.redirectTo || "",
         err: {},
         operationStatus:action.operationStatus
       };
