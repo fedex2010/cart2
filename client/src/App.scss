@@ -68,7 +68,11 @@ header .gb-wrapper {
 .modal-open .gui-modal {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
+#arplus-tyc ul li {
+  list-style-type: disc;
+  margin-bottom: 20px;
+  line-height: 1.3em;
+}
 /*ESTRUCTURA*/
 .product-summary-gbChk {
   position: relative;
