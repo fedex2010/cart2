@@ -277,36 +277,41 @@ class CartControllers {
   newCartByProductId(req, res) {
 
     const productId = req.params.productId
+    const cupon = req.query.cupon || ""
     const brand  = res.locals.xBrand.toLowerCase();
     const session_id  = res.locals.session;
+    let cartId;
 
     this._getOneCart(null, req, res)
-        .then(cart => {
-          
-          RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand)
-            .then(product => {
+      .then(cart => {cartId = cart.cart_id ; return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
+      .then(product => this._getOneCart(cartId,req,res) )
+      .then( cart => {
 
-              sessionService.setSessionCookie(res, session_id) //Setea la cookie con el nuevo carrito
-              sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
-    
-              this._getOneCart(cart.cart_id,req,res)
-              .then( cart => res.status(200).send(cart) )
-              .catch(err => {
+        if( cupon != "" ){
 
-                logger.error("Fail get to cart with id: " +cart.cart_id);
-                res.status(500).send( errorService.checkErrorObject( err )  );      
-                
-              })
-            })
-            .catch(err => {
-              logger.error("Fail get product with id: " +productId);
-              res.status(500).send( errorService.checkErrorObject( err )  );
-            })
-        })    
-        .catch(err => {
-          logger.error("Fail get to cart by product with id: " +productId);
-          res.status(500).send( errorService.checkErrorObject( err )  );
-        })
+          return RestClient.promotion.addCoupon(cartId, cupon, brand)
+                .then( cupon => this._getOneCart( cartId ,req,res) )
+                .catch( err => {
+                  throw err
+                })
+
+        }else{
+          return cart
+        }
+        
+      })
+      .then( cart =>{
+        sessionService.setSessionCookie(res, session_id) 
+        sessionService.setCartIdCookie(res, cartId) 
+
+        res.status(200).send(cart)
+      })
+      .catch(err => {
+
+        logger.error("Fail get to cart with id: " +cart.cart_id);
+        res.status(500).send( errorService.checkErrorObject( err )  );      
+        
+      })
   }
 
   editProduct(req, res) {
@@ -371,7 +376,6 @@ class CartControllers {
       .then(coupon => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
-            //throw new Error("AJAJAJ")
             res.status(200).send(cart);
           })
           .catch(err => {

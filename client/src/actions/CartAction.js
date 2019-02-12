@@ -23,11 +23,12 @@ export const selectProduct = product => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
+    console.log("----------------")
+    console.log("RAKAJRJAJRA")
   fetch("api/cart/" + id,{  credentials: 'include'  })
     .then( handleErrors )
     .then(response => response.json())
     .then(response => {
-        
         dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:window.xBrand});
 
     }).catch( ( {response} ) =>{
@@ -39,11 +40,18 @@ export const fetchCart = id => dispatch => {
     });
 };
 
-export const fetchNewCartByProduct = productId => dispatch => {
-    fetch("api/cart/newCartByProductId/" + productId,{  credentials: 'include'  })
+export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
+    let url = "api/cart/newCartByProductId/" + productId
+
+    if(couponId != ""){
+        url += "?cupon=" + couponId
+    }
+
+    fetch(url,{  credentials: 'include'  })
         .then( handleErrors )
         .then(response => response.json())
         .then(response => {
+            //response.redirectTo = "/reactcart"
             
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:window.xBrand});
 

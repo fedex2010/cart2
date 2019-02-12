@@ -16,20 +16,24 @@ class App extends Component {
 
     this.state = {};
 
-    let productParam = this.props.location.search || "";
 
-    if(productParam != ""){
-      this.state.productParam = productParam.substr(1)
-    }
+    const params = new URLSearchParams(this.props.location.search);
+    const productId = params.get('producto');
+
+    if(productId != null){
+      this.state.productId = productId
+      let cupon = params.get('cupon')
+
+      this.state.cupon = (cupon == null)? "" : cupon 
+     }
   }
 
   componentWillMount() {
-    if(this.state.productParam){
-      let productId = this.state.productParam.split("=")[1]
-      this.props.fetchNewCartByProduct( productId );    
+    if(this.state.productId){
+      this.props.fetchNewCartByProduct( this.state.productId, this.state.cupon );    
     }else{
       let cartId = Cookie.get("cartId");
-       this.props.fetchCart(cartId);    
+      this.props.fetchCart(cartId);    
     }
   }
   
