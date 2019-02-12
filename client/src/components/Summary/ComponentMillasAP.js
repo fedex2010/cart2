@@ -9,7 +9,7 @@ class ComponentMillasAP extends Component {
      super();
      this.state = {
         millasAP: true,
-        checkedAP: false,
+        checkedAP: true,
         input:"",
         value: ''
      }
@@ -72,7 +72,8 @@ class ComponentMillasAP extends Component {
                             millas en Aerolíneas Plus
                         </p>
                         <p>
-                            <button className="link-to-button" data-target="#arplus-tyc">Ver bases y condiciones</button>
+                            <button className="link-to-button" data-target="#arplus-tyc" data-toggle="modal"
+                            >Ver bases y condiciones</button>
                         </p>
                     </span>
                 </span>

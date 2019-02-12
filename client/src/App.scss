@@ -68,7 +68,11 @@ header .gb-wrapper {
 .modal-open .gui-modal {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
+#arplus-tyc ul li {
+  list-style-type: disc;
+  margin-bottom: 20px;
+  line-height: 1.3em;
+}
 /*ESTRUCTURA*/
 .product-summary-gbChk {
   position: relative;
@@ -166,9 +170,9 @@ header .gb-wrapper {
   flex: 0 0 100px !important;
 }
 
-@import "./styles/GUI/_variables/_variables.scss";
-@import "./styles/GUI/_variables/_variables-garba.scss";
-@import "./styles/GUI/_mixins/mixins.scss";
-@import "./styles/GUI/_components/components.scss";
+@import "./styles/GUI/_variables/_variables";
+@import "./styles/GUI/_variables/_variables-garba";
+@import "./styles/GUI/_mixins/mixins";
+@import "./styles/GUI/_components/components";
 
 @import "./styles/cart/cart";
