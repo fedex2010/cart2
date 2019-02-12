@@ -1,10 +1,11 @@
+import config from "../config/config";
+
 import React, { Component} from "react";
-import { Redirect } from 'react-router';
 
 class Vendedor extends Component {
   constructor(props) {
     super(props);
-    this.state = { redirect: false , errorSubmit : false};
+    this.state = {  errorSubmit : false};
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -21,6 +22,7 @@ class Vendedor extends Component {
 
     fetch("/api/cart/vendedor", {
         method: "POST",
+        credentials: 'include' ,
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -28,21 +30,15 @@ class Vendedor extends Component {
         body: JSON.stringify(data)
     })
     .then( response => {
-        this.setState({ redirect: true })
+        window.location = config.cart_url
     }) 
     .catch( err => {
         console.log(err)
-        this.setState({ redirect: false ,  errorSubmit : true})
+        this.setState({errorSubmit : true})
     })
   }
 
-  render() {
-    const { redirect } = this.state;
-
-    if (redirect) {
-      return <Redirect to='/carrito'/>;
-    }
-    
+  render() {    
     return (
           <div className="formContainer"> 
             <form method="POST" onSubmit={this.handleSubmit}>

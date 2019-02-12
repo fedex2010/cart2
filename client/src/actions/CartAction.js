@@ -1,10 +1,14 @@
 import { SET_CURRENT_CART, SET_CAROUSEL ,SET_CURRENT_CART_ERROR,SET_SELECTED_PRODUCT} from "./Types";
+import config from "../config/config";
 
 function handleErrors(response) {
     if (!response.ok) {
         return response.json().then( json => {
             let err = new Error("algo salió mal")
+            
+            console.error("*************")
             console.error(json)
+            console.error("*************")
 
             err.response = json
 
@@ -49,9 +53,8 @@ export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
         .then( handleErrors )
         .then(response => response.json())
         .then(response => {
-            //response.redirectTo = "/reactcart"
             
-            dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:window.xBrand});
+            window.location = config.cart_url
 
         }).catch( ( {response} ) =>{
             if( response.erro.cause.code == 404){

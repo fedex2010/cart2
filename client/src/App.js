@@ -1,31 +1,37 @@
+import config from "./config/config";
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Cart from "./components/Cart";
 import Error from "./components/Error/Error";
 import Seller from './components/Seller'
-
 import "./App.scss";
+
 
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {};
-
-    const params = new URLSearchParams( window.location.search );
-    this.state.path = params.get('redirect') || "cart";
   }
 
-  render() {
-    if( this.state.path == "error" ){
-      return < Error />
-    }else if( this.state.path == "seller" ){
+  render() {  
+    let {pathName} = this.props
+
+    if( pathName == config.path_name.reactcart ){
+      return < Cart />
+    }else if( pathName == config.path_name.seller ){
       return < Seller />
     }else{
-      return < Cart />
+      return < Error />
     }
   }
 }
 
-export default connect()(App)
+const mapStateToProps = state => {
+  return { 
+    pathName: state.cartReducer.pathName
+  };
+};
+
+export default connect( mapStateToProps )( App );
 

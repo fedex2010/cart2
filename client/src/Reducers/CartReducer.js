@@ -1,11 +1,13 @@
 import {SET_CAROUSEL, SET_CURRENT_CART, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "../actions/Types";
 
+import config from "../config/config";
+
 const initialState = {
   cart: {},
   selectedProduct: {},
   carousel: {},
   err: {},
-  redirectTo: "",
+  pathName: config.path_name.reactcart,
   operationStatus: "INITIAL",
   xBrand:""
 };
@@ -20,16 +22,12 @@ export default (state = initialState, action = {}) => {
         operationStatus:action.operationStatus
       };
       case SET_CURRENT_CART_ERROR:
-        let url = ""
 
-        if( action.operationResult > 404 ){
-          url = "/carrito/error"
-        }
-
+        let pathName = ( action.operationResult > 404 )? config.path_name.error : config.path_name.reactcart ;
         return {
             ...state,
             err: action.payload.erro,
-            redirectTo: url,
+            pathName: pathName,
             operationStatus:action.operationStatus
         };
       case SET_CAROUSEL:
@@ -45,6 +43,9 @@ export default (state = initialState, action = {}) => {
             operationStatus:action.operationStatus
         }
     default:
+      const params = new URLSearchParams( window.location.search );
+      state.pathName = params.get('pathName') || config.path_name.reactcart;
+
       return state;
   }
 };
