@@ -170,9 +170,9 @@ header .gb-wrapper {
   flex: 0 0 100px !important;
 }
 
-@import "./styles/GUI/_variables/_variables.scss";
-@import "./styles/GUI/_variables/_variables-garba.scss";
-@import "./styles/GUI/_mixins/mixins.scss";
-@import "./styles/GUI/_components/components.scss";
+@import "./styles/GUI/_variables/_variables";
+@import "./styles/GUI/_variables/_variables-garba";
+@import "./styles/GUI/_mixins/mixins";
+@import "./styles/GUI/_components/components";
 
 @import "./styles/cart/cart";
