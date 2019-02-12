@@ -30,7 +30,7 @@ class ErrorPage extends Component {
       let svgGarba="garba_error.svg"
       let svgCompu="compu_error.svg"
       let svg = (this.state.brand === "garbarino")?svgGarba:svgCompu;
-      let url = config.cloudfront.url+"/statics/images/"+svg
+      let url = config.cloudfront.url+"/static/images/"+svg
       return(
           <object type="image/svg+xml" data={url} title="No hay resultados">
               <img src={url} alt="No hay resultados"/>
