@@ -26,8 +26,8 @@ app.use(cookieParser());
 
 app.use("/", indexRouter);
 //app.get("/api/",( req , res ) => controllers.cart.renderApp( req , res ))
-app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
-app.use("/api/cart", sessionMiddleware , cartRouter);
+app.get("/reactcart/api/health", ( req , res) => { res.status(200).send("OK");});
+app.use("/reactcart/api/cart", sessionMiddleware , cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
