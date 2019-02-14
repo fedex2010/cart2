@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+          if (typeof dataLayer === 'undefined') {
+              dataLayer = [];
+          }
+      </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MSSSZ7');</script>
+  <meta charset="utf-8" />
+  <meta name="description" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="cache-control" content="no-cache" />
+  <meta name="expires" content="0" />
+  <meta name="pragma" content="no-cache" />
+  <title>Garbarino</title>
+  <link rel="icon" sizes="192x192" href="%PUBLIC_URL%/favicon_app.png">
+  <link rel="apple-touch-icon-precomposed" href="%PUBLIC_URL%/favicon_app.png">
+  <link href="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <link href="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.68-SNAPSHOT-1098-42e7c188ecc470d1cb7de637ab461b00acf754a1/stylesheets/style-popups.css" rel="stylesheet" type="text/css">
+      
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css" />
+  
+</head>
+<body class="full-page--is-loading">
+  <!-- Google Analytics-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-722092-1', 'auto');
+</script>
+<!-- Google Analytics -->
+<!-- Outdated Browser-->
+<!--[if lt IE 9 ]>
+    <div id="outdated" style="background-color: #f2564; color:#ffffff">
+        <h6>¡Tu navegador está anticuado!</h6>
+        <p>Actualiza tu navegador para ver esta página correctamente. <a id="btnUpdateBrowser" title="¡Actualizar!" href="http://outdatedbrowser.com/es">Actualizar mi navegador ahora</a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" onclick="gb.normandia.closeOutdatedBrowser();" title="Cerrar">&times;</a></p>
+    </div>
+<![endif]--><div class="gb-mobile-menu-overlay"></div>
+<div class="gb-mobile-menu">
+    <div class="gb-mobile-menu-layer gb-level-1 gb-active">
+        <div class="gb-mobile-menu-header">
+            <div class="gb-mobile-menu-logo" id="gb-mobile-menu-logo">
+                <i class="gb-icon-account_circle" id="gb-icon-account_circle"></i>
+                <span class="icon-name" id="icon-name"></span>
+            </div>
+            <div class="gb-mobile-menu-user">
+                <a href="/me" id="menu-username-a" class="myaccount-user-logged norma-logged" style="display: none">
+                    <span class="gb-mobile-menu-username"><span id="menu-username"></span><span id="menu-usermail"></span></span>
+                </a>
+                <div id="menu-username-a" class="myaccount-user-not-logged norma-not-logged">
+                    <div class="gb-mobile-menu-logoptions">
+                        <a href="/me/login">Iniciar sesión</a> | <a href="/me/register">Registrarse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gb-mobile-menu-search">
+            <input type="text" placeholder="Buscar">
+            <span class="icon-search"></span>
+        </div>
+        <nav class="gb-mobile-menu-list">
+            <ul>
+                <li>
+                    <a href="/productos/tecnologia/4190">
+                        <i class="gb-icon-laptop_mac"></i>
+                        <span>Tecnologia</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/productos/electrodomesticos/4191">
+                        <i class="gb-icon-local_laundry_service"></i>
+                        <span>Electrodomésticos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/productos/casa-y-jardin/4189">
+                        <i class="gb-icon-weekend"></i>
+                        <span>Casa y Jardín</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/productos/salud-y-belleza/4195">
+                        <i class="gb-icon-spa"></i>
+                        <span>Salud y Belleza</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/categorias">
+                        <i class="gb-icon-more_horiz"></i>
+                        <span>Todas las categorías</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="gb-mobile-menu-list gb-mobile-menu-options">
+            <ul>
+                <li>
+                    <a id="cart-items-mobile" href="/carrito" rel="nofollow">
+                        <i class="gb-icon-shopping-cart"></i>
+                        <span>Carrito de compras</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/me/#/compras">
+                        <i class="fa fa-shopping-bag"></i>
+                        <span>Mis compras</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="wishlist-items-mobile" href="/me#/favoritos" rel="nofollow">
+                        <i class="gb-icon-heart"></i>
+                        <span>Favoritos</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="cart-items-mobile" href="/me/#/historial_navegacion">
+                        <i class="fa fa-history"></i>
+                        <span>Historial de productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.garbarino.com/sucursales">
+                        <i class="gb-icon-store_mall_directory"></i>
+                        <span>Sucursales</span>
+                    </a>
+                </li>
+                <li>
+                    <a data-query="small" href="/venta-telefonica">
+                        <i class="gb-icon-phone2"></i>
+                        <span>Venta telefónica</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="gb.normandia.openOrClose()" data-target="#venta-telefonica" data-toggle="modal">
+                        <i class="gb-icon-phone"></i>
+
+                        <span>Venta telefónica</span>
+                    </a>
+                </li>
+                <li>
+                    <a data-query="small" href="/venta-empresas">
+                        <i class="gb-icon-domain"></i>
+                        <span>Venta a empresas</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="gb.normandia.openOrClose()" data-target="#venta-a-empresas" data-toggle="modal">
+                        <i class="fa fa-briefcase fa-2"></i>
+
+                        <span>Venta a empresas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://www.garbarino.com/ayuda">
+                        <i class="fa fa-question-circle" style="margin-left: 3px;"></i>
+                        <span>Centro de ayuda</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="gb-mobile-menu-list gb-mobile-menu-options">
+            <ul>
+                <li>
+                    <a href="https://www.garbarinoviajes.com.ar/?utm_medium=desktop-header&utm_source=garbarino.com/">
+                        <img src="https://d2jtk41dy90ppp.cloudfront.net/statics/1.0.2/images/icon-gb-viaje.svg" width="24" height="24" alt="">
+                        <span>Garbarino Viajes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.garbarinoviajes.com.ar/?utm_medium=desktop-header&utm_source=garbarino.com/">
+                        <img src="https://d2jtk41dy90ppp.cloudfront.net/statics/1.0.2/images/icon-listas.svg" width="24" height="24" alt="">
+                        <span>Listas de regalos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://seguros.garbarino.com/">
+                        <i class="gb-icon-lock"></i>
+                        <span>Garbarino Seguros</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="gb-mobile-menu-list gb-mobile-menu-options" id="close-sesion">
+            <ul>
+                <li>
+                    <a href="/me/#/logout">
+                        <i class="gb-icon-remove_circle"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="gb-mobile-menu-layer gb-level-2">
+
+    </div>
+    <div class="gb-mobile-menu-layer gb-level-3">
+
+    </div>
+    <div class="gb-mobile-menu-layer gb-level-4">
+
+    </div>
+</div>
+<header class="gb-header" data-app="no-data">
+    <div class="gb-category-submenu-overlay"></div>
+    <div class="gb-top-header">
+        <div class="gb-wrapper">
+            <ul>
+                <li>
+                    <a href="https://www.garbarino.com/ayuda">
+                        <i class="fa fa-question fa-2"></i>
+                        Centro de Ayuda
+                    </a>
+                    <span class="new-tag">
+                        Nuevo
+                    </span>
+                </li>
+                <li>
+                    <a href="https://www.garbarino.com/sucursales">
+                        <i class="gb-icon-marker"></i>
+                        Sucursales
+                    </a>
+                </li>
+                <li>
+                    <a data-target="#venta-telefonica" data-toggle="modal">
+                        <i class="gb-icon-phone"></i>
+                        Venta Telefónica
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="gb-header-right">
+
+                <li class="gb--right-items-1025">
+                    <a href="https://www.garbarino.com/credito-garbarino/" class="gb--creditos-img">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/credito-garbarino.svg" width="84px" height="39px">
+                        </object>
+                    </a>
+                </li>
+
+                <li class="gb--right-items-1025">
+                    <!--<div class="new-tag">
+                        <i class="gb-icon-filled-arrow-right"></i>
+                        Nuevo
+                    </div>-->
+                    <a href="https://seguros.garbarino.com?utm_source=garbarino.com&utm_medium=banner_header" class="gb--seguros">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/SegurosHeader.svg" width="105px" height="39px">
+                        </object>
+                    </a>
+                </li>
+                <li class="gb--right-items-1025">
+                    <a href="https://listas.garbarino.com/?utm_medium=desktop-header&utm_source=garbarino.com/">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/listas_garbarino.svg" width="114px" height="39px">
+                        </object>
+                    </a>
+                </li>
+                <li class="gb--right-items-1025">
+                    <a href="https://www.garbarinoviajes.com.ar/?utm_medium=desktop-header&utm_source=garbarino.com/">
+                        <object type="image/svg+xml" data="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/viajes_garbarino.svg" width="105px" height="39px">
+                        </object>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="gb-main-header">
+        <div class="gb-wrapper">
+            <div class="gb-mobile-menu-button">
+                <span data-back-button="menu-mobile" class="gb-icon-dehaze"></span>
+            </div>
+            <div class="logo">
+                <a href="/">
+                </a>
+            </div>
+            <button class="gb-search-button gb-search-button-mobile" type="submit" data-js="gb-search-button">
+                <i class="gb-icon-search2"></i>
+            </button>
+            <a class="gb-search-button-shopping-cart" href="/carrito" rel="nofollow">
+                <i class="gb-icon-shopping-cart"></i>
+            </a>
+
+            <form id="products-search" action="#" method="get" role="search" data-js="gb-search">
+                <div class="form-search">
+                    <div class="gb-search" id="autocomplete-element">
+                    	<div class="gb-search-back" data-js="gb-search-back">
+                    		<i class="gb-icon-arrow-left"></i>
+                    	</div>
+                    
+                        <a class="gb-search-close-mobile" onclick="autocomplete.closeAutocomplete(true)">
+                        	<i class="gb-icon-close"></i>
+                        </a>
+                        <input class="gb-search-input"  id="autocomplete-input" name="q" type="text" placeholder="&iquest;Qué estás buscando?" autocomplete="off">
+                    
+                        <button class="gb-search-button" type="submit">
+                            <i class="gb-icon-search"></i>
+                        </button>
+                        
+                        <div class="gb-search-dropdown">
+                    
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="header-links">
+                <div class="user-options">
+                    <span class="gb-spinner"></span>
+                    <p class="session_ma"><span id="username">Iniciar sesión</span></p>
+                    <div class="user-options-account-button">
+                        <strong>Mi cuenta</strong>
+                        <ul id="options-login-non-logged" class="user-options-login">
+                            <li>
+                                <a href="/me/login" class="user-options-login-button log-in-popup gb--log-in-popup">Iniciar sesión</a>
+                            </li>
+                            <li>
+                                <p class="user-options-login-register">¿Sos nuevo? <a href="/me/register" class="gb--register-user">Registrate</a></p>
+                            </li>
+                        </ul>
+                        <ul style="display:none;" id="options-login-logged" class="user-options-login">
+                            <li>
+                                <p><a href="/me/">Mi cuenta</a></p>
+                            </li>
+                            <li>
+                                <p><a class="gb--log-out">Cerrar sesión</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="header-icons">
+                  <ul>
+                      <li>
+                          <a class="gb--favorites-action" href="/me#/favoritos" rel="nofollow">
+                            <span id="wishlist-icon">
+                              <i class="gb-icon-heart"></i>
+                            </span>
+                          </a>
+                      </li>
+                      <li>
+                          <a class="gb--cart-icon" href="/carrito" rel="nofollow">
+                            <span id="cart-icon">
+                                <i class="gb-icon-cart"></i>
+                            </span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="gb-category-menu">
+      <ul>
+          <li class="gb-menu-n1 gb-main-categories">
+              <span class="gb-category-text">Televisores</span>
+              <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/d3lfzbr90tctqz.cloudfront.net/epi/resource/l/d/660f03af2b7823d71f4c81ab653a538b6f2b75c232c8c96dbe34b8e0a3a8c66b)">
+                        <a href="/productos/smart/4274">
+                            <div class="gb-clickeable-img"></div>
+                        </a>
+                    <span class="gb-category-submenu-close">&#10005;</span>
+                    <div class="gb-category-submenu-title">
+                        <h2><a href="/productos/smart/4274">Televisores</a></h2> <a href="/productos/smart/4274" class="gb-category-submenu-view-all">Ver todo</a>
+                    </div>
+                    <ul class="gb-category-submenu-list" data-category="televisores">
+                            <li>
+                                <a href="/productos/tv-led-y-smart-tv/4342" class="gb-category-submenu-list-title">TVs por marca</a>
+                                <nav class="gb-category-submenu-list-items">
+                                    <ul>
+                                            <li><a href="/productos/tv-led-y-smart-tv/samsung/4342aqow">Samsung</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/lg/4342aeen">LG</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/noblex/4342aeer">Noblex</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/sony/4342aeep">Sony</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/hisense/4342aeeq">Hisense</a></li>
+                                        <li class="gb-category-submenu-more"><a href="/productos/tv-led-y-smart-tv/4342"><strong>Ver todos los TV »</strong></a></li>
+                                    </ul>
+                                </nav>
+                            </li>
+                            <li>
+                                <a href="/productos/tv-led-y-smart-tv/4342" class="gb-category-submenu-list-title">TVs por tamaño</a>
+                                <nav class="gb-category-submenu-list-items">
+                                    <ul>
+                                            <li><a href="/productos/tv-led-y-smart-tv/0-31-pulgadas/4342aaad">Hasta 31"</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/31-39-pulgadas/4342aaae">32" a 39"</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/40-49-pulgadas/4342aaaf">40" a 49"</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/50-59-pulgadas/4342aaag">50" a 59"</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/4342">60" a 69"</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/mas-70-pulgadas/4342bucx">Más de 70"</a></li>
+                                        <li class="gb-category-submenu-more"><a href="/productos/tv-led-y-smart-tv/4342"><strong>Ver más »</strong></a></li>
+                                    </ul>
+                                </nav>
+                            </li>
+                            <li>
+                                <a href="/productos/tv-led-y-smart-tv/4342" class="gb-category-submenu-list-title">TVs por tipo</a>
+                                <nav class="gb-category-submenu-list-items">
+                                    <ul>
+                                            <li><a href="/productos/tv-led-y-smart-tv/4k-ultra-hd/4342aaai">4K Ultra HD TVs</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/full-hd/4342aaaj">Full HD</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/curva/4342aaab">Pantalla Curva</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/hd/4342aaak">HD</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/4342">Smart TV</a></li>
+                                            <li><a href="/productos/tv-led-y-smart-tv/3d/4342aaaa">3D</a></li>
+                                        <li class="gb-category-submenu-more"><a href="/productos/tv-led-y-smart-tv/4342"><strong>Ver más »</strong></a></li>
+                                    </ul>
+                                </nav>
+                            </li>
+                    </ul>
+                </div>
+            </li>
+          <li class="gb-menu-n1 gb-main-categories">
+              <span class="gb-category-text">Celulares</span>
+              <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/)">
+                        <a href="/productos/smart/4363">
+                            <div class="gb-clickeable-img"></div>
+                        </a>
+                    <span class="gb-category-submenu-close">&#10005;</span>
+                    <div class="gb-category-submenu-title">
+                        <h2><a href="/productos/smart/4363">Celulares</a></h2> <a href="/productos/smart/4363" class="gb-category-submenu-view-all">Ver todo</a>
+                    </div>
+                    <ul class="gb-category-submenu-list" data-category="celulares">
+                            <li>
+                                <a href="/productos/celulares-libres/4359" class="gb-category-submenu-list-title">Celulares por marca</a>
+                                <nav class="gb-category-submenu-list-items">
+                                    <ul>
+                                            <li><a href="/productos/celulares-libres/samsung/4359aqow">Samsung</a></li>
+                                            <li><a href="/productos/celulares-libres/lg/4359aeen">LG</a></li>
+                                            <li><a href="/productos/celulares-libres/motorola/4359aeoh">Motorola</a></li>
+                                            <li><a href="/productos/celulares-libres/huawei/4359aeom">Huawei</a></li>
+                                            <li><a href="/productos/celulares-libres/hyundai/4359aeop">Hyndai</a></li>
+                                        <li class="gb-category-submenu-more"><a href="/productos/celulares-libres/4359"><strong>Ver más »</strong></a></li>
+                                    </ul>
+                                </nav>
+                            </li>
+                            <li>
+                                <a href="/productos/celulares-libres/4359" class="gb-category-submenu-list-title">Celulares por tamaño de pantalla</a>
+                                <nav class="gb-category-submenu-list-items">
+                                    <ul>
+                                            <li><a href="/productos/celulares-libres/hasta-4.9-pulgadas/4359btpm">Hasta 4.9"</a></li>
+                                            <li><a href="/productos/celulares-libres/5-5.4-pulgadas/4359btpn">De 5" a 5.4"</a></li>
+                                            <li><a href="/productos/celulares-libres/mas-5.5-pulgadas/4359btpl">5.5" o más</a></li>
+                                        <li class="gb-category-submenu-more"><a href="/productos/celulares-libres/4359"><strong>Ver más »</strong></a></li>
+                                    </ul>
+                                </nav>
+                            </li>
+                            <li>
+                                <a href="/productos/celulares-libres/4359" class="gb-category-submenu-list-title">Celulares por resolución de cámara</a>
+                                <nav class="gb-category-submenu-list-items">
+                                    <ul>
+                                            <li><a href="/productos/celulares-libres/hasta-7.9-mpx/4359btpr">Hasta 7.9 Mpx</a></li>
+                                            <li><a href="/productos/celulares-libres/8-11.9-pulgadas/4359btpp">8 a 11.9 Mpx</a></li>
+                                            <li><a href="/productos/celulares-libres/12.9-15.9-mpx/4359btpo">12 a 15.9 Mpx</a></li>
+                                            <li><a href="/productos/celulares-libres/16.9-20.9-mpx/4359btps">16 a 20.9 Mpx</a></li>
+                                            <li><a href="/productos/celulares-libres/mas-21-mpx/4359btpq">Más de 21 Mpx</a></li>
+                                        <li class="gb-category-submenu-more"><a href="/productos/celulares-libres/4359"><strong>Ver más »</strong></a></li>
+                                    </ul>
+                                </nav>
+                            </li>
+                    </ul>
+                </div>
+            </li>
+
+              <li class="gb-menu-n1">
+                  <span class="gb-category-text">Electrodomésticos</span>
+                  <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/ci/menu/5abc20b23c3617ee1871d69d4fcebc88.webp)">
+
+                         <a href="https://www.garbarino.com/hotsale">
+                               <div class="gb-clickeable-img">
+                               </div>
+                         </a>
+
+                      <span class="gb-category-submenu-close">&#10005;</span>
+                      <div class="gb-category-submenu-title">
+                          <h2><a href="//ci.garbarino.com/productos/electrodomesticos/4191">Electrodomésticos</a></h2> <a href="//ci.garbarino.com/productos/electrodomesticos/4191" class="gb-category-submenu-view-all">Ver todo</a>
+                      </div>
+                      <ul class="gb-category-submenu-list" data-category="electrodomesticos">
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/tv-led-y-video/4272" class="gb-category-submenu-list-title">TV Led y Video</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/tv-led/4273">TV Led</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/smart-tv-led/4274">Smart TV Led</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/tv-led-3d/4275">TV Led 3D</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/reproductores-de-dvd-y-blu-ray/4276">Reproductores de DVD y Blu Ray</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/tv-led-y-video/4272">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/ventilacion-y-calefaccion/4277" class="gb-category-submenu-list-title">Ventilación y Calefacción</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/aires-acondicionados-split/4278">Aires Acondicionados Split</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/aires-ventana-y-portatiles/4564">Aires Ventana y Portátiles</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/ventiladores/4280">Ventiladores</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/calefaccion-electrica/4484">Calefacción Eléctrica</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/ventilacion-y-calefaccion/4277">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/pequenos-electrodomesticos/4305" class="gb-category-submenu-list-title">Pequeños Electrodomésticos</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/cafeteras/4306">Cafeteras</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/pavas-electricas/4312">Pavas Eléctricas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/mixers/4317">Mixers</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/procesadoras/4307">Procesadoras</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/pequenos-electrodomesticos/4305">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/lavado/4297" class="gb-category-submenu-list-title">Lavado</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/lavarropas/4298">Lavarropas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/secarropas/4301">Secarropas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/lavavajillas/4302">Lavavajillas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/lavasecarropas/4300">Lavasecarropas</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/lavado/4297">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/cocinas-y-hornos/4281" class="gb-category-submenu-list-title">Cocinas y Hornos</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/microondas/4285">Microondas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/cocinas/4282">Cocinas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/hornos/4283">Hornos</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/anafes/4286">Anafes</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/cocinas-y-hornos/4281">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/heladeras-y-freezers/4290" class="gb-category-submenu-list-title">Heladeras y Freezers</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/heladeras-con-freezer/4296">Heladeras con Freezer</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/heladeras-sin-freezer/4291">Heladeras Sin Freezer</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/cavas/4294">Cavas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/freezers/4292">Freezers</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/heladeras-y-freezers/4290">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/hogar-y-limpieza/4322" class="gb-category-submenu-list-title">Hogar y Limpieza</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/aspiradoras/4323">Aspiradoras</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/planchas/4326">Planchas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/maquinas-de-coser/4327">Máquinas de coser</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/lustra-aspiradoras/4324">Lustra Aspiradoras</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/hogar-y-limpieza/4322">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/cuidado-personal/4328" class="gb-category-submenu-list-title">Cuidado personal</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/depiladoras/4329">Depiladoras</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/planchitas-de-pelo/4330">Planchitas de pelo</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/corta-cabellos/4331">Corta cabellos</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/afeitadoras/4332">Afeitadoras</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/cuidado-personal/4328">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/cuidado-de-la-salud/4336" class="gb-category-submenu-list-title">Cuidado de la salud</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/nebulizador/4337">Nebulizador</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/tensiometro/4338">Tensiómetro</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="" class="gb-category-submenu-list-title">Marcas de Tecnología</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//www.garbarino.com/apple">Mundo Apple</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                      </ul>
+
+
+                  </div>
+              </li>
+              <li class="gb-menu-n1">
+                  <span class="gb-category-text">Tecnología</span>
+                  <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/ci/menu/5abc20b23c3617ee1871d69d4fcebc88.webp)">
+
+
+                      <span class="gb-category-submenu-close">&#10005;</span>
+                      <div class="gb-category-submenu-title">
+                          <h2><a href="//ci.garbarino.com/productos/tecnologia/4190">Tecnología</a></h2> <a href="//ci.garbarino.com/productos/tecnologia/4190" class="gb-category-submenu-view-all">Ver todo</a>
+                      </div>
+                      <ul class="gb-category-submenu-list" data-category="tecnologia">
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/tv-led-y-video/4340" class="gb-category-submenu-list-title">TV Led y Video</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/tv-led/4341">TV Led</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/smart-tv-led/4342">Smart TV Led</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/tv-led-3d/4343">TV Led 3D</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/reproductores-dvd-y-blu-ray/4344">Reproductores DVD y Blu Ray</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/tv-led-y-video/4340">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/informatica/4362" class="gb-category-submenu-list-title">Informática</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/notebooks/4363">Notebooks</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/tablets/4364">Tablets</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/impresoras/4367">Impresoras</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/insumos/4819">Insumos</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/informatica/4362">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/celulares-y-telefonos-fijos/4358" class="gb-category-submenu-list-title">Celulares y Teléfonos Fijos</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/celulares-libres/4359">Celulares Libres</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/telefonos-fijos-y-fax/4360">Teléfonos Fijos y Fax</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios-para-celulares/4361">Accesorios para Celulares</a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/audio/4345" class="gb-category-submenu-list-title">Audio</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/equipos-de-musica/4346">Equipos de Música</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/auriculares/4349">Auriculares</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/parlantes/4348">Parlantes</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/radiograbadores/4350">Radiograbadores</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/audio/4345">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/videojuegos/4371" class="gb-category-submenu-list-title">Videojuegos</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/juegos-de-consola/4373">Juegos de Consola</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/consolas/4372">Consolas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/joysticks/4375">Joysticks</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios-para-videojuegos/4374">Accesorios para videojuegos</a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/accesorios-para-autos/4376" class="gb-category-submenu-list-title">Accesorios para Autos</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/autoestereos/4378">Autoestéreos</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/gps/4377">GPS</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/parlantes-para-autos/4379">Parlantes para Autos</a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/fotografia-y-video/4354" class="gb-category-submenu-list-title">Fotografía y Video</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/camaras-digitales/4356">Cámaras Digitales</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/video-camaras/4355">Video Cámaras</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/camaras-deportivas/4504">Cámaras Deportivas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios/4357">Accesorios</a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                      </ul>
+
+
+                  </div>
+              </li>
+              <li class="gb-menu-n1">
+                  <span class="gb-category-text">Casa y Jardín</span>
+                  <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/https://i2.wp.com/www.dollarafterdollar.com/wp-content/uploads/2015/10/imgres-1.webp)">
+
+                         <a href="https://www.garbarino.com/productos/muebles/4208">
+                               <div class="gb-clickeable-img">
+                               </div>
+                         </a>
+
+                      <span class="gb-category-submenu-close">&#10005;</span>
+                      <div class="gb-category-submenu-title">
+                          <h2><a href="//ci.garbarino.com/productos/casa-y-jardin/4189">Casa y Jardín</a></h2> <a href="//ci.garbarino.com/productos/casa-y-jardin/4189" class="gb-category-submenu-view-all">Ver todo</a>
+                      </div>
+                      <ul class="gb-category-submenu-list" data-category="casa-jardin">
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/muebles/4208" class="gb-category-submenu-list-title">Muebles</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/muebles-para-cocina/4212">Muebles para Cocina</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/muebles-para-dormitorio/4210">Muebles para Dormitorio</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/muebles-para-living-y-comedor/4209">Muebles para Living y Comedor</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/organizadores/4817">Organizadores</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/muebles/4208">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/dormitorio/4214" class="gb-category-submenu-list-title">Dormitorio</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/ropa-de-cama/4791">Ropa de Cama</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/colchones-y-sommiers/4215">Colchones y Sommiers</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/almohadas/4218">Almohadas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/muebles-para-dormitorio/4220">Muebles para Dormitorio</a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/cocina/4221" class="gb-category-submenu-list-title">Cocina</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/baterias-de-cocina-y-ollas/4835">Baterías de Cocina y Ollas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/electro-cocina/4851">Electro Cocina</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/muebles/4855">Muebles</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/vajilla/4836">Vajilla</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/cocina/4221">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/bano/4239" class="gb-category-submenu-list-title">Baño</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios-bano/4863">Accesorios Baño</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/toallas-y-toallones/4862">Toallas y Toallones</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/jardin-y-exteriores/4245" class="gb-category-submenu-list-title">Jardín y Exteriores</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios-de-jardin/4739">Accesorios de Jardín</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/piletas-y-piscinas/4247">Piletas y Piscinas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/parrillas/4246">Parrillas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/muebles-de-jardin/4248">Muebles de Jardín</a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/limpieza-y-organizacion-lavadero/4708" class="gb-category-submenu-list-title">Limpieza y Organización / Lavadero</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/cestos-y-canastos/4879">Cestos y Canastos</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/limpieza-del-hogar/4878">Limpieza del Hogar</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/organizadores/4881">Organizadores</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/planchado-y-tenders/4877">Planchado y Tenders</a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/termotanques-y-calefones/4249" class="gb-category-submenu-list-title">Termotanques y Calefones</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/termotanques/4250">Termotanques</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/calefones/4251">Calefones</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/deco-del-hogar/4260" class="gb-category-submenu-list-title">Deco del Hogar</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/relojes/4262">Relojes </a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/organizadores/4267">Organizadores</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/iluminacion/4252" class="gb-category-submenu-list-title">Iluminación</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/luces-de-emergencia/4660">Luces de Emergencia</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/interior/4253">Interior</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/exterior/4254">Exterior</a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                      </ul>
+
+
+                  </div>
+              </li>
+              <li class="gb-menu-n1">
+                  <span class="gb-category-text">Salud y Belleza</span>
+                  <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/dev/plinth_menu/7866bbf5b915339c06e38b83888ae7fe.svg)">
+
+
+                      <span class="gb-category-submenu-close">&#10005;</span>
+                      <div class="gb-category-submenu-title">
+                          <h2><a href="//ci.garbarino.com/productos/salud-y-belleza/4195">Salud y Belleza</a></h2> <a href="//ci.garbarino.com/productos/salud-y-belleza/4195" class="gb-category-submenu-view-all">Ver todo</a>
+                      </div>
+                      <ul class="gb-category-submenu-list" data-category="salud-belleza">
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/cuidado-capilar/4446" class="gb-category-submenu-list-title">Cuidado Capilar</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/cortadoras-de-pelo/4449">Cortadoras de Pelo</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/secadores/4448">Secadores</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/planchitas-de-pelo/4447">Planchitas de Pelo</a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/belleza-y-cosmetica/4453" class="gb-category-submenu-list-title">Belleza y Cosmética</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/depiladoras/4454">Depiladoras</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/bano-e-higiene/4451" class="gb-category-submenu-list-title">Baño e Higiene</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/balanzas-de-bano/4452">Balanzas de Baño</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/salud-y-bienestar/4466" class="gb-category-submenu-list-title">Salud y Bienestar</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/tensiometro/4468">Tensiómetro</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/masajeadores/4470">Masajeadores</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/nebulizador/4467">Nebulizador</a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/hombre/4460" class="gb-category-submenu-list-title">Hombre</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/afeitadoras/4461">Afeitadoras</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/cortadoras-de-pelo/4462">Cortadoras de Pelo</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                      </ul>
+
+
+                  </div>
+              </li>
+              <li class="gb-menu-n1">
+                  <span class="gb-category-text">Bebes y Niños</span>
+                  <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/ci/menu/d8ef5f44595c20393412f76be5578e67.webp)">
+
+
+                      <span class="gb-category-submenu-close">&#10005;</span>
+                      <div class="gb-category-submenu-title">
+                          <h2><a href="//ci.garbarino.com/productos/bebes-y-ninos/4193">Bebes y Niños</a></h2> <a href="//ci.garbarino.com/productos/bebes-y-ninos/4193" class="gb-category-submenu-view-all">Ver todo</a>
+                      </div>
+                      <ul class="gb-category-submenu-list" data-category="bebes-ninos">
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/juguetes/4864" class="gb-category-submenu-list-title">Juguetes</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/ninas/4383">Niñas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/ninos/4384">Niños</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/bebes/4397" class="gb-category-submenu-list-title">Bebes</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/cochecitos-cunas-y-butacas/4865">Cochecitos, Cunas y Butacas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios/4423">Accesorios</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/alimentacion-y-sillitas/4573">Alimentación y Sillitas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/juguetes-para-bebes/4398">Juguetes para Bebés</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/bebes/4397">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                      </ul>
+
+
+                  </div>
+              </li>
+              <li class="gb-menu-n1">
+                  <span class="gb-category-text">Deportes y Tiempo Libre</span>
+                  <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/ci/menu/181b9b50711fed22625b146c874deca3.webp)">
+
+
+                      <span class="gb-category-submenu-close">&#10005;</span>
+                      <div class="gb-category-submenu-title">
+                          <h2><a href="//ci.garbarino.com/productos/deportes-y-tiempo-libre/4192">Deportes y Tiempo Libre</a></h2> <a href="//ci.garbarino.com/productos/deportes-y-tiempo-libre/4192" class="gb-category-submenu-view-all">Ver todo</a>
+                      </div>
+                      <ul class="gb-category-submenu-list" data-category="deportes-tiempo-libre">
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/bicicletas/4885" class="gb-category-submenu-list-title">Bicicletas</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/bicicletas/4425">Bicicletas</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/fitness/4436" class="gb-category-submenu-list-title">Fitness</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/bicicletas-fijas-y-spinning/4439">Bicicletas Fijas y Spinning</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/elipticos/4438">Elípticos</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/cintas-para-correr/4437">Cintas para Correr</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios/4445">Accesorios</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/fitness/4436">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/rollers-monopatines-y-skates/4424" class="gb-category-submenu-list-title">Rollers, Monopatines y Skates</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/rollers/4428">Rollers</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/skates-longboards/4429">Skates & Longboards</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/camping/4432" class="gb-category-submenu-list-title">Camping</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/carpas/4434">Carpas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/accesorios-de-camping/4632">Accesorios de Camping</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/colchones-y-colchonetas/4631">Colchones y Colchonetas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/faroles-y-linternas/4633">Faroles y Linternas</a></li>
+                                              <li class="gb-category-submenu-more"><a href="//ci.garbarino.com/productos/camping/4432">
+                                                  <strong>Ver más categorías »</strong>
+                                              </a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                      </ul>
+
+
+                  </div>
+              </li>
+              <li class="gb-menu-n1">
+                  <span class="gb-category-text">Más Categorías</span>
+                  <div class="gb-category-submenu" style="background-image: url(https://d34zlyc2cp9zm7.cloudfront.net///garbarino5-a.akamaihd.net/epi/resource/l/d/a8041df46c9668a0b53da8e8a2315927aa092a4983ac7d3165f8d52ea33a6229)">
+
+
+                      <span class="gb-category-submenu-close">&#10005;</span>
+                      <div class="gb-category-submenu-title">
+                          <h2><a href="//ci.garbarino.com/productos/mas-categorias/4197">Más Categorías</a></h2> <a href="//ci.garbarino.com/productos/mas-categorias/4197" class="gb-category-submenu-view-all">Ver todo</a>
+                      </div>
+                      <ul class="gb-category-submenu-list" data-category="mas-categorias">
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/moda/4891" class="gb-category-submenu-list-title">Moda</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/jeans/48036">Jeans</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/bolsos-y-equipaje/4624" class="gb-category-submenu-list-title">Bolsos y Equipaje</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/bolsos/4626">Bolsos</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/valijas/4625">Valijas</a></li>
+                                                  <li><a href="//ci.garbarino.com/productos/mochilas/4433">Mochilas</a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/bebidas-y-comestibles/4567" class="gb-category-submenu-list-title">Bebidas y comestibles</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/capsulas-de-cafe/4568">Cápsulas de Café</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/instrumentos-musicales/4627" class="gb-category-submenu-list-title">Instrumentos Musicales</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/guitarras/4628">Guitarras</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/sistemas-de-seguridad/4700" class="gb-category-submenu-list-title">Sistemas de Seguridad</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href="//ci.garbarino.com/productos/camaras/4701">Cámaras</a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                              <li>
+                                  <a href="//ci.garbarino.com/productos/vehiculos/4196" class="gb-category-submenu-list-title">Vehículos</a>
+                                  <nav class="gb-category-submenu-list-items">
+                                      <ul>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                                  <li><a href=""></a></li>
+                                      </ul>
+                                  </nav>
+                              </li>
+                      </ul>
+
+
+                  </div>
+              </li>
+      </ul>
+            <style>
+                @media all and (-ms-high-contrast:none) {
+                    .gb-category-menu ul { max-width: 1200px; } /* IE10 */
+                    *::-ms-backdrop, .gb-category-menu ul { max-width: 1200px; } /* IE11 */
+                }
+            </style>
+    </div>
+
+
+
+<script>
+  var onloadCallbackLogin = function() {
+    gb.my_account.login.captchaLoaded(grecaptcha);
+  };
+</script>
+
+
+
+<div id="myaccount-login" class="modal fade gb-my-account-login-register-common gb-my-account-login">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="gb-section-nav-mobile">
+                <a href="#">
+                    
+                    <span class="gb-section-nav-mobile-text">Ingresá a mi cuenta</span>
+                </a>
+            </div>
+
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"><span class="gb-icon-cross"></span></button>
+                <h4 class="modal-title">Ingresá a Mi Cuenta</h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="gb-login-message gb--warning gb-activate-message">
+                    <span class="gb-icon-exclamation-mark-circle"></span>
+                    <p><span class="gb--text"></span> <a href="#" onclick="gb.my_account.login.sendActivationEmail()">Reenviar e-mail de activación</a></p>
+                </div>
+                <div class="gb-login-message gb--success">
+                    <span class="gb-icon-checkmark-filled-circle"></span>
+                    <p>¡E-mail de activación enviado!</p>
+                </div>
+                <div class="gb-login-message  gb--error">
+                    <span class="gb-icon-cross-circle"></span>
+                    <p></p>
+                </div>
+                <form method="post">
+                    <a href="#" class="gb-login-facebook-button" onClick="fbLogin();"><span class="gb-icon-facebook"></span>Ingresar con Facebook</a>
+                    <div class="gb-login-divider"><span>o con tu e-mail</span></div>
+                    <fieldset>
+                        <label class="gb-label">E-mail</label>
+                        <input class="gb-input" id="gb-myaccount-login-email" type="email" name="email" placeholder="usuario@email.com" tabindex="1" />
+                        <p class="gb-error-msg"></p>
+                    </fieldset>
+
+                    <fieldset>
+                        <label class="gb-label">Contraseña <a href="/me/recover_password" class="gb-login-go-to-recover-password" tabindex="5">Olvidé mi contraseña</a></label>
+                        <input class="gb-input" id="gb-myaccount-login-password" type="password" name="password" tabindex="2" />
+                        <p class="gb-error-msg"></p>
+                        <a href="" class="gb-show-password">Mostrar</a>
+                    </fieldset>
+
+                     <!-- <fieldset>
+                            <div id="grecaptcha_login" class="g-recaptcha" class="recaptcha" data-sitekey="6LcdjRoUAAAAAKDFNASZ5gb_quq1bgATR2OQhD5T"></div>
+                            <p class="gb-error-msg gb-error-recaptcha"></p>
+                        </fieldset> -->
+
+                    <button class="gb-button primary block gb-my-account-submit" id="gb_myAccountBtnLogin" type="button" tabindex="3">
+                        <span class="gb-spinner"></span>
+                        <em>ingresando</em>
+                        <span class="gb-button-text">ingresar</span>
+                    </button>
+                </form>
+
+                <div class="gb-login-divider"><span>o</span></div>
+                <div class="gb-login-register-box">
+                    <p><strong>¿Aún no tenés cuenta?</strong></p>
+                    <a href="/me/register" class="gb-login-register-button" tabindex="4"><span class="gb-icon-padlock"></span>Registrate seguro con tu e-mail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallbackRegister' async defer></script>
+
+ <script>
+  var onloadCallbackRegister = function() {
+    gb.my_account.registration.captchaLoaded(grecaptcha);
+  };
+</script> -->
+
+
+
+<div id="myaccount-registro" class="modal fade gb-my-account-login-register-common gb-my-account-register">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="gb-section-nav-mobile">
+                <a href="#">
+                    
+                    <span class="gb-section-nav-mobile-text">Registrate</span>
+                </a>
+            </div>
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"><span class="gb-icon-cross"></span></button>
+                <h4 class="modal-title">Registrate <span>¿Ya tenés una cuenta? <a href="/me/login" class="gb-register-go-to-login">ingresá</a></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="gb-login-message gb--warning gb-activate-message">
+                    <span class="gb-icon-exclamation-mark-circle"></span>
+                    <p><span class="gb--text">Ya existe una cuenta registrada con este e-mail, sólo falta que la actives desde el link que te enviamos cuando te registraste.</span> <a href="#" onclick="gb.my_account.registration.sendActivationEmail()">Reenviar e-mail de activación</a></p>
+                </div>
+                <div id="gb-message-success" class="gb-login-message gb--success">
+                    <span class="gb-icon-checkmark-filled-circle"></span>
+                    <p>¡E-mail de activación enviado!</p>
+                </div>
+                <div id="gb-message-error" class="gb-login-message  gb--error">
+                    <span class="gb-icon-cross-circle"></span>
+                    <p></p>
+                </div>
+                <div class="gb-register-form gb-register-col-left">
+                    <form accept="" method="post">
+                        <fieldset>
+                            <label class="gb-label" for="first_name">Nombre</label>
+                            <input id="gb-myaccount-register-first_name" class="gb-input" type="text" name="first_name" placeholder="Como figura en tu documento" tabindex="1"/>
+                            <p class="gb-error-msg gb-error-first_name"></p>
+                        </fieldset>
+
+                        <fieldset>
+                            <label class="gb-label" for="last_name">Apellido</label>
+                            <input id="gb-myaccount-register-last_name" class="gb-input" type="text" name="last_name" placeholder="Como figura en tu documento" tabindex="2"/>
+                            <p class="gb-error-msg gb-error-last_name"></p>
+                        </fieldset>
+
+                        <fieldset>
+                            <label class="gb-label" form="email">E-mail</label>
+                            <input id="gb-myaccount-register-email" class="gb-input" type="email" name="email" placeholder="usuario@email.com" tabindex="3"/>
+                            <p class="gb-error-msg gb-error-msg-already-exists">Ya existe,
+                                <a href="/me/recover_password" onclick="return gb.my_account.registration.handleRecoverLink()"> ¿recuperar contraseña?</a> o
+                                <a href="/me/login" class="gb-register-go-to-login" onclick="return gb.my_account.registration.handleLoginLink()">Iniciar sesión</a></p>
+                            <p class="gb-error-msg gb-error-email"></p>
+                        </fieldset>
+
+                        <fieldset>
+                            <label class="gb-label" for="password">Contraseña</label>
+                            <input id="gb-myaccount-register-password" class="gb-input" type="password" name="password" placeholder="Usá entre 6 y 20 caracteres" tabindex="4"/>
+                            <p class="gb-error-msg gb-error-password"></p>
+                        </fieldset>
+
+                        <fieldset>
+                            <label class="gb-label" for="password-2">Repetir contraseña</label>
+                            <input id="gb-myaccount-register-password-2" class="gb-input" type="password" name="password-2" tabindex="5"/>
+                            <p class="gb-error-msg gb-error-password-2"></p>
+                        </fieldset>
+
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="doc_type">Tipo de documento</label>
+                            <input id="gb-myaccount-register-doc_type" class="gb-input" type="text" name="doc_type" tabindex="2"/>
+                        </fieldset>
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="doc_number">Número de documento</label>
+                            <input id="gb-myaccount-register-doc_number" class="gb-input" type="text" name="doc_number" tabindex="2"/>
+                        </fieldset>
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="gender">Sexo</label>
+                            <input id="gb-myaccount-register-gender" class="gb-input" type="text" name="gender" tabindex="2"/>
+                        </fieldset>
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="birth_date">Fecha Nacimiento</label>
+                            <input id="gb-myaccount-register-birth_date" class="gb-input" type="text" name="birth_date" tabindex="2"/>
+                        </fieldset>
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="telephone_country_code">Código de país</label>
+                            <input id="gb-myaccount-register-telephone_country_code" class="gb-input" type="text" name="telephone_country_code" tabindex="2"/>
+                        </fieldset>
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="telephone_type">Tipo de Teléfono</label>
+                            <input id="gb-myaccount-register-telephone_type" class="gb-input" type="text" name="telephone_type" tabindex="2"/>
+                        </fieldset>
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="telephone_area_code">Telefono area code</label>
+                            <input id="gb-myaccount-register-telephone_area_code" class="gb-input" type="text" name="telephone_area_code" tabindex="2"/>
+                        </fieldset>
+                        <fieldset style="display: none;">
+                            <label class="gb-label" for="telephone_number">Número de Teléfono</label>
+                            <input id="gb-myaccount-register-telephone_number" class="gb-input" type="text" name="telephone_number" tabindex="2"/>
+                        </fieldset>
+
+                        <!-- <fieldset>
+                            <div id="grecaptcha_register" class="g-recaptcha" class="recaptcha" data-sitekey="6LcdjRoUAAAAAKDFNASZ5gb_quq1bgATR2OQhD5T"></div>
+                            <p class="gb-error-msg gb-error-recaptcha"></p>
+                        </fieldset> -->
+
+                        <button id="gb_myAccountBtnRegister" class="gb-button primary large block gb-my-account-submit" type="button" tabindex="6">
+                            <span class="gb-spinner"></span>
+                            <em>Creando</em>
+                            <span class="gb-button-text">Crear cuenta</span>
+                        </button>
+
+                        <div class="gb-login-divider"><span>o</span></div>
+                        <div class="">
+                            <a href="#" class="gb-login-facebook-button" tabindex="1" onClick="fbLogin();"><span class="gb-icon-facebook"></span>Registrate con Facebook</a>
+                        </div>
+
+                        <!--
+                        Comentario: Por el momento no se muestra los legales.
+                        <p class="gb-register-legal-text">Al registrarme, declaro que he leído y aceptado la <a href="#">Política de Privacidad</a> y los <a href="#">Términos y Condiciones</a>.</p>
+                        -->
+
+                    </form>
+                </div>
+                <div class="gb-register-form-constent gb-register-col-right">
+                    <img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.68-SNAPSHOT-1098-42e7c188ecc470d1cb7de637ab461b00acf754a1/img/registro-login/registro.svg"/>
+                    <h5>¿Qué vas a poder hacer en tu cuenta?</h5>
+                    <ul>
+                        <li><span class="gb-icon-checkmark"></span> Consultar el estado de tus compras.</li>
+                        <li><span class="gb-icon-checkmark"></span> Administrar tus productos favoritos.</li>
+                        <li><span class="gb-icon-checkmark"></span> Descargar las facturas.</li>
+                        <li><span class="gb-icon-checkmark"></span> Consultar manuales de los productos comprados.</li>
+                        <li><span class="gb-icon-checkmark"></span> Definir tus preferencias e intereses.</li>
+                        <li><span class="gb-icon-checkmark"></span> Acceder al historial de productos vistos.</li>
+                        <li><span class="gb-icon-checkmark"></span> Retomar tus compras incompletas.</li>
+                    </ul>
+                    <p>
+                        Recibí notificaciones de tus compras, ofertas y descuentos exclusivos.<br/>
+                        <a href="/informacion-legal" target="_blank">Ver políticas de privacidad</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+	<div id="myaccount-activate-account" class="modal fade gb-my-account-login-register-common gb-my-account-register-email-send">
+
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	    	<div class="gb-section-nav-mobile">
+                    <a href="#">
+                        <span class="gb-section-nav-mobile-text">Activá tu cuenta</span>
+                    </a>
+                </div>
+	        <div class="modal-header">
+	            <button class="close" type="button" data-dismiss="modal"><span class="gb-icon-cross"></span></button>
+	            <h4 class="modal-title">¡Activá tu cuenta!</h4>
+	        </div>
+	        <div class="modal-body">
+	        	<div class="gb-email-send-content">
+	        		<img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.68-SNAPSHOT-1098-42e7c188ecc470d1cb7de637ab461b00acf754a1/img/registro-login/mailcheck.svg" />
+	        		<p>Ya te enviamos el link para activar tu cuenta a <span class="gb-user-email-address"></span></p>
+					<p><strong>No olvides revisar la carpeta de correo no deseado.</strong></p>
+					<a href="#" class="gb-email-client"></a>
+					<button class="gb-button primary large block">volver al inicio</button>
+	        	</div>
+	        </div>
+		</div>
+	</div>
+</div>
+
+
+    <div id="myaccount-recover-password" class="modal fade gb-my-account-login-register-common gb-my-account-recover-password">
+        
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="gb-section-nav-mobile">
+                <a href="#">
+                    
+                    <span class="gb-section-nav-mobile-text">Olvidé mi contraseña</span>
+                </a>
+            </div>
+
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"><span class="gb-icon-cross"></span></button>
+                <h4 class="modal-title">Olvidé mi contraseña <span><a href="#" onclick="gb.my_account.recover_password.back()">Volver</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="gb-login-message gb--warning gb-activate-message">
+                    <span class="gb-icon-exclamation-mark-circle"></span>
+                    <p><span class="gb--text"></span> <a href="#" onclick="gb.my_account.recover_password.sendActivationEmail()">Reenviar e-mail de activación</a></p>
+                </div>
+                <div class="gb-login-message gb--success">
+                    <span class="gb-icon-checkmark-filled-circle"></span>
+                    <p>¡E-mail de recupero enviado!</p>
+                </div>
+                <div class="gb-login-message  gb--error">
+                    <span class="gb-icon-cross-circle"></span>
+                    <p></p>
+                </div>
+                <form>
+                    <p class="gb-recover-password-text">Ingresá tu e-mail de registro y te enviaremos un link para crear una nueva.</p>
+                    <fieldset>
+                        <label class="gb-label">E-mail</label>
+                        <input class="gb-input" id="gb_myaccount_txt_recover_user" type="email" name="email" placeholder="usuario@email.com" tabindex="1"/>
+                        <p class="gb-error-msg">Mensaje de error</p>
+                    </fieldset>
+
+                    <button class="gb-button primary block gb-my-account-submit" id="gb_myAccountBtnRecoverPassword" type="button" tabindex="2">
+                        <span class="gb-spinner"></span>
+                        <em>Enviando</em>
+                        <span class="gb-button-text">Continuar</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="myaccount-recover-password-message" class="modal fade gb-my-account-login-register-common gb-my-account-recover-password-message">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="gb-section-nav-mobile">
+                <a href="#">
+                    <span class="gb-section-nav-mobile-text">Recuperar mi contraseña</span>
+                </a>
+            </div>
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"><span class="gb-icon-cross"></span></button>
+                <h4 class="modal-title">Recuperar mi contraseña <span>¡Listo!</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="gb-email-send-content">
+                    <img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.68-SNAPSHOT-1098-42e7c188ecc470d1cb7de637ab461b00acf754a1/img/registro-login/mailcheck.svg" />
+                    <p>Ya te enviamos el link para crear una nueva contraseña a <span class="gb-user-email-address"></span></p>
+                    <p><strong>No olvides revisar la carpeta de correo no deseado.</strong></p>
+                    <a href="#" class="gb-email-client"></a>
+                    <button class="gb-button primary large block">volver al inicio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="gb-toaster gb-toaster-success" id="my-account-success-toaster">
+    <span class="gb-icon-checkmark-filled-circle gb-icon"></span>
+    <p class="text"></p>
+</div>
+
+<div class="gb-toaster gb-toaster-error" id="my-account-error-toaster">
+    <span class="gb-icon-cross-circle gb-icon"></span>
+    <p class="text"></p>
+</div>
+</header>
+
+  <div id="root" style="min-height: 500px;"></div>
+  <footer>
+   <div class="inner-wrapper-footer">
+         <div class="footer-section gb-newsletter-subscribe">
+            <div class="gb-newsletter-subscription">
+               <p class="gb-newsletter-subscription-title">¡Recibí las mejores ofertas!</p>
+               <div id="subscribe-popover" class="gb-newsletter-subscription-form">
+                  <div id="subscribe-status" class="gb-newsletter-popover gb--success">
+                     <a id="subscribe-close" class="gb-popover-close"><span class="gb-icon-close"></span></a>
+                     <p id="subscribe-message"></p>
+                  </div>
+                  <form id="newsletter-subscription-e" name="newsletter-subscription" action="#" method="post">
+                     <input type="email" id="newsletter-subscription" placeholder="Ingresa tu e-mail"/>
+                     <input id="subscribe-action" class="subscribe" type="submit" value="SUSCRIBIRME" />
+                     <div class="spinner-cont display-none">
+                        <button class="gb-button loading subscribe-load">
+                           <span class="gb-spinner"></span>
+                           Suscribiendo
+                        </button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+            <div class="gb-social-media">
+               <ul class="social">
+                  <li>
+                     <a href="https://www.facebook.com/GarbarinoGarantiaDeConfianza" 
+                        target="_blank" 
+                        rel="external nofollow" 
+                        title="Facebook">
+                        <i class="gb-icon-facebook"></i>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://twitter.com/garbarino" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="Twitter">
+                        <i class="gb-icon-twitter"></i>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://www.youtube.com/user/garbarinocom" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="YouTube">
+                        <i class="gb-icon-youtube"></i>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://www.instagram.com/garbarinoarg/" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="Instagram">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/instagram.svg">
+                     </a>
+                  </li>
+                  <li>
+                     <a href="https://ar.pinterest.com/garbarino/" 
+                        target="_blank" 
+                        rel="external nofollow"
+                        title="Pinterest">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/pinterest.svg">
+                     </a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+
+      <div class="footer-section gb-footer-links">
+         <div class="gb-menu-links">
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Celulares Samsung</h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Categorías</h2>
+                  <ul>
+                           <li><a href="/productos/celulares-libres/4359">Celulares</a></li>
+                           <li><a href="/productos/notebooks/4363">Notebooks</a></li>
+                           <li><a href="/productos/computadoras-de-escritorio/4365">Computadoras</a></li>
+                           <li><a href="/productos/parlantes/4348">Parlantes</a></li>
+                           <li><a href="/productos/tv-led-y-video/4340">Televisores</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Preguntas frecuentes </h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Empresas Garbarino</h2>
+                  <ul>
+                           <li><a href="//www.garbarinoviajes.com.ar/?utm_medium=bannerfooter&amp;utm_source=garbarino.com">Garbarino Viajes</a></li>
+                           <li><a href="//listas.garbarino.com/?utm_medium=footer&amp;utm_source=garbarino.com">Listas de Regalos</a></li>
+                           <li><a data-target="#venta-a-empresas" data-toggle="modal">Venta a Empresas</a></li>
+                           <li><a href="//seguros.garbarino.com/">Seguros</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Garbarino</h2>
+                  <ul>
+                           <li><a href="//sustentable.garbarino.com/">Garbarino Sustentable</a></li>
+                           <li><a data-target="#prensa" data-toggle="modal">Prensa</a></li>
+                           <li><a href="//www.garbarino.com/apps">Bajá ¡GRATIS! nuestra app</a></li>
+                           <li><a href="//www.garbarino.com/aerolineas-plus">Aerolíneas Plus</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Servicios</h2>
+                  <ul>
+                           <li><a href="//www.garbarino.com/ayuda">Atención al Cliente</a></li>
+                           <li><a data-target="#venta-telefonica" data-toggle="modal">Venta Telefónica</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Marcas</h2>
+                  <ul>
+                           <li><a href="/marcas/samsung">Samsung</a></li>
+                           <li><a href="/marcas/LG">LG</a></li>
+                           <li><a href="/marcas/Phillips">Phillips</a></li>
+                           <li><a href="/marcas/Sony">Sony</a></li>
+                           <li><a href="/marcas">Todas las marcas</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Preguntas frecuentes </h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Ayuda</h2>
+                  <ul>
+                           <li><a href="/preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+                           <li><a href="https://www.garbarino.com/sucursales">Nuestros locales</a></li>
+                           <li><a href="/tyc.html">Terminos y condiciones</a></li>
+                           <li><a href="/politicas-de-privacidad.html">Políticas de privacidad</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Lo más buscado</h2>
+                  <ul>
+                           <li><a href="//www.garbarino.com/listado/gaming-mundo-playstation">Playstation</a></li>
+                           <li><a href="//www.garbarino.com/productos/celulares-libres/lg/4359">Celulares LG</a></li>
+                           <li><a href="//www.garbarino.com/productos/herramientas/4861">Herramientas</a></li>
+                           <li><a href="//ci.garbarino.com/productos/smart-tv-led/4274">Cambie un link</a></li>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Marcas</h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Terminos y condiciones </h2>
+                  <ul>
+                  </ul>
+               </div>
+               <div class="gb-footer-links-container">
+                  <h2 class="gb-menu-links-title">Políticas de privacidad </h2>
+                  <ul>
+                  </ul>
+               </div>
+         </div>
+      </div>
+
+         <div class="footer-section gb-footer-empresas gb-footer-empresas-garba">
+            <ul>
+               <li>
+                  <a href="https://www.garbarino.com/credito-garbarino">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/logo-credito-propio.svg" alt="Crédito Garbarino">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://listas.garbarino.com?utm_source=garbarino.com&utm_medium=banner_footer">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/footer_listas_garbarino.svg" alt="Listas de regalos">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://www.garbarino.com/venta-empresas">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/garbarino-ventaempresas-footer.svg" alt="Garbarino venta a empresas">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://www.garbarinoviajes.com.ar/?utm_medium=bannerfooter&utm_source=garbarino.com">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/garbarino-viajes-footer.svg" alt="Garbarino viajes">
+                  </a>
+               </li>
+               <li>
+                  <a href="https://seguros.garbarino.com?utm_source=garbarino.com&utm_medium=banner_footer">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/SegurosFooter.svg" alt="Garbarino seguros">
+                  </a>
+               </li>
+               <li>
+                  <a href="http://sustentable.garbarino.com">
+                     <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/footer/g-sustentable.svg" alt="Garbarino sustentable">
+                  </a>
+               </li>
+            </ul>
+         </div>
+   </div>
+
+      <div class="gb-footer-legal">
+         <div class="inner-wrapper-footer">
+            <div class="gb-footer-disclaimer">
+               <strong>Copyright &copy; 2019 Garbarino S.A.I.C.e.I.</strong>
+               <p class="gb-footer-disclaimer-text">El uso de este sitio web implica la aceptación de los Términos y Condiciones y de las Políticas de Privacidad de Garbarino S.A.I.C.e.I. Las fotos son a modo ilustrativo. La venta de cualquiera de los productos publicados está sujeta a la verificación de stock. Los precios online para los productos presentados/publicados en www.garbarino.com.ar y/o www.garbarino.com son válidos exclusivamente para la compra vía internet en las páginas antes mencionadas.
+               </p>
+               <ul class="inline-list">
+                  <li><a href="https://www.garbarino.com/ayuda">Centro de Ayuda</a></li>
+                  <li><a href="https://www.garbarino.com/informacion-legal" rel="nofollow">Información Legal</a></li>
+               </ul>
+            </div>
+            <div class="gb-footer-logoslegal">
+               <ul class="inline-list">
+                  <li>
+                     <a title="Data Fiscal" href="https://servicios1.afip.gov.ar/clavefiscal/qr/response.aspx?qr=zmrZfIUdESKk3NoXhDUG3A,," target="_blank">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/datafiscal.png" alt="Data Fiscal" />
+                     </a>
+                  </li>
+                  <li>
+                     <a title="Datos Personales" href="http://www.jus.gov.ar/datos-personales.aspx/" target="_blank" rel="external nofollow">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/datos-personales.jpg"  alt="Datos Personales" />
+                     </a>
+                  </li>
+                  <li>
+                     <a title="Sello CACE" href="https://www.econfianza.org/ar/?c=minisitio&amp;s=281" target="_blank" rel="external nofollow">
+                        <img border="0" src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/sello_cace.jpg"  alt="Sello Cace">
+                     </a>
+                  </li>
+                  <li>
+                     <a title="Somos una empresa verde" data-target="#environment-modal" data-toggle="modal">
+                        <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/ambiental.png" alt="Somos una empresa verde" />
+                     </a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+
+
+</footer>
+
+
+
+<div class="gb-home-banner">
+    <div id="smartbanner" class="closed">
+        <div class="iosDiv">
+            <i id="close" onclick="closePopUpMobile()" class="gb-icon-cross smartbanner-close"></i>
+        </div>
+        <div class="smartbanner-download-link">
+            <img src="//dj4i04i24axgu.cloudfront.net/common/smart-banner-logos/garbarino/garbalogo.png " alt="logo" title="Garbarino Logo" class="smartbanner-logo">
+            <p class="smartbanner-text">
+                <b>¿Te gusta Garbarino?</b>
+                  <br>
+                  <br>
+                Probá nuestra app
+              </p>
+            <a id="download-button" href="https://play.google.com/store/apps/details?id=com.garbarino&amp;referrer=utm_source%3Dbanner_responsive%26utm_medium%3Dbanner_responsive%26utm_campaign%3Dbanner_responsive" class="btn btn-sm btn-otl btn-block blue">Usar</a>
+        </div>
+    </div>
+</div>
+<div class="gb-home-banner">
+    <div id="smartofferhunter" class="closed">
+        <i id="closeOfferHunter" class="gb-icon-cross smartbanner-close"></i>
+        <div class="offer-hunter-subscribe-link">
+            <img src="//dj4i04i24axgu.cloudfront.net/common/smart-banner-logos/discount-icon.svg " alt="logo" title="Garbarino Logo" class="smartbanner-logo">
+            <div id="smart-offer-hunter-text-container" class="smart-offer-hunter-text-container">
+              <p class="smart-offer-hunter-text">
+                <b>¿Cazador de ofertas?</b>
+              </p>
+              <p class="smart-offer-hunter-sub-text">Recibilas en tu e-mail</p>
+              <a id="mobile-subscribe-button" class="btn btn-sm btn-otl btn-block blue">RECIBIR</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="smart-offer-hunter-popup-mobile" class="smart-offer-hunter-popup-mobile display-none">
+    <!-- <p class="gb-hunter-popup-text">¿Cazador de ofertas?</p>
+    <img src="//dj4i04i24axgu.cloudfront.net/common/smart-banner-logos/offerHunterLogoPopup.svg" alt="logo" title="Garbarino Logo" class="offer-hunter-popup-logo"> -->
+    <!-- <p class="gb-popup-sub-text">Te lo hacemos fácil. Registrate y recibí las mejores ofertas en tu e-mail:</p> -->
+    <input id="offers-hunter-email-popup-mobile" type="text" placeholder="Ingres&aacute; tu e-mail" class="gb-input large hunter-email"></input>
+    <p class="gb-hunter-popup-error display-none">Por favor, ingresá tu e-mail.</p>
+    <p class="gb-hunter-popup-error-format display-none">Ingresá un e-mail con formato válido.</p>
+    <input id="offers-hunter-button-popup-mobile" type="submit" value="Recibir ofertas" class="gb-popup-button gb-button primary"></input>
+    <button class="gb-button loading hunter-popup-spinner">
+        <span class="gb-spinner"></span>
+        Suscribiendo
+    </button>
+</div>
+
+<div class="gb-home-banner">
+    <div id="smartofferhunter-success" class="closed">
+        <div class="offer-hunter-success">
+            <p class="smart-offer-hunter-success-text">
+              ¡Todo listo! Gracias por suscribirte.
+            </p>
+        </div>
+    </div>
+</div>
+<div id="terms-modal" tabindex="-1" class="modal fade gb-popup gb-terms-popup" style="display: none;">
+    <div class="modal-dialog modal-lg">
+       	<!-- Modal content-->
+       	<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal">
+                    <span class="gb-icon-cross"></span>
+                </button>
+				<h4 class="modal-title">TERMINOS Y CONDICIONES DE GARBARINO.COM</h4>
+			</div>
+			<div class="modal-body">
+				<p>Bienvenidos a www.garbarino.com (el “Sitio”) de Garbarino S.A.I.C.e.I. (“Garbarino”). A continuación se incluyen las condiciones generales de utilización de los servicios ofrecidos en el Sitio (el “Servicio” y las “Condiciones de Uso” respectivamente) que regirán los derechos y obligaciones entre los usuarios (los “Usuarios” y/o el “Usuario”) y Garbarino. Garbarino recomienda especialmente guardar una copia impresa de las Condiciones de Uso Al ingresar en el Sitio, el Usuario declara saber, conocer y aceptar las presentes Condiciones de Uso. Las Condiciones de Uso, así como sus modificaciones, estarán vigentes en forma inmediata a su publicación en el Sitio. La utilización del Sitio implica el conocimiento y la aceptación plena por parte del Usuario de las Condiciones de Uso. En caso de no aceptar en las Condiciones de Uso o cualquier cambio o modificación de las mismas no deberá continuar utilizando el Sitio. Naturaleza del Servicio y destino del Sitio. El Sitio ha sido programado para que constituya un medio virtual para el acceso de los Usuarios a las góndolas de la tienda de Garbarino del área de su domicilio. Usuarios que pueden utilizar los Servicios del Sitio. Los Servicios sólo están disponibles para personas que tengan capacidad legal para contratar. No podrán utilizar los Servicios las personas que no tengan esa capacidad, los menores de edad o quien registre como Usuario una persona jurídica, deberá tener capacidad para contratar a nombre de tal entidad y de obligar a la misma en los términos de estas Condiciones de Uso. Uso de los Servicios.</p>
+
+				<p>El Usuario, ya sea registrado o “invitado”, declara que la información que brindará al remitir el pedido de registración será precisa, correcta y actual comprometiéndose a informar en forma inmediata y fehaciente respecto de cualquier cambio siendo a su vez enteramente responsable frente a Garbarino por los daños y perjuicios que el incumplimiento de dicha obligación pudiere acarrearle incluyendo pero no limitándose a costos de ubicación física del Usuario, costos de intimaciones y citaciones, etc. El Usuario acepta que utilizará los Servicios exclusivamente con los fines estipulados en (a) las Condiciones de Uso y (b) cualquier norma o regulación aplicable ya sea de índole municipal, provincial o nacional incluyendo pero no limitándose a leyes, decretos, ordenanzas, resoluciones, directivas, etc. El Usuario se compromete a no divulgar su contraseña a terceros que no estuvieren autorizados por el Usuario para acceder a los Servicios del Sitio. Ámbito de aplicación. Estas Condiciones de Uso son aplicables a cualquiera de todas las ventas de productos y/o servicios a ser realizadas por Garbarino dentro de la República Argentina. La realización de un pedido supone la aceptación expresa del Usuario a las presentes Condiciones de Uso. Al aceptar estas Condiciones de Uso, registrándose como Usuario o ingresando como “invitado”, usted declara bajo juramento y certifica tener 18 años de edad o más. Si usted no está de acuerdo (o no puede cumplir) con cualquiera de las reglas de las Condiciones de Uso, no utilice el Sitio. Toda la información proporcionada al momento de operar con el Sitio debe ser precisa y veraz. Proporcionar información inexacta o falsa constituye una violación grave de estas Condiciones de Uso. Confirmando su pedido en el final del proceso de una operación, el Usuario acuerda aceptar los artículos adquiridos y pagar su precio, perfeccionando con Garbarino un contrato de compra-venta de mercadería. Referencias a terceros.</p>
+
+				<p>Las referencias en el Sitio a nombres, marcas, productos o servicios de terceros, o vínculos de hipertexto a sitios Web o información de terceros se proveen únicamente como una comodidad para el Usuario y de ninguna forma constituyen o implican respaldo, patrocinio o recomendación por Garbarino respecto de la tercera parte, su información, productos o servicios. Garbarino no tiene control de las prácticas o políticas de esos terceros, ni del contenido de los sitios Web de cualesquiera terceros y no hace ninguna declaración o promesa con respecto a productos o servicios de terceros, o respecto del contenido o la exactitud de cualquier material alojado en dichos sitios de terceros. Si el Usuario decide navegar o seguir un vínculo hacia cualquiera de tales sitios Web de terceros, lo hace enteramente bajo su propio riesgo y responsabilidad. Orden de compra correspondiente a cada pedido. El Usuario deberá formular su pedido de la misma forma en que llena su carrito en nuestras tiendas, o sea recorriendo virtualmente las góndolas de la tienda, escogiendo las mercaderías que desea comprar e indicando respecto de cada ítem la cantidad que desea comprar. El procedimiento del Sitio le da oportunidad de añadir o quitar ítems del pedido, de anularlo por completo y de revisarlo. Pueden existir mínimos o máximos en la cantidad, volumen o precio de los ítems incluidos en una orden de compra. Todos los precios publicados en el sitio son precios exclusivos para la compra online de los productos y podrán diferir o ser idénticos a los precios publicados en el resto de las sucursales según el caso. Aceptación de pedidos.</p>
+
+				<p>Por favor, tenga en cuenta que puede ocurrir que luego de aprobado por el Usuario un pedido, por distintas razones Garbarino no esté en condiciones de aceptarlo total o parcialmente y deba por ello cancelar o excluir del mismo algunos ítems pedidos por el Usuario. Algunas situaciones pueden dar lugar a que algunos ítems de su pedido sean excluidos del mismo, ya sea debido a limitaciones en las cantidades disponibles para la compra; faltantes de mercadería en la respectiva góndola; falta de autorización a la operación por parte de la entidad emisora o administradora de su tarjeta de crédito; inexactitudes o errores en el producto o información; o problemas identificados por el departamento de prevención de fraude de crédito y de precios. Para su seguridad, le informamos que eventualmente podemos requerirle información o realizar verificaciones adicionales antes de aceptar cualquier pedido. Si se cancela todo o parte de su pedido o si se necesita información adicional para aceptar su pedido, nos pondremos en contacto con usted. En todos los casos que deban realizarse una modificación o cancelación parcial de su pedido, el Usuario tendrá siempre derecho a cancelar la totalidad del mismo. Garbarino, en uso de sus facultades, se reserva el derecho de anular definitivamente cualquier operación luego de la constatación de los datos ingresados, en cuyo caso se le comunicará al usuario la decisión. Todas las compras efectuadas estarán sujetas al stock informado, debido a las demoras propias de las actualizaciones del sistema, es posible que el mismo le permita realizar una compra que luego deba ser anulada por falta de stock. En ese caso le será informado en el e-mail confirmatorio. Forma de entrega y pago.</p>
+
+				<p>Una vez que un pedido haya quedado confirmado y el importe de su factura aprobado, salvo que existan inconvenientes excepcionales para la aceptación del pedido por parte de Garbarino, que le serán debidamente comunicados, recibirá un correo electrónico en el plazo de las 24 horas confirmando que la operación ha sido exitosa. Si el Usuario no recibe tal notificación vía correo electrónico deberá contactarse con el Centro de Atención al Cliente Garbarino a fin de constatar que no hubo errores de registro al ingresar la casilla de correo. Actualmente el Usuario dispone dos métodos de entrega de la mercadería: Envío a domicilio. Retira en Sucursal. Cuando el método de entrega seleccionado sea “Envío a domicilio”, la compra deberá ser recepcionada preferentemente por el titular del método de pago utilizado, o bien por una persona autorizada que cumpla con las Condiciones de Uso del Sitio. El Usuario podrá designar una persona autorizada a recibir la mercadería y/o servicio adquirido en el domicilio de entrega indicado únicamente para la modalidad “Envío a domicilio”. En todos los casos, para que la mercadería y/o servicio sea entregado, la persona que recepciona deberá exhibir su DNI. En el caso de operaciones de “Retira en Sucursal” deberá seguir los pasos que se detallan a continuación: Elija la sucursal de retiro. Recomendamos la más cercana a su domicilio. Recibirá, dentro de las siguientes setenta y dos (72) horas, un e-mail de confirmación indicando que ya puede retirar el pedido. Una vez que reciba el e-mail de confirmación de su compra y habilitación para retirar el/los producto/s adquirido/s, podrá dirigirse, dentro de los treinta (30) días corridos, a la sucursal que haya seleccionado, con el comprobante de la compra efectuada impreso o exhibido en su dispositivo móvil, y retirar su pedido. Cuando se presente en la sucursal, deberá dirigirse al sector de Cajas, donde deberá presentar: DNI y tarjeta con la que realizó el pago (ambos en original). La entrega sólo se hará efectiva al titular del medio de pago, sin excepción. Mail de confirmación de compra, que incluye el número de pedido: NOTA: para operaciones de sábados, domingos y feriados de 17 a 22 Hs. los pedidos podrán ser retirados el día siguiente, una vez que reciba el e-mail de confirmación de su compra. En cualquiera de las modalidades de entrega, se le exhibirá al Usuario el estado de la mercadería y los accesorios que vienen con esta debiendo el Usuario (o la persona autorizada por este, en su caso) verificar que la mercadería entregada corresponde a los artículos incluidos en el pedido y en el remito que se le presentará en el acto de entrega. La firma del remito y/o la del comprobante de pago implicará declaración de conformidad con la mercadería entregada, sin perjuicio de los derechos que le pudieren corresponder en caso de que la misma resultara por algún motivo defectuosa. Costo del servicio de entrega a domicilio y casos de imposibilidad de entrega. El servicio de entrega a domicilio se encuentra habilitado en determinadas localidades del país, las cuales podrán ser consultadas durante el proceso de compra online, momento en el cual el Usuario procederá a seleccionar según su conveniencia. El servicio de entrega a domicilio se efectuará dentro de un margen mínimo de 72 horas (que podrá extenderse hasta 10 días hábiles en función de la ubicación del domicilio de entrega informado por el Usuario) y tendrá un costo, que aparecerá expresado y diferenciado en la etapa del proceso de llenado del carrito previa a la emisión de su pedido. Dicho costo se añadirá al de las mercaderías detalladas en la correspondiente factura electrónica. La confirmación del pedido y el pago realizado on line, implicarán la aceptación del Usuario del costo del servicio de entrega a domicilio y consecuentemente también el monto total de la correspondiente factura electrónica que recibirá en el e-mail registrado en el pedido. En todos los casos, la fecha de entrega será comunicada al Usuario en el e-mail que registró en el pedido. En caso de que en el día de entrega no encontremos en el domicilio un titular habilitado para la recepción (sea el Usuario y/o a la persona autorizada por este en su caso), se volverá a coordinar otra fecha de entrega para lo cual el cliente puede comunicarse al Centro de Atención al Cliente, (011) 4588-7000. En caso de que por dificultades imprevistas Garbarino no pudiere cumplir con la entrega a domicilio, según los plazos por zona geográfica, se le comunicará en no más de cinco (5) días hábiles y se pactará la entrega de la mercadería para un nuevo día y horario a convenir, sin que se devengue por ello ningún cargo adicional para el Usuario. Cualquier plazo pactado de entrega informado es estimado, aclarándosele que pueden verificarse demoras en la entrega del producto derivadas de un sinnúmero de variables ajenas al control de Garbarino.</p>
+
+				<p>Medios de Pago. El Sitio cuenta con los siguientes medios de pago válidos para compras online: - Visa, - Tarjeta Naranja, - Master Card, - American Express, - Cabal, - Mercado Pago. Es derecho de Garbarino la inclusión, exclusión o suspensión de cualquier medio de pago. Tipo de comprobantes a emitir. En venta on line, por el momento sólo se emitirán facturas electrónicas a Consumidor Final (Comprobantes tipo “B”). La misma será remitida al e-mail informado en el pedido, sin excepción. En caso de no recibirla, contactarse al Centro de Atención al Cliente al teléfono (011) 4588-7000 para corroborar un posible error en la carga del e-mail en el pedido. Operatividad y Seguridad del Sitio. El Usuario se compromete a no acceder ni a intentar acceder al Sitio ni usar de ninguno de los Servicios por ningún otro medio que no sea la interfaz provista por Garbarino. Asimismo, se compromete a no involucrarse en ninguna actividad que interfiera o que interrumpa o que tuviere entidad suficiente para interferir o interrumpir la prestación de los Servicios del Sitio o los servidores y redes conectados al mismo. Está prohibido a los Usuarios violar, vulnerar y/o de cualquier forma afectar el normal uso y la seguridad del Sitio, incluyendo, pero sin limitarse a: a) acceder a datos que no se destinan a ese Usuario o ingresar a una computadora o a una cuenta a los cuales no esté el Usuario autorizado para acceder; b) tratar de sondear, analizar o probar la vulnerabilidad de un sistema o una red o romper medidas de seguridad o autenticación sin la debida autorización; c) intentar interferir con el servicio a cualquier Usuario, computadora o red, incluyendo, sin que la siguiente enumeración implique limitación, cuando se lo haga a través de medios de envío de un virus al Sitio, sobrecarga, inundación ("flooding") envío masivo de mensajes no solicitados ("spamming") envío de códigos destructivos ("mailbombing") o anulación de instrucciones del software ("crashing”). Las violaciones de la seguridad del sistema o de la red pueden dar lugar a responsabilidad civil o penal. Garbarino investigará sucesos que puedan implicar esas violaciones y puede involucrar a cooperar con las autoridades encargadas de hacer cumplir la ley para enjuiciar a los usuarios que participen en esas violaciones. Usted acepta no utilizar ningún dispositivo, software o rutina para interferir o intentar interferir con el buen funcionamiento de este Sitio o cualquier actividad que se lleve a cabo en este Sitio. Usted acepta, además, no utilizar ni intentar utilizar cualquier motor, software, herramienta, agente u otro dispositivo o mecanismo (incluyendo sin limitación los navegadores, arañas (spyders), robots y avatares) para navegar o buscar en este Sitio, que no sean los motores de búsqueda y agentes de búsqueda que Garbarino hace disponibles en este Sitio y diferentes de los navegadores Web de terceros disponibles para el público en general (por ejemplo, Mozilla Firefox, Internet Explorer, Opera, Google Chrome, entre otros). El Usuario y/o el navegante ocasional del Sitio aceptan y reconocen expresamente que cualquier hecho, acto u omisión vinculadas con lo referido anteriormente y que tengan entidad para afectar la seguridad y/o el normal desarrollo del Sitio tienen entidad suficiente para causar a Garbarino considerables daños y perjuicios incluyendo pero no limitándose a lucro cesante por caída y/o merma en las ventas, afectación de sus marcas, imagen comercial, pérdida de clientela, etc. Contraseñas y seguridad de la cuenta del Usuario. Por medio de la aceptación de las Condiciones de Uso el Usuario, reconoce y acepta que es el único responsable de mantener la confidencialidad de su contraseña. En consecuencia, el Usuario acepta que será el único responsable ante Garbarino de todas y cada una de las actividades que se efectúen en su cuenta en el Sitio. El Usuario deberá notificar de inmediato a Garbarino cualquier uso no autorizado de su contraseña o cuenta de que tenga conocimiento, a través del Sitio. Esta notificación deberá efectuarse a través del Sitio y, adicionalmente, remitiendo una nota al domicilio de Garbarino debiendo especificar en ambos casos y en detalle toda la información con la que cuente respecto del uso no autorizado de su contraseña.</p>
+
+				<p>Datos Personales. Al registrarse como Usuario de este Sitio, suministrará información que, a criterio de Garbarino, resulta necesaria para brindar un mejor servicio. Los datos personales del Usuario se toman con los fines de cumplir con el giro comercial de Garbarino, realizar acciones de marketing y publicidad. Para el caso que el Usuario decida proporcionar sus datos, se consiente expresamente que Garbarino podrá utilizarlos con fines operativos del sistema de comercio electrónico en este Sitio y/o en otros sitios Web pertenecientes a Garbarino e incluso para hacerle llegar por distintos medios ofertas de mercaderías o servicios, anuncios de promociones, o publicidad. Al comunicarnos sus datos personales por medio de su registro en el Sitio, usted presta el consentimiento previsto por la ley argentina Nº 25.236, incluyendo la posibilidad de cesión prevista en su art. 11 que usted podrá revocar en cualquier momento simplemente solicitándolo vía correo electrónico y/o mediante cualquier otra forma que pueda ser fácilmente acreditable. El Sitio tiene una estricta política de privacidad y protección de los datos generados por la actividad en línea de sus usuarios. Garbarino no entregará ningún tipo de datos personales ni de información individualizada sobre ninguno de sus Usuarios a ningún tercero, sea en forma gratuita u onerosa, incluyendo cualquier dato relacionado con la identidad de sus usuarios, sus hábitos, costumbres, ámbitos de pertenencia, hábitos de consumo, etc. Usted se notifica y autoriza a Garbarino para analizar la información relacionada con sus usuarios como grupo, y basándose en dichos análisis ofrecer, individualmente o en conjunto con terceros, bienes y servicios a sus usuarios. Garbarino está autorizado a compartir con terceros la información despersonalizada relacionada con sus usuarios. El Usuario, en cuanto titular de los datos personales, tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido al artículo 14, inciso 3 de la Ley n° 25.326. Garbarino aconseja a sus clientes que mantengan actualizados sus datos. De esta forma recibirán en forma periódica ofertas y promociones diseñadas a medida de sus necesidades. Si desea actualizar sus datos dirijase a: datospersonales@garbarino.com.ar o mediante el ejercicio del derecho de acceso previsto por el art. 14 de la Ley 25.326. Garbarino no solicita datos de sus clientes, ni en forma telefónica ni a través del correo electrónico, más que en los casos estipulados en el punto “Aceptación de Pedidos”. De existir un contacto, tiene como finalidad la realización de alguna encuesta de satisfacción o comunicar alguna promoción o beneficio especial. Garbarino se encuentra inscripto en el Registro Nacional de la Dirección Nacional de Protección de Datos Personales, dependiente del Ministerio de Justicia y Derechos humanos tal como lo establece la ley. Si Ud. desea conocer más en profundidad sobre este tema haga click aquí o en la siguiente dirección: http://www.jus.gov.ar/dnpdp La Dirección Nacional De Protección De Datos Personales, Órgano de Control de la Ley n° 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales permite. Si Ud. desea conocer más en profundidad sobre este tema haga click aquí o en la siguiente dirección: http://www.jus.gov.ar/dnpdp</p>
+
+				<p>Precios. Dado que el propósito del Sitio es permitir a los Usuarios realizar compras online, sin concurrir personalmente a las sucursales, los precios de cada artículo deberán ser los que el Usuario observaría en caso de recorrer las góndolas de dicha sucursal el día del armado del pedido. No obstante que Garbarino se esfuerza por proporcionar información precisa sobre esos precios, pueden ocurrir errores. En el caso de que un artículo figure en las listas del Sitio a un precio incorrecto debido a un error, Garbarino tendrá el derecho, de corregir la orden facturando el precio vigente al momento del armado del pedido en la tienda o bien, de anular el pedido reintegrando al Usuario los importes abonados. En este caso, se dará aviso del error al Usuario, y con él la posibilidad de cancelar o modificar la compra del producto facturado u ofrecido de forma incorrecta. Promociones. Las promociones que se ofrezcan en el Sitio no son necesariamente las mismas que ofrezcan otros canales de venta utilizados por Garbarino, tales como sucursales físicas, Venta Telefónica, catálogos u otros, a menos que se señale expresamente en este Sitio o en la publicidad que se realice para cada promoción. En los casos que el Sitio contenga promociones que consistan en la entrega gratuita o rebajada de un producto por la compra de otro, entonces el despacho del bien que se entregue gratuitamente o a precio rebajado, se hará en el mismo lugar en el cual se despacha el producto comprado. No se podrá participar en estas promociones sin adquirir conjuntamente todos los productos comprendidos en ellas. Salvo indicación en contrario o aprobación por parte de Garbarino las promociones no son acumulativas unas con otras. Descripciones e imágenes de la mercadería. Garbarino intenta ser lo más preciso posible en sus descripciones de productos. Sin embargo, es posible que las descripciones de los productos u otros contenidos de este Sitio no sean exactos o contengan errores. Sin perjuicio de lo dispuesto en el art. 34 de la ley 24.240, en caso de existencia de error entre la imagen publicitada de un producto y el producto adquirido, el Usuario tendrá derecho a cancelar el pedido hasta 15 días corridos de que hubiere sido entregado sin recibir observación alguna por parte del Usuario. En caso de cancelación del pedido una vez recibido el producto el Usuario fundándose en inexactitudes en la descripción o imágenes del producto, el Usuario deberá reintegrar el mismo en perfecto estado, conjuntamente con todo su empaque original y todos sus accesorios. La información sobre características de los productos, a la que se accede a través de este Sitio se obtiene de afirmaciones hechas por el fabricante de cada producto. Por favor tenga en cuenta que, en ocasiones los fabricantes pueden alterar sus empaques y etiquetas, de manera que el verdadero embalaje del producto y materiales adjuntos pueden contener información diferente de la que se muestra en el Sitio. Garbarino recomienda especialmente que adicionalmente a la información presentada en línea lea las etiquetas, advertencias e instrucciones antes de adquirir, utilizar o en cualquier forma consumir un producto. Para obtener información adicional acerca de un producto, por favor póngase en contacto con el fabricante, distribuidor o importador.</p>
+
+				<p>Publicidad. Garbarino se reserva el derecho de incluir en el Sitio anuncios publicitarios, que se identificarán a los efectos de ser distinguirlos de las informaciones acerca de descripción y precio de los artículos ofrecidos. Esas inclusiones publicitarias se dirigen únicamente a llamar la atención de los Usuarios sobre determinadas ofertas y no reemplazan las descripciones de los productos hechas en el Sitio correspondiente al artículo, que el Usuario deberá utilizar para evaluar y realizar su compra online. Límites de cantidad y ventas a distribuidores. Garbarino se reserva el derecho, cuando tenga razones que así lo justifiquen, de limitar la cantidad de artículos comprados por persona, por hogar o por pedido. Estas restricciones pueden ser aplicables a los pedidos realizados por la misma cuenta o la misma tarjeta de crédito y también a los pedidos que utilizan la misma dirección de facturación y/o de entrega. Derechos de autor y marcas registradas. A menos que se indique lo contrario, los derechos de autor, marcas comerciales, presentación comercial (trade dress) y/u otros derechos de propiedad intelectual sobre todo y cualquier contenido del Sitio son de propiedad, o controlados o licenciados, de Garbarino y están protegidos por las leyes Argentinas y tratados internacionales sobre propiedad intelectual. La compilación (es decir, la colección, secuencia, estructura, organización y montaje) de todo el contenido de este Sitio es propiedad exclusiva de Garbarino y también está protegida por las leyes Argentinas y tratados internacionales sobre propiedad intelectual. Garbarino y/o sus proveedores y/o licenciantes se reservan expresamente todos los derechos de propiedad intelectual sobre todos los textos, productos, procesos, tecnología, contenido y otros materiales que aparecen en este Sitio. El acceso a este Sitio no confiere a nadie ninguna licencia respecto de cualquier derecho de propiedad intelectual de Garbarino o de cualquier tercero, salvo que conste con una autorización expresa de parte de Garbarino. Los nombres y logotipos de Garbarino y todos los productos relacionados y nombres de servicio, marcas de diseño y eslóganes son las marcas comerciales o marcas de servicio de Garbarino. Todas las demás marcas son propiedad de sus respectivos registrantes. No se concede ninguna licencia de marca registrada o marca de servicio en relación con los materiales contenidos en este Sitio. El acceso a este Sitio no autoriza a nadie a utilizar cualquier nombre, logotipo o marca de cualquier manera.</p>
+
+				<p>Listas de Regalos. Las bases a condiciones del micrositio de Listas de Regalos, (https://listas.garbarino.com) están disponibles en los siguientes links: - Teens & 15 Años: https://listas.garbarino.com/teens/bases.php - Casamiento: https://listas.garbarino.com/casamiento/bases.php - Viajes: https://listas.garbarino.com/viajes/bases.php - 1er Hogar: https://listas.garbarino.com/primer-hogar/bases.php Todo lo que no esté expresamente regulado por las bases particulares antes referidas se regirá por las presentes Condiciones de Uso. Prohibiciones al Usuario y sus responsabilidades. Está terminantemente prohibido al Usuario explotar de cualquier forma las informaciones adquiridas por medio del Sitio. No podrá reproducir los textos o imágenes de los anuncios para otros fines que los de su propio recordatorio personal. El Usuario se compromete a tomar a su cargo cualquier responsabilidad contractual o extracontractual que derive de actos como Usuario del Sitio y acepta mantener indemne a Garbarino, respecto de y contra cualquier reclamo por parte de terceros, derivado o relacionado con el uso inadecuado del Sitio o por la violación de las presentes Condiciones de Uso y sus respectivas modificaciones, o que surja de dicho uso y/o a causa de algún comentario publicado por el Usuario en el Sitio.</p>
+
+				<p>Terminación. Estas Condiciones de Uso implican un contrato que entrará en vigor tan pronto el Usuario acepte las Condiciones de Uso y/o use los servicios del Sitio y permanecerán vigentes hasta que el presente contrato sea cancelado sea por el Usuario o por Garbarino. El Usuario puede rescindir este contrato en cualquier momento, siempre que lo haga para el futuro evitando el uso de este Sitio y/o siendo Usuario Registrado, renunciando a su registro siguiendo el procedimiento especialmente previsto para ello. Garbarino también puede rescindir este contrato en cualquier momento siendo válida la notificación de tal rescisión a los domicilios reales o electrónicos que el Usuario tuviere registrados en el Sitio. Asimismo Garbarino podrá cancelar sin previo aviso la condición de Usuario, y en consecuencia denegar el acceso a los Servicios del Sitio o a comprar por esta vía, si el Usuario no cumpliera con cualquier término o disposición de las presentes Condiciones de Uso. Esta cláusula se aplicará sea o no el Usuario un navegante registrado. Garbarino podrá en cualquier momento, temporal o permanentemente dar de baja este Sitio. Modificaciones en las Condiciones de Uso. En caso de que estas Condiciones de Uso sean modificadas, tales modificaciones serán publicadas en el Sitio, obrando en él la versión vigente al momento del inicio de cada sesión. Toda vez que por tratarse de un sitio Web abierto a los clientes en general, Garbarino carece de posibilidad de notificarle particularmente a cada uno de ellos, salvo mediante la publicación en el propio Sitio, por lo que el Usuario se compromete a verificar en forma las Condiciones de Uso con cualquier uso que haga del mismo, entendiéndose que al iniciar cada sesión acepta las que estén vigentes y publicadas en ese momento en la forma y con los efectos establecidos en las presentes Condiciones de Uso.</p>
+
+				<p>General. Las Condiciones de Uso representan el acuerdo completo entre las partes y sustituyen a todos los acuerdos anteriores que pudieran existir entre ellas. Los títulos utilizados en estas Condiciones de Uso son sólo con fines de referencia y en ninguna manera definen o limitan el alcance de la disposición que titulan. Si cualquier disposición de las mismas se considerara inaplicable por cualquier razón, tal disposición deberá reformarse sólo en la medida necesaria para hacerla exigible y las demás condiciones del presente Acuerdo permanecerán en pleno vigor y efecto. La inacción de Garbarino con respecto a un incumplimiento de este acuerdo por el Usuario o por otros no constituye una renuncia y no limitará los derechos de Garbarino con respecto a dicho incumplimiento o infracciones posteriores. Ley aplicable, resolución de controversias, medidas procesales y notificaciones. Este contrato será gobernado por y se interpretará según la legislación vigente en la República Argentina. Cualquier conflicto relacionado con este contrato o con el uso que el Usuario haga de este Sitio será resuelto por los tribunales ordinarios competentes según la legislación vigente y aplicable a la relación de consumo existente entre las partes. En caso de que dicha legislación no defina una competencia específica, será competente la justicia nacional ordinaria en asuntos comerciales con asiento en la Ciudad Autónoma de Buenos Aires, siendo aplicable esta disposición aunque el Usuario estuviera realmente domiciliado fuera de los límites de la Ciudad Autónoma de Buenos Aires o de la República Argentina, por entenderse que este lugar ha sido el lugar de celebración del presente contrato. Salvo que lo contrario haya sido acordado previamente y por escrito firmado entre el Usuario y Garbarino, todas las notificaciones que se hagan a los usuarios en relación a las presentes Condiciones de Uso se publicarán en el Sitio y tendrán efecto desde la fecha de su publicación. Las notificaciones que el Usuario quiera dirigir a Garbarino deberán ser dirigidas a Guevara 533, Ciudad Autónoma de Buenos Aires donde queda constituido el domicilio. Por dudas sobre las Condiciones de Uso o demás políticas y principios que rigen el Sitio el Usuario podrá efectuar las consultas que estime corresponder comunicándose al teléfono del Centro de Atención al Cliente de Garbarino (011-4588-7000) de Lunes a Viernes de 9:30hs. a 19:30hs. Y Sábados de 9:00hs. a 13:00hs. Garbarino. Todos los derechos reservados.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="privacy-modal"  tabindex="-1" class="modal fade gb-popup gb-privacy-popup" style="display: none;">
+    <div class="modal-dialog modal-lg">
+       	<!-- Modal content-->
+       	<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal">
+                    <span class="gb-icon-cross"></span>
+                </button>
+				<h4 class="modal-title">Políticas de privacidad</h4>
+			</div>
+			<div class="modal-body">
+				<img id='datos-personales-img' src="https://www.garbarino.com/sha/img/garbarino/datos-personales.jpg/08eebd4ac6">
+			</div>
+		</div>
+	</div>
+</div>
+<div id="environment-modal"  tabindex="-1" class="modal fade gb-popup gb-environment-popup" style="display: none;">
+    <div class="modal-dialog modal-lg">
+       	<!-- Modal content-->
+       	<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal">
+                    <span class="gb-icon-cross"></span>
+                </button>
+				<h4 class="modal-title">Consejos ambientales</h4>
+			</div>
+			<div class="modal-body">
+				<p>El material del embalaje es reciclable. Procure separar plásticos, espuma flex, papel y cartón y enviarlos a las compañías de reciclaje. De acuerdo con las directrices universales vinculadas con los RAEE (Residuos de Aparatos Eléctricos y Electrónicos), en inglés WEEE (Waste of Electrical and Electronic Equipment), se debe colectar y disponer de los residuos de aparatos eléctricos y electrónicos separadamente. Si en el futuro usted necesita desechar un producto, no lo haga junto con la basura doméstica. Envíe el aparato a los puntos de colecta de RAEE. Para mayor información consulte las instrucciones de uso y/o los sitios especializados.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="venta-a-empresas" tabindex="-1" class="modal fade gb-popup gb-business-sales-popup" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">
+                    <span class="gb-icon-cross"></span>
+                </button>
+                <h4 class="modal-title">Venta a empresas</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gb-sales-popup-info">
+                    <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/garbarino-dialog.png" alt="logo Garbarino dialog">
+                    <h6>0810-444-0092</h6>
+                    <p>OPCIÓN VENTA A EMPRESAS<br>
+                    Lunes a Viernes de 9 a 18 hs.</p>
+                </div>
+                <div class="gb-sales-popup-benefits">
+                    <h6>Podes realizar tu compra con el mejor asesoramiento y un EXCELENTE DESCUENTO</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="venta-telefonica" tabindex="-1" role="dialog" class="modal fade gb-popup gb-phone-sales-popup" style="display: none;">
+    <div class="modal-dialog modal-lg">
+       	<!-- Modal content-->
+       	<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal">
+                    <span class="gb-icon-cross"></span>
+                </button>
+				<h4 class="modal-title">Venta telefónica</h4>
+			</div>
+			<div class="modal-body">
+                <div class="gb-phone-sales-popup-info">
+                    <img src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/images/garbarino-dialog.png" alt="logo Garbarino dialog">
+                    <h6>0810-888-7110</h6>
+                    <p>Lunes a Viernes de 9 a 21 hs. - Sábados de 9 a 18 hs. - Domingos y Feriados de 10 a 16 hs. </p>
+                </div>
+                <div class="gb-phone-sales-popup-benefits">
+                    <h6>¡Aprovechá los beneficios de la venta telefónica!</h6>
+                    <ul>
+                        <li>Entregas en todo el país (excepto Tierra del Fuego).</li>
+                        <li>Envío asegurado a tu domicilio.</li>
+                        <li>Mismos precios y ofertas que en internet.</li>
+                        <li>Asesoriamiento de especialistas.</li>
+                        <li>Posibilidad de pagar con más de una tarjeta de crédito, cheque, depósito bancario o crédito propio.</li>
+                        <li>En caso de necesitarla, podés solicitar factura A.</li>
+                        <li>Más de 25 años brindando comodidad y tranquilidad.</li>
+                    </ul>
+                        <h6>¡Comprá por teléfono y retiralo en tu sucursal más cercana!
+                        <a href="https://www.garbarino.com.ar/sucursales">Ver sucursales</a>
+                    </h6>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="prensa" tabindex="-1" class="modal fade gb-popup gb-press-popup" style="display: none;">
+    <div class="modal-dialog modal-lg">
+       	<!-- Modal content-->
+       	<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal">
+                    <span class="gb-icon-cross"></span>
+                </button>
+				<h4 class="modal-title">Prensa</h4>
+			</div>
+			<div class="modal-body">
+                <img src="https://www.garbarino.com/sha/img/garbarino/prensa.jpg/e6e9d2cf53" alt="Prensa Garbarino.com" >
+                <p>Contacto de Prensa Jenkpress </p>
+                <p>Judith Nahmías - contacto@jenkpress.com.ar </p>
+                <p>Tel: 4786-9025</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.js"></script>
+  <!-- GARBA-UI -->
+  <script src="%PUBLIC_URL%/garba-ui/js/header.js"></script>
+  <script src="%PUBLIC_URL%/garba-ui/js/popover-popup.js"></script>
+  <script src="%PUBLIC_URL%/garba-ui/js/TweenLite.min.js"></script>
+  <script src="%PUBLIC_URL%/garba-ui/js/EasePack.min.js"></script>
+  <script src="%PUBLIC_URL%/garba-ui/js/rAF.js"></script>
+  <script src="%PUBLIC_URL%/garba-ui/js/demo-3.js"></script>
+  <script src="%PUBLIC_URL%/garba-ui/js/bootstrap.min.js"></script>
+  <script>
+        window.xBrand ="garbarino";
+    </script>
+  <script src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.24-SNAPSHOT-92cde351bd559f3511f60a9cc9dc6da892cac9bf-1093/garbarino/js/normi.min.js" crossorigin="anonymous"></script>
+    <script src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.68-SNAPSHOT-1098-42e7c188ecc470d1cb7de637ab461b00acf754a1/js/flow.min.js" crossorigin="anonymous"></script>
+    
+</body>
+
+</html>
