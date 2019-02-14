@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from 'react-router'
 import Cookie from "js-cookie";
 import "../App.scss";
 
@@ -182,7 +181,6 @@ const mapStateToProps = state => {
   return { 
     cart: state.cartReducer.cart, 
     err : state.cartReducer.err, 
-    redirectTo : state.cartReducer.redirectTo, 
     xBrand: state.cartReducer.xBrand };
 };
 

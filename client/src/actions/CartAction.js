@@ -1,4 +1,4 @@
-import { SET_CURRENT_CART, SET_CAROUSEL ,SET_CURRENT_CART_ERROR,SET_SELECTED_PRODUCT} from "./Types";
+import { SET_CURRENT_CART, SET_CAROUSEL ,SET_CURRENT_CART_ERROR,SET_SELECTED_PRODUCT,SET_PATHNAME} from "./Types";
 import config from "../config/config";
 
 function handleErrors(response) {
@@ -53,8 +53,10 @@ export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
         .then( handleErrors )
         .then(response => response.json())
         .then(response => {
-            
-            window.location = config.cart_url
+            //window.location = config.cart_url
+            window.history.pushState({}, "", config.cart_url);
+
+            dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:window.xBrand});
 
         }).catch( ( {response} ) =>{
             if( response.erro.cause.code == 404){
@@ -260,3 +262,8 @@ export const deleteLoyalties = (cartId) => dispatch => {
 };
 
 
+export const updatePathName = (url,pathName) => dispatch => {
+    window.history.pushState({}, "", url);
+        
+    dispatch({ type: SET_PATHNAME, payload: {pathName},operationStatus: 'SUCCESSFUL' });
+};

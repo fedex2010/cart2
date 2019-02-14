@@ -1,6 +1,8 @@
 import config from "../config/config";
 
 import React, { Component} from "react";
+import { updatePathName } from "../actions/CartAction";
+import { connect } from "react-redux";
 
 class Vendedor extends Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class Vendedor extends Component {
         body: JSON.stringify(data)
     })
     .then( response => {
-        window.location = config.cart_url
+        this.props.updatePathName( config.cart_url ,config.path_name.reactcart )
     }) 
     .catch( err => {
         console.log(err)
@@ -47,7 +49,7 @@ class Vendedor extends Component {
                         <div id="tp-content-form">
                             <img id="garba-image" src="https://dj4i04i24axgu.cloudfront.net/statics/1.3.16/images/favicon_app.png" />
                             <img id="compu-image" src="https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/logo-compumundo-app/2b54edb5d6f7adb1175f580812b3c1449d526febee9875ff77a400fc9fd59c05" />
-                            <p class="por-favor">Por favor, ingresá tu número de vendedor</p>
+                            <p className="por-favor">Por favor, ingresá tu número de vendedor</p>
                             <hr/>
                             {this.state.errorSubmit}
                             <div className="row">
@@ -66,4 +68,16 @@ class Vendedor extends Component {
   }
 }
 
-export default Vendedor
+const mapStateToProps = state => {
+    return { 
+      cart: state.cartReducer.cart, 
+      err : state.cartReducer.err, 
+      xBrand: state.cartReducer.xBrand };
+  };
+  
+  export default connect(
+    mapStateToProps,
+    { updatePathName}
+  )(Vendedor);
+
+  
