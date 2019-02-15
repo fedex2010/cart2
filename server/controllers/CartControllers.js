@@ -288,40 +288,40 @@ class CartControllers {
     let cartId;
     let firstCart;
 
-    console.log("-----------------------")
-    console.log("productId",productId,"Cupon: ",cupon,"brand: ",brand)
+    logger.info("-----------------------")
+    logger.info("productId",productId,"Cupon: ",cupon,"brand: ",brand)
 
     this._getOneCart(null, req, res)
       .then(cart => {
-        console.log("--------------------------------------")
+        logger.info("--------------------------------------")
 
-        console.log("------response _getOneCart----------------")
-        console.log( cart )
+        logger.info("------response _getOneCart----------------")
+        logger.info( cart )
     
         firstCart = cart ; 
         return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
       .then(product => {
 
-        console.log("--------------------------------------")
+        logger.info("--------------------------------------")
 
-        console.log("------response RestClient.productClient.addProduct----------------")
-        console.log( product )
+        logger.info("------response RestClient.productClient.addProduct----------------")
+        logger.info( product )
     
         return this.waitProcessingCart(firstCart,req,res)
       })
       .then( cart => {
 
-        console.log("------cart despues de waitProcessingCart----------------")
-        console.log( cart )
+        logger.info("------cart despues de waitProcessingCart----------------")
+        logger.info( cart )
 
         if( cupon != "" ){
 
           return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
                 .then( cupon => {
-                  console.log("--------------------------------------")
+                  logger.info("--------------------------------------")
 
-                  console.log("------response RestClient.promotion.addCoupon-----------------")
-                  console.log( cupon )
+                  logger.info("------response RestClient.promotion.addCoupon-----------------")
+                  logger.info( cupon )
           
                   return this.waitProcessingCart(cart,req,res)
                 })
@@ -336,9 +336,9 @@ class CartControllers {
       })
       .then( cart =>{
 
-        console.log("--------------------------------------")
-        console.log("------cart despues de waitProcessingCart----------------")
-        console.log( cart )
+        logger.info("--------------------------------------")
+        logger.info("------cart despues de waitProcessingCart----------------")
+        logger.info( cart )
 
         sessionService.setSessionCookie(res, session_id) 
         sessionService.setCartIdCookie(res, cart.cart_id) 
