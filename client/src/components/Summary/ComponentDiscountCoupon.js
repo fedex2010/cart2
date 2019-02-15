@@ -28,7 +28,7 @@ class ComponentDiscountCoupon extends Component {
       console.log("5c6434a7e4b09277d57822e0")
       console.log(coupon)
       console.log("5c6434a7e4b09277d57822e0")
-      if(coupon && coupon[0].coupon_id){
+      if(coupon && coupon[0] &&coupon[0].coupon_id){
           return (
               <div className="coupon-applied">
                   <span className="coupon-code">{coupon[0].coupon_id}</span>
