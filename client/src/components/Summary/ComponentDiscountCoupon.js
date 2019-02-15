@@ -59,12 +59,6 @@ class ComponentDiscountCoupon extends Component {
     }
 
     _InputDiscount(haspromotion){
-
-        console.log("-----haspromotion------")
-        console.log(haspromotion)
-        console.log("-----haspromotion------")
-
-
         if(haspromotion){
             return (
                 <label>
@@ -81,7 +75,7 @@ class ComponentDiscountCoupon extends Component {
         }else{
             return(
                 <label>
-                    <input type="checkbox" id="add-coupon"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />
+                    <input type="checkbox" id="add-coupon"  value="discount-coupon2" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />
                     Tengo cupón de descuento
                 </label>
             )
@@ -108,7 +102,7 @@ class ComponentDiscountCoupon extends Component {
         let displaynoneCheckboxDiscount = "displaynone";
         let coupon = {}
         let hasPromotion = this.props.hasPromotion;
-        if (this.state.selectedOption === "discount-coupon2") {
+        if (this.state.selectedOption === "discount-coupon2" || this.state.checkedCoupon) {
             displayNoneCoupon = "";
         }
         if (this.state.checkedCoupon) {
@@ -129,54 +123,3 @@ export default connect(
     mapStateToProps,
     { deleteCoupon }
 )(ComponentDiscountCoupon);
-
-
-/*
-*
-* if (this.props.discountCoupon > 0 || this.props.coupon > 0) {
-            if (typeof this.props.coupon != "undefined" && typeof this.props.coupon[0] != "undefined")
-                coupon = this.props.coupon[0];
-            return (
-                <ul className="cart-additional-item">
-                    <li>
-                        <label>
-                            <input type="radio" id="add-coupon" name="discount-coupon"  value="discount-coupon1" checked={this.state.selectedOption === "discount-coupon1"} onChange={this.handleOptionChange}              />{" "}
-                            Descuento especial
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input
-                                type="radio"
-                                name="discount-coupon"
-                                value="discount-coupon2"
-                                checked={this.state.selectedOption === "discount-coupon2"}
-                                onChange={this.handleOptionChange}
-                            />{" "}
-                            Tengo cupón de descuento
-                        </label>
-                        <div className={displayNoneCoupon}>
-                            <InputCouponApplied />
-                        </div>
-                        {this._showDelete(coupon)}
-                    </li>
-                </ul>
-            );
-        } else {
-            let coupon = (this.props.coupon && this.props.coupon[0])? this.props.coupon[0] : {};
-            return (
-                <div className="cart-additional-item">
-                    <div className={coupon.status == "VALID" ? 'displaynone' : '' }>
-                        <label>
-                            <input type="checkbox" id="add-coupon"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />{" "}
-                            Tengo cupón de descuento
-                        </label>
-                        <div className={displaynoneCheckboxDiscount}>
-                            <InputCouponApplied />
-                        </div>
-                    </div>
-                    {this._showDelete(coupon)}
-                </div>
-            );
-        }
-* */

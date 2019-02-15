@@ -38,7 +38,6 @@ class Alert extends Component {
 
       let hasCoupon = cart.couponAmount > 0;
       let msj = "";
-      console.log(hasCoupon);
       if(hasCoupon){
           msj = "¡Buenas noticias! Tenes un cupón de descuento aplicado."
       }else{
@@ -165,14 +164,8 @@ class Alert extends Component {
     }
 
   _showError(err){
-    console.log("jxicoajfeiow")
-    console.log( this.props.err.cause )
-    console.log( this.props.err.cause )
-    
     let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code == 404)? "error-msj" : "error-msj hide";
-
     let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
-
     let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
       return(
           <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>

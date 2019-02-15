@@ -35,9 +35,7 @@ class Summary extends Component {
 
     componentDidMount () {
     this.timeoutId = setTimeout(function () {
-      console.log(this.state.show)
             this.setState({show: true});
-            console.log(this.state.show)
         }.bind(this), 2000);
     }
 

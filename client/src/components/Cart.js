@@ -107,13 +107,6 @@ class Cart extends Component {
       let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
       let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
 
-      console.log("**************************");
-      console.log(hasPolcom);
-      console.log(hasPriceMatchingDiscount);
-      console.log(hasCrosseling);
-      console.log(hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
-      console.log("**************************");
-
       return (hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
   }
 
