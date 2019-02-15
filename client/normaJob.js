@@ -24,6 +24,8 @@ var jsTemplate = '<script src="<inline Js>" crossorigin="anonymous"></script>\n 
 
 var baseUrl = serverConfig.normandia.base_url[process.argv[2]] + "/template/all?analytics=off&webp=true";
 
+var title = process.argv[2].charAt(0).toLocaleUpperCase() + process.argv[2].slice(1);
+
 var data = fs.readFileSync("indexTemplate.html", "utf-8");
 
 console.log(baseUrl);
@@ -40,7 +42,8 @@ fetch(baseUrl)
     json.js.forEach(js => {
       jsInlineList += jsTemplate.replace("<inline Js>", js);
     });
-    newIndex = data.replace("<!-- <norma CSS> -->", cssInlineList);
+    newIndex = data.replace("<!-- <title> -->", title);
+    newIndex = newIndex.replace("<!-- <norma CSS> -->", cssInlineList);
     newIndex = newIndex.replace("<!-- <googleTagManageDataLayerr> -->", jsDataLayer);
     newIndex = newIndex.replace("<!-- <googleTagManager> -->", jsInlineTagManager);
     newIndex = newIndex.replace("<!-- <norma Js> -->", jsInlineList);

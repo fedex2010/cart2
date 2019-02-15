@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import InputCouponApplied from "./InputCouponApplied";
 import Cookie from "js-cookie";
-import { deleteCoupon } from "../../actions/CartAction";
+import { deleteCoupon, addCoupon } from "../../actions/CartAction";
 
 class ComponentDiscountCoupon extends Component {
     handleCheck = () => {
@@ -16,10 +16,25 @@ class ComponentDiscountCoupon extends Component {
             item: {},
             selectedOption: "discount-coupon1",
             checkedCoupon: false,
+            couponDelete:"",
             displaynoneShowCoupon: "displaynone"
         };
     }
+
+    _addCoupon(e){
+        let cartId = Cookie.get("cartId");
+        this.props.addCoupon(this.state.couponDelete,cartId);
+    }
+
     handleOptionChange = changeEvent => {
+        if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)){
+            this.setState({ couponDelete: this.props.coupon[0].coupon_id });
+            this._deleteCoupon(this.props.coupon[0],"");
+        }else{
+            if(this.state.couponDelete){
+                this._addCoupon()
+            }
+        }
         this.setState({ selectedOption: changeEvent.target.value });
     };
 
@@ -47,7 +62,7 @@ class ComponentDiscountCoupon extends Component {
         this.props.deleteCoupon(couponId, cartId);
         //pasa el radiobutton a descuento especial
         this.state.selectedOption = "discount-coupon1";
-       
+
     }
 
     _renderDiscountSpecial(hasPromotion){
@@ -117,7 +132,7 @@ class ComponentDiscountCoupon extends Component {
         if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)){
             displayNoneCoupon = "displaynone";
         }
-        
+
         return (
             <div>
                 {this._renderOption(displayNoneCoupon,this.props.coupon,hasPromotion)}
@@ -131,7 +146,7 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { deleteCoupon }
+    { deleteCoupon ,addCoupon }
 )(ComponentDiscountCoupon);
 
 
