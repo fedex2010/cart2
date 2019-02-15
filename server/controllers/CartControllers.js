@@ -288,15 +288,43 @@ class CartControllers {
     let cartId;
     let firstCart;
 
+    console.log("-----------------------")
+    console.log("productId",productId,"Cupon: ",cupon,"brand: ",brand)
+
     this._getOneCart(null, req, res)
-      .then(cart => {firstCart = cart ; return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
-      .then(product => this.waitProcessingCart(firstCart,req,res) )
+      .then(cart => {
+        console.log("--------------------------------------")
+
+        console.log("------response _getOneCart----------------")
+        console.log( cart )
+    
+        firstCart = cart ; 
+        return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
+      .then(product => {
+
+        console.log("--------------------------------------")
+
+        console.log("------response RestClient.productClient.addProduct----------------")
+        console.log( product )
+    
+        return this.waitProcessingCart(firstCart,req,res)
+      })
       .then( cart => {
+
+        console.log("------cart despues de waitProcessingCart----------------")
+        console.log( cart )
 
         if( cupon != "" ){
 
           return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
-                .then( cupon => this.waitProcessingCart(cart,req,res) )
+                .then( cupon => {
+                  console.log("--------------------------------------")
+
+                  console.log("------response RestClient.promotion.addCoupon-----------------")
+                  console.log( cupon )
+          
+                  return this.waitProcessingCart(cart,req,res)
+                })
                 .catch( err => {
                   throw err
                 })
@@ -307,6 +335,11 @@ class CartControllers {
         
       })
       .then( cart =>{
+
+        console.log("--------------------------------------")
+        console.log("------cart despues de waitProcessingCart----------------")
+        console.log( cart )
+
         sessionService.setSessionCookie(res, session_id) 
         sessionService.setCartIdCookie(res, cart.cart_id) 
 
