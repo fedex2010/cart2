@@ -95,7 +95,7 @@ class Summary extends Component {
 
     let subtotal = (this.props.subtotalBasePrice && this.props.subtotalPrice) ? this.props.subtotalBasePrice - this.props.subtotalPrice:0;
     
-
+    let hasPromotion = this.props.hasPromotion;
     let priceRound = this._formatPrice(this.props.subtotalPrice)
     let specialDiscountAmountRound = this._formatPrice(this.props.specialDiscountAmount);
     let totalWarrantiesRound = this._formatPrice(this.props.totalWarranties);
@@ -150,7 +150,7 @@ class Summary extends Component {
 
               <div  className={`${(empresarias || products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
-                <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons}/>
+                <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons} hasPromotion={hasPromotion}/>
                 <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
               </div>
              

@@ -102,10 +102,27 @@ class Cart extends Component {
     window.dataLayer.push(this._generateDataLayerForGTM(cart, null));
   }
 
+  _isPromotion(cart){
+      let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
+      let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
+      let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
+
+      console.log("**************************");
+      console.log(hasPolcom);
+      console.log(hasPriceMatchingDiscount);
+      console.log(hasCrosseling);
+      console.log(hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
+      console.log("**************************");
+
+      return (hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
+  }
+
   render() {
 
     let specialDiscountAmount = 0;
     let classSummary = "";
+    let hasPromotion = 0;
+
     if (this.props.cart !== undefined) {
       if (
         this.props.cart.discount_details !== undefined &&
@@ -123,6 +140,7 @@ class Cart extends Component {
       }
       if(this.props.cart.products){
           classSummary = this._productCant(this.props.cart.products);
+          hasPromotion = this._isPromotion(this.props.cart);
       }
       if (this.props.cart && this.props.cart.products) {
         this._setDataLayer(this.props.cart);
@@ -151,6 +169,7 @@ class Cart extends Component {
                       subtotalBasePrice={this.props.cart.subtotal_base_price}
                       totalWarranties={this.props.cart.total_warranties}
                       specialDiscountAmount={specialDiscountAmount}
+                      hasPromotion={hasPromotion}
                       coupons={this.props.cart.coupons}
                       addMillasAP={this.props.cart.loyalties}
                       totalDiscounts={this.props.cart.total_discounts}

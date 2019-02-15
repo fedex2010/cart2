@@ -45,19 +45,95 @@ class ComponentDiscountCoupon extends Component {
        
     }
 
+    _renderDiscountSpecial(hasPromotion){
+        if(hasPromotion){
+            return(
+                <li>
+                    <label>
+                        <input type="radio" id="add-coupon" name="discount-coupon"  value="discount-coupon1" checked={this.state.selectedOption === "discount-coupon1"} onChange={this.handleOptionChange} />{" "}
+                        Descuento especial
+                    </label>
+                </li>
+            )
+        }
+    }
+
+    _InputDiscount(haspromotion){
+
+        console.log("-----haspromotion------")
+        console.log(haspromotion)
+        console.log("-----haspromotion------")
+
+
+        if(haspromotion){
+            return (
+                <label>
+                    <input
+                        type="radio"
+                        name="discount-coupon"
+                        value="discount-coupon2"
+                        checked={this.state.selectedOption === "discount-coupon2"}
+                        onChange={this.handleOptionChange}
+                    />{" "}
+                    Tengo cupón de descuento
+                </label>
+            )
+        }else{
+            return(
+                <label>
+                    <input type="checkbox" id="add-coupon"  value="checkboxDiscount" onChange={this.handleCheck}  defaultChecked={this.state.checkedCoupon} />
+                    Tengo cupón de descuento
+                </label>
+            )
+        }
+    }
+
+    _renderOption(displayNoneCoupon,coupon,hasPromotion){
+        return (
+            <ul className="cart-additional-item">
+                {this._renderDiscountSpecial(hasPromotion)}
+                <li>
+                    {this._InputDiscount(hasPromotion)}
+                    <div className={displayNoneCoupon}>
+                        <InputCouponApplied />
+                    </div>
+                    {this._showDelete(coupon)}
+                </li>
+            </ul>
+        );
+    }
+
     render() {
         let displayNoneCoupon = "displaynone";
         let displaynoneCheckboxDiscount = "displaynone";
         let coupon = {}
-
+        let hasPromotion = this.props.hasPromotion;
         if (this.state.selectedOption === "discount-coupon2") {
             displayNoneCoupon = "";
         }
-
         if (this.state.checkedCoupon) {
             displaynoneCheckboxDiscount = "";
         }
-        if (this.props.discountCoupon > 0 || this.props.coupon > 0) {
+        return (
+            <div>
+                {this._renderOption(displayNoneCoupon,coupon,hasPromotion)}
+            </div>
+        )
+    }
+}
+const mapStateToProps = state => {
+    return { item: state.cartReducer.item };
+};
+
+export default connect(
+    mapStateToProps,
+    { deleteCoupon }
+)(ComponentDiscountCoupon);
+
+
+/*
+*
+* if (this.props.discountCoupon > 0 || this.props.coupon > 0) {
             if (typeof this.props.coupon != "undefined" && typeof this.props.coupon[0] != "undefined")
                 coupon = this.props.coupon[0];
             return (
@@ -88,7 +164,6 @@ class ComponentDiscountCoupon extends Component {
             );
         } else {
             let coupon = (this.props.coupon && this.props.coupon[0])? this.props.coupon[0] : {};
-            console.log("coupon.null",coupon.status != "VALID")
             return (
                 <div className="cart-additional-item">
                     <div className={coupon.status == "VALID" ? 'displaynone' : '' }>
@@ -104,13 +179,4 @@ class ComponentDiscountCoupon extends Component {
                 </div>
             );
         }
-    }
-}
-const mapStateToProps = state => {
-    return { item: state.cartReducer.item };
-};
-
-export default connect(
-    mapStateToProps,
-    { deleteCoupon }
-)(ComponentDiscountCoupon);
+* */
