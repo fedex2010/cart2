@@ -13,7 +13,6 @@ class InputCouponApplied extends Component {
     }
 
   _addCoupon(e){
-    
       let cartId = Cookie.get("cartId");
       this.props.addCoupon(this.state.input,cartId);
   }

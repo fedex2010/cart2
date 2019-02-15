@@ -282,7 +282,7 @@ class CartControllers {
   newCartByProductId(req, res) {
 
     const productId = req.params.productId
-    const cupon = req.query.cupon || ""
+    const cupon = req.params.cupon
     const brand  = res.locals.xBrand.toLowerCase();
     const session_id  = res.locals.session;
     let cartId;
@@ -322,7 +322,7 @@ class CartControllers {
         logger.info(typeof cupon)
         logger.info("CUPON")
 
-        if( cupon != "" ){
+        if( cupon != "UNDEFINED" ){
 
           return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
                 .then( cupon => {
