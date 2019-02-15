@@ -17,7 +17,7 @@
     "server-ci": "cd server && yarn run server-ci",
     "client": "cd client && yarn run start",
     "garba-cart": "yarn run norma-garba && npm-run-all --parallel client server-dev",
-    "compu-cart": "yarn run norma-garba && npm-run-all --parallel client server-dev",
+    "compu-cart": "yarn run norma-compu && npm-run-all --parallel client server-dev",
     "build-client": "cd client && yarn build",
     "mv-client-garba": "cd client && mv build build-garba",
     "mv-client-compu": "cd client && mv build build-compu",
