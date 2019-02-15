@@ -30,9 +30,6 @@ class ComponentMillasAP extends Component {
 
   _showDelete(){
       if (this.props.addMillasAP && this.props.addMillasAP[0] && this.props.addMillasAP[0].code) {
-
-          console.log(this.props.addMillasAP)
-          console.log(typeof this.props.addMillasAP)
           return (
               <div className="coupon-applied">
                   <span className="coupon-code">{this.props.addMillasAP[0].code}</span>
