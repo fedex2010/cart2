@@ -32,7 +32,12 @@ export const fetchCart = id => dispatch => {
         dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:window.xBrand});
 
     }).catch( ( err ) =>{
-        if( err.response.erro.cause.code == 404){
+
+      console.error("*************")
+      console.error(err)
+      console.error("*************")
+
+      if( err.response.erro.cause.code == 404){
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
         }else{
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500});
