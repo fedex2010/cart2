@@ -161,7 +161,12 @@ class CartControllers {
       console.log("cart si null");
 
       return this.getNewCart(req, res)
-                 .then(cart => { cart = _replaceImage(cart); return cart} )
+                 .then(cart => { 
+                   cart = _replaceImage(cart); 
+                   cart.percentage = calculateWarrantiesPercentage(cart);
+                   cart = this._getEmpresarias(req, res,cart);
+                   return cart
+                  })
                  .catch( err => err );
     }
   }
