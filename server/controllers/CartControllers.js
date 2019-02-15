@@ -281,16 +281,17 @@ class CartControllers {
     const brand  = res.locals.xBrand.toLowerCase();
     const session_id  = res.locals.session;
     let cartId;
+    let firstCart;
 
     this._getOneCart(null, req, res)
-      .then(cart => {cartId = cart.cart_id ; return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
+      .then(cart => {firstCart = cart ; return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
       .then(product => this._getOneCart(cartId,req,res) )
       .then( cart => {
 
         if( cupon != "" ){
 
-          return RestClient.promotion.addCoupon(cartId, cupon, brand)
-                .then( cupon => this._getOneCart( cartId ,req,res) )
+          return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
+                .then( cupon => this.waitProcessingCart(cart,req,res) )
                 .catch( err => {
                   throw err
                 })
@@ -302,7 +303,7 @@ class CartControllers {
       })
       .then( cart =>{
         sessionService.setSessionCookie(res, session_id) 
-        sessionService.setCartIdCookie(res, cartId) 
+        sessionService.setCartIdCookie(res, cart.cart_id) 
 
         res.status(200).send(cart)
       })
