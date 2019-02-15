@@ -59,6 +59,9 @@ export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:window.xBrand});
 
         }).catch( ( {response} ) =>{
+            console.log("//////////////////////")
+            console.log( response )
+            console.log("//////////////////////")
             if( response.erro.cause.code == 404){
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: response, operationStatus: 'ERROR', operationResult: response.erro.cause.code });
             }else{
