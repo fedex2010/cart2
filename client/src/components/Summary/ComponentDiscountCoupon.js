@@ -110,6 +110,11 @@ class ComponentDiscountCoupon extends Component {
         if (this.state.checkedCoupon) {
             displaynoneCheckboxDiscount = "";
         }
+
+        if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)){
+            displayNoneCoupon = "displaynone";
+        }
+        
         return (
             <div>
                 {this._renderOption(displayNoneCoupon,this.props.coupon,hasPromotion)}
