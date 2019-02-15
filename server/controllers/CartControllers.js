@@ -289,7 +289,7 @@ class CartControllers {
     let firstCart;
 
     logger.info("-----------------------")
-    logger.info("productId",productId,"Cupon: ",cupon,"brand: ",brand)
+    logger.info("productId" + productId + " Cupon: " + cupon + "brand: ",brand)
 
     this._getOneCart(null, req, res)
       .then(cart => {
@@ -317,6 +317,8 @@ class CartControllers {
         logger.info("------cart despues de waitProcessingCart----------------")
         logger.info( JSON.stringify(cart) )
           
+        console.log("CUPON")
+        console.log(cupon)
 
         if( cupon != "" ){
 
