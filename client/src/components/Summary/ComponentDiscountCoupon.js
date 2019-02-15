@@ -25,6 +25,7 @@ class ComponentDiscountCoupon extends Component {
 
     _showDelete(coupon){
         this.state.displaynoneShowCoupon = "";
+        this.state.selectedOption = "discount-coupon2";
       console.log("5c6434a7e4b09277d57822e0")
       console.log(coupon)
       console.log("5c6434a7e4b09277d57822e0")
@@ -44,6 +45,8 @@ class ComponentDiscountCoupon extends Component {
         let cartId = Cookie.get("cartId");
         let couponId = coupon.coupon_id;
         this.props.deleteCoupon(couponId, cartId);
+        //pasa el radiobutton a descuento especial
+        this.state.selectedOption = "discount-coupon1";
        
     }
 
