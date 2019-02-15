@@ -310,6 +310,10 @@ class CartControllers {
         sessionService.setSessionCookie(res, session_id) 
         sessionService.setCartIdCookie(res, cart.cart_id) 
 
+        cart = _replaceImage(cart); 
+        cart.percentage = calculateWarrantiesPercentage(cart);
+        cart = this._getEmpresarias(req, res,cart);
+
         res.status(200).send(cart)
       })
       .catch(err => {
