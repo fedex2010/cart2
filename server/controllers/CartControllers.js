@@ -296,7 +296,8 @@ class CartControllers {
         logger.info("--------------------------------------")
 
         logger.info("------response _getOneCart----------------")
-        logger.info( cart )
+        logger.info( JSON.stringify(cart) )
+        
     
         firstCart = cart ; 
         return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
@@ -305,14 +306,16 @@ class CartControllers {
         logger.info("--------------------------------------")
 
         logger.info("------response RestClient.productClient.addProduct----------------")
-        logger.info( product )
+        logger.info( JSON.stringify(product) )
+        
     
         return this.waitProcessingCart(firstCart,req,res)
       })
       .then( cart => {
 
         logger.info("------cart despues de waitProcessingCart----------------")
-        logger.info( cart )
+        logger.info( JSON.stringify(cart) )
+          
 
         if( cupon != "" ){
 
@@ -321,7 +324,7 @@ class CartControllers {
                   logger.info("--------------------------------------")
 
                   logger.info("------response RestClient.promotion.addCoupon-----------------")
-                  logger.info( cupon )
+                  logger.info( JSON.stringify(cupon) )
           
                   return this.waitProcessingCart(cart,req,res)
                 })
@@ -338,7 +341,7 @@ class CartControllers {
 
         logger.info("--------------------------------------")
         logger.info("------cart despues de waitProcessingCart----------------")
-        logger.info( cart )
+        logger.info( JSON.stringify(cart) )
 
         sessionService.setSessionCookie(res, session_id) 
         sessionService.setCartIdCookie(res, cart.cart_id) 
