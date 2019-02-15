@@ -317,8 +317,10 @@ class CartControllers {
         logger.info("------cart despues de waitProcessingCart----------------")
         logger.info( JSON.stringify(cart) )
           
-        console.log("CUPON")
-        console.log(cupon)
+        logger.info("CUPON")
+        logger.info(cupon)
+        logger.info(typeof cupon)
+        logger.info("CUPON")
 
         if( cupon != "" ){
 
