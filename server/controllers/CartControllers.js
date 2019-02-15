@@ -290,12 +290,12 @@ class CartControllers {
 
     this._getOneCart(null, req, res)
       .then(cart => {firstCart = cart ; return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
-      .then(product => this._getOneCart(cartId,req,res) )
+      .then(product => this._getOneCart(firstCart.cart_id,req,res) )
       .then( cart => {
 
         if( cupon != "" ){
 
-          return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
+          return RestClient.promotion.addCoupon(firstCart.cart_id, cupon, brand)
                 .then( cupon => this.waitProcessingCart(cart,req,res) )
                 .catch( err => {
                   throw err
