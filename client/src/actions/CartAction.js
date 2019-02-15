@@ -49,7 +49,9 @@ export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
     let url = config.cart_url+"/api/cart/newCartByProductId/" + productId
 
     if(couponId != ""){
-        url += "?cupon=" + couponId
+        url += "/" + couponId
+    }else{
+        url += "/UNDEFINED" 
     }
 
     fetch(url,{  credentials: 'include'  })
