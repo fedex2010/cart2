@@ -12,12 +12,6 @@ const initialState = {
   xBrand:""
 };
 
-/*window.onpopstate = function(event) {
-  console.log("----------------------------");
-  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-  console.log("----------------------------");
-};*/
-
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_CART:
