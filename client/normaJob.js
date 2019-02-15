@@ -26,6 +26,8 @@ var baseUrl = serverConfig.normandia.base_url[process.argv[2]] + "/template/all?
 
 var title = process.argv[2].charAt(0).toLocaleUpperCase() + process.argv[2].slice(1);
 
+var favicon = "favicon_" + process.argv[2] + ".png";
+
 var data = fs.readFileSync("indexTemplate.html", "utf-8");
 
 console.log(baseUrl);
@@ -43,6 +45,7 @@ fetch(baseUrl)
       jsInlineList += jsTemplate.replace("<inline Js>", js);
     });
     newIndex = data.replace("<!-- <title> -->", title);
+    newIndex = newIndex.replace("<!-- <favicon> -->", favicon);
     newIndex = newIndex.replace("<!-- <norma CSS> -->", cssInlineList);
     newIndex = newIndex.replace("<!-- <googleTagManageDataLayerr> -->", jsDataLayer);
     newIndex = newIndex.replace("<!-- <googleTagManager> -->", jsInlineTagManager);
