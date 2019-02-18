@@ -16,6 +16,12 @@ class InputCouponApplied extends Component {
       let cartId = Cookie.get("cartId");
       this.props.addCoupon(this.state.input,cartId);
   }
+  _handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      let cartId = Cookie.get("cartId");
+      this.props.addCoupon(this.state.input,cartId);
+    }
+  }
 
   _handleInput(e){
       if(e.target.value.length > 0){
@@ -37,7 +43,7 @@ class InputCouponApplied extends Component {
     return (
       <div className="InputCouponApplied">
         <div className="coupon-apply-form">
-            <input className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
+            <input onKeyPress={this._handleKeyPress.bind(this)} className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
             <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" disabled={this.state.disabled}>Aplicar</button>
             {this._showError()}
         </div>
