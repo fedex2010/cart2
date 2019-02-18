@@ -29,7 +29,7 @@
     "extends": "react-app"
   },
   "proxy": "http://localhost:3001",
-  "homepage": "https://ci.garbarino.com/reactcart",
+  "homepage": "https://ci.garbarino.com",
   "browserslist": [
     ">0.2%",
     "not dead",
