@@ -181,6 +181,37 @@ class CartControllers {
   }
 
 
+  getCartStatusWithWarranties = (req, res) => {
+    
+    let cartId = res.locals.cartId;
+
+    return this._getOneCart(cartId,req,res)
+    .then(function(cart){
+      if(cart.status != "PROCESSING") {
+        return cartService.getInflatedCart(cartId, res.locals.xBrand, undefined, true)
+          .then(function (cart) {
+              cart.porcentajeInteres = cartService.calculateWarrantiesPercentage(cart);
+              cart = cartService.getEmpresarias(req, res, cart);
+              res.json(cart);
+          })
+      } else {
+        res.json(cart);
+      }
+    })
+    .catch(function(err) {
+        newrelic.noticeError(err)
+        logger.error("getCartStatus FAIL: Cart Call: ", err);
+        if (err.cause.code == "404"){
+          logger.error("[", cartId, "]","getCartStatus FAIL: Cart Does Not Exist");
+          res.status(404).json({"status": "Cart Does Not Exist"});
+        }else{
+          res.status(500).json({"status": "ERROR"});
+        }
+        
+    });
+  }
+
+
   addProduct(req, res) {
     const body = req.body || {};
     const productIds = body.xid.split(",")
@@ -317,11 +348,6 @@ class CartControllers {
         logger.info("------cart despues de waitProcessingCart----------------")
         logger.info( JSON.stringify(cart) )
           
-        logger.info("CUPON")
-        logger.info(cupon)
-        logger.info(typeof cupon)
-        logger.info("CUPON")
-
         if( cupon != "UNDEFINED" ){
 
           return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
