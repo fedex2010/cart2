@@ -18,9 +18,9 @@ var jsInlineTagManager = '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({
   '                \'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);\n' +
   '            })(window,document,\'script\',\'dataLayer\',\'' + gtmId + '\');</script>';
 
-var cssTemplate = '<link href="<inline CSS>" rel="stylesheet" type="text/css">\n    ';
+var cssTemplate = '<link href="<inline CSS>" rel="stylesheet" type="text/css">\n  ';
 
-var jsTemplate = '<script src="<inline Js>" crossorigin="anonymous"></script>\n    ';
+var jsTemplate = '<script src="<inline Js>" crossorigin="anonymous"></script>\n  ';
 
 var baseUrl = serverConfig.normandia.base_url[process.argv[2]] + "/template/all?analytics=off&webp=true";
 
@@ -46,6 +46,7 @@ fetch(baseUrl)
     });
     newIndex = data.replace("<!-- <title> -->", title);
     newIndex = newIndex.replace("<!-- <favicon> -->", favicon);
+    newIndex = newIndex.replace("<!-- <favicon-apple> -->", favicon);
     newIndex = newIndex.replace("<!-- <norma CSS> -->", cssInlineList);
     newIndex = newIndex.replace("<!-- <googleTagManageDataLayerr> -->", jsDataLayer);
     newIndex = newIndex.replace("<!-- <googleTagManager> -->", jsInlineTagManager);
