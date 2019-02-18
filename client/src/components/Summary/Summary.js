@@ -100,73 +100,68 @@ class Summary extends Component {
     let totalDiscountsRound = this._formatPrice(this.props.totalDiscounts);
     let subtotalRound = this._formatPrice(subtotal);
     let totalRound = this._formatPrice(this.props.totalPrice);
+    if(this.props.coupons){
+        return (
+            <div className={classLoading}>
+                <div className="purchase-summary">
+                    <div className="card cart-summary">
+                        <div className="cart-summary-header">
+                            <span className="cart-summary-title">Resumen de compra</span>
+                        </div>
+                        <SuccessMessage />
+                        <ul className="summary-detail">
+                            <li id="subtotal">
+                                <label>Subtotal</label>
+                                <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? priceRound : '0'}</span>
+                            </li>
+                            <li className={`${empresarias ? '' : 'displaynone'}`} id="empresarias">
+                                <label>IVA</label>
+                                <span className="summary-detail-value">${subtotalRound}</span>
+                            </li>
+                            <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'} id="warranty">
+                                <label>Garantías</label>
+                                <span className="summary-detail-value">${this.props.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
+                            </li>
+                            <li className={this.state.show && !this.props.coupons ? "displaynone" : couponClass} id="coupon">
+                                <label>Descuento por cupón</label>
+                                <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>
+                            </li>
+                            <li className={this.props.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'} id="special-discount-line">
+                                <label>Descuento especial</label>
+                                <span className="summary-detail-value">- ${specialDiscountAmountRound}</span>
+                            </li>
+                            <li className="summary-total" id="total">
+                                <label>Total</label>
+                                <span className="summary-detail-value">${this.props.totalPrice > 0 ? totalRound : '0'}</span>
+                            </li>
+                        </ul>
 
-    return (
-        <div className={classLoading}>
-          {/* resumen de compra */}
-          <div className="purchase-summary">
-            {/*add class - card--is-loading - en  <div className="card cart-summary card--is-loading"> para el loading*/}
-            <div className="card cart-summary">
-              {/*  cart-seller <p className="cart-seller">Vendedor: 12345566</p> */}
-              <div className="cart-summary-header">
-                <span className="cart-summary-title">Resumen de compra</span>
-              </div>
-
-              <SuccessMessage />
-
-              <ul className="summary-detail">
-                <li id="subtotal">
-                  <label>Subtotal</label>
-                  <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? priceRound : '0'}</span>
-                </li>
-
-
-               
-                <li className={`${empresarias ? '' : 'displaynone'}`} id="empresarias">
-                  <label>IVA</label>
-                  <span className="summary-detail-value">${subtotalRound}</span>
-                </li>
-               
-
-                <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'} id="warranty">
-                  <label>Garantías</label>
-                  <span className="summary-detail-value">${this.props.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
-                </li>
-                <li className={this.state.show && !this.props.coupons ? "displaynone" : couponClass} id="coupon">
-                  <label>Descuento por cupón</label>
-                  <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>
-                </li>
-                <li className={this.props.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'} id="special-discount-line">
-                  <label>Descuento especial</label>
-                  <span className="summary-detail-value">- ${specialDiscountAmountRound}</span>
-                </li>
-                <li className="summary-total" id="total">
-                  <label>Total</label>
-                  <span className="summary-detail-value">${this.props.totalPrice > 0 ? totalRound : '0'}</span>
-                </li>
-              </ul>
-
-              <div  className={`${(empresarias || products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
-                <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
-                <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons} hasPromotion={hasPromotion}/>
-                <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
-              </div>
-             
+                        <div  className={`${(empresarias || products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
+                            <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>
+                            <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons} hasPromotion={hasPromotion}/>
+                            <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
+                        </div>
 
 
+
+                    </div>
+                    <div className="cart-actions">
+                        <button className="button--link">
+                            COMPRAR MÁS PRODUCTOS
+                        </button>
+                        <button type="button" className="button--primary" onClick={this._continue.bind()}>
+                            Continuar
+                        </button>
+                    </div>
+                </div>
+                {/* FIN resumen de compra */}
             </div>
-            <div className="cart-actions">
-              <button className="button--link">
-                COMPRAR MÁS PRODUCTOS
-              </button>
-              <button type="button" className="button--primary" onClick={this._continue.bind()}>
-                Continuar
-              </button>
-            </div>
-          </div>
-          {/* FIN resumen de compra */}
-        </div>
-    );
+        );
+    }else{
+        return (
+          <div></div>
+        )
+    }
   }
 }
 const mapStateToProps = state => {
