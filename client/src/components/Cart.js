@@ -128,7 +128,7 @@ class Cart extends Component {
           this.props.cart.discount_details[0].source === "POLCOM" ||
           this.props.cart.discount_details[0].source === "PRICE_MATCHING"
         ) {
-          specialDiscountAmount += this.props.cart.discount_details[0].amount;
+          specialDiscountAmount += this.props.cart.total_discounts || this.props.cart.discount_details[0].amount ;
         }
       }
       if(this.props.cart.products){

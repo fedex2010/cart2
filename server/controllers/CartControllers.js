@@ -175,40 +175,13 @@ class CartControllers {
     
     return this._getOneCart(cart.cart_id, req, res)
             .then(cart => {
-              return cart.status != 'PROCESSING' ? cart : Q.delay(50).then(_ => waitProcessingCart(cart))
+              console.log("-------------------------")
+              console.log( cart.status )
+              console.log("-------------------------")
+              
+              return cart.status != 'PROCESSING' ? cart : Q.delay(50).then(_ => waitProcessingCart(cart,req,res))
             })
             .catch( err => err );
-  }
-
-
-  getCartStatusWithWarranties = (req, res) => {
-    
-    let cartId = res.locals.cartId;
-
-    return this._getOneCart(cartId,req,res)
-    .then(function(cart){
-      if(cart.status != "PROCESSING") {
-        return cartService.getInflatedCart(cartId, res.locals.xBrand, undefined, true)
-          .then(function (cart) {
-              cart.porcentajeInteres = cartService.calculateWarrantiesPercentage(cart);
-              cart = cartService.getEmpresarias(req, res, cart);
-              res.json(cart);
-          })
-      } else {
-        res.json(cart);
-      }
-    })
-    .catch(function(err) {
-        newrelic.noticeError(err)
-        logger.error("getCartStatus FAIL: Cart Call: ", err);
-        if (err.cause.code == "404"){
-          logger.error("[", cartId, "]","getCartStatus FAIL: Cart Does Not Exist");
-          res.status(404).json({"status": "Cart Does Not Exist"});
-        }else{
-          res.status(500).json({"status": "ERROR"});
-        }
-        
-    });
   }
 
 
@@ -258,8 +231,8 @@ class CartControllers {
                       return missing.reduce((ac, promoProductId) =>
                                 //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
                                 ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null,null, null, null,brand) )
-                                .then(_ => self.waitProcessingCart(cart))
-                                , Q(cart).then(_ => self.waitProcessingCart(cart)))
+                                .then(_ => self.waitProcessingCart(cart,req,res))
+                                , Q(cart).then(_ => self.waitProcessingCart(cart,req,res)))
                                 .catch(err=> {
                                   logger.error ("Error adding Promotion products"+ err)
                                   return cart
@@ -282,6 +255,8 @@ class CartControllers {
       .then(cart => self.addProductToCart(cart, productIds[0], warranty_id, productPrice, promotionId, promotionId,cart.session ,brand) )
 
       .then(product => this._getOneCart(cartId,req,res) )
+
+      .then(cart => self.waitProcessingCart(cart,req,res) )
 
       .then(cart => res.status(200).send(cart) )
 
@@ -323,39 +298,20 @@ class CartControllers {
     logger.info("productId" + productId + " Cupon: " + cupon + "brand: ",brand)
 
     this._getOneCart(null, req, res)
-      .then(cart => {
-        logger.info("--------------------------------------")
-
-        logger.info("------response _getOneCart----------------")
-        logger.info("------response _getOneCart----------------")
-        logger.info( JSON.stringify(cart) )
-        
+      .then(cart => {        
     
         firstCart = cart ; 
         return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null,res.locals.session,brand);} )
       .then(product => {
 
-        logger.info("--------------------------------------")
-
-        logger.info("------response RestClient.productClient.addProduct----------------")
-        logger.info( JSON.stringify(product) )
-        
-    
         return this.waitProcessingCart(firstCart,req,res)
       })
       .then( cart => {
-
-        logger.info("------cart despues de waitProcessingCart----------------")
-        logger.info( JSON.stringify(cart) )
           
         if( cupon != "UNDEFINED" ){
 
           return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
                 .then( cupon => {
-                  logger.info("--------------------------------------")
-
-                  logger.info("------response RestClient.promotion.addCoupon-----------------")
-                  logger.info( JSON.stringify(cupon) )
           
                   return this.waitProcessingCart(cart,req,res)
                 })
@@ -369,10 +325,6 @@ class CartControllers {
         
       })
       .then( cart =>{
-
-        logger.info("--------------------------------------")
-        logger.info("------cart despues de waitProcessingCart----------------")
-        logger.info( JSON.stringify(cart) )
 
         sessionService.setSessionCookie(res, session_id) 
         sessionService.setCartIdCookie(res, cart.cart_id) 
