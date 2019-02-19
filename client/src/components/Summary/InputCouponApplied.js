@@ -8,7 +8,7 @@ class InputCouponApplied extends Component {
         super(props);
         this.state = {
             input: "",
-            disabled: "disabled" 
+            disabled: "disabled"
         }
     }
 
@@ -32,6 +32,7 @@ class InputCouponApplied extends Component {
 
       let couponId = e.target.value;
       this.setState({ input: couponId });
+     
   }
 
   _showError(){
@@ -39,12 +40,14 @@ class InputCouponApplied extends Component {
     return(<p className={classError} id="alert-coupon-fail">Código de cupón inválido.</p>);
   }
  
+ 
+ 
   render() {
     return (
       <div className="InputCouponApplied">
-        <div className="coupon-apply-form">
-            <input onKeyPress={this._handleKeyPress.bind(this)} className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
-            <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" disabled={this.state.disabled}>Aplicar</button>
+        <div className="coupon-apply-form" >
+            <input onKeyPress={this._handleKeyPress.bind(this)} className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" autofocus="true" />
+            <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" >Aplicar</button>
             {this._showError()}
         </div>
       </div>

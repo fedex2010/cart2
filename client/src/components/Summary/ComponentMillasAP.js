@@ -85,6 +85,7 @@ class ComponentMillasAP extends Component {
                           autoComplete="off"
                           onChange={this._handleInput.bind(this)}
                           value={this.state.value}
+                          autofocus="true"
                       />
                       <button className="button--primary button--sm" onClick={this._setMillas.bind(this)}>
                           Aplicar

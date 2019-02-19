@@ -27,7 +27,6 @@ class ComponentDiscountCoupon extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props);
         let selectedOption= (this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)?"discount-coupon2":"discount-coupon1";
         this.setState({ selectedOption: selectedOption });
     }
@@ -78,6 +77,8 @@ class ComponentDiscountCoupon extends Component {
     }
 
     _InputDiscount(haspromotion){
+       
+       
         if(haspromotion){
             return (
                 <label>
@@ -108,7 +109,7 @@ class ComponentDiscountCoupon extends Component {
                 <li>
                     {this._InputDiscount(hasPromotion)}
                     <div className={displayNoneCoupon}>
-                        <InputCouponApplied />
+                        <InputCouponApplied/>
                     </div>
                     {this._showDelete(coupon)}
                 </li>
@@ -131,7 +132,7 @@ class ComponentDiscountCoupon extends Component {
         if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)){
             displayNoneCoupon = "displaynone";
         }
-
+ 
         return (
             <div>
                 {this._renderOption(displayNoneCoupon,this.props.coupon,hasPromotion)}
