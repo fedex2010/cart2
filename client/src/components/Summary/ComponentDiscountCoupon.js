@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import InputCouponApplied from "./InputCouponApplied";
 import Cookie from "js-cookie";
-import { deleteCoupon, addCoupon } from "../../actions/CartAction";
+import { deleteCoupon, addCoupon ,justReload} from "../../actions/CartAction";
 
 class ComponentDiscountCoupon extends Component {
     handleCheck = () => {
@@ -16,40 +16,51 @@ class ComponentDiscountCoupon extends Component {
             item: {},
             selectedOption: "discount-coupon1",
             checkedCoupon: false,
-            couponDelete:"",
             displaynoneShowCoupon: "displaynone"
-        };
-    }
-
-    _addCoupon(e){
-        let cartId = Cookie.get("cartId");
-        this.props.addCoupon(this.state.couponDelete,cartId);
+        };        
     }
 
     componentDidMount(){
-        console.log(this.props);
         let selectedOption= (this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)?"discount-coupon2":"discount-coupon1";
         this.setState({ selectedOption: selectedOption });
     }
 
     handleOptionChange = changeEvent => {
         this.setState({ selectedOption: changeEvent.target.value });
-        if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)){
-            this.setState({ couponDelete: this.props.coupon[0].coupon_id });
-            this._deleteCoupon(this.props.coupon[0],"");
-        }else{
-            if(this.state.couponDelete){
+
+        if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id) ){
+
+            localStorage.setItem("couponDeleted",this.props.coupon[0].coupon_id)
+            this._deleteCoupon(this.props.coupon[0]);
+
+        }else if( localStorage.getItem("couponDeleted") != null ){
                 this._addCoupon()
-            }
+        }else if( changeEvent.target.value == "discount-coupon1" )  { //when click on "Descuento especial"       
+            let cartId = Cookie.get("cartId");
+
+            this.props.justReload(cartId)
+       }else if( changeEvent.target.value == "discount-coupon2" )  { //when click on "Descuento especial"       
+            document.getElementById("InputCouponApplied").focus()
+            console.log( changeEvent.target.value )
+            console.log( document.getElementById("InputCouponApplied") )
         }
+        
+        console.log( changeEvent.target.value )
     };
 
+    _addCoupon(){
+        let cartId = Cookie.get("cartId");
+
+        this.props.addCoupon(localStorage.getItem("couponDeleted"),cartId);
+    }
+    
     _showDelete(coupon){
-      if(coupon && coupon[0] &&coupon[0].coupon_id){
+      if(coupon && coupon[0] && coupon[0].coupon_id){
           return (
-              <div className="coupon-applied">
+              <div className="coupon-applied">       
+
                   <span className="coupon-code">{coupon[0].coupon_id}</span>
-                  <button className="link-to-button" onClick={this._deleteCoupon.bind(this, coupon[0])}>
+                  <button className="link-to-button" onClick={this._removeAndDeleteCoupon.bind(this, coupon[0])}>
                       Eliminar
                   </button>
               </div>
@@ -57,11 +68,15 @@ class ComponentDiscountCoupon extends Component {
       }
     }
 
-    _deleteCoupon(coupon, e) {
-        let cartId = Cookie.get("cartId");
-        let couponId = coupon.coupon_id;
-        this.props.deleteCoupon(couponId, cartId);
+    _removeAndDeleteCoupon(cupon){
+        localStorage.removeItem("couponDeleted")
 
+        this._deleteCoupon(cupon)
+    }
+
+    _deleteCoupon({coupon_id}) {
+        let cartId = Cookie.get("cartId");
+        this.props.deleteCoupon(coupon_id, cartId);
     }
 
     _renderDiscountSpecial(hasPromotion){
@@ -102,13 +117,16 @@ class ComponentDiscountCoupon extends Component {
     }
 
     _renderOption(displayNoneCoupon,coupon,hasPromotion){
+        let aCupon = localStorage.getItem("couponDeleted")
+        let inputContent = ( aCupon != null )? aCupon : "";
+        
         return (
             <ul className="cart-additional-item">
                 {this._renderDiscountSpecial(hasPromotion)}
                 <li>
                     {this._InputDiscount(hasPromotion)}
                     <div className={displayNoneCoupon}>
-                        <InputCouponApplied />
+                        <InputCouponApplied cupon={inputContent}/>
                     </div>
                     {this._showDelete(coupon)}
                 </li>
@@ -145,6 +163,6 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { deleteCoupon ,addCoupon }
+    { deleteCoupon ,addCoupon ,justReload}
 )(ComponentDiscountCoupon);
 

@@ -23,6 +23,29 @@ export const selectProduct = product => dispatch => {
     return dispatch({ type: SET_SELECTED_PRODUCT, payload: product });
 };
 
+export const justReload = id => dispatch => {
+    dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING"});
+
+    fetch(config.cart_url+"/api/cart/" + id,{  credentials: 'include'  })
+        .then( handleErrors )
+        .then(response => response.json())
+        .then(response => {
+            dispatch({ type: SET_CURRENT_CART, payload: response , xBrand:window.xBrand});
+
+        }).catch( ( err ) =>{
+
+        console.error("*************")
+        console.error(err)
+        console.error("*************")
+
+        if( err.response.erro.cause.code == 404){
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            }else{
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500});
+            }
+    });
+  };
+  
 
 export const fetchCart = id => dispatch => {
   fetch(config.cart_url+"/api/cart/" + id,{  credentials: 'include'  })
@@ -195,6 +218,9 @@ export const addCoupon = (couponId,cartId) => dispatch => {
     .then( handleErrors )
     .then(response => response.json() )
     .then(response => {
+        console.log("-----addCoupon----")
+        console.log(response)
+
         dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL', operationResult: 200});
     })
     .catch( ( err ) =>{
@@ -220,6 +246,9 @@ export const deleteCoupon = (couponId, cartId) => dispatch => {
     .then( handleErrors )
     .then(response => response.json())
     .then(response => {
+      console.log("-----deleteCoupon----")
+      console.log(response)
+
       dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL' });
     })
     .catch(( err ) => {

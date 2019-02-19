@@ -113,7 +113,6 @@ class Cart extends Component {
   render() {
 
     let specialDiscountAmount = 0;
-    let classSummary = "";
     let hasPromotion = 0;
 
     if (this.props.cart !== undefined) {
@@ -131,13 +130,20 @@ class Cart extends Component {
           specialDiscountAmount += this.props.cart.total_discounts || this.props.cart.discount_details[0].amount ;
         }
       }
+
+      
+
+      let classSummary = "";
+    
       if(this.props.cart.products){
           classSummary = this._productCant(this.props.cart.products);
           hasPromotion = this._isPromotion(this.props.cart);
       }
+
       if (this.props.cart && this.props.cart.products) {
         this._setDataLayer(this.props.cart);
       }
+
       return (
         <div className="App">
           <div className="main-wrapper wrapper">
