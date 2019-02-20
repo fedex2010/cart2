@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import InputCouponApplied from "./InputCouponApplied";
 import Cookie from "js-cookie";
-import { deleteCoupon, addCoupon } from "../../actions/CartAction";
+import { deleteCoupon, addCoupon ,justReload} from "../../actions/CartAction";
 
 class ComponentDiscountCoupon extends Component {
     handleCheck = () => {
@@ -16,14 +16,8 @@ class ComponentDiscountCoupon extends Component {
             item: {},
             selectedOption: "discount-coupon1",
             checkedCoupon: false,
-            couponDelete:"",
             displaynoneShowCoupon: "displaynone"
-        };
-    }
-
-    _addCoupon(e){
-        let cartId = Cookie.get("cartId");
-        this.props.addCoupon(this.state.couponDelete,cartId);
+        };        
     }
 
     componentDidMount(){
@@ -32,23 +26,40 @@ class ComponentDiscountCoupon extends Component {
     }
 
     handleOptionChange = changeEvent => {
-        this.setState({ selectedOption: changeEvent.target.value });
-        if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)){
-            this.setState({ couponDelete: this.props.coupon[0].coupon_id });
-            this._deleteCoupon(this.props.coupon[0],"");
-        }else{
-            if(this.state.couponDelete){
+
+        if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id) ){
+
+            sessionStorage.setItem("couponDeleted",this.props.coupon[0].coupon_id)
+            this._deleteCoupon(this.props.coupon[0]);
+
+        }else if( sessionStorage.getItem("couponDeleted") != null ){
                 this._addCoupon()
-            }
+        }else if( changeEvent.target.value == "discount-coupon1" )  { //when click on "Descuento especial"       
+            let cartId = Cookie.get("cartId");
+
+            this.props.justReload(cartId)
+       }else if( changeEvent.target.value == "discount-coupon2" )  { //when click on "Tengo un cupon"       
+            let cartId = Cookie.get("cartId");
         }
+
+        //EL FLOW Q GENERA ESTE SET STATE DEBERIA DE SER MANEJADO como resultado de UN ACTION
+        //REFACTORIZAR
+        this.setState({ selectedOption: changeEvent.target.value });
     };
 
+    _addCoupon(){
+        let cartId = Cookie.get("cartId");
+
+        this.props.addCoupon(sessionStorage.getItem("couponDeleted"),cartId);
+    }
+    
     _showDelete(coupon){
-      if(coupon && coupon[0] &&coupon[0].coupon_id){
+      if(coupon && coupon[0] && coupon[0].coupon_id){
           return (
-              <div className="coupon-applied">
+              <div className="coupon-applied">       
+
                   <span className="coupon-code">{coupon[0].coupon_id}</span>
-                  <button className="link-to-button" onClick={this._deleteCoupon.bind(this, coupon[0])}>
+                  <button className="link-to-button" onClick={this._removeAndDeleteCoupon.bind(this, coupon[0])}>
                       Eliminar
                   </button>
               </div>
@@ -56,11 +67,15 @@ class ComponentDiscountCoupon extends Component {
       }
     }
 
-    _deleteCoupon(coupon, e) {
-        let cartId = Cookie.get("cartId");
-        let couponId = coupon.coupon_id;
-        this.props.deleteCoupon(couponId, cartId);
+    _removeAndDeleteCoupon(cupon){
+        sessionStorage.removeItem("couponDeleted")
 
+        this._deleteCoupon(cupon)
+    }
+
+    _deleteCoupon({coupon_id}) {
+        let cartId = Cookie.get("cartId");
+        this.props.deleteCoupon(coupon_id, cartId);
     }
 
     _renderDiscountSpecial(hasPromotion){
@@ -101,22 +116,6 @@ class ComponentDiscountCoupon extends Component {
             )
         }
     }
-
-    _renderOption(displayNoneCoupon,coupon,hasPromotion){
-        return (
-            <ul className="cart-additional-item">
-                {this._renderDiscountSpecial(hasPromotion)}
-                <li>
-                    {this._InputDiscount(hasPromotion)}
-                    <div className={displayNoneCoupon}>
-                        <InputCouponApplied/>
-                    </div>
-                    {this._showDelete(coupon)}
-                </li>
-            </ul>
-        );
-    }
-
     render() {
         let displayNoneCoupon = "displaynone";
         let displaynoneCheckboxDiscount = "displaynone";
@@ -132,12 +131,38 @@ class ComponentDiscountCoupon extends Component {
         if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id)){
             displayNoneCoupon = "displaynone";
         }
- 
-        return (
-            <div>
-                {this._renderOption(displayNoneCoupon,this.props.coupon,hasPromotion)}
-            </div>
-        )
+
+
+        let aCupon = sessionStorage.getItem("couponDeleted")
+        let inputContent = ( aCupon != null )? aCupon : "";
+
+        if( displayNoneCoupon == "" ){
+            return (
+                <div>
+                    <ul className="cart-additional-item">
+                        {this._renderDiscountSpecial(hasPromotion)}
+                        <li>
+                            {this._InputDiscount(hasPromotion)}
+                            <InputCouponApplied cupon={inputContent}/>
+                            {this._showDelete(this.props.coupon)}
+                        </li>
+                    </ul>
+                </div>
+            )    
+        }else{
+            return (
+                <div>
+                    <ul className="cart-additional-item">
+                        {this._renderDiscountSpecial(hasPromotion)}
+                        <li>
+                            {this._InputDiscount(hasPromotion)}
+                            {this._showDelete(this.props.coupon)}
+                        </li>
+                    </ul>
+                </div>
+            )    
+        }
+
     }
 }
 const mapStateToProps = state => {
@@ -146,6 +171,6 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { deleteCoupon ,addCoupon }
+    { deleteCoupon ,addCoupon ,justReload}
 )(ComponentDiscountCoupon);
 
