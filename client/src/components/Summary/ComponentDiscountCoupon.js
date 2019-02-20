@@ -38,7 +38,7 @@ class ComponentDiscountCoupon extends Component {
             let cartId = Cookie.get("cartId");
 
             this.props.justReload(cartId)
-       }else if( changeEvent.target.value == "discount-coupon2" )  { //when click on "Descuento especial"       
+       }else if( changeEvent.target.value == "discount-coupon2" )  { //when click on "Tengo un cupon"       
             let cartId = Cookie.get("cartId");
         }
 
