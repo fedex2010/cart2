@@ -26,32 +26,31 @@ class ComponentDiscountCoupon extends Component {
     }
 
     handleOptionChange = changeEvent => {
-        this.setState({ selectedOption: changeEvent.target.value });
 
         if((this.props.coupon && this.props.coupon[0] && this.props.coupon[0].coupon_id) ){
 
-            localStorage.setItem("couponDeleted",this.props.coupon[0].coupon_id)
+            sessionStorage.setItem("couponDeleted",this.props.coupon[0].coupon_id)
             this._deleteCoupon(this.props.coupon[0]);
 
-        }else if( localStorage.getItem("couponDeleted") != null ){
+        }else if( sessionStorage.getItem("couponDeleted") != null ){
                 this._addCoupon()
         }else if( changeEvent.target.value == "discount-coupon1" )  { //when click on "Descuento especial"       
             let cartId = Cookie.get("cartId");
 
             this.props.justReload(cartId)
        }else if( changeEvent.target.value == "discount-coupon2" )  { //when click on "Descuento especial"       
-            document.getElementById("InputCouponApplied").focus()
-            console.log( changeEvent.target.value )
-            console.log( document.getElementById("InputCouponApplied") )
+            let cartId = Cookie.get("cartId");
         }
-        
-        console.log( changeEvent.target.value )
+
+        //EL FLOW Q GENERA ESTE SET STATE DEBERIA DE SER MANEJADO como resultado de UN ACTION
+        //REFACTORIZAR
+        this.setState({ selectedOption: changeEvent.target.value });
     };
 
     _addCoupon(){
         let cartId = Cookie.get("cartId");
 
-        this.props.addCoupon(localStorage.getItem("couponDeleted"),cartId);
+        this.props.addCoupon(sessionStorage.getItem("couponDeleted"),cartId);
     }
     
     _showDelete(coupon){
@@ -69,7 +68,7 @@ class ComponentDiscountCoupon extends Component {
     }
 
     _removeAndDeleteCoupon(cupon){
-        localStorage.removeItem("couponDeleted")
+        sessionStorage.removeItem("couponDeleted")
 
         this._deleteCoupon(cupon)
     }
@@ -116,24 +115,6 @@ class ComponentDiscountCoupon extends Component {
         }
     }
 
-    _renderOption(displayNoneCoupon,coupon,hasPromotion){
-        let aCupon = localStorage.getItem("couponDeleted")
-        let inputContent = ( aCupon != null )? aCupon : "";
-        
-        return (
-            <ul className="cart-additional-item">
-                {this._renderDiscountSpecial(hasPromotion)}
-                <li>
-                    {this._InputDiscount(hasPromotion)}
-                    <div className={displayNoneCoupon}>
-                        <InputCouponApplied cupon={inputContent}/>
-                    </div>
-                    {this._showDelete(coupon)}
-                </li>
-            </ul>
-        );
-    }
-
     render() {
         let displayNoneCoupon = "displaynone";
         let displaynoneCheckboxDiscount = "displaynone";
@@ -150,11 +131,36 @@ class ComponentDiscountCoupon extends Component {
             displayNoneCoupon = "displaynone";
         }
 
-        return (
-            <div>
-                {this._renderOption(displayNoneCoupon,this.props.coupon,hasPromotion)}
-            </div>
-        )
+        let aCupon = sessionStorage.getItem("couponDeleted")
+        let inputContent = ( aCupon != null )? aCupon : "";
+
+        if( displayNoneCoupon == "" ){
+            return (
+                <div>
+                    <ul className="cart-additional-item">
+                        {this._renderDiscountSpecial(hasPromotion)}
+                        <li>
+                            {this._InputDiscount(hasPromotion)}
+                            <InputCouponApplied cupon={inputContent}/>
+                            {this._showDelete(this.props.coupon)}
+                        </li>
+                    </ul>
+                </div>
+            )    
+        }else{
+            return (
+                <div>
+                    <ul className="cart-additional-item">
+                        {this._renderDiscountSpecial(hasPromotion)}
+                        <li>
+                            {this._InputDiscount(hasPromotion)}
+                            {this._showDelete(this.props.coupon)}
+                        </li>
+                    </ul>
+                </div>
+            )    
+        }
+
     }
 }
 const mapStateToProps = state => {
