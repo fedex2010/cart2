@@ -83,10 +83,6 @@ class Summary extends Component {
   }
 
   render() {
-    console.log("-------------------------------")
-    console.log("--------SUMMARY-----------------------")
-    console.log( this.props.coupons )
-    console.log("-------------------------------")
 
     let couponClass = "";
     let products="";

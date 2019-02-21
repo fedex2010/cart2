@@ -174,11 +174,7 @@ class CartControllers {
   waitProcessingCart(cart,req,res){
     
     return this._getOneCart(cart.cart_id, req, res)
-            .then(cart => {
-              console.log("-------------------------")
-              console.log( cart.status )
-              console.log("-------------------------")
-              
+            .then(cart => {              
               return cart.status != 'PROCESSING' ? cart : Q.delay(50).then(_ => waitProcessingCart(cart,req,res))
             })
             .catch( err => err );
@@ -324,6 +320,8 @@ class CartControllers {
         }
         
       })
+
+      
       .then( cart =>{
 
         sessionService.setSessionCookie(res, session_id) 

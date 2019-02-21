@@ -38,13 +38,9 @@ class ComponentDiscountCoupon extends Component {
             let cartId = Cookie.get("cartId");
 
             this.props.justReload(cartId)
-       }else if( changeEvent.target.value == "discount-coupon2" )  { //when click on "Tengo un cupon"       
-            let cartId = Cookie.get("cartId");
-        }
-
-        //EL FLOW Q GENERA ESTE SET STATE DEBERIA DE SER MANEJADO como resultado de UN ACTION
-        //REFACTORIZAR
-        this.setState({ selectedOption: changeEvent.target.value });
+       }
+        
+       this.setState({ selectedOption: changeEvent.target.value });
     };
 
     _addCoupon(){

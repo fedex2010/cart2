@@ -73,6 +73,19 @@ class ProductDescription extends Component {
     let priceRound = this._formatPrice(product.price);
     let subtotalPriceRound = this._formatPrice(product.subtotal_price);
 
+    let productWarranty
+
+    if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
+      productWarranty = <ProductWarranty
+                            current={product}
+                            item={product.warranties}
+                            products={product.product_id}
+                            warranty_id={product.warranty_id}
+                            percentage={percentage}
+                            classDelta={warranty_delta_class}
+                          />
+    }
+
     return (
       <div className="cart-item card" id={idProduct}>
         <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
@@ -126,14 +139,9 @@ class ProductDescription extends Component {
             <span className="tooltip_bottomCenter">Eliminar</span>
           </button>
         </div>
-        <ProductWarranty
-          current={product}
-          item={product.warranties}
-          products={product.product_id}
-          warranty_id={product.warranty_id}
-          percentage={percentage}
-          classDelta={warranty_delta_class}
-        />
+        
+        {productWarranty}
+
       </div>
     );
   }
