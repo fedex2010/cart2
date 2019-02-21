@@ -10,7 +10,8 @@ class Modal extends Component {
       showModalWarranty:true,
       productIdModal: {},
       warrantyIdModal: {},
-      idWarranty: this.props.idWarranty
+      idWarranty: this.props.idWarranty,
+      monthWarranty: {}
     };
   }
 
@@ -30,6 +31,7 @@ class Modal extends Component {
   }
 
   render() {
+    console.log("DATOS WArranty",this.props.monthWarranty)
     return (
       <div>
         {/* MODAL ELIMINAR PRODUCTO*/}
@@ -90,7 +92,7 @@ class Modal extends Component {
             <div className={`gui-modal-content ${this.state.showModalWarranty ? '' : 'hide'}`}   id="warranty-info">
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">
-                  Extendé tu protección por $2.000
+                  Extendé tu protección por {this.props.monthWarranty} meses
                 </h5>
                 <button
                   className="gui-modal-title--action-link link-to-button"
@@ -149,11 +151,7 @@ class Modal extends Component {
                 >
                   Volver
                 </button>
-                <button
-                  className="button--icon gui-icon-close button--icon-md"
-                  type="button"
-                  data-dismiss="modal"
-                />
+               
               </div>
               <div className="gui-modal-body warranty-tyc">
                 <p className="destacado">
@@ -308,11 +306,6 @@ class Modal extends Component {
                   Titular realizar los correspondientes backups previo al inicio
                   de la reparación.
                 </p>
-              </div>
-              <div className="gui-modal-footer">
-                <button className="button--link" type="button"  onClick={this._hideTermAndCondition.bind(this)}>
-                  Volver
-                </button>
               </div>
             </div>
           </div>
@@ -549,6 +542,7 @@ class Modal extends Component {
 
 const mapStateToProps = state => {
   return { productIdModal: state.cartReducer.selectedProduct.product_id,
+    monthWarranty: state.cartReducer.selectedProduct.monthWarranty,
     warrantyIdModal: state.cartReducer.selectedProduct.selectedWarranty_id
     }
   };

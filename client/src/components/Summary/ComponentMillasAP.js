@@ -53,6 +53,13 @@ class ComponentMillasAP extends Component {
         });
     }
 
+    _handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            let cartId = Cookie.get("cartId");
+            this.props.setLoyalties(this.state.input,cartId);
+        }
+      }
+
   _showAdd(displaynoneCheckboxAP){
       if (this.props.addMillasAP && this.props.addMillasAP[0] && !this.props.addMillasAP[0].code) {
       return(
@@ -84,6 +91,7 @@ class ComponentMillasAP extends Component {
                           maxLength="99999999"
                           autoComplete="off"
                           onChange={this._handleInput.bind(this)}
+                          onKeyPress={this._handleKeyPress.bind(this)}
                           value={this.state.value}
                           autofocus="true"
                       />

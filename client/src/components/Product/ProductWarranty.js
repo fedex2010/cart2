@@ -47,8 +47,9 @@ class ProductWarranty extends Component{
         this.props.editWarranty(cartId,product_id,id);
     }
 
-    _showModal(product,warranty_id) {
+    _showModal(product,warranty_id,monthWarranty) {
         product.selectedWarranty_id = warranty_id;
+        product.monthWarranty = monthWarranty;
         this.props.selectProduct(product);
       }
 
@@ -107,7 +108,7 @@ class ProductWarranty extends Component{
                                 let garexId = "garex_"+item.prod+"_"+product_id;
                                 checked = (this.props.warranty_id !== "DEFAULT_FACTORY" && this.props.warranty_id === item.id)?true:false;
                                 return (<li key={i} ><label><input type="checkbox" value={item.id} checked={ checked } onChange={this._onSelectOption.bind(this,item.id,product_id)}  id={garexId}/><button className="link-to-button" data-toggle="modal"
-                                data-target="#warranty-modal" onClick={this._showModal.bind(this, this.props.current, item.id)} >{item.prod} meses</button> de protección por{" "}<strong>${ this._formatPrice(item.price)}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
+                                data-target="#warranty-modal" onClick={this._showModal.bind(this, this.props.current, item.id,item.prod)} >{item.prod} meses</button> de protección por{" "}<strong>${ this._formatPrice(item.price)}</strong> ó 12 cuotas de <strong>${Math.ceil(item.installment_price)}</strong></label></li>)
 
                             })
                         }
