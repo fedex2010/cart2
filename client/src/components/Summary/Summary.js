@@ -90,8 +90,20 @@ class Summary extends Component {
     if(typeof this.props.coupons !== "undefined"){
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'displaynone';
     }
+
+    let disabled = false
+
     if(this.props.products !== undefined){
         products = this.props.products;
+
+        try{
+            if(!products[0].validations.saleable){
+                disabled = true
+            }
+        }catch(err){
+            disabled = false
+        }
+        
     }
     
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
@@ -105,6 +117,10 @@ class Summary extends Component {
     let totalDiscountsRound = this._formatPrice(this.props.totalDiscounts);
     let subtotalRound = this._formatPrice(subtotal);
     let totalRound = this._formatPrice(this.props.totalPrice);
+
+    
+
+
     if(this.props.coupons){
         return (
             <div className={classLoading}>
@@ -154,7 +170,7 @@ class Summary extends Component {
                         <button className="button--link">
                             COMPRAR MÁS PRODUCTOS
                         </button>
-                        <button type="button" className="button--primary" onClick={this._continue.bind()}>
+                        <button type="button" className="button--primary" disabled={disabled} onClick={this._continue.bind()}>
                             Continuar
                         </button>
                     </div>
