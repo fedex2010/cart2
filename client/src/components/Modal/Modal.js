@@ -31,7 +31,6 @@ class Modal extends Component {
   }
 
   render() {
-    console.log("DATOS WArranty",this.props.monthWarranty)
     return (
       <div>
         {/* MODAL ELIMINAR PRODUCTO*/}
