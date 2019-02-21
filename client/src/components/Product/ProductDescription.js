@@ -88,10 +88,9 @@ class ProductDescription extends Component {
                           />
     }
 
-    //console.log(  )
 
     return (
-      <div className="cart-item card" id={idProduct}>
+      <div className={ showStatus == "cart-item-tag cart-item-tag--error" ? "cart-item card cart-item-sold-out": "cart-item card"}  id={idProduct}>
         <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
           <div className="cart-item-column">
             <picture className="cart-item-image">
