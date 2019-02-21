@@ -29,7 +29,6 @@
     "extends": "react-app"
   },
   "proxy": "http://localhost:3001",
-  "homepage": "http://dszxlmf47opnc.cloudfront.net/reactcart",
   "browserslist": [
     ">0.2%",
     "not dead",
