@@ -78,7 +78,16 @@ class Summary extends Component {
       return num.replace(",00", "")
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({input: nextProps.cupon});
+  }
+
   render() {
+    console.log("-------------------------------")
+    console.log("--------SUMMARY-----------------------")
+    console.log( this.props.coupons )
+    console.log("-------------------------------")
+
     let couponClass = "";
     let products="";
     let empresarias = (Cookie.get("empresarias")==='true'?true:false);
@@ -158,6 +167,8 @@ class Summary extends Component {
             </div>
         );
     }else{
+        sessionStorage.removeItem("couponDeleted")
+
         return (
           <div></div>
         )

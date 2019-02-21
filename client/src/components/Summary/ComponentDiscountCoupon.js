@@ -116,6 +116,13 @@ class ComponentDiscountCoupon extends Component {
             )
         }
     }
+
+    componentWillUnmount(){
+        console.log("////////////////////////")
+        console.log("//////////componentWillUnmount//////////////")
+        console.log("////////////////////////")
+    }
+
     render() {
         let displayNoneCoupon = "displaynone";
         let displaynoneCheckboxDiscount = "displaynone";
