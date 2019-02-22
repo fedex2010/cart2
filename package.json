@@ -21,8 +21,8 @@
     "build-client": "cd client && yarn build",
     "mv-client-garba": "cd client && mv build build-garba",
     "mv-client-compu": "cd client && mv build build-compu",
-    "build-garba": "yarn norma-garba && yarn build-client && yarn mv-client-garba",
-    "build-compu": "yarn norma-compu && yarn build-client && yarn mv-client-compu"
+    "build-garba": "PUBLIC_URL=http://dj4i04i24axgu.cloudfront.net/cart-ui/garbarino yarn norma-garba && yarn build-client && yarn mv-client-garba",
+    "build-compu": "PUBLIC_URL=http://dj4i04i24axgu.cloudfront.net/cart-ui/compumundo yarn norma-compu && yarn build-client && yarn mv-client-compu"
   },
   "keywords": [],
   "author": "",
