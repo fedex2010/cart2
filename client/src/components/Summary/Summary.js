@@ -78,6 +78,27 @@ class Summary extends Component {
       return num.replace(",00", "")
   }
 
+  _isThereProductWithOutStock(){
+    let disabled = false
+
+    if(this.props.products !== undefined){
+        let { products } = this.props;
+
+        try{
+            for (let i = 0; i < products.length; i++) {
+                if(!products[i].validations.saleable){
+                    disabled = true
+                    break
+                }    
+            }            
+        }catch(err){
+            console.error(err)
+            disabled = false
+        }
+    }
+    return disabled
+  }
+
   componentWillReceiveProps(nextProps){
     this.setState({input: nextProps.cupon});
   }
@@ -91,21 +112,8 @@ class Summary extends Component {
       couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'displaynone';
     }
 
-    let disabled = false
+    let disabled = this._isThereProductWithOutStock()
 
-    if(this.props.products !== undefined){
-        products = this.props.products;
-
-        try{
-            if(!products[0].validations.saleable){
-                disabled = true
-            }
-        }catch(err){
-            disabled = false
-        }
-        
-    }
-    
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
     let subtotal = (this.props.subtotalBasePrice && this.props.subtotalPrice) ? this.props.subtotalBasePrice - this.props.subtotalPrice:0;
@@ -129,12 +137,16 @@ class Summary extends Component {
                         <div className="cart-summary-header">
                             <span className="cart-summary-title">Resumen de compra</span>
                         </div>
+                        
                         <SuccessMessage />
+                        
                         <ul className="summary-detail">
                             <li id="subtotal">
                                 <label>Subtotal</label>
                                 <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? priceRound : '0'}</span>
                             </li>
+
+
                             <li className={`${empresarias ? '' : 'displaynone'}`} id="empresarias">
                                 <label>IVA</label>
                                 <span className="summary-detail-value">${subtotalRound}</span>
@@ -143,6 +155,8 @@ class Summary extends Component {
                                 <label>Garantías</label>
                                 <span className="summary-detail-value">${this.props.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
                             </li>
+
+
                             <li className={this.state.show && !this.props.coupons ? "displaynone" : couponClass} id="coupon">
                                 <label>Descuento por cupón</label>
                                 <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>

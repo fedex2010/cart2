@@ -162,6 +162,7 @@ class Cart extends Component {
                 <div className="summary-gbChk col-md-4" data-role="resumenCompra">
                   <div className={classSummary}>
                     <Summary
+                      cart={this.props.cart}
                       products={this.props.cart.products}
                       sellerId={this.props.cart.seller_id}
                       subtotalPrice={this.props.cart.subtotal_price}
