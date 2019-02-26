@@ -19,34 +19,63 @@ class Summary extends Component {
     
   constructor(props) {
     super(props);
+
     this.state = {
-        sellerId:{},
-        subtotalPrice:{},
-        subtotalBasePrice: {},
-        totalWarranties: {},
-        specialDiscountAmount: {},
+        sellerId: props.cart.seller_id,
+        subtotalPrice: props.cart.subtotal_price ,
+        subtotalBasePrice: props.cart.subtotal_base_price,
+        totalWarranties: props.cart.total_warranties,
+        specialDiscountAmount: this._getSpecialDiscount( props.cart ),
         discountCoupon:{},
         coupons : [],
-        totalDiscounts: {},
-        totalPrice: {},
-        show:true
+        addMillasAP:[],
+        totalDiscounts: props.cart.total_discounts,
+        totalPrice: props.cart.total_price,
+        show:true,
+        hasPromotion:false,
+        cart:props.cart
     };
+
+    if(this.props.cart.products){
+        this.state.hasPromotion = this._isPromotion(this.props.cart);
+    }
+    
+    if(this.props.cart.coupons){
+        this.state.coupons = this.props.cart.coupons
+    }
+    if(this.props.cart.addMillasAP){
+        this.state.addMillasAP = this.props.cart.addMillasAP
+    }
   }
 
-    componentDidMount () {
+  componentDidMount () {
     this.timeoutId = setTimeout(function () {
             this.setState({show: true});
         }.bind(this), 2000);
     }
 
-    componentWillUnmount () {
+  componentWillUnmount () {
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
     }
 
-    _continue(e){
+  _continue(e){
       window.location = "/compra/entrega";
+  }
+
+  _getSpecialDiscount(cart){
+      let specialDiscountAmount = 0
+    if (cart.discount_details !== undefined && cart.discount_details.length >= 1 ) {
+        if (cart.discount_details[0].source === "CROSSELLING") {
+            specialDiscountAmount += cart.discount_details[0].amount;
+        }
+
+        if (cart.discount_details[0].source === "POLCOM" || cart.discount_details[0].source === "PRICE_MATCHING") {
+            specialDiscountAmount += cart.total_discounts || cart.discount_details[0].amount ;
+        }
+    }
+    return specialDiscountAmount
   }
 
   _formatPrice(value, decimals) {
@@ -78,6 +107,10 @@ class Summary extends Component {
       return num.replace(",00", "")
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({input: nextProps.cupon});
+  }
+
   _isThereProductWithOutStock(){
     let disabled = false
 
@@ -95,42 +128,55 @@ class Summary extends Component {
             console.error(err)
             disabled = false
         }
+
     }
     return disabled
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({input: nextProps.cupon});
-  }
 
-  render() {
+ 
+    _isPromotion(cart){
+        let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
+        let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
+        let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
 
-    let couponClass = "";
-    let products="";
-    let empresarias = (Cookie.get("empresarias")==='true'?true:false);
-    if(typeof this.props.coupons !== "undefined"){
-      couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'displaynone';
+        return (hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
     }
 
+    _productCant(products){
+        let count = products.length;
+        let classSummary = (count >=3 )?"purchase-summary--fixed":"";
+        return classSummary;
+    }
+    
+
+  render() {
+    
+
+    let couponClass = couponClass =  (this.state.coupons.length >=1)? 'highlight-benefit': 'displaynone';
+    let products="";
+    let empresarias = (Cookie.get("empresarias")==='true'?true:false);
+    
     let disabled = this._isThereProductWithOutStock()
 
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
-    let subtotal = (this.props.subtotalBasePrice && this.props.subtotalPrice) ? this.props.subtotalBasePrice - this.props.subtotalPrice:0;
+    let subtotal = (this.state.subtotalBasePrice && this.state.subtotalPrice) ? this.state.subtotalBasePrice - this.state.subtotalPrice:0;
     
-    let hasPromotion = this.props.hasPromotion;
-    let priceRound = this._formatPrice(this.props.subtotalPrice)
-    let specialDiscountAmountRound = this._formatPrice(this.props.specialDiscountAmount);
-    let totalWarrantiesRound = this._formatPrice(this.props.totalWarranties);
-    let totalDiscountsRound = this._formatPrice(this.props.totalDiscounts);
+    let priceRound = this._formatPrice(this.state.subtotalPrice)
+    let specialDiscountAmountRound = this._formatPrice(this.state.specialDiscountAmount);
+    let totalWarrantiesRound = this._formatPrice(this.state.totalWarranties);
+    let totalDiscountsRound = this._formatPrice(this.state.totalDiscounts);
     let subtotalRound = this._formatPrice(subtotal);
-    let totalRound = this._formatPrice(this.props.totalPrice);
+    let totalRound = this._formatPrice(this.state.totalPrice);
 
-    
+    let classSummary = ""
+    if(this.state.cart.products){
+        classSummary = this._productCant(this.state.cart.products);
+    }
 
-
-    if(this.props.coupons){
-        return (
+    return (
+        <div className={classSummary}>
             <div className={classLoading}>
                 <div className="purchase-summary">
                     <div className="card cart-summary">
@@ -143,7 +189,7 @@ class Summary extends Component {
                         <ul className="summary-detail">
                             <li id="subtotal">
                                 <label>Subtotal</label>
-                                <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? priceRound : '0'}</span>
+                                <span className="summary-detail-value">${this.state.subtotalPrice > 0 ? priceRound : '0'}</span>
                             </li>
 
 
@@ -151,34 +197,31 @@ class Summary extends Component {
                                 <label>IVA</label>
                                 <span className="summary-detail-value">${subtotalRound}</span>
                             </li>
-                            <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'} id="warranty">
+                            <li className={this.state.totalWarranties > 0 ? '' : 'displaynone'} id="warranty">
                                 <label>Garantías</label>
-                                <span className="summary-detail-value">${this.props.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
+                                <span className="summary-detail-value">${this.state.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
                             </li>
 
 
-                            <li className={this.state.show && !this.props.coupons ? "displaynone" : couponClass} id="coupon">
+                            <li className={!this.state.coupons ? "displaynone" : couponClass} id="coupon">
                                 <label>Descuento por cupón</label>
-                                <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>
+                                <span className="summary-detail-value">- ${this.state.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>
                             </li>
-                            <li className={this.props.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'} id="special-discount-line">
+                            <li className={this.state.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'} id="special-discount-line">
                                 <label>Descuento especial</label>
                                 <span className="summary-detail-value">- ${specialDiscountAmountRound}</span>
                             </li>
                             <li className="summary-total" id="total">
                                 <label>Total</label>
-                                <span className="summary-detail-value">${this.props.totalPrice > 0 ? totalRound : '0'}</span>
+                                <span className="summary-detail-value">${this.state.totalPrice > 0 ? totalRound : '0'}</span>
                             </li>
                         </ul>
 
                         <div  className={`${(empresarias || products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
                             <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>
-                            <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons} hasPromotion={hasPromotion}/>
-                            <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
+                            <ComponentDiscountCoupon discountCoupon={this.state.specialDiscountAmount} coupon={this.state.coupons} hasPromotion={this.state.hasPromotion}/>
+                            <ComponentMillasAP products={products} addMillasAP={this.state.addMillasAP}/>
                         </div>
-
-
-
                     </div>
                     <div className="cart-actions">
                         <button className="button--link">
@@ -189,18 +232,12 @@ class Summary extends Component {
                         </button>
                     </div>
                 </div>
-                {/* FIN resumen de compra */}
             </div>
-        );
-    }else{
-        sessionStorage.removeItem("couponDeleted")
-
-        return (
-          <div></div>
-        )
+        </div>
+      );
     }
-  }
 }
+
 const mapStateToProps = state => {
     return { operationStatus: state.cartReducer.operationStatus };
 };
