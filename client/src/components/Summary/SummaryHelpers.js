@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Cookie from "js-cookie";
-import ComponentMillasAP from "./ComponentMillasAP";
-import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 
+import { formatPrice } from "../../utils/formatPrice";
 
 export function Salesman(){
     let salesman = Cookie.get("epi.salesman");
@@ -16,15 +15,13 @@ export function Salesman(){
 export function SubTotal( {cart} ){ 
     let subTotal = 0
     if( cart.subtotal_price ){
-        subTotal = cart.subtotal_price
+        subTotal =  formatPrice( cart.subtotal_price )
     }
     return (
-        <ul className="summary-detail">
-            <li id="subtotal">
-                <label>Subtotal</label>
-                <span className="summary-detail-value">${ subTotal }</span>
-            </li>
-        </ul>
+        <li id="subtotal">
+            <label>Subtotal</label>
+            <span className="summary-detail-value">${ subTotal }</span>
+        </li>
     )
 }
 
@@ -34,6 +31,7 @@ export function Iva( {cart} ){
     let subtotalRound = 0    
     if(cart.subtotal_base_price && cart.subtotalPrice){
         subtotalRound = cart.subtotal_base_price - cart.subtotalPrice
+        subtotalRound = formatPrice( subtotalRound )
     }
 
     return (
@@ -48,7 +46,7 @@ export function Warranties( {cart} ){
     let totalWarranties = 0
     
     if(cart.totalWarranties && cart.totalWarranties > 0){
-        totalWarranties = cart.totalWarranties
+        totalWarranties = formatPrice(cart.totalWarranties)
     }
 
     return(
@@ -63,7 +61,7 @@ export function TotalSummary( {cart} ){
     let totalPrice = 0
 
     if(cart.total_price && cart.total_price>0){
-        totalPrice = cart.total_price
+        totalPrice = formatPrice(cart.total_price)
     }
 
     return(
@@ -78,23 +76,23 @@ export function SpecialDiscount( {cart} ){
     //inner function
     function _getSpecialDiscount(cart){
         let specialDiscountAmount = 0
-    if (cart.discount_details !== undefined && cart.discount_details.length >= 1 ) {
-        if (cart.discount_details[0].source === "CROSSELLING") {
-            specialDiscountAmount += cart.discount_details[0].amount;
-        }
+        if (cart.discount_details !== undefined && cart.discount_details.length >= 1 ) {
+            if (cart.discount_details[0].source === "CROSSELLING") {
+                specialDiscountAmount += cart.discount_details[0].amount;
+            }
 
-        if (cart.discount_details[0].source === "POLCOM" || cart.discount_details[0].source === "PRICE_MATCHING") {
-            specialDiscountAmount += cart.total_discounts || cart.discount_details[0].amount ;
+            if (cart.discount_details[0].source === "POLCOM" || cart.discount_details[0].source === "PRICE_MATCHING") {
+                specialDiscountAmount += cart.total_discounts || cart.discount_details[0].amount ;
+            }
         }
-    }
-    return specialDiscountAmount
+        return specialDiscountAmount
     }
 
 
     let specialDiscountAmount = 0
 
     if(cart.discount_details && cart.discount_details.length>0){
-        specialDiscountAmount = _getSpecialDiscount(cart)
+        specialDiscountAmount = formatPrice(_getSpecialDiscount(cart))
     }
 
     return(
@@ -111,7 +109,7 @@ export function CuponDiscount( {cart} ){
     let couponClass = 'displaynone'
 
     if(cart.coupons && cart.coupons.length>0){
-        couponDiscount = cart.total_discounts
+        couponDiscount = formatPrice(cart.total_discounts)
         couponApplied = true
         couponClass = 'highlight-benefit'
     }
@@ -124,17 +122,3 @@ export function CuponDiscount( {cart} ){
     )
 }
 
-export function CartAdditionals( {cart} ){
-    if( Object.keys(cart).length == 0 )
-        return null
-    
-    let empresarias = (Cookie.get("empresarias")==='true'?true:false);
-
-    return (
-        <div className={`${(empresarias || cart.products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
-            <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>
-            <ComponentDiscountCoupon discountCoupon={cart.specialDiscountAmount} coupon={cart.coupons} hasPromotion={cart.hasPromotion}/>
-            <ComponentMillasAP products={cart.products} addMillasAP={cart.addMillasAP}/>
-        </div>
-    )
-}

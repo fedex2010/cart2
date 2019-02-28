@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Salesman, SubTotal, Iva, Warranties, TotalSummary, SpecialDiscount, CuponDiscount, CartAdditionals} from "./SummaryHelpers";
+import { Salesman, SubTotal, Iva, Warranties, TotalSummary, SpecialDiscount, CuponDiscount} from "./SummaryHelpers";
+import CartAdditionals from "./CartAdditionals"
 
 
 class Summary extends Component {
@@ -23,35 +24,6 @@ class Summary extends Component {
 
   _continue(e){
       window.location = "/compra/entrega";
-  }
-
-  _formatPrice(value, decimals) {
-    if(value == undefined){
-        return 0;
-    }
-      /**
-       * Number.prototype.format(n, x, s, c)
-       *
-       * @param integer n: length of decimal
-       * @param integer x: length of whole part
-       * @param mixed   s: sections delimiter
-       * @param mixed   c: decimal delimiter
-       */
-      if(!decimals){
-          decimals = 0;
-      }
-
-      var n = decimals,
-          x = 3,
-          s = ".",
-          c = ",";
-
-      var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
-          num = value.toFixed(Math.max(0, ~~n));
-
-    
-      num = (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
-      return num.replace(",00", "")
   }
 
   componentWillReceiveProps(nextProps){
@@ -101,7 +73,7 @@ class Summary extends Component {
     //used for "Continue" button
     let disabled = this._isThereProductWithOutStock()
 
-    let classLoading = this.props.cart.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
+    let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
     let classSummary = ""
     if(this.props.cart.products){

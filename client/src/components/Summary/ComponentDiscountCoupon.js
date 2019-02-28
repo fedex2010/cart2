@@ -88,8 +88,6 @@ class ComponentDiscountCoupon extends Component {
     }
 
     _InputDiscount(haspromotion){
-       
-       
         if(haspromotion){
             return (
                 <label>
@@ -113,8 +111,20 @@ class ComponentDiscountCoupon extends Component {
         }
     }
 
+    _isPromotion(cart){
+        let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
+        let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
+        let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
+    
+        return (hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
+    }
+
    
     render() {
+        console.log("*****ComponentDiscountCoupon**************")
+        console.log(this.props.cart)
+        console.log("******ComponentDiscountCoupon*************")
+
         let displayNoneCoupon = "displaynone";
         let displaynoneCheckboxDiscount = "displaynone";
         let coupon = {}
@@ -160,7 +170,6 @@ class ComponentDiscountCoupon extends Component {
                 </div>
             )    
         }
-
     }
 }
 const mapStateToProps = state => {
@@ -171,4 +180,3 @@ export default connect(
     mapStateToProps,
     { deleteCoupon ,addCoupon ,justReload}
 )(ComponentDiscountCoupon);
-
