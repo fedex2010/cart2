@@ -1,51 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Cookie from "js-cookie";
-
-import ComponentMillasAP from "./ComponentMillasAP";
-import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
-
-function SuccessMessage(){
-  let salesman = Cookie.get("epi.salesman");
-
-  if(salesman){
-    return <p className="alert alert-success fade in alert-dismissable salesman">Vendedor: {salesman}</p>
-  }
-  return null 
-}
+import { Salesman, SubTotal, Iva, Warranties, TotalSummary, SpecialDiscount, CuponDiscount, CartAdditionals} from "./SummaryHelpers";
 
 
 class Summary extends Component {
     
   constructor(props) {
     super(props);
-
-    this.state = {
-        sellerId: props.cart.seller_id,
-        subtotalPrice: props.cart.subtotal_price ,
-        subtotalBasePrice: props.cart.subtotal_base_price,
-        totalWarranties: props.cart.total_warranties,
-        specialDiscountAmount: this._getSpecialDiscount( props.cart ),
-        discountCoupon:{},
-        coupons : [],
-        addMillasAP:[],
-        totalDiscounts: props.cart.total_discounts,
-        totalPrice: props.cart.total_price,
-        show:true,
-        hasPromotion:false,
-        cart:props.cart
-    };
-
-    if(this.props.cart.products){
-        this.state.hasPromotion = this._isPromotion(this.props.cart);
-    }
-    
-    if(this.props.cart.coupons){
-        this.state.coupons = this.props.cart.coupons
-    }
-    if(this.props.cart.addMillasAP){
-        this.state.addMillasAP = this.props.cart.addMillasAP
-    }
   }
 
   componentDidMount () {
@@ -62,20 +23,6 @@ class Summary extends Component {
 
   _continue(e){
       window.location = "/compra/entrega";
-  }
-
-  _getSpecialDiscount(cart){
-      let specialDiscountAmount = 0
-    if (cart.discount_details !== undefined && cart.discount_details.length >= 1 ) {
-        if (cart.discount_details[0].source === "CROSSELLING") {
-            specialDiscountAmount += cart.discount_details[0].amount;
-        }
-
-        if (cart.discount_details[0].source === "POLCOM" || cart.discount_details[0].source === "PRICE_MATCHING") {
-            specialDiscountAmount += cart.total_discounts || cart.discount_details[0].amount ;
-        }
-    }
-    return specialDiscountAmount
   }
 
   _formatPrice(value, decimals) {
@@ -114,8 +61,8 @@ class Summary extends Component {
   _isThereProductWithOutStock(){
     let disabled = false
 
-    if(this.props.products !== undefined){
-        let { products } = this.props;
+    if(this.props.cart.products !== undefined){
+        let { products } = this.props.cart;
 
         try{
             for (let i = 0; i < products.length; i++) {
@@ -151,28 +98,14 @@ class Summary extends Component {
     
 
   render() {
-    
-
-    let couponClass = couponClass =  (this.state.coupons.length >=1)? 'highlight-benefit': 'displaynone';
-    let products="";
-    let empresarias = (Cookie.get("empresarias")==='true'?true:false);
-    
+    //used for "Continue" button
     let disabled = this._isThereProductWithOutStock()
 
-    let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
-
-    let subtotal = (this.state.subtotalBasePrice && this.state.subtotalPrice) ? this.state.subtotalBasePrice - this.state.subtotalPrice:0;
-    
-    let priceRound = this._formatPrice(this.state.subtotalPrice)
-    let specialDiscountAmountRound = this._formatPrice(this.state.specialDiscountAmount);
-    let totalWarrantiesRound = this._formatPrice(this.state.totalWarranties);
-    let totalDiscountsRound = this._formatPrice(this.state.totalDiscounts);
-    let subtotalRound = this._formatPrice(subtotal);
-    let totalRound = this._formatPrice(this.state.totalPrice);
+    let classLoading = this.props.cart.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
     let classSummary = ""
-    if(this.state.cart.products){
-        classSummary = this._productCant(this.state.cart.products);
+    if(this.props.cart.products){
+        classSummary = this._productCant(this.props.cart.products);
     }
 
     return (
@@ -184,44 +117,24 @@ class Summary extends Component {
                             <span className="cart-summary-title">Resumen de compra</span>
                         </div>
                         
-                        <SuccessMessage />
-                        
+                        <Salesman />
+
                         <ul className="summary-detail">
-                            <li id="subtotal">
-                                <label>Subtotal</label>
-                                <span className="summary-detail-value">${this.state.subtotalPrice > 0 ? priceRound : '0'}</span>
-                            </li>
 
+                            <SubTotal cart={this.props.cart}/>
 
-                            <li className={`${empresarias ? '' : 'displaynone'}`} id="empresarias">
-                                <label>IVA</label>
-                                <span className="summary-detail-value">${subtotalRound}</span>
-                            </li>
-                            <li className={this.state.totalWarranties > 0 ? '' : 'displaynone'} id="warranty">
-                                <label>Garantías</label>
-                                <span className="summary-detail-value">${this.state.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
-                            </li>
+                            <Iva cart={this.props.cart}/>
+                            <Warranties cart={this.props.cart}/>
 
+                            <CuponDiscount cart={this.props.cart} />
+                            <SpecialDiscount cart={this.props.cart} />
 
-                            <li className={!this.state.coupons ? "displaynone" : couponClass} id="coupon">
-                                <label>Descuento por cupón</label>
-                                <span className="summary-detail-value">- ${this.state.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>
-                            </li>
-                            <li className={this.state.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'} id="special-discount-line">
-                                <label>Descuento especial</label>
-                                <span className="summary-detail-value">- ${specialDiscountAmountRound}</span>
-                            </li>
-                            <li className="summary-total" id="total">
-                                <label>Total</label>
-                                <span className="summary-detail-value">${this.state.totalPrice > 0 ? totalRound : '0'}</span>
-                            </li>
+                            <TotalSummary cart={this.props.cart} />
+
                         </ul>
 
-                        <div  className={`${(empresarias || products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
-                            <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>
-                            <ComponentDiscountCoupon discountCoupon={this.state.specialDiscountAmount} coupon={this.state.coupons} hasPromotion={this.state.hasPromotion}/>
-                            <ComponentMillasAP products={products} addMillasAP={this.state.addMillasAP}/>
-                        </div>
+                        <CartAdditionals cart={this.props.cart} />
+
                     </div>
                     <div className="cart-actions">
                         <button className="button--link">
@@ -239,7 +152,10 @@ class Summary extends Component {
 }
 
 const mapStateToProps = state => {
-    return { operationStatus: state.cartReducer.operationStatus };
+    return { 
+            operationStatus: state.cartReducer.operationStatus, 
+            cart: state.cartReducer.cart 
+        };
 };
 
 export default connect(mapStateToProps,{})(Summary)

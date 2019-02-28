@@ -121,7 +121,7 @@ class Cart extends Component {
                 />
               </div>
               <div className="summary-gbChk col-md-4" data-role="resumenCompra">
-                  <Summary cart={this.props.cart}/>
+                  <Summary />
               </div>
             </div>
 
