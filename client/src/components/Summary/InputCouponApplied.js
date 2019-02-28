@@ -54,13 +54,19 @@ class InputCouponApplied extends Component {
   }
 
   render() {
+
     return (
-      <div className="InputCouponApplied">
+      <div className={ `InputCouponApplied  ${this.props.display}` }>
+
         <div className="coupon-apply-form">
-            <input ref={this.inputRef} id="InputCouponApplied"  value={this.state.input}   onKeyPress={this._handleKeyPress.bind(this)} className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
+            <input ref={this.inputRef} id="InputCouponApplied"  value={this.state.input}   
+            onKeyPress={this._handleKeyPress.bind(this)} 
+            className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
+            
             <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" disabled={this.state.disabled}>Aplicar</button>
             {this._showError()}
         </div>
+        
       </div>
     );
   }

@@ -20,7 +20,7 @@ exports.setCartContextFromCookie = (res, cartCookie) => {
 exports.setSessionCookie = (res, session_id) => {
     logger.info("["+ session_id+ "] Setting new user session")
     res.locals.session = session_id
-    res.cookie('epi.context', '"{\\"userId\\":\\"'+ session_id +'\\"}"', {encode: String })
+    res.cookie('epi.context', '"{\\"userId\\":\\"'+ session_id +'\\"}"', {encode: String, expires: new Date(Date.now() + 1 * 60 * 60 * 1000) })
 }
 
 exports.generateSessionCookie = (res) => {
