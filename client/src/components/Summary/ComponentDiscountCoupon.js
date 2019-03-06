@@ -4,31 +4,87 @@ import InputCouponApplied from "./InputCouponApplied";
 import Cookie from "js-cookie";
 import { deleteCoupon, addCoupon ,justReload} from "../../actions/CartAction";
 
+function CheckDiscount(props){
+    return(
+        <li>
+            <label>
+                <input  type="checkbox"  
+                        value="discount-coupon2" 
+                        checked={ props.isChecked } 
+                        onChange={ props.handleOptionChange }
+                />
+                
+                Tengo cupón de descuento
+            </label>
+        </li>
+    )
+}
+
+function RadiosDiscount(props){
+    return (
+        <li>
+            <label>
+                <input type="radio" name="discount-coupon"  value="discount-coupon1" 
+                    onChange={ props.handleOptionChange }
+                    checked={ props.isSpecialChecked } 
+                 />
+                Descuento especial
+            </label>
+            <br />
+            <label>
+                <input
+                    type="radio"
+                    name="discount-coupon"
+                    value="discount-coupon2"
+                    onChange={ props.handleOptionChange }
+                    checked={ props.isCouponChecked }
+                />
+                Tengo cupón de descuento
+            </label>
+        </li>
+    )
+}
 class ComponentDiscountCoupon extends Component {
 
     /*input radio*/
     constructor() {
         super();
         this.state = {
-            item: {},
             selectedOption: "discount-coupon1",
-            displaynoneShowCoupon: "displaynone"
+            showInput: false,
+            flow: ""
         };        
 
         this.handleOptionChange = this.handleOptionChange.bind(this);
-
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
-    handleOptionChange(changeEvent){
+    
+    componentWillUnmount(){
+        sessionStorage.removeItem("couponDeleted")
+    }
 
+    handleCheck(){
+        this.setState({ showInput: !this.state.showInput ,flow: ""});
+    };
+
+    handleOptionChange(changeEvent){
+        let showInput = ( changeEvent.target.value == "discount-coupon2" && !this._hasCouponApplied() )?true:false
+
+        this.setState({  selectedOption: changeEvent.target.value , 
+                         showInput: showInput ,
+                         flow: ""
+                        });
+
+        console.log( this.state )
         console.log("changeEvent.target.value")
         console.log(changeEvent.target.value)
         console.log("changeEvent.target.value")
         
         if( this._hasCouponApplied( ) ){
 
-            sessionStorage.setItem("couponDeleted",this.props.cart.coupon[0].coupon_id)
-            this._deleteCoupon(this.props.cart.coupon[0]);
+            sessionStorage.setItem("couponDeleted",this._getCouponApplied())
+            this._deleteCoupon( this._getCouponApplied() );
 
         }else if( sessionStorage.getItem("couponDeleted") != null ){
 
@@ -38,9 +94,9 @@ class ComponentDiscountCoupon extends Component {
             let cartId = Cookie.get("cartId");
 
             this.props.justReload(cartId)
-        }
-        
-       this.setState({ selectedOption: changeEvent.target.value });
+        }else{
+
+        }        
     }
 
     _addCoupon(){
@@ -49,14 +105,25 @@ class ComponentDiscountCoupon extends Component {
         this.props.addCoupon(sessionStorage.getItem("couponDeleted"),cartId);
     }
     
+    _getCouponApplied(){
+        try{
+            return this.props.cart.coupons[0].coupon_id
+        }catch(err){
+            console.log("-----------------")
+            console.log(err)
+            console.log("-----------------")
+            return ""
+        }
+    }
+
     _showDelete(){
       if( this._hasCouponApplied( ) ){
 
           return (
               <div className="coupon-applied">       
 
-                  <span className="coupon-code">{this.props.cart.coupons[0].coupon_id}</span>
-                  <button className="link-to-button" onClick={this._removeAndDeleteCoupon.bind(this, this.props.cart.coupons[0].coupon_id)}>
+                  <span className="coupon-code">{ this._getCouponApplied() }</span>
+                  <button className="link-to-button" onClick={this._removeAndDeleteCoupon.bind(this, this._getCouponApplied() )}>
                       Eliminar
                   </button>
               </div>
@@ -71,58 +138,16 @@ class ComponentDiscountCoupon extends Component {
         this._deleteCoupon(cupon)
     }
 
-    _deleteCoupon({coupon_id}) {
+    _deleteCoupon( coupon_id ) {
         let cartId = Cookie.get("cartId");
+        this.setState({ flow: "deleting" })
+
         this.props.deleteCoupon(coupon_id, cartId);
     }
 
-    _renderRadios( ){
+    _isPromotion(){
+        let {cart} = this.props
 
-        if( this._isPromotion(this.props.cart) ){
-
-            console.log("this.state.selectedOption")
-            console.log( this.state.selectedOption )
-            console.log( this._hasCouponApplied( ) )
-            console.log( "-------------------------------------------" )
-            console.log( this.state.selectedOption === "discount-coupon1"   )
-            console.log("this.state.selectedOption")
-            
-            return (
-                <li>
-                    <label>
-                        <input type="radio" name="discount-coupon"  value="discount-coupon1" 
-                            onChange={this.handleOptionChange}
-                            checked={this.state.selectedOption === "discount-coupon1" || !this._hasCouponApplied( ) } 
-                         />
-                        
-                        Descuento especial
-                    </label>
-                    <br />
-                    <label>
-                        <input
-                            type="radio"
-                            name="discount-coupon"
-                            value="discount-coupon2"
-                            onChange={this.handleOptionChange}
-                            checked={ this._hasCouponApplied( ) }
-                        />
-                        Tengo cupón de descuento
-                    </label>
-                </li>
-            )
-        }else{
-            return(
-                <label>
-                    <input type="checkbox"  value="discount-coupon2" />
-                    Tengo cupón de descuento
-                </label>
-            )
-        }
-
-    }
-
-
-    _isPromotion(cart){
         let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
         let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
         let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
@@ -133,33 +158,49 @@ class ComponentDiscountCoupon extends Component {
     _hasCouponApplied( ){
         let { cart } = this.props
 
-        return ( cart.coupons && cart.coupons[0] && cart.coupons[0].coupon_id ) != undefined 
+        try{
+            return ( cart.coupons && cart.coupons[0] && cart.coupons[0].coupon_id ) != undefined
+        }catch(err){
+            console.log("----------------")
+            console.log(err)
+            console.log("----------------")
+            return false
+        }
     }
 
-    render() {
-        let displayNoneCoupon = "displaynone";
+    _showInput(){
+        console.log("_showInput")
+        console.log( this.state.selectedOption + "  -  " + this._hasCouponApplied() + "  -  " + this.state.flow )
         
-        if (this.state.selectedOption === "discount-coupon2") {
-            displayNoneCoupon = "";
+        let display = "displaynone"
+        if( ( this.state.showInput && !this._hasCouponApplied() )  ){
+            display = "";
         }
 
-        if ( this._hasCouponApplied( ) ){
-            displayNoneCoupon = "displaynone";
-        }
+        return display
+    }
 
-        console.log("33333333333333333333")
-        console.log( displayNoneCoupon )
-        console.log("33333333333333333333")
+    render() {        
+
+        let discountComponent
+        if( this._isPromotion() ){            
+            discountComponent = <RadiosDiscount handleOptionChange={this.handleOptionChange} 
+                                                isSpecialChecked={ this.state.selectedOption === "discount-coupon1" }
+                                                isCouponChecked={ this.state.selectedOption === "discount-coupon2" }/>
+        }else{
+            discountComponent = <CheckDiscount  handleOptionChange={this.handleCheck} 
+                                                checked={ this._hasCouponApplied() } />
+        }
 
         let aCupon = sessionStorage.getItem("couponDeleted")
         let inputContent = ( aCupon != null )? aCupon : "";
 
         return (
-            <div>
+            <div id="discountCoupon">
                 <ul className="cart-additional-item">
-                    {this._renderRadios( )}
+                    {discountComponent}
                     <li>
-                        <InputCouponApplied display={displayNoneCoupon} cupon={inputContent}/>
+                        <InputCouponApplied display={this._showInput()} cupon={inputContent}/>
                         {this._showDelete( )}
                     </li>
                 </ul>

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
+
 import Cookie from "js-cookie";
 
 import ComponentMillasAP from "./ComponentMillasAP";
@@ -9,9 +11,9 @@ class CartAdditionals extends Component {
         super(props);
     }
 
-    
     render(){
         if( Object.keys(this.props.cart).length == 0 ){
+            //ReactDOM.unmountComponentAtNode(document.getElementById('discountCoupon'));
             return null
         }
 
