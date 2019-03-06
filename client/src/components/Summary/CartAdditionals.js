@@ -13,6 +13,8 @@ class CartAdditionals extends Component {
 
     render(){
         if( Object.keys(this.props.cart).length == 0 ){
+            //is used for ComponentDiscountCoupon
+            sessionStorage.removeItem("couponDeleted")
             //ReactDOM.unmountComponentAtNode(document.getElementById('discountCoupon'));
             return null
         }
