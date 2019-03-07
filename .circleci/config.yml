@@ -33,8 +33,8 @@ jobs:
             at: ~/garbarino-com/cart-ui
         - run: yarn install
         - run: yarn install-client
-        - run: CI=false yarn build-garba
-        - run: CI=false yarn build-compu
+        - run: CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino yarn build-garba
+        - run: CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo yarn build-compu
         - persist_to_workspace:
             root: .
             paths: .

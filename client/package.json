@@ -22,14 +22,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy-ci": "node deployToS3.js cart-ui-ci.garbarino.com/cart"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "proxy": "http://localhost:3001",
-  "homepage": "https://ci.garbarino.com/reactcart",
   "browserslist": [
     ">0.2%",
     "not dead",

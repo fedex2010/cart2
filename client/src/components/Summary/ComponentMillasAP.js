@@ -61,47 +61,53 @@ class ComponentMillasAP extends Component {
       }
 
   _showAdd(displaynoneCheckboxAP){
-      if (this.props.addMillasAP && this.props.addMillasAP[0] && !this.props.addMillasAP[0].code) {
-      return(
-          <div>
-              <label>
-                  <input
-                      type="checkbox"
-                      onChange={this.handleCheckAP}/> Sumá millas Aerolíneas Plus{" "}
-              </label>
-              <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
-                    <span className="popover_bottomCenter">
-                        <p>
-                            Comprando ciertos productos en nuestra web podés sumar
-                            millas en Aerolíneas Plus
-                        </p>
-                        <p>
-                            <button className="link-to-button" data-target="#arplus-tyc" data-toggle="modal"
-                            >Ver bases y condiciones</button>
-                        </p>
+      if (this.props.addMillasAP && this.props.addMillasAP[0]) {
+        return(
+            <div>
+                <label>
+                    <input
+                        type="checkbox"
+                        onChange={this.handleCheckAP}/> Sumá millas Aerolíneas Plus{" "}
+                </label>
+                <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
+                        <span className="popover_bottomCenter">
+                            <p>
+                                Comprando ciertos productos en nuestra web podés sumar
+                                millas en Aerolíneas Plus
+                            </p>
+                            <p>
+                                <button className="link-to-button" data-target="#arplus-tyc" data-toggle="modal"
+                                >Ver bases y condiciones</button>
+                            </p>
+                        </span>
                     </span>
-                </span>
-              <div className={displaynoneCheckboxAP}>
-                  <div className="coupon-apply-form">
-                      <input
-                          className="form-control form-control--sm"
-                          type="number"
-                          placeholder="Ingresá tu número de socio"
-                          minLength="999999"
-                          maxLength="99999999"
-                          autoComplete="off"
-                          onChange={this._handleInput.bind(this)}
-                          onKeyPress={this._handleKeyPress.bind(this)}
-                          value={this.state.value}
-                          autofocus="true"
-                      />
-                      <button className="button--primary button--sm" onClick={this._setMillas.bind(this)}>
-                          Aplicar
-                      </button>
-                  </div>
-              </div>
-          </div>
-      );
+                    <div className={this.state.checkedAP === true ? "displaynone":"" }>
+                        {!this.props.addMillasAP[0].code ? (
+                            <div className="coupon-apply-form">
+                                <input
+                                    className="form-control form-control--sm"
+                                    type="number"
+                                    placeholder="Ingresá tu número de socio"
+                                    minLength="999999"
+                                    maxLength="99999999"
+                                    autoComplete="off"
+                                    onChange={this._handleInput.bind(this)}
+                                    onKeyPress={this._handleKeyPress.bind(this)}
+                                    value={this.state.value}
+                                    autofocus="true"
+                                />
+                                <button className="button--primary button--sm" onClick={this._setMillas.bind(this)}>
+                                    Aplicar
+                                </button>
+                            </div>
+                        
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
+             
+            </div>
+        );
       }
   }
 
@@ -123,7 +129,9 @@ class ComponentMillasAP extends Component {
         return (
             <div className={loyalties}>
                 {this._showAdd(displaynoneCheckboxAP)}
-                {this._showDelete()}
+                <div className={this.state.checkedAP === true ? "displaynone":"" }>
+                    {this._showDelete()}
+                </div>    
             </div>
         );
     }else{
