@@ -23,15 +23,14 @@ function CheckDiscount(props){
 function RadiosDiscount(props){
     return (
         <li>
-            <label>
+            <label className="labelRadio">
                 <input type="radio" name="discount-coupon"  value="discount-coupon1" 
                     onChange={ props.handleOptionChange }
                     checked={ props.isSpecialChecked } 
                  />
                 Descuento especial
             </label>
-            <br />
-            <label>
+            <label  className="labelRadio">
                 <input
                     type="radio"
                     name="discount-coupon"
@@ -66,7 +65,9 @@ class ComponentDiscountCoupon extends Component {
     }
 
     handleCheck(){
-        this.setState({ showInput: !this.state.showInput });
+        this.setState({ 
+            showInput: !this.state.showInput 
+        });
     };
 
     handleOptionChange(changeEvent){
@@ -113,6 +114,10 @@ class ComponentDiscountCoupon extends Component {
 
     _removeAndDeleteCoupon(cupon){
         sessionStorage.removeItem("couponDeleted")
+
+        this.setState({ 
+            selectedOption: "discount-coupon1" 
+        });
 
         this._deleteCoupon(cupon)
     }

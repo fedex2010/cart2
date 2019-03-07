@@ -20,6 +20,14 @@ header .gb-wrapper {
   padding: 15px 0 0;
   margin-top: 10px;
 }
+
+.labelRadio{
+  display: block;
+}
+.labelRadio:nth-child(2){
+  margin-top: 10px;
+}
+
 /*ANIMATE*/
 @keyframes example {
   0% {background-color: rgba(160, 220, 150, 0);color: #000;}
