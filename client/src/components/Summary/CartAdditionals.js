@@ -25,7 +25,7 @@ class CartAdditionals extends Component {
             <div className={`${(empresarias || this.props.cart.products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>
                 <ComponentDiscountCoupon cart={this.props.cart}   />
-                <ComponentMillasAP products={this.props.cart.products} addMillasAP={this.props.cart.addMillasAP}/>
+                <ComponentMillasAP products={this.props.cart.products} addMillasAP={this.props.cart.loyalties}/>
             </div>
         )
     }    
