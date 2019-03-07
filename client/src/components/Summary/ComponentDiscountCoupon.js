@@ -45,8 +45,8 @@ function RadiosDiscount(props){
     )
 }
 class ComponentDiscountCoupon extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             selectedOption: "discount-coupon1",
             showInput: false
@@ -54,6 +54,10 @@ class ComponentDiscountCoupon extends Component {
 
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.handleCheck = this.handleCheck.bind(this);
+
+        if( this._hasCouponApplied() ){
+            this.state.selectedOption = "discount-coupon2"
+        }
     }
 
     
@@ -185,6 +189,8 @@ class ComponentDiscountCoupon extends Component {
     
         let aCupon = sessionStorage.getItem("couponDeleted")
         let inputContent = ( aCupon != null )? aCupon : "";
+
+        console.log( this.state.selectedOption )
 
         return (
             <div id="discountCoupon">
