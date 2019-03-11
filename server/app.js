@@ -34,8 +34,7 @@ app.use("/reactcart/api/cart", sessionMiddleware , cartRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   let err = errorService.getErrorObject( "path not found",404 )
-  logger.error("path not found");
-
+  logger.error("path not found --> " +`${req.method} ${req.originalUrl}`);
   res.status(404).send(err)
 });
 
