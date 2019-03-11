@@ -1,6 +1,5 @@
 let express = require("express");
 let router = express.Router();
-// let indexController = require('../controllers/indexController');
 let uaparser = require("ua-parser-js");
 
 router.all("*", function(req, res, next) {
