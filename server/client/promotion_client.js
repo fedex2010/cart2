@@ -22,7 +22,7 @@ class PromotionClient{
                         };
         options.timeout = 2000
 
-        logger.info('Calling: ', url, ", options: ", options )
+        logger.info('Calling: ', url, ", options: ", JSON.stringify(options) )
     
         return this._restConnector.getWithOptions(url,options)
     }
