@@ -48,7 +48,8 @@ class ProductUpdater {
     }
 
     voidExecutor(){
-        return Q(this.product)
+        console.log("---------------------")
+        return this.putExecutor()
     }
 }
 class ProductClient{

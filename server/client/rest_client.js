@@ -48,7 +48,7 @@ class RestClient {
     updateProductObj(cartId, productId, obj,xBrand){
         let url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
             options = {
-                headers : {'Content-Type':'application/json','X-Brand':xBrand,'hola':xBrand},
+                headers : {'Content-Type':'application/json','X-Brand':xBrand},
                 data : JSON.stringify(obj)
             }
     

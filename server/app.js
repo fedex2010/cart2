@@ -19,7 +19,6 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(parallel([cookie]));
 
 app.use("/", indexRouter);
 app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
@@ -36,24 +35,14 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  logger.error(JSON.stringify(err));
+
   let enviroment = req.app.get("env").toLowerCase()
   let errorMessage = ( enviroment !== "production" && enviroment !== "prod" )? err.message : "something was wrong!!!";
-  logger.error(errorMessage);
-
+  
   res.status(500).send( errorService.getErrorObject( errorMessage,500 ) )
 });
 
-function parallel(middlewares) {
-  return function(req, res, next) {
-    async.each(
-      middlewares,
-      function(mw, cb) {
-        mw(req, res, cb);
-      },
-      next
-    );
-  };
-}
 
 function sessionMiddleware( req , res ,next) {
   try{

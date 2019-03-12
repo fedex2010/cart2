@@ -25,7 +25,6 @@ router.delete("/:productId", urlencodedParser, (req , res) => controllers.cart.d
 router.delete( "/c_:cartId/cupon/:couponCode", ( req , res) => controllers.cart.deleteCoupon( req , res));
 router.delete("/c_:cartId/aaPlus", ( req , res) => controllers.cart.deleteAAPlus( req , res));
   
-
 module.exports = router;
 
 

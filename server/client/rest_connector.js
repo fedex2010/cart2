@@ -69,7 +69,7 @@ class RestConnector{
 
         options.timeout = options.timeout || config.services.restler_timeout;
 
-        logger.info('POST '+url+' \n '+options+'\n');
+        logger.info('POST '+url+' \n '+JSON.stringify(options)+'\n');
 
         restConnector.post(url, options)
             .on('success', (response) => deferred.resolve(response))
@@ -85,7 +85,7 @@ class RestConnector{
 
         options.timeout = options.timeout || config.services.restler_timeout;
 
-        logger.info('PUT '+url+' '+ options+ '\n');
+        logger.info('PUT '+url+' '+ JSON.stringify(options)+ '\n');
 
         restConnector.put(url, options)
             .on('success', (response) => deferred.resolve(response))

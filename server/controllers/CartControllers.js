@@ -148,7 +148,7 @@ class CartControllers {
     let brand = res.locals.xBrand.toLowerCase();
 
     if (cartId != null) {
-      console.log("cart no null");
+      console.log("ACTUALIZANDO CART");
       return RestClient.cartClient.getOneCart(cartId, {}, brand,true,false)
         .then(cart => {
 
@@ -159,7 +159,7 @@ class CartControllers {
         })
         .catch( err => err );
       } else {
-      console.log("cart si null");
+      console.log("CREANDO CART");
 
       return this.getNewCart(req, res)
                  .then(cart => { 
@@ -183,18 +183,6 @@ class CartControllers {
 
 
   addProduct(req, res) {
-    const body = req.body || {};
-    const productIds = body.xid.split(",")
-    const promotionId = body.promotion_id;
-    const warranty_id = body.warranty_id;
-    const productPrice = body.price;
-    const brand  = res.locals.xBrand.toLowerCase();
-    
-    const promotionPromise = promotionId ? RestClient.promotion.getPromotion(promotionId,brand): Q()
-
-    let cartId = res.locals.cartId;
-    
-    var self = this;
     let epi_context;
     let gb_anonymous_session_id;
     let gb_session_id;
@@ -215,8 +203,24 @@ class CartControllers {
     newrelic.addCustomAttribute("gb_anonymous_session_id", gb_anonymous_session_id);
     newrelic.addCustomAttribute("gb_session_id", gb_session_id);
 
+    
+
+    const body = req.body || {};
+    const productIds = body.xid.split(",")
+    const promotionId = body.promotion_id;
+    const warranty_id = body.warranty_id;
+    const productPrice = body.price;
+    const brand  = res.locals.xBrand.toLowerCase();
+    
+    const promotionPromise = promotionId ? RestClient.promotion.getPromotion(promotionId,brand): Q()
+
+    let cartId = res.locals.cartId;
+    
+    var self = this;
+    
     this._getOneCart(cartId, req, res)
-        .then(cart => {
+       /* .then(cart => {
+          console.log("*************************")
           return promotionPromise
                   // Agrega todos los productos de la promo que faltan 
                   .then( promotion => {
@@ -238,19 +242,17 @@ class CartControllers {
                       return Q(cart)
                     }
                   })
-        })
+        })*/
       .then(cart => {
-        return productIds.slice(1).reduce( (ac, aProductId) =>        
+        return productIds.reduce( (ac, aProductId) =>        
                                     ac.then(_ => self.addProductToCart(cart, aProductId,warranty_id, productPrice,promotionId,cart.session,brand) )
                                       .then(_ => self.waitProcessingCart(cart,req,res)), Q(cart) 
                               )
                             .catch(err=> {
-                              logger.error ("Error adding associated products", err)
+                              logger.error ("Error adding associated products\n", JSON.stringify(err))
                               return cart
                             })
       })
-      .then(cart => self.addProductToCart(cart, productIds[0], warranty_id, productPrice, promotionId, promotionId,cart.session ,brand) )
-
       .then(product => this._getOneCart(cartId,req,res) )
 
       .then(cart => self.waitProcessingCart(cart,req,res) )
@@ -275,13 +277,24 @@ class CartControllers {
     
     const cartId = cart.cart_id
     logger.info("[cartId="+ cartId+ "] Adding product"+ productId)
-    let product = cart.products.find( p=> p.product_id == productId);
+    
+    let productCount, product;
+
+    cart.products.forEach( aProduct => {
+      if( productId == aProduct.product_id ){
+        productCount = aProduct.quantity
+        product = aProduct
+      }
+    })
      
     if (product) {
+      productCount++
         logger.info("[cartId="+ cartId+ "] Product"+ productId+ "already added")
+
         return RestClient.productClient.getProductUpdater(cartId,product,brand)
                 .withWarranty(warranty_id)
                 .withPromotion(promotionId)
+                .withQuantity(productCount)
                 .execute()
     }else{
         return RestClient.productClient.addProduct(cartId, productId, 1, warranty_id, productPrice, promotionId,session_id,brand)
@@ -297,9 +310,6 @@ class CartControllers {
     const session_id  = res.locals.session;
     let cartId;
     let firstCart;
-
-    logger.info("-----------------------")
-    logger.info("productId" + productId + " Cupon: " + cupon + "brand: ",brand)
 
     this._getOneCart(null, req, res)
       .then(cart => {        
