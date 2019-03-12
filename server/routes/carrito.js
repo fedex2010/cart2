@@ -4,5 +4,5 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-router.post("/", urlencodedParser, ( req , res) => controllers.cart.addProduct(req , res));
+router.post("/", urlencodedParser, ( req , res) => res.redirect(302, req.get('origin') + '/carrito'));
 module.exports = router;
