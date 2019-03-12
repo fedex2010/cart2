@@ -6,7 +6,7 @@ React Cart
 git clone https://github.com/garbarino-com/cart-ui
 
 ## Node Version
-Use Node 8 for this project => nvm use 9
+Use Node 10 for this project => nvm use 10
 
 ## Got to the Root directory and run 
 npm install
