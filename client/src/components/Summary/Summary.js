@@ -112,7 +112,7 @@ class Summary extends Component {
                         <button className="button--link">
                             COMPRAR MÁS PRODUCTOS
                         </button>
-                        <button type="button" className="button--primary" disabled={disabled} onClick={this._continue.bind()}>
+                        <button type="button" className="button--primary" id="cart-buy-btn" disabled={disabled} onClick={this._continue.bind()}>
                             Continuar
                         </button>
                     </div>

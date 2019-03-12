@@ -6,7 +6,6 @@ var express = require("express"),
     sessionService = require('../services/session_service'),
     jsonParser = bodyParser.json();
 
-router.get("/normandia", ( req , res) => controllers.normandia.getTemplate( req , res ))
 router.get("/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/summary", ( req , res) => controllers.cart.summary( req , res ));
 router.get("/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));

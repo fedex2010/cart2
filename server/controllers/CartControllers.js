@@ -3,11 +3,12 @@ logger = require("../utils/logger"),
 sessionService = require("../services/session_service"),
 newrelic       = require("newrelic"),
 errorService = require("../services/error_service"),
+config        = require('../config/config'),
 Q = require("q");
 
 class CartControllers {
   constructor() {}
-
+  
   sellerLoginAction (req, res)  {
     sessionService.clearSessionCookies(res)
     
@@ -254,7 +255,14 @@ class CartControllers {
 
       .then(cart => self.waitProcessingCart(cart,req,res) )
 
-      .then(cart => res.status(200).send(cart) )
+      .then(cart => {
+        if (req.headers['referer'] && (req.headers['referer'].endsWith("/carrito") || req.headers['referer'].endsWith("/carrito/"))) {
+          res.status(200).send(cart)
+        }
+        else {
+          res.redirect(302, req.get('origin') + '/carrito');
+        }
+      })
 
       .catch(err => {
         newrelic.noticeError(err)

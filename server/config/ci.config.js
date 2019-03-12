@@ -3,6 +3,10 @@
 module.exports = (ROOT_PATH, timeoutRatio) => {
   var config = {
     base_url : "/carrito",
+    homePage: {
+      garbarino: "ci.garbarino.com",
+      compumunod: "ci.compumundo.com.ar"
+    },
     server: {
       port: 3000
     },

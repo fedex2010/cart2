@@ -8,34 +8,29 @@ const express = require("express"),
       errorService = require('./services/error_service'),
       cookieParser   = require('cookie-parser'),
       indexRouter = require("./routes/index"),
-      cartRouter = require("./routes/cart");
+      cartRouter = require("./routes/cart"),
+      carrito = require("./routes/carrito");
 
 let app = express();
 
 // view engine setupS
-// app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "jade");
-
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, "public")));
-
 //app.use(parallel([cookie]));
 
 app.use("/", indexRouter);
-//app.get("/api/",( req , res ) => controllers.cart.renderApp( req , res ))
 app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
-
 app.use("/api/cart", sessionMiddleware , cartRouter);
 app.use("/reactcart/api/cart", sessionMiddleware , cartRouter);
+app.use("/carrito",sessionMiddleware, carrito);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   let err = errorService.getErrorObject( "path not found",404 )
-  logger.error("path not found");
-
+  logger.error("path not found --> " +`${req.method} ${req.originalUrl}`);
   res.status(404).send(err)
 });
 
