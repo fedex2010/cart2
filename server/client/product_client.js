@@ -31,6 +31,8 @@ class ProductUpdater {
         if (_warranty && _warranty != this.product.warranty_id){
             this.data.warranty = _warranty
             this.execute = this.putExecutor
+        }else{
+            this.data.warranty = null
         }
         return this
     }
@@ -39,6 +41,8 @@ class ProductUpdater {
         if (_promotionId && (!this.product.promotion || this.product.promotion.id != _promotionId)){
             this.data.promotion = {id: _promotionId}
             this.execute = this.putExecutor
+        }else{
+            this.data.promotion = null
         }
         return this
     }
