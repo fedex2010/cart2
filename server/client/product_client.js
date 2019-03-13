@@ -69,7 +69,7 @@ class ProductClient{
 
     
 
-    addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null,brand){
+    addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
             data = {
                 product_id: productId,
