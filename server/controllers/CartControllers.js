@@ -245,7 +245,7 @@ class CartControllers {
         })*/
       .then(cart => {
         return productIds.reduce( (ac, aProductId) =>        
-                                    ac.then(_ => self.addProductToCart(cart, aProductId,warranty_id, productPrice,promotionId,cart.session,brand) )
+                                    ac.then(_ => self.addProductToCart(cart, aProductId,null, productPrice,null,cart.session,brand) )
                                       .then(_ => self.waitProcessingCart(cart,req,res)), Q(cart) 
                               )
                             .catch(err=> {
@@ -274,7 +274,10 @@ class CartControllers {
   }
 
   addProductToCart(cart, productId, warranty_id, productPrice, promotionId, session_id,brand){
-    
+  
+    logger.info("---------aaaaaaaaaaaaahhhhhhhhhhhhhhhhh-----------------")
+    logger.info("---------aaaaaaaaaaaaahhhhhhhhhhhhhhhhh-----------------")
+
     const cartId = cart.cart_id
     logger.info("[cartId="+ cartId+ "] Adding product"+ productId)
     

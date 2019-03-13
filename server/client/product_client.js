@@ -68,7 +68,6 @@ class ProductClient{
     }
 
     
-
     addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
             data = {
@@ -81,6 +80,9 @@ class ProductClient{
         if (promotionId) {
             data.promotion = {id: promotionId}
         }
+
+        logger.info("-------data " , JSON.stringify(data) )
+        
         let options = {
             headers: {
                 'Content-Type': 'application/json',
