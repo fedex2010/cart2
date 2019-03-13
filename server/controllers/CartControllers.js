@@ -289,14 +289,15 @@ class CartControllers {
      
     if (product) {
       productCount++
-        logger.info("[cartId="+ cartId+ "] Product"+ productId+ "already added")
-
+        logger.info("Actualizando cantidad producto " + productId +  "en [cartId="+ cartId+ "]")
         return RestClient.productClient.getProductUpdater(cartId,product,brand)
                 .withWarranty(warranty_id)
                 .withPromotion(promotionId)
                 .withQuantity(productCount)
                 .execute()
     }else{
+        logger.info("Agregando producto " + productId +  "en [cartId="+ cartId+ "]")
+
         return RestClient.productClient.addProduct(cartId, productId, 1, warranty_id, productPrice, promotionId,session_id,brand)
     }
   }
