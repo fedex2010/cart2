@@ -233,7 +233,7 @@ class CartControllers {
 
                     return missing.reduce((ac, promoProductId) =>
                               //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
-                              ac.then( _ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null,null,promotionId ,cart.session,brand) )
+                              ac.then( _ => self.addProductToCart(cart, promoProductId, null,null,null,promotionId ,cart.session,brand) )
                                 .then( _ => self.waitProcessingCart(cart,req,res) ), Q(cart).then(_ => self.waitProcessingCart(cart,req,res)) )
 
                                 .catch(err=> {
@@ -269,11 +269,7 @@ class CartControllers {
       .then(cart => {
         sessionService.setCartIdCookie(res, cart.cart_id) 
 
-        cart = _replaceImage(cart); 
-        cart.percentage = calculateWarrantiesPercentage(cart);
-        cart = this._getEmpresarias(req, res,cart);
-
-        if (req.headers['referer'] && (req.headers['referer'].endsWith("/carrito") || req.headers['referer'].endsWith("/carrito/"))) {
+        if (req.headers['referer'] && (req.headers['referer'].endsWith("/reactcart") ||req.headers['referer'].endsWith("/carrito") || req.headers['referer'].endsWith("/carrito/"))) {
           res.status(200).send(cart)
         }
         else {
