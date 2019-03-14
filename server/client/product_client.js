@@ -15,31 +15,28 @@ class ProductUpdater {
         this.product = _product
         this.productId = this.product.product_id
         this.apiClient = new Rest_client();
-        this.data = {product_id: this.productId}
-        this.execute = this.voidExecutor
+        this.data = {
+            product_id: this.productId,
+            warranty_id:null,
+            price:null,
+            _promotionId:null
+        }
     }
 
     withQuantity(_qty){
         if (_qty != this.product.quantity){
             this.data.quantity = _qty
-            this.execute = this.putExecutor
         }
         return this
     }
 
-    withWarranty(_warranty){
-        if (_warranty && _warranty != this.product.warranty_id){
-            this.data.warranty = _warranty
-            this.execute = this.putExecutor
-        }
+    withWarranty(_warranty = null){
+        this.data.warranty_id = _warranty
         return this
     }
 
-    withPromotion(_promotionId){
-        if (_promotionId && (!this.product.promotion || this.product.promotion.id != _promotionId)){
-            this.data.promotion = {id: _promotionId}
-            this.execute = this.putExecutor
-        }
+    withPromotion(_promotionId = null){
+        this.data._promotionId = _promotionId
         return this
     }
 
@@ -47,7 +44,7 @@ class ProductUpdater {
         return this.apiClient.updateProductObj(this.cartId, this.productId, this.data,this.brand)
     }
 
-    voidExecutor(){
+    execute(){
         console.log("---------------------")
         return this.putExecutor()
     }
@@ -71,8 +68,7 @@ class ProductClient{
     }
 
     
-
-    addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null,brand){
+    addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
             data = {
                 product_id: productId,
@@ -84,6 +80,9 @@ class ProductClient{
         if (promotionId) {
             data.promotion = {id: promotionId}
         }
+
+        logger.info("-------data " , JSON.stringify(data) )
+        
         let options = {
             headers: {
                 'Content-Type': 'application/json',
