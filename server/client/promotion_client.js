@@ -18,7 +18,7 @@ class PromotionClient{
 
         options.headers = {
                             "Content-Type": "application/json", 
-                            "X-Brand": xBrand
+                            "x-brand": xBrand
                         };
         options.timeout = 2000
 

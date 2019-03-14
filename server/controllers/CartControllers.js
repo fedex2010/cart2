@@ -206,51 +206,60 @@ class CartControllers {
     
 
     const body = req.body || {};
+
     const productIds = body.xid.split(",")
-    const promotionId = body.promotion_id;
-    const warranty_id = body.warranty_id;
+    const promotionId = body.promotion_id || null;
+    const warranty_id = body.warranty_id || null;
     const productPrice = body.price;
     const brand  = res.locals.xBrand.toLowerCase();
     
-    const promotionPromise = promotionId ? RestClient.promotion.getPromotion(promotionId,brand): Q()
-
-    let cartId = res.locals.cartId;
+    let cartId = null;
     
     var self = this;
     
     this._getOneCart(cartId, req, res)
-       /* .then(cart => {
-          console.log("*************************")
-          return promotionPromise
-                  // Agrega todos los productos de la promo que faltan 
-                  .then( promotion => {
-                    cartId = cart.cart_id
-                    if (promotion){
-                      let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
-                      logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "missing="+ missing)
+        .then(cart => {
 
-                      return missing.reduce((ac, promoProductId) =>
-                                //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
-                                ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null,null, null, null,brand) )
-                                .then(_ => self.waitProcessingCart(cart,req,res))
-                                , Q(cart).then(_ => self.waitProcessingCart(cart,req,res)))
+          if( promotionId != null ){
+            // Agrega todos los productos de la promo que faltan 
+
+            return RestClient.promotion.getPromotion(promotionId,brand)
+                .then( promotion => {
+                  cartId = cart.cart_id
+                  
+                  if (promotion){                    
+                    let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
+                    logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "missing="+ missing)
+
+                    return missing.reduce((ac, promoProductId) =>
+                              //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
+                              ac.then( _ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1,null,null,promotionId ,cart.session,brand) )
+                                .then( _ => self.waitProcessingCart(cart,req,res) ), Q(cart).then(_ => self.waitProcessingCart(cart,req,res)) )
+
                                 .catch(err=> {
                                   logger.error ("Error adding Promotion products"+ err)
-                                  return cart
+
+                                  throw(err) 
                                 })
-                    }else{
-                      return Q(cart)
-                    }
-                  })
-        })*/
+                  }else{
+                    return cart
+                  }
+                })
+
+          }else{
+            return cart
+          }
+                  
+        })
       .then(cart => {
         return productIds.reduce( (ac, aProductId) =>        
-                                    ac.then(_ => self.addProductToCart(cart, aProductId,null, productPrice,null,cart.session,brand) )
+                                    ac.then(_ => self.addProductToCart(cart, aProductId,warranty_id, productPrice,null,cart.session,brand) )
                                       .then(_ => self.waitProcessingCart(cart,req,res)), Q(cart) 
                               )
                             .catch(err=> {
                               logger.error ("Error adding associated products\n", JSON.stringify(err))
-                              return cart
+
+                              throw(err) 
                             })
       })
       .then(product => this._getOneCart(cartId,req,res) )
@@ -269,15 +278,19 @@ class CartControllers {
       .catch(err => {
         newrelic.noticeError(err)
         logger.error("[" +cartId +"] Fail get to cart: " +err);
-        res.status(500).send( errorService.checkErrorObject(err) );
+
+        let {errorUrl} = req.body
+        
+        if(errorUrl){
+          res.redirect( errorUrl )
+        }else{
+          res.status(500).send( errorService.checkErrorObject(err) );
+        }
       })
   }
 
   addProductToCart(cart, productId, warranty_id, productPrice, promotionId, session_id,brand){
   
-    logger.info("---------aaaaaaaaaaaaahhhhhhhhhhhhhhhhh-----------------")
-    logger.info("---------aaaaaaaaaaaaahhhhhhhhhhhhhhhhh-----------------")
-
     const cartId = cart.cart_id
     logger.info("[cartId="+ cartId+ "] Adding product"+ productId)
     
@@ -291,7 +304,7 @@ class CartControllers {
     })
      
     if (product) {
-      productCount++
+        productCount++
         logger.info("Actualizando cantidad producto " + productId +  "en [cartId="+ cartId+ "]")
         return RestClient.productClient.getProductUpdater(cartId,product,brand)
                 .withWarranty(warranty_id)
@@ -330,7 +343,6 @@ class CartControllers {
 
           return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
                 .then( cupon => {
-          
                   return this.waitProcessingCart(cart,req,res)
                 })
                 .catch( err => {
