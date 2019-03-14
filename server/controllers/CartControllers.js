@@ -258,11 +258,10 @@ class CartControllers {
       .then(cart => self.waitProcessingCart(cart,req,res) )
 
       .then(cart => {
-        if (req.headers['referer'] && (req.headers['referer'].endsWith("/carrito") || req.headers['referer'].endsWith("/carrito/"))) {
+        if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito")){
+          res.redirect(302, req.get('origin') + '/carrito')
+        }else {
           res.status(200).send(cart)
-        }
-        else {
-          res.redirect(302, req.get('origin') + '/carrito');
         }
       })
 
