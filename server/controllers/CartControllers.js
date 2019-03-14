@@ -213,7 +213,7 @@ class CartControllers {
     const productPrice = body.price;
     const brand  = res.locals.xBrand.toLowerCase();
     
-    let cartId = null;
+    let cartId = res.locals.cartId;
     
     var self = this;
     
@@ -267,6 +267,12 @@ class CartControllers {
       .then(cart => self.waitProcessingCart(cart,req,res) )
 
       .then(cart => {
+        sessionService.setCartIdCookie(res, cart.cart_id) 
+
+        cart = _replaceImage(cart); 
+        cart.percentage = calculateWarrantiesPercentage(cart);
+        cart = this._getEmpresarias(req, res,cart);
+
         if (req.headers['referer'] && (req.headers['referer'].endsWith("/carrito") || req.headers['referer'].endsWith("/carrito/"))) {
           res.status(200).send(cart)
         }
