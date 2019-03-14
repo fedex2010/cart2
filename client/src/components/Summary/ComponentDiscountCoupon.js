@@ -191,8 +191,6 @@ class ComponentDiscountCoupon extends Component {
         let aCupon = sessionStorage.getItem("couponDeleted")
         let inputContent = ( aCupon != null )? aCupon : "";
 
-        console.log( this.state.selectedOption )
-
         return (
             <div id="discountCoupon">
                 <ul className="cart-additional-item">

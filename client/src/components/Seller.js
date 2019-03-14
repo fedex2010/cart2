@@ -22,7 +22,7 @@ class Vendedor extends Component {
     let data={};
     data.vendedor=event.target.vendedor.value;
 
-    fetch(config.cart_url+"/api/cart/vendedor", {
+    fetch("/carrito/api/cart/vendedor", {
         method: "POST",
         credentials: 'include' ,
         headers: {
@@ -32,7 +32,7 @@ class Vendedor extends Component {
         body: JSON.stringify(data)
     })
     .then( response => {
-        this.props.updatePathName( config.cart_url ,config.path_name.reactcart )
+        this.props.updatePathName( "" ,config.path_name.reactcart )
     }) 
     .catch( err => {
         console.log(err)
