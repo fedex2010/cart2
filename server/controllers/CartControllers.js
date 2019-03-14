@@ -219,38 +219,37 @@ class CartControllers {
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
+          if( promotionId != null ){
+            // Agrega todos los productos de la promo que faltan 
 
-        if (promotionId != null) {
-          // Agrega todos los productos de la promo que faltan 
+            return RestClient.promotion.getPromotion(promotionId,brand)
+                .then( promotion => {
+                  cartId = cart.cart_id
+                  
+                  if (promotion){                    
+                    let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
+                    logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "missing="+ missing)
 
-          return RestClient.promotion.getPromotion(promotionId, brand)
-            .then(promotion => {
-              cartId = cart.cart_id
+                    return missing.reduce((ac, promoProductId) =>
+                              //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
+                              ac.then( _ => self.addProductToCart(cart, promoProductId, null,null,null,promotionId ,cart.session,brand) )
+                                .then( _ => self.waitProcessingCart(cart,req,res) ), Q(cart).then(_ => self.waitProcessingCart(cart,req,res)) )
 
-              if (promotion) {
-                let missing = promotion.xids.filter(promoProductId => !cart.products.find(p => p.product_id == promoProductId))
-                logger.info("[" + cartId + "] promo xids=" + promotion.xids + "missing=" + missing)
+                                .catch(err=> {
+                                  logger.error ("Error adding Promotion products"+ err)
 
-                return missing.reduce((ac, promoProductId) =>
-                  //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
-                  ac.then(_ => RestClient.productClient.addProduct(cart.cart_id, promoProductId, 1, null, null, promotionId, cart.session, brand))
-                    .then(_ => self.waitProcessingCart(cart, req, res)), Q(cart).then(_ => self.waitProcessingCart(cart, req, res)))
+                                  throw(err) 
+                                })
+                  }else{
+                    return cart
+                  }
+                })
 
-                  .catch(err => {
-                    logger.error("Error adding Promotion products" + err)
-
-                    throw (err)
-                  })
-              } else {
-                return cart
-              }
-            })
-
-        } else {
-          return cart
-        }
-
-      })
+          }else{
+            return cart
+          }
+                  
+        })
       .then(cart => {
         return productIds.reduce((ac, aProductId) =>
           ac.then(_ => self.addProductToCart(cart, aProductId, warranty_id, productPrice, null, cart.session, brand))
@@ -267,7 +266,6 @@ class CartControllers {
       .then(cart => self.waitProcessingCart(cart, req, res))
 
       .then(cart => {
-
         sessionService.setCartIdCookie(res, cart.cart_id)
 
         cart = _replaceImage(cart);
@@ -280,7 +278,6 @@ class CartControllers {
           res.status(200).send(cart)
         }
       })
-
       .catch(err => {
         newrelic.noticeError(err)
         logger.error("[" + cartId + "] Fail get to cart: " + err);
