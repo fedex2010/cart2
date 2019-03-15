@@ -203,56 +203,53 @@ class CartControllers {
     newrelic.addCustomAttribute("gb_anonymous_session_id", gb_anonymous_session_id);
     newrelic.addCustomAttribute("gb_session_id", gb_session_id);
 
-
-
     const body = req.body || {};
 
     const productIds = body.xid.split(",")
     const promotionId = body.promotion_id || null;
     const warranty_id = body.warranty_id || null;
-    const productPrice = body.price;
+    const productPrice = body.price || null;
     const brand = res.locals.xBrand.toLowerCase();
-
+    
     let cartId = res.locals.cartId;
 
     var self = this;
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
-          if( promotionId != null ){
-            // Agrega todos los productos de la promo que faltan 
+        if( promotionId != null ){
+          // Agrega todos los productos de la promo que faltan 
+          return RestClient.promotion.getPromotion(promotionId,brand)
+              .then( promotion => {
+                cartId = cart.cart_id
+                
+                if (promotion){                    
+                  let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
+                  logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "missing="+ missing)
 
-            return RestClient.promotion.getPromotion(promotionId,brand)
-                .then( promotion => {
-                  cartId = cart.cart_id
-                  
-                  if (promotion){                    
-                    let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
-                    logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "missing="+ missing)
+                  return missing.reduce((ac, promoProductId) =>
+                            //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
+                            ac.then( _ => self.addProductToCart(cart, promoProductId, null,null,null,promotionId ,cart.session,brand) )
+                              .then( _ => self.waitProcessingCart(cart,req,res) ), Q(cart).then(_ => self.waitProcessingCart(cart,req,res)) )
 
-                    return missing.reduce((ac, promoProductId) =>
-                              //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
-                              ac.then( _ => self.addProductToCart(cart, promoProductId, null,null,null,promotionId ,cart.session,brand) )
-                                .then( _ => self.waitProcessingCart(cart,req,res) ), Q(cart).then(_ => self.waitProcessingCart(cart,req,res)) )
+                              .catch(err=> {
+                                logger.error ("Error adding Promotion products"+ err)
 
-                                .catch(err=> {
-                                  logger.error ("Error adding Promotion products"+ err)
+                                throw(err) 
+                              })
+                }else{
+                  return cart
+                }
+              })
 
-                                  throw(err) 
-                                })
-                  }else{
-                    return cart
-                  }
-                })
+        }else{
+          return cart
+        }        
+      })
 
-          }else{
-            return cart
-          }
-                  
-        })
       .then(cart => {
-        return productIds.reduce((ac, aProductId) =>
-          ac.then(_ => self.addProductToCart(cart, aProductId, warranty_id, productPrice, null, cart.session, brand))
+        return productIds.slice(1).reduce((ac, aProductId) =>
+          ac.then(_ => self.addProductToCart(cart, aProductId, null, null, null, cart.session, brand))
             .then(_ => self.waitProcessingCart(cart, req, res)), Q(cart)
         )
           .catch(err => {
@@ -261,11 +258,22 @@ class CartControllers {
             throw (err)
           })
       })
+
+      .then( cart => {
+        return this.addProductToCart(cart, productIds[0], warranty_id, productPrice, null, cart.session, brand)
+          .catch( err => {
+            logger.error("Error adding products", JSON.stringify(err))
+
+            throw ( err )
+          })
+      })
       .then(product => this._getOneCart(cartId, req, res))
 
       .then(cart => self.waitProcessingCart(cart, req, res))
 
       .then(cart => {
+        //seteo cookie porque puede ser que se este agregando un producto desde ficha y el carrito no haya 
+        //sido creado aun
         sessionService.setCartIdCookie(res, cart.cart_id)
 
         if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito")) {
@@ -285,6 +293,7 @@ class CartControllers {
         } else {
           res.status(500).send(errorService.checkErrorObject(err));
         }
+
       })
   }
 
