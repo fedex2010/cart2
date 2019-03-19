@@ -1,12 +1,9 @@
-import config from "./config/config";
-
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import Cart from "./components/Cart";
 import Error from "./components/Error/Error";
 import Seller from './components/Seller'
 import "./App.scss";
-
 
 class App extends Component {
   constructor(props) {
@@ -14,24 +11,19 @@ class App extends Component {
     this.state = {};
   }
 
-  render() {  
-    let {pathName} = this.props
-
-    if( pathName == config.path_name.reactcart ){
-      return < Cart />
-    }else if( pathName == config.path_name.seller ){
-      return < Seller />
-    }else{
-      return < Error />
-    }
+  render() {
+    return (
+      <Router>
+        <div>
+          <Switch>
+            <Route path="/carrito" component={Cart} />
+            <Route path="/vendedor" component={Seller} />
+            <Route component={Error} />
+          </Switch>
+        </div>
+      </Router>
+    )
   }
 }
 
-const mapStateToProps = state => {
-  return { 
-    pathName: state.cartReducer.pathName
-  };
-};
-
-export default connect( mapStateToProps )( App );
-
+export default App;
