@@ -42,17 +42,8 @@ export default (state = initialState, action = {}) => {
           selectedProduct: action.payload,
           operationStatus:action.operationStatus
       }
-    
-    case SET_PATHNAME:
-      return{
-          ...state,
-          pathName: action.payload.pathName
-      }
+      
     default:
-      //VER COMO FORZAR AL PRINCIPIO EL DISPATCH DE SET_PATHNAME
-      const params = new URLSearchParams( window.location.search );
-      state.pathName = params.get('pathName') || config.path_name.reactcart;
-
       return state;
   }
 };
