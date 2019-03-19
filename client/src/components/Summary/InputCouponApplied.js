@@ -55,15 +55,18 @@ class InputCouponApplied extends Component {
   }
  
   componentWillReceiveProps(nextProps){
-
     let newState = {}
     if( nextProps.cupon !== "" ){
-      newState.cupon = nextProps.cupon
-      this.setState({ cupon: nextProps.cupon });      
+      newState.input = nextProps.cupon
+      this.setState({ input: nextProps.cupon });      
     }
 
     if (nextProps.err.cause && nextProps.err.cause.code && nextProps.err.cause.code === "400"){
       this.setState({ wasError: true });      
+    }
+
+    if( nextProps.forceCleanInput ){
+      this.setState({ input: "" });      
     }
   }
 
@@ -76,7 +79,6 @@ class InputCouponApplied extends Component {
   }
 
   render() {
-
     return (
       <div className={ `InputCouponApplied  ${this.props.display}` }>
 

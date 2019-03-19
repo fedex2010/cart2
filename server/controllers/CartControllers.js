@@ -31,8 +31,6 @@ class CartControllers {
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
 
-    console.log("--------------onteidndo card")
-
     console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
 
     newrelic.addCustomAttribute('cookieCartId', cartId);

@@ -48,7 +48,8 @@ class ComponentDiscountCoupon extends Component {
         super(props);
         this.state = {
             selectedOption: "discount-coupon1",
-            showInput: false
+            showInput: false,
+            forceCleanInput:false
         };        
 
         this.handleOptionChange = this.handleOptionChange.bind(this);
@@ -59,13 +60,12 @@ class ComponentDiscountCoupon extends Component {
                 selectedOption: "discount-coupon2"
             });
         }
+
+        //this is to force the unmonting of the component
+        this.refToParent = React.createRef();
     }
 
     
-    componentWillUnmount(){
-        sessionStorage.removeItem("couponDeleted")
-    }
-
     handleCheck(){
         this.setState({ 
             showInput: !this.state.showInput 
@@ -136,10 +136,8 @@ class ComponentDiscountCoupon extends Component {
         let { cart } = this.props
 
         try{
-            console.log("return true");
             return ( cart.coupons && cart.coupons[0] && cart.coupons[0].coupon_id ) != undefined
         }catch(err){
-            console.log("return false");
             return false
         }
     }
@@ -183,17 +181,36 @@ class ComponentDiscountCoupon extends Component {
         return discountComponent
     }
 
-    render() {        
-    
+    componentWillReceiveProps(nextProps){
+        //if there is no products then reset component state
+        if( nextProps.cart.products.length == 0 ){
+            console.log("////////////////")
+            console.log("MATANDO TODOoooooooooooooooooooooooo")
+            console.log("////////////////")
+
+            sessionStorage.removeItem("couponDeleted")
+            this.setState({
+                selectedOption: "discount-coupon1",
+                showInput: false,
+                forceCleanInput:true
+            });
+        }else{
+            this.setState({
+                forceCleanInput:false
+            });
+        }
+    }
+
+    render() {   
         let aCupon = sessionStorage.getItem("couponDeleted")
         let inputContent = ( aCupon != null )? aCupon : "";
 
         return (
-            <div id="discountCoupon">
+            <div id="discountCoupon" ref={this.props.setRef} >
                 <ul className="cart-additional-item">
                     {this._getCouponComponent()}
                     <li>
-                        <InputCouponApplied display={this._showInput()} cupon={inputContent}/>
+                        <InputCouponApplied display={this._showInput()} cupon={inputContent} forceCleanInput={this.state.forceCleanInput}/>
                         {this._showDelete( )}
                     </li>
                 </ul>
@@ -202,10 +219,8 @@ class ComponentDiscountCoupon extends Component {
     }
 }
 const mapStateToProps = state => {
-    return { };
+    return { cart: state.cartReducer.cart };
 };
-
-//VER PORQUE NO ESTABA SIENDO USADO
 
 export default connect(
     mapStateToProps,

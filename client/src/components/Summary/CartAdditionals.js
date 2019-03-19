@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from 'react-dom';
 
 import Cookie from "js-cookie";
 
@@ -12,10 +11,7 @@ class CartAdditionals extends Component {
     }
 
     render(){
-        if( Object.keys(this.props.cart).length == 0 ){
-            //is used for ComponentDiscountCoupon
-            sessionStorage.removeItem("couponDeleted")
-            //ReactDOM.unmountComponentAtNode(document.getElementById('discountCoupon'));
+        if( Object.keys(this.props.cart).length === 0 ){
             return null
         }
 
@@ -24,7 +20,7 @@ class CartAdditionals extends Component {
         return (
             <div className={`${(empresarias || this.props.cart.products.length === 0) ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
                 <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>
-                <ComponentDiscountCoupon cart={this.props.cart}   />
+                <ComponentDiscountCoupon />
                 <ComponentMillasAP products={this.props.cart.products} addMillasAP={this.props.cart.loyalties}/>
             </div>
         )
