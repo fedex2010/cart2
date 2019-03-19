@@ -1,8 +1,5 @@
 const express = require("express"),
-      createError = require("http-errors"),
       logger = require("./utils/logger"),
-      async = require("async"),
-      uuid = require("uuid"),
       morgan = require("morgan"),
       sessionService = require('./services/session_service'),
       errorService = require('./services/error_service'),
@@ -21,10 +18,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/", indexRouter);
-app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
-app.use("/api/cart", sessionMiddleware , cartRouter);
-app.use("/reactcart/api/cart", sessionMiddleware , cartRouter);
 app.use("/carrito",sessionMiddleware, carrito);
+app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
+//AWS
+app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

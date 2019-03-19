@@ -55,7 +55,9 @@ class ComponentDiscountCoupon extends Component {
         this.handleCheck = this.handleCheck.bind(this);
 
         if( this._hasCouponApplied() ){
-            this.state.selectedOption = "discount-coupon2"
+            this.setState({
+                selectedOption: "discount-coupon2"
+            });
         }
     }
 
@@ -71,14 +73,13 @@ class ComponentDiscountCoupon extends Component {
     };
 
     handleOptionChange(changeEvent){
-        let showInput = ( changeEvent.target.value == "discount-coupon2" && !this._hasCouponApplied() )?true:false
+        let showInput = ( changeEvent.target.value === "discount-coupon2" && !this._hasCouponApplied() )?true:false
 
         this.setState({  selectedOption: changeEvent.target.value , 
                          showInput: showInput 
                         });
         
         if( this._hasCouponApplied( ) ){
-
             sessionStorage.setItem("couponDeleted",this._getCouponApplied())
             this._deleteCoupon( this._getCouponApplied() );
 
@@ -86,7 +87,7 @@ class ComponentDiscountCoupon extends Component {
 
             this._addCoupon()
 
-        }else if( changeEvent.target.value == "discount-coupon1" )  { //when click on "Descuento especial"       
+        }else if( changeEvent.target.value === "discount-coupon1" )  { //when click on "Descuento especial"
             let cartId = Cookie.get("cartId");
 
             this.props.justReload(cartId)
@@ -103,9 +104,6 @@ class ComponentDiscountCoupon extends Component {
         try{
             return this.props.cart.coupons[0].coupon_id
         }catch(err){
-            console.log("-----------------")
-            console.log(err)
-            console.log("-----------------")
             return ""
         }
     }
@@ -138,11 +136,10 @@ class ComponentDiscountCoupon extends Component {
         let { cart } = this.props
 
         try{
+            console.log("return true");
             return ( cart.coupons && cart.coupons[0] && cart.coupons[0].coupon_id ) != undefined
         }catch(err){
-            console.log("----------------")
-            console.log(err)
-            console.log("----------------")
+            console.log("return false");
             return false
         }
     }
@@ -177,8 +174,8 @@ class ComponentDiscountCoupon extends Component {
 
         if( this._isPromotion() ){            
             discountComponent = <RadiosDiscount handleOptionChange={this.handleOptionChange} 
-                                                isSpecialChecked={ this.state.selectedOption === "discount-coupon1" }
-                                                isCouponChecked={ this.state.selectedOption === "discount-coupon2" }/>
+                                                isSpecialChecked={ this.state.selectedOption === "discount-coupon1" && !this._hasCouponApplied()}
+                                                isCouponChecked={ this.state.selectedOption === "discount-coupon2" || this._hasCouponApplied()}/>
         }else{
             discountComponent = <CheckDiscount  handleOptionChange={this.handleCheck} 
                                                 checked={ this.state.showInput || this._hasCouponApplied() } />
@@ -190,8 +187,6 @@ class ComponentDiscountCoupon extends Component {
     
         let aCupon = sessionStorage.getItem("couponDeleted")
         let inputContent = ( aCupon != null )? aCupon : "";
-
-        console.log( this.state.selectedOption )
 
         return (
             <div id="discountCoupon">

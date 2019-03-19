@@ -2,11 +2,11 @@
 
 module.exports = (ROOT_PATH, timeoutRatio) => {
   var config = {
-      cart_url:"/reactcart",
+      cart_url:"/carrito",
       path_name: {
         seller : "vendedor",
         error : "error",
-        reactcart : "reactcart"
+        reactcart : "carrito"
       },
       cloudfront: {
           url: "http://localhost:3000"

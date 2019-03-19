@@ -25,6 +25,7 @@ class ComponentMillasAP extends Component {
 
   _setMillasEmpty(){
       let cartId = Cookie.get("cartId");
+      this.setState({value: ""});
       this.props.deleteLoyalties(cartId);
   }
 
