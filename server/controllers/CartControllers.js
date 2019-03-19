@@ -273,12 +273,8 @@ class CartControllers {
 
       .then(cart => {
         //seteo cookie porque puede ser que se este agregando un producto desde ficha y el carrito no haya 
-        //sido creado aun
+        //sido creado aún
         sessionService.setCartIdCookie(res, cart.cart_id)
-
-        cart = _replaceImage(cart);
-        cart.percentage = calculateWarrantiesPercentage(cart);
-        cart = this._getEmpresarias(req, res, cart);
 
         if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") && !req.headers['referer'].endsWith("/carrito/")) {
           res.redirect(302, req.get('origin') + '/carrito')
