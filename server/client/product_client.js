@@ -80,8 +80,6 @@ class ProductClient{
         if (promotionId) {
             data.promotion = {id: promotionId}
         }
-
-        logger.info("-------data " , JSON.stringify(data) )
         
         let options = {
             headers: {
