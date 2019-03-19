@@ -53,6 +53,17 @@ class ProductWarranty extends Component{
         this.props.selectProduct(product);
       }
 
+     
+
+      escFunction(event){
+        if(event.keyCode === 27) {
+          document.querySelector(".keyEscModal").click()
+        }
+      }
+      componentDidMount(){
+        document.addEventListener("keydown", this.escFunction, false);
+      }
+
     _formatPrice(value, decimals) {
         if(value == undefined){
             return 0;

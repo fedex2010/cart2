@@ -31,6 +31,8 @@ class CartControllers {
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
 
+    console.log("--------------onteidndo card")
+
     console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
 
     newrelic.addCustomAttribute('cookieCartId', cartId);
@@ -273,14 +275,16 @@ class CartControllers {
 
       .then(cart => {
         //seteo cookie porque puede ser que se este agregando un producto desde ficha y el carrito no haya 
-        //sido creado aun
+        //sido creado aún
         sessionService.setCartIdCookie(res, cart.cart_id)
 
-        cart = _replaceImage(cart);
-        cart.percentage = calculateWarrantiesPercentage(cart);
-        cart = this._getEmpresarias(req, res, cart);
-
         if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") && !req.headers['referer'].endsWith("/carrito/")) {
+          console.log("--------------ESTOY REDIRECCIONANDO")
+          console.log(req.headers['referer'])
+          console.log("-------------------------")
+          console.log( req.get('origin') )
+          console.log("-------------------------")
+
           res.redirect(302, req.get('origin') + '/carrito')
         } else {
           res.status(200).send(cart)
@@ -367,21 +371,14 @@ class CartControllers {
         }
 
       })
-
-
       .then(cart => {
-
         sessionService.setSessionCookie(res, session_id)
         sessionService.setCartIdCookie(res, cart.cart_id)
 
-        cart = _replaceImage(cart);
-        cart.percentage = calculateWarrantiesPercentage(cart);
-        cart = this._getEmpresarias(req, res, cart);
-
-        res.status(200).send(cart)
+        //res.redirect(302,'/carrito/api/cart/'+cart.cart_id)
+        res.send( cart )
       })
       .catch(err => {
-
         logger.error("Fail get to cart with id: " + cart.cart_id);
         res.status(500).send(errorService.checkErrorObject(err));
 

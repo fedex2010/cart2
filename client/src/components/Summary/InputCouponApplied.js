@@ -8,18 +8,27 @@ class InputCouponApplied extends Component {
         super(props);
         this.state = {
             input: props.cupon,
-            disabled: "disabled"
+            disabled: "disabled",
+            wasError: false
         }
         this.inputRef = React.createRef();
     }
 
   _addCoupon(e){
       let cartId = Cookie.get("cartId");
+      
+      //reset error class
+      this.setState({ wasError: false });      
+
       this.props.addCoupon(this.state.input,cartId);
   }
   _handleKeyPress(e) {
     if (e.key === 'Enter') {
       let cartId = Cookie.get("cartId");
+
+      //reset error class
+      this.setState({ wasError: false });      
+
       this.props.addCoupon(this.state.input,cartId);
     }
   }
@@ -36,13 +45,26 @@ class InputCouponApplied extends Component {
      
   }
 
+  _thereWasAnError(){
+    return this.state.wasError
+  }
+
   _showError(){
-    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400")? "error-msj" : "error-msj hide";
+    let classError = this._thereWasAnError() ? "error-msj" : "error-msj hide";
     return(<p className={classError} id="alert-coupon-fail">Código de cupón inválido.</p>);
   }
  
   componentWillReceiveProps(nextProps){
-    this.setState({input: nextProps.cupon});
+
+    let newState = {}
+    if( nextProps.cupon !== "" ){
+      newState.cupon = nextProps.cupon
+      this.setState({ cupon: nextProps.cupon });      
+    }
+
+    if (nextProps.err.cause && nextProps.err.cause.code && nextProps.err.cause.code === "400"){
+      this.setState({ wasError: true });      
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -61,7 +83,7 @@ class InputCouponApplied extends Component {
         <div className="coupon-apply-form">
             <input ref={this.inputRef} id="InputCouponApplied"  value={this.state.input}   
             onKeyPress={this._handleKeyPress.bind(this)} 
-            className={`${this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code === "400" ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
+            className={`${ this._thereWasAnError() ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
             
             <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" disabled={this.state.disabled}>Aplicar</button>
             {this._showError()}
