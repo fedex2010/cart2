@@ -20,6 +20,7 @@ class Modal extends Component {
   }
   _showTermAndCondition(){
     this.setState({ showModalWarranty: false });
+    
   }
   _hideTermAndCondition(){
     this.setState({ showModalWarranty: true });
@@ -29,6 +30,8 @@ class Modal extends Component {
     let cartId = Cookie.get("cartId");
     this.props.editWarranty(cartId,this.props.productIdModal,this.props.warrantyIdModal);
   }
+
+ 
 
   render() {
     return (
@@ -88,7 +91,7 @@ class Modal extends Component {
         >
           <div className="gui-modal-dialog gui-modal-md">
             {/* info garantías */}
-            <div className={`gui-modal-content ${this.state.showModalWarranty ? '' : 'hide'}`}   id="warranty-info">
+            <div className={`gui-modal-content ${this.state.showModalWarranty ? '' : 'hide'}`}   id="warranty-info" >
               <div className="gui-modal-header gui-modal-header--has-border">
                 <h5 className="gui-modal-title">
                   Extendé tu protección por {this.props.monthWarranty} meses
@@ -98,12 +101,12 @@ class Modal extends Component {
                   id="show-warranties-tyc"
                   onClick={this._showTermAndCondition.bind(this)}
                 >
-                  Ver términos y condiciones
+                  Ver términos y condiciones 
                 </button>
                 <button
-                  className="button--icon gui-icon-close button--icon-md"
+                  className="button--icon gui-icon-close button--icon-md keyEscModal"
                   type="button"
-                  data-dismiss="modal"
+                  data-dismiss="modal" 
                 />
               </div>
               <div className="gui-modal-body warranty-info">
