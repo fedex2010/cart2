@@ -78,10 +78,11 @@ export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
     }
 
     fetch(url, { credentials: 'include' })
-        .then(handleErrors)
+        .then( handleErrors )
         .then(response => response.json())
         .then(response => {
-            // window.history.pushState({});
+            //just to remove params from url
+            window.history.pushState( {}, "", "/carrito" );
 
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
 
