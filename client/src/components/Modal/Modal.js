@@ -329,7 +329,7 @@ class Modal extends Component {
                 </h5>
                
                 <button
-                  className="button--icon gui-icon-close button--icon-md"
+                  className="button--icon gui-icon-close button--icon-md keyEscModal"
                   type="button"
                   data-dismiss="modal"
                 />
