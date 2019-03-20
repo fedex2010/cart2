@@ -31,7 +31,14 @@ class Modal extends Component {
     this.props.editWarranty(cartId,this.props.productIdModal,this.props.warrantyIdModal);
   }
 
- 
+  escFunction(event){
+    if(event.keyCode === 27) {
+        document.querySelector(".keyEscModal").click()
+    }
+}
+componentDidMount(){
+    document.addEventListener("keydown", this.escFunction, false);
+}
 
   render() {
     return (
@@ -104,7 +111,7 @@ class Modal extends Component {
                   Ver términos y condiciones 
                 </button>
                 <button
-                  className="button--icon gui-icon-close button--icon-md keyEscModal"
+                  className="button--icon gui-icon-close button--icon-md"
                   type="button"
                   data-dismiss="modal" 
                 />
@@ -329,10 +336,10 @@ class Modal extends Component {
                 </h5>
                
                 <button
-                  className="button--icon gui-icon-close button--icon-md"
+                  className="button--icon gui-icon-close button--icon-md keyEscModal"
                   type="button"
                   data-dismiss="modal"
-                />
+                />dfdf
               </div>
               <div className="gui-modal-body arplus-tyc">
               
