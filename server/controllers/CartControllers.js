@@ -217,16 +217,17 @@ class CartControllers {
 
     this._getOneCart(cartId, req, res)
       .then(cart => {
+        cartId = cart.cart_id
+
         if( promotionId != null ){
           // Agrega todos los productos de la promo que faltan 
           return RestClient.promotion.getPromotion(promotionId,brand)
               .then( promotion => {
-                cartId = cart.cart_id
                 
                 if (promotion){                    
                   let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
-                  logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "missing="+ missing)
-
+                  logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "  missing="+ missing)
+            
                   return missing.reduce((ac, promoProductId) =>
                             //AGREGO BRAND YA Q NO SE ESTABA INCLUYENDO EN LA VERSION ORIGINAL 
                             ac.then( _ => self.addProductToCart(cart, promoProductId, null,null,null,promotionId ,cart.session,brand) )
@@ -260,14 +261,17 @@ class CartControllers {
       })
 
       .then( cart => {
-        return this.addProductToCart(cart, productIds[0], warranty_id, productPrice, null, cart.session, brand)
+        return this.addProductToCart(cart, productIds[0], warranty_id, productPrice, promotionId, cart.session, brand)
           .catch( err => {
             logger.error("Error adding products", JSON.stringify(err))
 
             throw ( err )
           })
       })
-      .then(product => this._getOneCart(cartId, req, res))
+      .then(product => {      
+        logger.info("[", cartId, "] Product added", product)
+        return this._getOneCart(cartId, req, res)
+      })
 
       .then(cart => self.waitProcessingCart(cart, req, res))
 
@@ -277,12 +281,6 @@ class CartControllers {
         sessionService.setCartIdCookie(res, cart.cart_id)
 
         if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") && !req.headers['referer'].endsWith("/carrito/")) {
-          console.log("--------------ESTOY REDIRECCIONANDO")
-          console.log(req.headers['referer'])
-          console.log("-------------------------")
-          console.log( req.get('origin') )
-          console.log("-------------------------")
-
           res.redirect(302, req.get('origin') + '/carrito')
         } else {
           res.status(200).send(cart)

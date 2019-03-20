@@ -20,6 +20,8 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 app.use("/carrito",sessionMiddleware, carrito);
 app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
+
+
 //AWS
 app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
 
