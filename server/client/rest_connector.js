@@ -9,6 +9,9 @@ class RestConnector{
     constructor() { }
 
     get(url,options) {
+
+        logger.info('GET '+url+' \n '+JSON.stringify(options)+'\n');
+
         let deferred = Q.defer();
         let opts = (options||{})
         opts.timeout = opts.timeout || config.services.restler_timeout
@@ -24,6 +27,8 @@ class RestConnector{
 
     put(url, headers) {
         let deferred = Q.defer();
+
+        logger.info('PUT '+url+' \n '+JSON.stringify(options)+'\n');
 
         restConnector.put(url, {timeout: config.services.restler_timeout, headers: headers})
             .on('success', (response) => deferred.resolve(response))

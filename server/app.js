@@ -20,6 +20,10 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 app.use("/carrito",sessionMiddleware, carrito);
 app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
+app.use("/clean", function(req,res){
+  sessionService.resetSessionCookies(res)
+  res.send({"cleaned":"ok"})
+});
 
 
 //AWS
@@ -66,6 +70,10 @@ function sessionMiddleware( req , res ,next) {
     }
 
     res.locals.sellerId = req.cookies["epi.salesman"] || "";    
+
+    logger.info("*********************")
+    logger.info( JSON.stringify(req.headers) )
+    logger.info("*********************")
 
     if(req.headers['X-Brand'])
         res.locals.xBrand = req.headers['X-Brand'].toLowerCase();
