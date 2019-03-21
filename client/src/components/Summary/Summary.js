@@ -71,13 +71,18 @@ class Summary extends Component {
 
   render() {
     //used for "Continue" button
-    let disabled = this._isThereProductWithOutStock()
+    let isThereProductWithOutStock = this._isThereProductWithOutStock()
 
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
     let classSummary = ""
     if(this.props.cart.products){
         classSummary = this._productCant(this.props.cart.products);
+    }
+
+    let cartAdditionals = null
+    if(!isThereProductWithOutStock){
+        cartAdditionals = <CartAdditionals cart={this.props.cart} />
     }
 
     return (
@@ -105,14 +110,14 @@ class Summary extends Component {
 
                         </ul>
 
-                        <CartAdditionals cart={this.props.cart} />
+                        { cartAdditionals }
 
                     </div>
                     <div className="cart-actions">
                         <button className="button--link">
                             COMPRAR MÁS PRODUCTOS
                         </button>
-                        <button type="button" className="button--primary" id="cart-buy-btn" disabled={disabled} onClick={this._continue.bind()}>
+                        <button type="button" className="button--primary" id="cart-buy-btn" disabled={isThereProductWithOutStock} onClick={this._continue.bind()}>
                             Continuar
                         </button>
                     </div>

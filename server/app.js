@@ -71,10 +71,6 @@ function sessionMiddleware( req , res ,next) {
 
     res.locals.sellerId = req.cookies["epi.salesman"] || "";    
 
-    logger.info("*************************")
-    logger.info( req.get('x-brand') )
-    logger.info("*************************")
-
     if( typeof req.get('x-brand') !== "undefined" )
         res.locals.xBrand = req.get('x-brand').toLowerCase();
       else {
