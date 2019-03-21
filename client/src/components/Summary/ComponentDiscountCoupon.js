@@ -112,7 +112,6 @@ class ComponentDiscountCoupon extends Component {
 
     _removeAndDeleteCoupon(cupon){
         sessionStorage.removeItem("couponDeleted")
-
         this._deleteCoupon(cupon)
     }
 
