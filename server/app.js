@@ -71,15 +71,15 @@ function sessionMiddleware( req , res ,next) {
 
     res.locals.sellerId = req.cookies["epi.salesman"] || "";    
 
-    logger.info("*********************")
-    logger.info( JSON.stringify(req.headers) )
-    logger.info("*********************")
+    logger.info("*************************")
+    logger.info( req.get('x-brand') )
+    logger.info("*************************")
 
-    if(req.headers['X-Brand'])
-        res.locals.xBrand = req.headers['X-Brand'].toLowerCase();
+    if( typeof req.get('x-brand') !== "undefined" )
+        res.locals.xBrand = req.get('x-brand').toLowerCase();
       else {
         res.locals.xBrand = 'garbarino';
-        logger.warn('X-Brand header not present. Set garbarino by default');
+        logger.warn('x-brand header not present. Set garbarino by default');
     }
 
   }catch(err){
