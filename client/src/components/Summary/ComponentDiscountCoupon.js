@@ -108,10 +108,13 @@ class ComponentDiscountCoupon extends Component {
         }
     }
 
-    
-
     _removeAndDeleteCoupon(cupon){
         sessionStorage.removeItem("couponDeleted")
+        //to remove content input
+        this.setState({
+            forceCleanInput:true
+        });
+ 
         this._deleteCoupon(cupon)
     }
 
@@ -183,10 +186,6 @@ class ComponentDiscountCoupon extends Component {
     componentWillReceiveProps(nextProps){
         //if there is no products then reset component state
         if( nextProps.cart.products.length == 0 ){
-            console.log("////////////////")
-            console.log("MATANDO TODOoooooooooooooooooooooooo")
-            console.log("////////////////")
-
             sessionStorage.removeItem("couponDeleted")
             this.setState({
                 selectedOption: "discount-coupon1",

@@ -20,6 +20,10 @@ app.use(cookieParser());
 app.use("/", indexRouter);
 app.use("/carrito",sessionMiddleware, carrito);
 app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
+app.use("/clean", function(req,res){
+  sessionService.resetSessionCookies(res)
+  res.send({"cleaned":"ok"})
+});
 
 
 //AWS
@@ -67,8 +71,8 @@ function sessionMiddleware( req , res ,next) {
 
     res.locals.sellerId = req.cookies["epi.salesman"] || "";    
 
-    if(req.headers['x-brand'])
-        res.locals.xBrand = req.headers['x-brand'].toLowerCase();
+    if( typeof req.get('x-brand') !== "undefined" )
+        res.locals.xBrand = req.get('x-brand').toLowerCase();
       else {
         res.locals.xBrand = 'garbarino';
         logger.warn('x-brand header not present. Set garbarino by default');
