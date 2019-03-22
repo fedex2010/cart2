@@ -55,7 +55,6 @@ export const fetchCart = id => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
-            history.push('/carrito/error')
 
         }).catch((err) => {
 
