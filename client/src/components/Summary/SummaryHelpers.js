@@ -43,7 +43,6 @@ export function Iva( {cart} ){
 }
 
 export function Warranties( {cart} ){
-    console.log("Warranties",cart.total_warranties)
     let totalWarranties = 0
     
     if(cart.total_warranties > 0){
