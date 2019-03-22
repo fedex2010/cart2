@@ -66,7 +66,7 @@ class CartControllers {
         })
         .catch(err => {
           newrelic.noticeError(err)
-          logger.error("[" + cartId + "]Fail create cart: " + err);
+          logger.error("[" + cartId + "]Fail create cart: " + JSON.stringify(err) );
           res.status(500).send(errorService.checkErrorObject(errror));
         });
     }
@@ -638,12 +638,13 @@ function getProductImageCloudfrontV2(url) {
 
 function calculateWarrantiesPercentage(cart) {
   let porcentajeInteres;
-  cart.payment_options.map(function (payment_option) {
+  cart.payment_options.map(function (payment_option) {    
     if (payment_option.card.name == "Visa") {
-      if (
-        typeof payment_option.payment_methods != "undefined" &&
+
+      if ( 
+        typeof payment_option.payment_methods != "undefined" && 
         payment_option.payment_methods != null
-      ) {
+        ) {
         payment_option.payment_methods.map(function (payment_method) {
           payment_method.payment_method_data.map(function (data) {
             if (
@@ -657,7 +658,9 @@ function calculateWarrantiesPercentage(cart) {
           });
         });
       }
+
     }
+
   });
 
   return porcentajeInteres;
