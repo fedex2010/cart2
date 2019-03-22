@@ -88,7 +88,7 @@ class ComponentMillasAP extends Component {
                                 <input
                                     className="form-control form-control--sm"
                                     type="text"
-                                    pattern="[0-9]"
+                                    pattern="[0-9]{8}"
                                     placeholder="Ingresá tu número de socio"
                                     minLength="999999"
                                     maxLength="99999999"
