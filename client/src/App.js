@@ -18,8 +18,8 @@ class App extends Component {
         <div>
           <Switch>
             <Route exact path="/carrito/error" component={Error} />
+            <Route path="/carrito/vendedor" component={Seller} />
             <Route path="/carrito" component={Cart} />
-            <Route path="/vendedor" component={Seller} />
           </Switch>
         </div>
       </Router>
