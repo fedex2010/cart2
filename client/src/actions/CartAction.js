@@ -1,4 +1,5 @@
-import { SET_CURRENT_CART, SET_CAROUSEL, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT, SET_PATHNAME } from "./Types";
+import { SET_CURRENT_CART, SET_CAROUSEL, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "./Types";
+import history from '../history';
 import config from "../config/config";
 
 function handleErrors(response) {
@@ -43,6 +44,7 @@ export const justReload = id => dispatch => {
             } else {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
             }
+            history.push('/carrito/error')
         });
 };
 
@@ -65,6 +67,7 @@ export const fetchCart = id => dispatch => {
             } else {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
             }
+            history.push('/carrito/error')
         });
 };
 
@@ -87,14 +90,12 @@ export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
 
         }).catch((err) => {
-            console.log("//////////////////////")
-            console.log(err)
-            console.log("//////////////////////")
             if (err.response.erro.cause.code == 404) {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
             } else {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
             }
+            history.push('/carrito/error')
         });
 };
 
@@ -108,6 +109,7 @@ export const getCarousel = (cartId) => dispatch => {
             dispatch({ type: SET_CAROUSEL, payload: response });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            history.push('/carrito/error')
         });
 };
 
@@ -128,6 +130,7 @@ export const addProduct = product => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            history.push('/carrito/error')
         });
 };
 
@@ -153,6 +156,7 @@ export const updateQuantityProduct = (cartId, product, quantity) => dispatch => 
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            history.push('/carrito/error')
         });
 };
 
@@ -178,6 +182,7 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            history.push('/carrito/error')
         });
 };
 
@@ -198,6 +203,7 @@ export const deleteProduct = (productId) => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            history.push('/carrito/error')
         });
 };
 
@@ -230,6 +236,7 @@ export const addCoupon = (couponId, cartId) => dispatch => {
             } else {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
             }
+            history.push('/carrito/error')
         });
 };
 
@@ -253,6 +260,7 @@ export const deleteCoupon = (couponId, cartId) => dispatch => {
         })
         .catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            history.push('/carrito/error')
         });
 };
 
@@ -276,6 +284,7 @@ export const setLoyalties = (code, cartId) => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            history.push('/carrito/error')
         });
 };
 
@@ -295,12 +304,6 @@ export const deleteLoyalties = (cartId) => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL' });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            history.push('/carrito/error')
         });
-};
-
-
-export const updatePathName = (url, pathName) => dispatch => {
-    window.history.pushState({}, "", url);
-
-    dispatch({ type: SET_PATHNAME, payload: { pathName }, operationStatus: 'SUCCESSFUL' });
 };

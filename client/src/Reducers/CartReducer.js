@@ -1,4 +1,4 @@
-import {SET_CAROUSEL, SET_CURRENT_CART, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT,SET_PATHNAME} from "../actions/Types";
+import {SET_CAROUSEL, SET_CURRENT_CART, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "../actions/Types";
 
 import config from "../config/config";
 
@@ -7,7 +7,6 @@ const initialState = {
   selectedProduct: {},
   carousel: {},
   err: {},
-  pathName: config.path_name.reactcart,
   operationStatus: "INITIAL",
   xBrand:""
 };
@@ -22,12 +21,9 @@ export default (state = initialState, action = {}) => {
         operationStatus:action.operationStatus
       };
     case SET_CURRENT_CART_ERROR:
-
-      let pathName = ( action.operationResult > 404 )? config.path_name.error : config.path_name.reactcart ;
       return {
           ...state,
           err: action.payload.erro,
-          pathName: pathName,
           operationStatus:action.operationStatus
       };
     case SET_CAROUSEL:

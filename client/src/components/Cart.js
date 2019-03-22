@@ -28,12 +28,17 @@ class Cart extends Component {
 
   componentWillMount() {
     if(this.state.productId){
-      this.props.fetchNewCartByProduct( this.state.productId, this.state.cupon );    
+      this.props.fetchNewCartByProduct( this.state.productId, this.state.cupon );
+      //document.body.dataset.cartid=Cookie.get("cartId");
     }else{
       let cartId = Cookie.get("cartId");
       this.props.fetchCart(cartId);    
     }
   }
+
+    componentDidMount(){
+        document.body.dataset.cartid = Cookie.get("cartId");
+    }
   
 
  
@@ -100,6 +105,7 @@ class Cart extends Component {
 
 
   render() {
+    document.body.dataset.cartid = this.props.cart.cart_id;
     if (this.props.cart && this.props.cart.products) {
       this._setDataLayer(this.props.cart);
     }
