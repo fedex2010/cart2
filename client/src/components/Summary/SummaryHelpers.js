@@ -45,8 +45,8 @@ export function Iva( {cart} ){
 export function Warranties( {cart} ){
     let totalWarranties = 0
     
-    if(cart.totalWarranties && cart.totalWarranties > 0){
-        totalWarranties = formatPrice(cart.totalWarranties)
+    if(cart.total_warranties > 0){
+        totalWarranties = formatPrice(cart.total_warranties)
     }
 
     return(
