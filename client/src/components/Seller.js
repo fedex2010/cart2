@@ -1,7 +1,7 @@
 import config from "../config/config";
-
+import {Redirect} from "react-router-dom";
 import React, { Component} from "react";
-import { updatePathName } from "../actions/CartAction";
+import history from '../history';
 import { connect } from "react-redux";
 
 class Vendedor extends Component {
@@ -32,7 +32,7 @@ class Vendedor extends Component {
         body: JSON.stringify(data)
     })
     .then( response => {
-        this.props.updatePathName( "" ,config.path_name.reactcart )
+        return history.push('/carrito')
     }) 
     .catch( err => {
         console.log(err)
@@ -77,7 +77,7 @@ const mapStateToProps = state => {
   
   export default connect(
     mapStateToProps,
-    { updatePathName}
+    { }
   )(Vendedor);
 
   
