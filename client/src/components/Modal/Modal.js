@@ -32,12 +32,16 @@ class Modal extends Component {
   }
 
   escFunction(event){
+    console.log("KEYYevent",event)
     if(event.keyCode === 27) {
-        document.querySelector(".keyEscModal").click()
+      console.log("keyCode",event.keyCode)
+        document.querySelector(".keyEscModal").click();
+        document.getElementById("KeyEscModal").click();
     }
 }
 componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
+    console.log("KEYY")
 }
 
   render() {
@@ -54,9 +58,10 @@ componentDidMount(){
             <div className="gui-modal-content">
               <div className="gui-modal-header">
                 <button
-                  className="button--icon gui-icon-close button--icon-md"
+                  className="button--icon gui-icon-close button--icon-md keyEscModal"
                   type="button"
                   data-dismiss="modal"
+                  id="keyEscModal"
                 />
               </div>
               <div className="gui-modal-body text-center">
@@ -111,9 +116,10 @@ componentDidMount(){
                   Ver términos y condiciones 
                 </button>
                 <button
-                  className="button--icon gui-icon-close button--icon-md"
+                  className="button--icon gui-icon-close button--icon-md keyEscModal"
                   type="button"
                   data-dismiss="modal" 
+                  id="KeyEscModal"
                 />
               </div>
               <div className="gui-modal-body warranty-info">
@@ -339,7 +345,8 @@ componentDidMount(){
                   className="button--icon gui-icon-close button--icon-md keyEscModal"
                   type="button"
                   data-dismiss="modal"
-                />dfdf
+                  id="KeyEscModal"
+                />
               </div>
               <div className="gui-modal-body arplus-tyc">
               
