@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/carrito",sessionMiddleware, carrito);
 app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
 app.use("/clean", function(req,res){
@@ -49,6 +49,9 @@ app.use(function(err, req, res, next) {
 
 
 function sessionMiddleware( req , res ,next) {
+  logger.info('sessionMiddleware --> '+ JSON.stringify(req.headers));
+  logger.info('x-brand --> '+ req.get('x-brand'));
+  logger.info('X-Brand --> '+ req.get('X-Brand'));
   try{
     
     if( req.path.includes("newCartByProductId") ){
