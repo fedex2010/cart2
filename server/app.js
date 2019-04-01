@@ -54,7 +54,7 @@ function sessionMiddleware( req , res ,next) {
   logger.info('X-Brand --> '+ req.get('X-Brand'));
   try{
     
-    if( req.path.includes("newCartByProductId") ){
+    if( req.path.includes("newCart") ){
       sessionService.resetSessionCookies(res)
 
     }else{

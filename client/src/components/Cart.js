@@ -7,7 +7,7 @@ import Alert from "./Alert/Alert";
 import Product from "./Product/Product";
 import Summary from "./Summary/Summary";
 import Carousel from "./Carousel/Carousel";
-import { fetchCart , fetchNewCartByProduct } from "../actions/CartAction";
+import { fetchCart , fetchNewCart } from "../actions/CartAction";
 import { customURLSearchParams  } from "../utils/urlUtils";
 
 
@@ -33,7 +33,7 @@ class Cart extends Component {
 
   componentWillMount() {
     if(this.state.productId){
-      this.props.fetchNewCartByProduct( this.state.productId, this.state.cupon );
+      this.props.fetchNewCart( this.state.productId, this.state.cupon );
       //document.body.dataset.cartid=Cookie.get("cartId");
     }else{
       let cartId = Cookie.get("cartId");
@@ -159,5 +159,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchCart ,fetchNewCartByProduct}
+  { fetchCart ,fetchNewCart}
 )(Cart);
