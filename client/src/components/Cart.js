@@ -8,6 +8,9 @@ import Product from "./Product/Product";
 import Summary from "./Summary/Summary";
 import Carousel from "./Carousel/Carousel";
 import { fetchCart , fetchNewCartByProduct } from "../actions/CartAction";
+import { customURLSearchParams  } from "../utils/urlUtils";
+
+
 
 class Cart extends Component {
   constructor(props) {
@@ -15,15 +18,17 @@ class Cart extends Component {
 
     this.state = {};
 
-    const params = new URLSearchParams( window.location.search );
-    const productId = params.get('producto');
+    if( window.location.search ){
+      const productId = customURLSearchParams( 'producto' );
+      
+      if(productId != null){
+        this.state.productId = productId
+        let cupon = customURLSearchParams( 'cupon' );
+  
+        this.state.cupon = (cupon == null)? "" : cupon 
+       }  
+    }
 
-    if(productId != null){
-      this.state.productId = productId
-      let cupon = params.get('cupon')
-
-      this.state.cupon = (cupon == null)? "" : cupon 
-     }
   }
 
   componentWillMount() {
