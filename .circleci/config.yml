@@ -42,8 +42,8 @@ jobs:
       machine: true
       working_directory: ~/garbarino-com/cart-ui
       environment:
-        AWS_ACCESS_KEY_ID: "AKIAI2TBGGBYISNY7OLA"
-        AWS_SECRET_ACCESS_KEY: "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"
+        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
         AWS_DEFAULT_REGION: "us-east-1"
 
       steps:
