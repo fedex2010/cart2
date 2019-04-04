@@ -71,8 +71,14 @@ export const fetchCart = id => dispatch => {
         });
 };
 
-export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
-    let url = "/carrito/api/cart/newCartByProductId/" + productId
+export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
+    let url = "/carrito/api/cart/newCart"
+
+    if (productId != "") {
+        url += "/" + productId
+    } else {
+        url += "/UNDEFINED"
+    }
 
     if (couponId != "") {
         url += "/" + couponId
@@ -85,8 +91,7 @@ export const fetchNewCartByProduct = (productId, couponId) => dispatch => {
         .then(response => response.json())
         .then(response => {
             //just to remove params from url
-            window.history.pushState( {}, "", "/carrito" );
-
+            history.push('/carrito')
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
 
         }).catch((err) => {
@@ -234,9 +239,9 @@ export const addCoupon = (couponId, cartId) => dispatch => {
             if (err.response.erro.cause.code == 400) {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 400 });
             } else {
+                history.push('/carrito/error')
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
             }
-            history.push('/carrito/error')
         });
 };
 

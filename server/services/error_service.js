@@ -30,7 +30,9 @@ exports.checkErrorObject = (err = {} ) => {
         errorCode = erro.cause.code || errorCode
     }
 
-    //console.log( this.getErrorObject(errorMessage,errorCode) )
+    console.log( "***************************" )
+    console.log( this.getErrorObject(errorMessage,errorCode) )
+    console.log( "***************************" )
     
     return this.getErrorObject(errorMessage,errorCode)
 }

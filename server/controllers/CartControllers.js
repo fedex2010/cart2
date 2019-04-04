@@ -66,7 +66,7 @@ class CartControllers {
         })
         .catch(err => {
           newrelic.noticeError(err)
-          logger.error("[" + cartId + "]Fail create cart: " + err);
+          logger.error("[" + cartId + "]Fail create cart: " + JSON.stringify(err) );
           res.status(500).send(errorService.checkErrorObject(errror));
         });
     }
@@ -331,24 +331,30 @@ class CartControllers {
   }
 
 
-  newCartByProductId(req, res) {
+  newCart(req, res) {
 
     const productId = req.params.productId
     const cupon = req.params.cupon
     const brand = res.locals.xBrand.toLowerCase();
     const session_id = res.locals.session;
     let cartId;
-    let firstCart;
 
     this._getOneCart(null, req, res)
       .then(cart => {
 
-        firstCart = cart;
-        return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null, res.locals.session, brand);
-      })
-      .then(product => {
+        if (productId != "UNDEFINED") {
 
-        return this.waitProcessingCart(firstCart, req, res)
+          return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null, res.locals.session, brand)
+                    .then(product => {
+                      return this.waitProcessingCart(cart, req, res)
+                    })
+                    .catch(err => {
+                      logger.error("error adding product " + productId)
+                      throw err
+                    })
+        } else {
+          return cart
+        }
       })
       .then(cart => {
 
@@ -359,6 +365,10 @@ class CartControllers {
               return this.waitProcessingCart(cart, req, res)
             })
             .catch(err => {
+              logger.error(JSON.stringify(err))
+
+              logger.error("error adding cupon " + cupon)
+
               throw err
             })
 
@@ -371,15 +381,14 @@ class CartControllers {
         sessionService.setSessionCookie(res, session_id)
         sessionService.setCartIdCookie(res, cart.cart_id)
 
-        //res.redirect(302,'/carrito/api/cart/'+cart.cart_id)
         res.send( cart )
       })
       .catch(err => {
         logger.error("Fail get to cart with id: " + cart.cart_id);
         res.status(500).send(errorService.checkErrorObject(err));
-
       })
   }
+
 
   editProduct(req, res) {
     let body = req.body || {};
@@ -638,12 +647,13 @@ function getProductImageCloudfrontV2(url) {
 
 function calculateWarrantiesPercentage(cart) {
   let porcentajeInteres;
-  cart.payment_options.map(function (payment_option) {
+  cart.payment_options.map(function (payment_option) {    
     if (payment_option.card.name == "Visa") {
-      if (
-        typeof payment_option.payment_methods != "undefined" &&
+
+      if ( 
+        typeof payment_option.payment_methods != "undefined" && 
         payment_option.payment_methods != null
-      ) {
+        ) {
         payment_option.payment_methods.map(function (payment_method) {
           payment_method.payment_method_data.map(function (data) {
             if (
@@ -657,7 +667,9 @@ function calculateWarrantiesPercentage(cart) {
           });
         });
       }
+
     }
+
   });
 
   return porcentajeInteres;

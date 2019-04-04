@@ -9,7 +9,7 @@ var express = require("express"),
 router.get("/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/summary", ( req , res) => controllers.cart.summary( req , res ));
 router.get("/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));
-router.get("/newCartByProductId/:productId/:cupon", ( req , res) => controllers.cart.newCartByProductId( req , res ));
+router.get("/newCart/:productId/:cupon", ( req , res) => controllers.cart.newCart( req , res ));
 router.get("/:cartId", ( req , res) => controllers.cart.getCart( req , res ));
 
 router.post("/fake_product_view/:productId", urlencodedParser, ( req , res) => controllers.cart.fake_product(req , res));

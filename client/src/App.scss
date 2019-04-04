@@ -182,6 +182,16 @@ header .gb-wrapper {
   width: 66.56666667%!important;
 }
 
+/*Summary for IE11*/
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
+  .coupon-apply-form .form-control {
+    width: calc(100% - 110px) !important;
+  }
+
+  .cart-item-column .form-control--sm{
+    padding-right: 0 !important;
+  }
+}
 
 @import "styles/GUI/_variables/_variables";
 @import "styles/GUI/_variables/_variables-garba";
