@@ -56,9 +56,7 @@ class ComponentDiscountCoupon extends Component {
         this.handleCheck = this.handleCheck.bind(this);
 
         if( this._hasCouponApplied() ){
-            this.setState({
-                selectedOption: "discount-coupon2"
-            });
+            this.state.selectedOption = "discount-coupon2"
         }
 
         //this is to force the unmonting of the component
@@ -112,7 +110,8 @@ class ComponentDiscountCoupon extends Component {
         sessionStorage.removeItem("couponDeleted")
         //to remove content input
         this.setState({
-            forceCleanInput:true
+            forceCleanInput:true,
+            showInput:true
         });
  
         this._deleteCoupon(cupon)
@@ -124,22 +123,30 @@ class ComponentDiscountCoupon extends Component {
         this.props.deleteCoupon(coupon_id, cartId);
     }
 
-    _isPromotion(){
-        let {cart} = this.props
+    _isPromotion(cart = {}){
+
+        if( Object.keys(cart).length === 0 ){
+            cart = this.props.cart
+        }
 
         let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
         let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
         let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
     
         return (hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
+
     }
 
-    _hasCouponApplied( ){
-        let { cart } = this.props
+    _hasCouponApplied( cart = {} ){
+
+        if( Object.keys(cart).length === 0 ){
+            cart = this.props.cart
+        }
 
         try{
-            return ( cart.coupons && cart.coupons[0] && cart.coupons[0].coupon_id ) != undefined
+            return ( cart.coupons && cart.coupons[0] && cart.coupons[0].coupon_id ) ?true:false;
         }catch(err){
+            console.warn("coupon not found, returning false")
             return false
         }
     }
@@ -193,10 +200,21 @@ class ComponentDiscountCoupon extends Component {
                 forceCleanInput:true
             });
         }else{
-            this.setState({
+            let newState = {
                 forceCleanInput:false
+            }
+
+            if( this._isPromotion(nextProps.cart) && 
+               !this._hasCouponApplied( nextProps.cart )  &&
+               !this.state.showInput  ){
+                newState.selectedOption = "discount-coupon1"
+            }
+
+            this.setState({
+                ...newState
             });
         }
+        console.log("--------componentWillReceiveProps---------")
     }
 
     render() {   
