@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import config from "../../config/config";
 import { Salesman, SubTotal, Iva, Warranties, TotalSummary, SpecialDiscount, CuponDiscount} from "./SummaryHelpers";
 import CartAdditionals from "./CartAdditionals"
 
@@ -24,6 +25,11 @@ class Summary extends Component {
 
   _continue(e){
       window.location = "/compra/entrega";
+  }
+
+  _moreProduct(){
+      let homeUrl = ( window.xBrand === "garbarino" )?config.home_url.garbarino:config.home_url.compumundo;
+      window.location = homeUrl;
   }
 
   componentWillReceiveProps(nextProps){
@@ -114,7 +120,7 @@ class Summary extends Component {
 
                     </div>
                     <div className="cart-actions">
-                        <button className="button--link">
+                        <button className="button--link" onClick={this._moreProduct.bind()}>
                             COMPRAR MÁS PRODUCTOS
                         </button>
                         <button type="button" className="button--primary" id="cart-buy-btn" disabled={isThereProductWithOutStock} onClick={this._continue.bind()}>
