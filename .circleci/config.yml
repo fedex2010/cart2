@@ -56,8 +56,8 @@ jobs:
               sudo apt-get install awscli
         - run: zip  -r /tmp/app.zip . -x "node_modules/*" -x "client/node_modules/*" -x "server/node_modules/*" -x ".git/*"
         - run:
-            name: Deploy All Branches
             context: org-global
+            name: Deploy All Branches
             command: |
               PACKAGE_VERSION=$(grep '"version":' package.json | cut -d\" -f4)
               if [[ "${CIRCLE_TAG}" =~ CHECKOUT-* ]]
