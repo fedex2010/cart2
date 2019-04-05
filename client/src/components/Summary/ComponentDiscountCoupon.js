@@ -214,7 +214,6 @@ class ComponentDiscountCoupon extends Component {
                 ...newState
             });
         }
-        console.log("--------componentWillReceiveProps---------")
     }
 
     render() {   
