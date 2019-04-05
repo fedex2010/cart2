@@ -4,7 +4,6 @@ const express = require("express"),
       sessionService = require('./services/session_service'),
       errorService = require('./services/error_service'),
       cookieParser   = require('cookie-parser'),
-      indexRouter = require("./routes/index"),
       cartRouter = require("./routes/cart"),
       carrito = require("./routes/carrito");
 
@@ -17,7 +16,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.use("/", indexRouter);
 app.use("/carrito",sessionMiddleware, carrito);
 app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
 app.use("/clean", function(req,res){
