@@ -78,7 +78,7 @@ function sessionMiddleware( req , res ,next) {
         res.locals.xBrand = 'garbarino';
         logger.warn('x-brand header not present. Set garbarino by default');
     }
-    res.locals.xBrand = 'compumundo';
+
   }catch(err){
     next(err)
   }
