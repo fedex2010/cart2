@@ -8,7 +8,7 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
       compumunod: "ci.compumundo.com.ar"
     },
     server: {
-      port: 4000
+      port: 3000
     },
     services: {
       checkout_core: {
