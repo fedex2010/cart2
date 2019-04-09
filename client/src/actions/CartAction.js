@@ -236,8 +236,8 @@ export const addCoupon = (couponId, cartId) => dispatch => {
         })
         .catch((err) => {
 
-            if (err.response.erro.cause.code == 400) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 400 });
+            if (err.response.erro.cause.code == "400" || err.response.erro.cause.code == "405") {
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
             } else {
                 history.push('/carrito/error')
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });

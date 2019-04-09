@@ -61,7 +61,7 @@ class InputCouponApplied extends Component {
       this.setState({ input: nextProps.cupon });      
     }
 
-    if (nextProps.err.cause && nextProps.err.cause.code && nextProps.err.cause.code === "400"){
+    if (nextProps.err.cause && nextProps.err.cause.code && ( nextProps.err.cause.code === "400" || nextProps.err.cause.code === "405")){
       this.setState({ wasError: true });      
     }
 

@@ -461,9 +461,13 @@ class CartControllers {
       })
       .catch(err => {
         newrelic.noticeError(err)
-        logger.error(
-          "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
-        );
+        logger.error( "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err);
+
+        let { cause } = err
+        if( typeof cause.code === "undefined" && cause.status == "INVALID"){
+          err.code = "405"
+        }
+
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
