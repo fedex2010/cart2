@@ -24,7 +24,7 @@ class Summary extends Component {
     }
 
   _continue(e){
-      window.location = "/compra/entrega";
+      window.location = "http://localhost:3000/compra/entrega";
   }
 
   _moreProduct(){
