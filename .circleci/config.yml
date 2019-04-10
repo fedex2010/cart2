@@ -40,7 +40,7 @@ jobs:
             paths: .
   deploy_elb:
       docker:
-        - image: circleci/node:10.13.0-jessie
+        - image: circleci/node:8-browsers
       working_directory: ~/garbarino-com/cart-ui
       steps:
         - attach_workspace:
