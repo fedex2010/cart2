@@ -120,7 +120,7 @@ class Cart extends Component {
       <div className="App">
         <div className="main-wrapper wrapper">
           <section>
-            <h1 className="cart-title">Mi Carrito - Cookie ({Cookie.get("cartId")})</h1>
+            <h1 className="cart-title">Mi Carrito</h1>
             <div className="row">
                 <Alert cart={this.props.cart}/>
             </div>

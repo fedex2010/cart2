@@ -24,8 +24,9 @@ class Summary extends Component {
     }
 
   _continue(e){
-      window.location = "/compra/entrega";
-  }
+//      window.location = "http://localhost:3000/compra/entrega";
+        window.location = "/compra/entrega";
+    }
 
   _moreProduct(){
       let homeUrl = ( window.xBrand === "garbarino" )?config.home_url.garbarino:config.home_url.compumundo;
