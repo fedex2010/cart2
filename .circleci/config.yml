@@ -39,9 +39,12 @@ jobs:
             root: .
             paths: .
   deploy_elb:
-      docker:
-        - image: circleci/node:8-browsers
+      machine: true
       working_directory: ~/garbarino-com/cart-ui
+      environment:
+        AWS_ACCESS_KEY_ID: "AKIAWKUMVRIPVKDQDEX5"
+        AWS_SECRET_ACCESS_KEY: "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"
+        AWS_DEFAULT_REGION: "us-east-1"
       steps:
         - attach_workspace:
             at: ~/garbarino-com/cart-ui
@@ -52,7 +55,6 @@ jobs:
               sudo apt-get install awscli
         - run: zip  -r /tmp/app.zip . -x "node_modules/*" -x "client/node_modules/*" -x "server/node_modules/*" -x ".git/*"
         - run:
-            context: org-global
             name: Deploy All Branches
             command: |
               PACKAGE_VERSION=$(grep '"version":' package.json | cut -d\" -f4)
