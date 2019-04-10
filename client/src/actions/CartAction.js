@@ -27,7 +27,7 @@ export const selectProduct = product => dispatch => {
 export const justReload = id => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
 
-    fetch("/carrito/api/cart/" + id, { credentials: 'include' })
+    fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store"})
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
@@ -50,7 +50,7 @@ export const justReload = id => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-    fetch("/carrito/api/cart/" + id, { credentials: 'include' })
+    fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store" })
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
@@ -86,7 +86,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
         url += "/UNDEFINED"
     }
 
-    fetch(url, { credentials: 'include' })
+    fetch(url, { credentials: 'include', cache: "no-store" })
         .then( handleErrors )
         .then(response => response.json())
         .then(response => {
@@ -107,7 +107,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
 
 export const getCarousel = (cartId) => dispatch => {
 
-    fetch("/carrito/api/cart/carousel", { credentials: 'include' })
+    fetch("/carrito/api/cart/carousel", { credentials: 'include' , cache: "no-store"})
         //.then( handleErrors )
         .then(response => response.json())
         .then(response => {
@@ -123,6 +123,7 @@ export const addProduct = product => dispatch => {
     fetch("/carrito/api/cart", {
         method: "POST",
         credentials: 'include',
+        cache: "no-store",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -149,6 +150,8 @@ export const updateQuantityProduct = (cartId, product, quantity) => dispatch => 
     fetch("/carrito/api/cart/" + cartId, {
         method: "PUT",
         credentials: 'include',
+        cache: "no-store",
+        
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -175,6 +178,8 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
     fetch("/carrito/api/cart/setWarranty", {
         method: "POST",
         credentials: 'include',
+        cache: "no-store",
+        
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -197,6 +202,8 @@ export const deleteProduct = (productId) => dispatch => {
         {
             method: "DELETE",
             credentials: 'include',
+            cache: "no-store",
+        
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
@@ -220,6 +227,8 @@ export const addCoupon = (couponId, cartId) => dispatch => {
     fetch("/carrito/api/cart/" + cartId + "/cupon", {
         method: "POST",
         credentials: 'include',
+        cache: "no-store",
+        
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -236,8 +245,8 @@ export const addCoupon = (couponId, cartId) => dispatch => {
         })
         .catch((err) => {
 
-            if (err.response.erro.cause.code == 400) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 400 });
+            if (err.response.erro.cause.code == "400" || err.response.erro.cause.code == "405") {
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
             } else {
                 history.push('/carrito/error')
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
@@ -249,6 +258,8 @@ export const deleteCoupon = (couponId, cartId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
     fetch("/carrito/api/cart/c_" + cartId + "/cupon/" + couponId, {
         method: "DELETE",
+        cache: "no-store",
+        
         credentials: 'include',
         headers: {
             Accept: "application/json",
@@ -276,6 +287,8 @@ export const setLoyalties = (code, cartId) => dispatch => {
 
     fetch("/carrito/api/cart/c_" + cartId + "/aaPlus", {
         method: "POST",
+        cache: "no-store",
+        
         credentials: 'include',
         headers: {
             Accept: "application/json",
@@ -297,6 +310,8 @@ export const deleteLoyalties = (cartId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
     fetch("/carrito/api/cart/c_" + cartId + "/aaPlus", {
         method: "DELETE",
+        cache: "no-store",
+        
         credentials: 'include',
         headers: {
             Accept: "application/json",

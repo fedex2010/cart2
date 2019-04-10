@@ -9,7 +9,7 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
         reactcart : "carrito"
       },
       cloudfront: {
-          url: "http://localhost:3000"
+          url: "http://localhost:5000"
       },
       google: {
           gtm_id:{
