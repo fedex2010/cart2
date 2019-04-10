@@ -23,7 +23,6 @@ app.use("/clean", function(req,res){
   res.send({"cleaned":"ok"})
 });
 
-
 //AWS
 app.get("/api/health", ( req , res) => { res.status(200).send("OK");});
 
