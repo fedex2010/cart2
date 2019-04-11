@@ -27,7 +27,7 @@ export const selectProduct = product => dispatch => {
 export const justReload = id => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
 
-    fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store"})
+    fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache'})
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
@@ -50,7 +50,7 @@ export const justReload = id => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-    fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store" })
+    fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache' })
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
@@ -86,7 +86,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
         url += "/UNDEFINED"
     }
 
-    fetch(url, { credentials: 'include', cache: "no-store" })
+    fetch(url, { credentials: 'include', cache: "no-store" , 'Cache-Control': 'no-cache'})
         .then( handleErrors )
         .then(response => response.json())
         .then(response => {
@@ -107,7 +107,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
 
 export const getCarousel = (cartId) => dispatch => {
 
-    fetch("/carrito/api/cart/carousel", { credentials: 'include' , cache: "no-store"})
+    fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         //.then( handleErrors )
         .then(response => response.json())
         .then(response => {
