@@ -8,6 +8,7 @@
     "install-client": "cd client && yarn install",
     "install-server": "cd server && yarn install",
     "install-for-dev": "yarn rm-node-module && yarn install && yarn install-client",
+    "postinstall": "npm-run-all install-server",
     "norma-garba": "cd client && node normaJob.js garbarino",
     "norma-compu": "cd client && node normaJob.js compumundo",
     "server-dev": "cd server && yarn run server-dev",

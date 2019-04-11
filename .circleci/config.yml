@@ -2,7 +2,7 @@ version: 2
 jobs:
   checkout_code:
     docker:
-      - image: circleci/node:9-browsers
+      - image: circleci/node:8-browsers
     working_directory: ~/garbarino-com/cart-ui
     steps:
       - checkout
@@ -15,7 +15,6 @@ jobs:
             - yarn-cache-
       - run: yarn install
       - run: yarn install-client
-      - run: yarn install-server
       - save_cache:
           key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}-v2
           paths: 
@@ -27,7 +26,7 @@ jobs:
           paths: .
   build_client:
       docker:
-        - image: circleci/node:9-browsers
+        - image: circleci/node:8-browsers
       working_directory: ~/garbarino-com/cart-ui
       steps:
         - attach_workspace:
