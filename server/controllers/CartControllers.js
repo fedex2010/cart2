@@ -155,6 +155,7 @@ class CartControllers {
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res, cart);
+
           return cart;
         })
         .catch(err => err);
@@ -426,7 +427,7 @@ class CartControllers {
       .deleteProduct(cartId, productId, brand)
       .then(() => {
         this._getOneCart(cartId, req, res)
-          .then(cart => {
+          .then(cart => {            
             res.status(200).send(cart);
           })
           .catch(err => {
