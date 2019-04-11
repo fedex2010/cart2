@@ -46,9 +46,14 @@ app.use(function(err, req, res, next) {
 
 
 function sessionMiddleware( req , res ,next) {
-  logger.info('sessionMiddleware --> '+ JSON.stringify(req.headers));
-  logger.info('x-brand --> '+ req.get('x-brand'));
-  logger.info('X-Brand --> '+ req.get('X-Brand'));
+  //logger.info('sessionMiddleware --> '+ JSON.stringify(req.headers));
+  //logger.info('x-brand --> '+ req.get('x-brand'));
+  //logger.info('X-Brand --> '+ req.get('X-Brand'));
+
+  logger.info("----------originalUrl--------------");;
+  logger.info(req.originalUrl);
+  logger.info("------------------------");
+
   try{
     
     if( req.path.includes("newCart") ){
