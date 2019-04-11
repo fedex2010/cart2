@@ -56,7 +56,7 @@ class CartControllers {
           res.status(500).send(errorService.checkErrorObject(errror));
         });
     } else {
-      logger.info("**************")
+      logger.info("*************")
       logger.info("CREANDO")
       logger.info("**************")
 
