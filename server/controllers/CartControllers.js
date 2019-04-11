@@ -17,19 +17,26 @@ class CartControllers {
       .send({ ok: true });
   }
 
-  getNewCart(req, res) {
-    let session_id = res.locals.session;
-    let sellerId = res.locals.sellerId;
-    let brand = res.locals.xBrand.toLowerCase();
-
-    return RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
-  }
-
   getCart(req, res) {
     let cartId = req.params.cartId;
-    let session_id = res.locals.session;
-    let sellerId = res.locals.sellerId;
-    let brand = res.locals.xBrand.toLowerCase();
+
+    let params = {
+      cartId : req.params.cartId,
+      session_id : res.locals.session,
+      sellerId : res.locals.sellerId,
+      brand : res.locals.xBrand.toLowerCase(),
+      xSessionContext : res.locals.xSessionContext,
+      channel : "WEB"
+    }
+
+    console.log("-------params-----------")
+    console.log( params )
+    console.log("------getParamsToGetCart------------")
+
+    params = this.getParamsToGetCart(req,res)
+
+    console.log( params )
+    console.log("------------------")
 
     console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
 
@@ -37,14 +44,11 @@ class CartControllers {
 
     this._isEmpresarias(req, res);
 
-    if (cartId != "undefined") {
-
-      RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
+    if (cartId != "undefined") {  
+      //RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
+      RestClient.cartClient.getOneCart( params )
+        .then( cart => this._inflateCart(cart) )
         .then(cart => {
-          cart = _replaceImage(cart);
-          cart.percentage = calculateWarrantiesPercentage(cart);
-          cart = this._getEmpresarias(req, res, cart);
-
           res.status(200).send(cart);
         })
         .catch(err => {
@@ -53,13 +57,11 @@ class CartControllers {
           res.status(500).send(errorService.checkErrorObject(errror));
         });
     } else {
-      RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
+      RestClient.cartClient.newCart( params )
+        .then( cart => this._inflateCart(cart) )
         .then(cart => {
-          cart = _replaceImage(cart);
-          cart.percentage = calculateWarrantiesPercentage(cart);
-          cart = this._getEmpresarias(req, res, cart);
-
-          sessionService.setSessionCookie(res, session_id) //Setea la cookie con el nuevo carrito
+        
+          sessionService.setSessionCookie(res, params.session_id) //Setea la cookie con el nuevo carrito
           sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
 
           res.status(200).send(cart);
@@ -143,40 +145,56 @@ class CartControllers {
       });
   }
 
-  _getOneCart(cartId, req, res) {
-    //TODO Pasar lógica a core para evaluar si devuelve un carro nuevo o utiliza uno anterior en baase al sesisonId
-    let brand = res.locals.xBrand.toLowerCase();
+  _inflateCart(cart){
+    cart = _replaceImage(cart);
+    cart.percentage = calculateWarrantiesPercentage(cart);
+    //cart = this._getEmpresarias(req, res, cart);
 
-    if (cartId != null) {
-      console.log("ACTUALIZANDO CART");
-      return RestClient.cartClient.getOneCart(cartId, {}, brand, true, false)
-        .then(cart => {
+    return cart
+  }
 
-          cart = _replaceImage(cart);
-          cart.percentage = calculateWarrantiesPercentage(cart);
-          cart = this._getEmpresarias(req, res, cart);
-          return cart;
-        })
-        .catch(err => err);
-    } else {
-      console.log("CREANDO CART");
-
-      return this.getNewCart(req, res)
-        .then(cart => {
-          cart = _replaceImage(cart);
-          cart.percentage = calculateWarrantiesPercentage(cart);
-          cart = this._getEmpresarias(req, res, cart);
-          return cart
-        })
-        .catch(err => err);
+  getParamsToCreateCart(res){
+    return {
+      session_id : res.locals.session,
+      sellerId : res.locals.sellerId,
+      brand : res.locals.xBrand.toLowerCase(),
+      xSessionContext : res.locals.xSessionContext,
+      channel : "WEB"
     }
   }
 
-  waitProcessingCart(cart, req, res) {
+  getParamsToGetCart(req,res){
+    return {
+      session_id : res.locals.session,
+      brand : res.locals.xBrand.toLowerCase(),
+      xSessionContext : res.locals.xSessionContext,
+      cartId : req.params.cartId
+    }
+  }
 
-    return this._getOneCart(cart.cart_id, req, res)
+  _getOneCart(params) {
+    //TODO Pasar lógica a core para evaluar si devuelve un carro nuevo o utiliza uno anterior en baase al sesisonId
+    let {cartId = null} = params
+
+    if ( cartId != null) {
+      console.log("ACTUALIZANDO CART");
+      return RestClient.cartClient.getOneCart( params )
+        .then(cart => this._inflateCart(cart))
+        .catch(err => err);
+    } else {
+      console.log("CREANDO CART");
+        
+      return RestClient.cartClient.newCart( params )
+                 .then(cart => this._inflateCart(cart))
+                 .catch(err => err);
+    }
+  }
+
+  waitProcessingCart( params ) {
+    return this._getOneCart( params )
       .then(cart => {
-        return cart.status != 'PROCESSING' ? cart : Q.delay(50).then(_ => waitProcessingCart(cart, req, res))
+        params.cartId = cart.cart_id
+        return cart.status != 'PROCESSING' ? cart : Q.delay(50).then(_ => waitProcessingCart( params ))
       })
       .catch(err => err);
   }
@@ -332,21 +350,21 @@ class CartControllers {
 
 
   newCart(req, res) {
+    sessionService.resetSessionCookies(res)
 
-    const productId = req.params.productId
-    const cupon = req.params.cupon
-    const brand = res.locals.xBrand.toLowerCase();
-    const session_id = res.locals.session;
-    let cartId;
+    let params = this.getParamsToCreateCart( res ) 
+    params.productId = req.params.productId
+    params.cupon = req.params.cupon
+                
+    RestClient.cartClient.newCart( params )
+      .then(cart => {        
+        params.cartId = cart.cart_id
 
-    this._getOneCart(null, req, res)
-      .then(cart => {
+        if ( params.productId != "UNDEFINED") {
 
-        if (productId != "UNDEFINED") {
-
-          return RestClient.productClient.addProduct(cart.cart_id, productId, 1, null, null, null, res.locals.session, brand)
+          return RestClient.productClient.addProduct( params )
                     .then(product => {
-                      return this.waitProcessingCart(cart, req, res)
+                      return this.waitProcessingCart( params )
                     })
                     .catch(err => {
                       logger.error("error adding product " + productId)
@@ -358,29 +376,27 @@ class CartControllers {
       })
       .then(cart => {
 
-        if (cupon != "UNDEFINED") {
+        if ( params.cupon != "UNDEFINED") {
 
-          return RestClient.promotion.addCoupon(cart.cart_id, cupon, brand)
+          return RestClient.promotion.addCoupon(cart.cart_id, params.cupon, params.brand)
             .then(cupon => {
-              return this.waitProcessingCart(cart, req, res)
+              return this.waitProcessingCart( params )
             })
             .catch(err => {
               logger.error(JSON.stringify(err))
-
               logger.error("error adding cupon " + cupon)
-
               throw err
             })
-
         } else {
           return cart
         }
 
       })
       .then(cart => {
-        sessionService.setSessionCookie(res, session_id)
+        sessionService.setSessionCookie(res, res.locals.session)
         sessionService.setCartIdCookie(res, cart.cart_id)
 
+        console.log(cart)
         res.send( cart )
       })
       .catch(err => {

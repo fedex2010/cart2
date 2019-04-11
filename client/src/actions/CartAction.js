@@ -107,7 +107,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
 
 export const getCarousel = (cartId) => dispatch => {
 
-    fetch("/carrito/api/cart/carousel", { credentials: 'include' , cache: "no-store"})
+    fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         //.then( handleErrors )
         .then(response => response.json())
         .then(response => {

@@ -47,15 +47,11 @@ app.use(function(err, req, res, next) {
 
 
 function sessionMiddleware( req , res ,next) {
-  logger.info('sessionMiddleware --> '+ JSON.stringify(req.headers));
-  logger.info('x-brand --> '+ req.get('x-brand'));
-  logger.info('X-Brand --> '+ req.get('X-Brand'));
+  //logger.info('sessionMiddleware --> '+ JSON.stringify(req.headers));
+  //logger.info('x-brand --> '+ req.get('x-brand'));
+  //logger.info('X-Brand --> '+ req.get('X-Brand'));
   try{
     
-    if( req.path.includes("newCart") ){
-      sessionService.resetSessionCookies(res)
-
-    }else{
       let sessionCookie = req.cookies['epi.context']
       let cartCookie = req.cookies['cartId']
   
@@ -68,9 +64,10 @@ function sessionMiddleware( req , res ,next) {
       if (cartCookie) {
           sessionService.setCartContextFromCookie(res, cartCookie)
       }
-    }
-
+    
     res.locals.sellerId = req.cookies["epi.salesman"] || "";    
+
+    res.locals.xSessionContext = req.cookies['gb_session_context'] || "";   
 
     if( typeof req.get('x-brand') !== "undefined" )
         res.locals.xBrand = req.get('x-brand').toLowerCase();
@@ -78,6 +75,7 @@ function sessionMiddleware( req , res ,next) {
         res.locals.xBrand = 'garbarino';
         logger.warn('x-brand header not present. Set garbarino by default');
     }
+
 
   }catch(err){
     next(err)

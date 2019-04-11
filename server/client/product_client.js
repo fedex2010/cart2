@@ -68,7 +68,11 @@ class ProductClient{
     }
 
     
-    addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
+    //addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
+    addProduct( params ){
+        
+        let { cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand } = params
+        
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
             data = {
                 product_id: productId,
