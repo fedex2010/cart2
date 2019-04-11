@@ -3,6 +3,7 @@ import ProductWarranty from "./ProductWarranty";
 import {  updateQuantityProduct,  deleteProduct,  selectProduct} from "../../actions/CartAction";
 import { connect } from "react-redux";
 import Cookie from "js-cookie";
+import {formatImage} from "../../utils/FormatImage";
 
 class ProductDescription extends Component {
   constructor(props) {
@@ -77,6 +78,8 @@ class ProductDescription extends Component {
 
     let productWarranty
 
+    
+
     if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
       productWarranty = <ProductWarranty
                             current={product}
@@ -94,7 +97,7 @@ class ProductDescription extends Component {
         <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
           <div className="cart-item-column">
             <picture className="cart-item-image">
-              <img src={product.main_image.url} alt="product name" itemProp="image"/>
+              <img src={formatImage(product.main_image.url)} alt="product name" itemProp="image"/>
             </picture>
           </div>
           <div className="cart-item-column cart-item-column-lg">
