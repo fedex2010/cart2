@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {getCarousel, addProduct} from "../../actions/CartAction";
 import {formatNumbers} from "../../utils/FormatNumbers";
+import {formatImage} from "../../utils/FormatImage";
+import config from "../../config/config";
 
 import Swiper from 'react-id-swiper';
 
@@ -22,6 +24,8 @@ class Carousel extends Component {
         window.location = "/producto/"+productId
     }
 
+   
+
     render() {
         const params = {
             slidesPerView: 'auto',
@@ -38,11 +42,9 @@ class Carousel extends Component {
             renderPrevButton: () => <button className="gb-carousel-module-control gb--prev swiper-button-prev" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="prev" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-left"></span></button>,
             renderNextButton: () => <button className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></button>,
           };
-
           
           if (this.props.carousel.title !== undefined && typeof this.props.data !== "undefined") {
             const productIds = this.props.data.map((it => it.product_id));
-
             return (
                 <div className="card">
                     <div className="card-header">
@@ -55,13 +57,14 @@ class Carousel extends Component {
                         <Swiper {...params}>
                             {
                                 this.props.carousel.products.filter((it => productIds.indexOf(it.xid) === -1)).map((product, i) => (
+                                    
                                     <div key={i} className="carousel-item hover-box swiper-slide carousel-item--with-actions">
                                         
 
                                         <div className="carousel-item-content">
                                             <picture>
                                                 <img
-                                                    src={product.main_image.url}
+                                                    src={formatImage(product.main_image.url)}
                                                     alt={product.description}
                                                     itemProp="image"
                                                     />

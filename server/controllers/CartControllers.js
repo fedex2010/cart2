@@ -38,6 +38,9 @@ class CartControllers {
     this._isEmpresarias(req, res);
 
     if (cartId != "undefined") {
+      logger.info("**************")
+      logger.info("ACTUALIZANDO")
+      logger.info("**************")
 
       RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
         .then(cart => {
@@ -53,6 +56,10 @@ class CartControllers {
           res.status(500).send(errorService.checkErrorObject(errror));
         });
     } else {
+      logger.info("**************")
+      logger.info("CREANDO")
+      logger.info("**************")
+
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
         .then(cart => {
           cart = _replaceImage(cart);
@@ -427,7 +434,8 @@ class CartControllers {
       .deleteProduct(cartId, productId, brand)
       .then(() => {
         this._getOneCart(cartId, req, res)
-          .then(cart => {            
+          .then(cart => {
+            
             res.status(200).send(cart);
           })
           .catch(err => {
@@ -482,6 +490,8 @@ class CartControllers {
       .then(() => {
         this._getOneCart(cartId, req, res)
           .then(cart => {
+            
+
             res.status(200).send(cart);
           })
           .catch(err => {
@@ -620,10 +630,18 @@ class CartControllers {
 function _replaceImage(cart) {
   cart.products.map(product => {
     if (typeof product.main_image !== "undefined") {
+      logger.warn("****no***imagen**********")
+      logger.warn( product.product_id )
+      logger.warn("*****************")
+
       product.main_image.url = getProductImageCloudfrontV2(
         product.main_image.url
       );
     } else {
+      logger.warn("****no***tiene imagen**********")
+      logger.warn( product.product_id )
+      logger.warn("*****************")
+
       product.main_image = {};
       product.main_image.url = "";
     }
