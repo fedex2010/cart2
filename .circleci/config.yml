@@ -41,6 +41,9 @@ jobs:
   deploy_elb:
       docker:
         - image: "circleci/python"
+      environment:
+        AWS_ACCESS_KEY_ID: "AKIAWKUMVRIPVKDQDEX5"
+        AWS_SECRET_ACCESS_KEY: "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"
       working_directory: ~/garbarino-com/cart-ui
       steps:
         - attach_workspace:
@@ -56,7 +59,6 @@ jobs:
         - run: zip  -r /tmp/app.zip . -x "node_modules/*" -x "client/node_modules/*" -x "server/node_modules/*" -x ".git/*"
         - run:
             name: Deploy All Branches
-            context: org-global
             command: |
               PACKAGE_VERSION=$(grep '"version":' package.json | cut -d\" -f4)
               if [[ "${CIRCLE_TAG}" =~ CHECKOUT-* ]]
