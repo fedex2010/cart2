@@ -131,9 +131,7 @@ class CartControllers {
             product = product.filter(prod => prod.enabled_for_sale)
 
             product.map(prod => {
-              prod.main_image.url = getProductImageCloudfrontV2(
-                prod.main_image.url
-              );
+              prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url,0);
               prod.price = Math.ceil(prod.price)
             });
             products.products = product;
@@ -602,9 +600,7 @@ class CartControllers {
             res.status(200).send(cart);
           })
           .catch(err => {
-            logger.error(
-              "[" + cartId + "] Fail get cart   warranty to cart,err:" + err
-            );
+            logger.error("[" + cartId + "] Fail get cart   warranty to cart,err:" + err);
             err.message = "Fail get a update cart warranty"
             res.status(500).send(errorService.checkErrorObject(err));
           });
@@ -628,20 +624,14 @@ class CartControllers {
 }
 
 function _replaceImage(cart) {
+  let cartId = cart.cart_id;
   cart.products.map(product => {
+      logger.info("[" + cartId + "] img replace:" + product.main_image);
     if (typeof product.main_image !== "undefined") {
-      logger.warn("****no***imagen**********")
-      logger.warn( product.product_id )
-      logger.warn("*****************")
-
-      product.main_image.url = getProductImageCloudfrontV2(
-        product.main_image.url
-      );
+        logger.info("[" + cartId + "] Entre por el if la imagen no es undefined");
+        product.main_image.url = getProductImageCloudfrontV2(product.main_image.url,cartId );
     } else {
-      logger.warn("****no***tiene imagen**********")
-      logger.warn( product.product_id )
-      logger.warn("*****************")
-
+      logger.info("[" + cartId + "] Entre por el else la imagen es undefined");
       product.main_image = {};
       product.main_image.url = "";
     }
@@ -649,7 +639,8 @@ function _replaceImage(cart) {
   return cart;
 }
 
-function getProductImageCloudfrontV2(url) {
+function getProductImageCloudfrontV2(url,cartId=0) {
+    logger.info("[" + cartId + "] Img product" + url);
   if (url.indexOf("noImage") == -1) {
     var product_image_sha = url.split("/");
     product_image_sha = product_image_sha[product_image_sha.length - 1];
@@ -665,6 +656,7 @@ function getProductImageCloudfrontV2(url) {
       tamano;
   }
 
+    logger.info("[" + cartId + "] Img product2" + url);
   return url;
 }
 
