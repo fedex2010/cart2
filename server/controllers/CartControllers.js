@@ -32,7 +32,8 @@ class CartControllers {
     let brand = res.locals.xBrand.toLowerCase();
 
     let cookieCart = req.cookies['cartId']
-
+    logger.info("[" + cookieCart + "] getCart cookies1:" + cookieCart);
+    logger.info("[" + cookieCart + "] getCart cookies2:" + JSON.stringify(req.cookies));
     console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
 
     newrelic.addCustomAttribute('cookieCartId', cartId);
