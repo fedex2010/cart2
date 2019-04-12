@@ -38,12 +38,10 @@ class CartControllers {
     this._isEmpresarias(req, res);
 
     if (cartId != "undefined") {
-      logger.info("**************")
-      logger.info("ACTUALIZANDO")
-      logger.info("**************")
-
+      logger.info("[" + cartId + "] getCart:" + cartId);
       RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
         .then(cart => {
+          logger.info("[" + cartId + "] getCart return promisse:" + JSON.stringify(cart));
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res, cart);
@@ -56,12 +54,10 @@ class CartControllers {
           res.status(500).send(errorService.checkErrorObject(errror));
         });
     } else {
-      logger.info("*************")
-      logger.info("CREANDO")
-      logger.info("**************")
-
+        logger.info("[" + cartId + "] getCart New:" + cartId);
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
         .then(cart => {
+          logger.info("[" + cartId + "] getCart return newCart promisse:" + JSON.stringify(cart));
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res, cart);
@@ -154,9 +150,10 @@ class CartControllers {
 
     if (cartId != null) {
       console.log("ACTUALIZANDO CART");
+        logger.info("[" + cartId + "] _getOneCart:");
       return RestClient.cartClient.getOneCart(cartId, {}, brand, true, false)
         .then(cart => {
-
+          logger.info("[" + cartId + "] _getOneCart return :"+JSON.stringify(cart));
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res, cart);
@@ -169,6 +166,7 @@ class CartControllers {
 
       return this.getNewCart(req, res)
         .then(cart => {
+           logger.info("[" + cartId + "] _getOneCart getNewCart return :"+JSON.stringify(cart));
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
           cart = this._getEmpresarias(req, res, cart);
