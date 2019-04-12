@@ -77,8 +77,12 @@ class ProductDescription extends Component {
     let subtotalPriceRound = this._formatPrice(product.subtotal_price);
 
     let productWarranty
-    let imageProduct = (navigator.userAgent.indexOf("Chrome") != -1)?product.main_image.url:formatImage(product.main_image.url);
-    
+    let imageProduct = (navigator.userAgent.indexOf("Chrome") != -1) ? product.main_image.url : formatImage(product.main_image.url);
+
+    console.log("************************");
+    console.log(imageProduct);
+    console.log("************************");
+
 
     if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
       productWarranty = <ProductWarranty
