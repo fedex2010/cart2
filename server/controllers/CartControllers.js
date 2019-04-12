@@ -31,13 +31,16 @@ class CartControllers {
     let sellerId = res.locals.sellerId;
     let brand = res.locals.xBrand.toLowerCase();
 
+    let cookieCart = req.cookies['cartId']
+
     console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
 
     newrelic.addCustomAttribute('cookieCartId', cartId);
 
     this._isEmpresarias(req, res);
 
-    if (cartId != "undefined") {
+    if (cartId != "undefined" || cookieCart != "undefined") {
+      cartId = (cartId === "undefined")?cookieCart:cartId;
       logger.info("[" + cartId + "] getCart:" + cartId);
       RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
         .then(cart => {
@@ -57,6 +60,7 @@ class CartControllers {
         logger.info("[" + cartId + "] getCart New:" + cartId);
       RestClient.cartClient.newCart(session_id, sellerId, false, null, "WEB", brand)
         .then(cart => {
+          cartId = cart.cart_id;
           logger.info("[" + cartId + "] getCart return newCart promisse:" + JSON.stringify(cart));
           cart = _replaceImage(cart);
           cart.percentage = calculateWarrantiesPercentage(cart);
