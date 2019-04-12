@@ -20,23 +20,7 @@ class CartControllers {
   getCart(req, res) {
     let cartId = req.params.cartId;
 
-    let params = {
-      cartId : req.params.cartId,
-      session_id : res.locals.session,
-      sellerId : res.locals.sellerId,
-      brand : res.locals.xBrand.toLowerCase(),
-      xSessionContext : res.locals.xSessionContext,
-      channel : "WEB"
-    }
-
-    console.log("-------params-----------")
-    console.log( params )
-    console.log("------getParamsToGetCart------------")
-
-    params = this.getParamsToGetCart(req,res)
-
-    console.log( params )
-    console.log("------------------")
+    let params = this.getParamsToGetCart(req,res)
 
     console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
 
@@ -153,6 +137,20 @@ class CartControllers {
     return cart
   }
 
+  getParamsToAddProduct(req,res){
+    return {
+      productId : req.body.xid,
+      promotionId : req.body.promotion_id || null,
+      quantity : req.body.quantity || 1,
+      warrantyId : req.body.warranty_id || null,
+      productPrice : req.body.price || null,
+      brand : res.locals.xBrand.toLowerCase(),
+      xSessionContext : res.locals.xSessionContext,
+      sessionId : res.locals.session,
+      cartId : res.locals.cartId
+    }
+  }
+
   getParamsToCreateCart(res){
     return {
       session_id : res.locals.session,
@@ -164,11 +162,13 @@ class CartControllers {
   }
 
   getParamsToGetCart(req,res){
+    let cartId = req.params.cartId || req.body.cartId || res.locals.cartId || null
+    
     return {
       session_id : res.locals.session,
       brand : res.locals.xBrand.toLowerCase(),
       xSessionContext : res.locals.xSessionContext,
-      cartId : req.params.cartId
+      cartId : cartId
     }
   }
 
@@ -199,8 +199,23 @@ class CartControllers {
       .catch(err => err);
   }
 
+  addSeveralProducs( req,res ){
+
+    /*return productIds.slice(1).reduce((ac, aProductId) =>
+        ac.then(_ => self.addProductToCart(cart, aProductId, null, null, null, cart.session, brand))
+          .then(_ => self.waitProcessingCart(cart, req, res)), Q(cart)
+                      )
+                      .catch(err => {
+                        logger.error("Error adding associated products\n", JSON.stringify(err))
+
+                        throw (err)
+                      })*/
+
+    res.redirect(302, req.get('origin') + '/carrito')
+  }
 
   addProduct(req, res) {
+    
     let epi_context;
     let gb_anonymous_session_id;
     let gb_session_id;
@@ -221,25 +236,27 @@ class CartControllers {
     newrelic.addCustomAttribute("gb_anonymous_session_id", gb_anonymous_session_id);
     newrelic.addCustomAttribute("gb_session_id", gb_session_id);
 
-    const body = req.body || {};
+    const body = req.body;
 
     const productIds = body.xid.split(",")
-    const promotionId = body.promotion_id || null;
-    const warranty_id = body.warranty_id || null;
-    const productPrice = body.price || null;
-    const brand = res.locals.xBrand.toLowerCase();
+    if( productIds.length > 1 ){
+      this.addSeveralProducs(req,res)
+    }
     
     let cartId = res.locals.cartId;
 
     var self = this;
 
-    this._getOneCart(cartId, req, res)
+    let params = this.getParamsToGetCart(req,res)
+    let paramsProduct = this.getParamsToAddProduct(req,res)
+
+    this._getOneCart( params )
       .then(cart => {
         cartId = cart.cart_id
 
-        if( promotionId != null ){
+        if( paramsProduct.promotionId != null ){
           // Agrega todos los productos de la promo que faltan 
-          return RestClient.promotion.getPromotion(promotionId,brand)
+          return RestClient.promotion.getPromotion(paramsProduct.promotionId,brand)
               .then( promotion => {
                 
                 if (promotion){                    
@@ -266,20 +283,8 @@ class CartControllers {
         }        
       })
 
-      .then(cart => {
-        return productIds.slice(1).reduce((ac, aProductId) =>
-          ac.then(_ => self.addProductToCart(cart, aProductId, null, null, null, cart.session, brand))
-            .then(_ => self.waitProcessingCart(cart, req, res)), Q(cart)
-        )
-          .catch(err => {
-            logger.error("Error adding associated products\n", JSON.stringify(err))
-
-            throw (err)
-          })
-      })
-
       .then( cart => {
-        return this.addProductToCart(cart, productIds[0], warranty_id, productPrice, promotionId, cart.session, brand)
+        return this.addProductToCart(cart, paramsProduct)
           .catch( err => {
             logger.error("Error adding products", JSON.stringify(err))
 
@@ -288,16 +293,13 @@ class CartControllers {
       })
       .then(product => {      
         logger.info("[", cartId, "] Product added", product)
-        return this._getOneCart(cartId, req, res)
+        return this._getOneCart( params )
       })
 
-      .then(cart => self.waitProcessingCart(cart, req, res))
+      .then(cart => self.waitProcessingCart( params ))
 
       .then(cart => {
-        //seteo cookie porque puede ser que se este agregando un producto desde ficha y el carrito no haya 
-        //sido creado aún
-        sessionService.setCartIdCookie(res, cart.cart_id)
-
+        
         if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") && !req.headers['referer'].endsWith("/carrito/")) {
           res.redirect(302, req.get('origin') + '/carrito')
         } else {
@@ -319,10 +321,12 @@ class CartControllers {
       })
   }
 
-  addProductToCart(cart, productId, warranty_id, productPrice, promotionId, session_id, brand) {
+  //addProductToCart(cart, productId, warranty_id, productPrice, promotionId, session_id, brand) {
+  addProductToCart(cart, params) {
+    let { productId } = params
 
     const cartId = cart.cart_id
-    logger.info("[cartId=" + cartId + "] Adding product" + productId)
+    logger.info("[cartId=" + cartId + "] Adding product " + productId)
 
     let productCount, product;
 
@@ -344,7 +348,7 @@ class CartControllers {
     } else {
       logger.info("Agregando producto " + productId + "en [cartId=" + cartId + "]")
 
-      return RestClient.productClient.addProduct(cartId, productId, 1, warranty_id, productPrice, promotionId, session_id, brand)
+      return RestClient.productClient.addProduct( params )
     }
   }
 
@@ -438,10 +442,12 @@ class CartControllers {
       cartId = res.locals.cartId,
       brand = res.locals.xBrand.toLowerCase();
 
+    let cartParams = this.getParamsToGetCart(req,res)
+
     RestClient.productClient
-      .deleteProduct(cartId, productId, brand)
+      .deleteProduct(cartId, productId, brand,res.locals.xSessionContext)
       .then(() => {
-        this._getOneCart(cartId, req, res)
+        this._getOneCart( cartParams )
           .then(cart => {
             res.status(200).send(cart);
           })
@@ -463,10 +469,12 @@ class CartControllers {
       couponCode = req.body.coupon_code,
       brand = res.locals.xBrand.toLowerCase();
 
+    let paramsCart = this.getParamsToGetCart(req,res)
+
     RestClient.promotion
-      .addCoupon(cartId, couponCode, brand)
+      .addCoupon(cartId, couponCode, brand,res.locals.xSessionContext)
       .then(coupon => {
-        this._getOneCart(cartId, req, res)
+        this._getOneCart( paramsCart )
           .then(cart => {
             res.status(200).send(cart);
           })
@@ -599,10 +607,13 @@ class CartControllers {
       productId = req.body.product_id,
       warrantyId = req.body.warranty_id,
       brand = res.locals.xBrand.toLowerCase();
+
+    let params = this.getParamsToGetCart(req, res)
+
     RestClient.productClient
       .setWarranty(cartId, productId, warrantyId, brand)
       .then(product => {
-        this._getOneCart(cartId, req, res)
+        this._getOneCart( params )
           .then(cart => {
             res.status(200).send(cart);
           })

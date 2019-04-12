@@ -71,7 +71,7 @@ class ProductClient{
     //addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
     addProduct( params ){
         
-        let { cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand } = params
+        let { cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, sessionId=null,brand,xSessionContext } = params
         
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
             data = {
@@ -84,29 +84,41 @@ class ProductClient{
         if (promotionId) {
             data.promotion = {id: promotionId}
         }
-        
+
+        let headers = {
+            'Content-Type': 'application/json',
+            'x-session-id': sessionId,
+            'X-Brand':brand
+        } 
+
+        if( xSessionContext != "" ){
+            headers = { ...headers, "x-session-context": xSessionContext }
+        }
+
         let options = {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-session-id': session_id,
-                'X-Brand':brand
-            },
+            headers: headers,
             data: JSON.stringify(data)
         }
 
         return this._restConnector.post( url, options)
     }
 
-    deleteProduct(cartId, productId,brand){
+    deleteProduct(cartId, productId,brand,xSessionContext){
 
         console.log(brand);
 
         let url     = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId;
 
+        let headers = {
+            'X-Brand':brand
+        }
+
+        if( xSessionContext != "" ){
+            headers = { ...headers, "x-session-context": xSessionContext }
+        }
+
         let options = {
-            headers: {
-                'X-Brand':brand
-            }
+            headers: headers
         }
 
         return this._restConnector.delete(url,options)

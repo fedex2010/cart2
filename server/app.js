@@ -76,7 +76,6 @@ function sessionMiddleware( req , res ,next) {
         logger.warn('x-brand header not present. Set garbarino by default');
     }
 
-
   }catch(err){
     next(err)
   }
