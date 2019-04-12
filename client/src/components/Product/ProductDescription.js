@@ -77,7 +77,7 @@ class ProductDescription extends Component {
     let subtotalPriceRound = this._formatPrice(product.subtotal_price);
 
     let productWarranty
-
+    let imageProduct = (navigator.userAgent.indexOf("Chrome") != -1)?product.main_image.url:formatImage(product.main_image.url);
     
 
     if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
@@ -97,7 +97,7 @@ class ProductDescription extends Component {
         <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
           <div className="cart-item-column">
             <picture className="cart-item-image">
-              <img src={formatImage(product.main_image.url)} alt="product name" itemProp="image"/>
+              <img src={imageProduct} alt="product name" itemProp="image"/>
             </picture>
           </div>
           <div className="cart-item-column cart-item-column-lg">
