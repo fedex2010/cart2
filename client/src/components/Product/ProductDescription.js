@@ -80,7 +80,7 @@ class ProductDescription extends Component {
     let imageProduct = (navigator.userAgent.indexOf("Chrome") != -1) ? product.main_image.url : formatImage(product.main_image.url);
 
     console.log("************************");
-    console.log(imageProduct);
+    console.log(this.props.item);
     console.log("************************");
 
 
