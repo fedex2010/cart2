@@ -8,52 +8,9 @@ const CHECKOUT_CORE_URL = config.services.checkout_core.base_url;
 const NEW_CART_TIMEOUT = config.services.new_cart_timeout || 2000;
 const SEARCHLIST = config.searchList.url;
 
-class ProductUpdater {
-    constructor(_cartId, _product,brand){
-        this.brand = brand
-        this.cartId = _cartId
-        this.product = _product
-        this.productId = this.product.product_id
-        this.apiClient = new Rest_client();
-        this.data = {
-            product_id: this.productId,
-            warranty_id:null,
-            price:null,
-            _promotionId:null
-        }
-    }
 
-    withQuantity(_qty){
-        if (_qty != this.product.quantity){
-            this.data.quantity = _qty
-        }
-        return this
-    }
-
-    withWarranty(_warranty = null){
-        this.data.warranty_id = _warranty
-        return this
-    }
-
-    withPromotion(_promotionId = null){
-        this.data._promotionId = _promotionId
-        return this
-    }
-
-    putExecutor(){
-        return this.apiClient.updateProductObj(this.cartId, this.productId, this.data,this.brand)
-    }
-
-    execute(){
-        console.log("---------------------")
-        return this.putExecutor()
-    }
-}
 class ProductClient{
-    getProductUpdater(cartId,product,brand){
-        return new ProductUpdater(cartId, product,brand)
-    }
-
+    
     constructor() {
         this._restConnector = new RestConnector();
     }
@@ -124,15 +81,21 @@ class ProductClient{
         return this._restConnector.delete(url,options)
     }
 
-    updateProduct(cartId, productId, quantity,brand) {
+    updateProduct(cartId, productId, quantity,brand,xSessionContext) {
         let data = {
             product_id : productId,
             quantity : quantity
         }
 
+        let headers = {'Content-Type':'application/json'}
+
+        if(xSessionContext != ""){
+            headers = { ...headers, "x-session-context": xSessionContext }
+        }
+
         let url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
             options = {
-                headers : {'Content-Type':'application/json'},
+                headers : headers,
                 'X-Brand':brand,
                 data : JSON.stringify(data)
             }

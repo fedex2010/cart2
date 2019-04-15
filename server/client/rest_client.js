@@ -11,9 +11,8 @@ class RestClient {
         this._restConnector = new RestConnector();
     }
 
-    //getOneCart(cartId,brand,include=true,refresh=false) {
     getOneCart( params ) {
-        let {cartId,brand,options = undefined,include = true, refresh = false} = params
+        let {cartId,brand,options = undefined,include = true, refresh = false,xSessionContext} = params
 
         let url = `${CHECKOUT_CORE_URL}/carts/` + cartId ;
 
@@ -23,11 +22,16 @@ class RestClient {
             options = {}
         }
 
-        options.headers = {"Content-Type": "application/json", "X-Brand": brand};
+        let headers = {"Content-Type": "application/json", "X-Brand": brand}
+
+        if(xSessionContext !== ""){
+            headers = {...headers, "x-session-context" : xSessionContext  }
+        }
+
+        options.headers = headers;
         return this._restConnector.get(url,options);
     }
 
-//    newCart(session_id, sellerId, ipClient=false, xBrand=null, channel='WEB',brand) {
     newCart(params) {
         let {session_id,sellerId,brand,xSessionContext,channel,ipClient} = params
 
@@ -50,6 +54,8 @@ class RestClient {
             timeout: NEW_CART_TIMEOUT
         };
 
+
+
         options.headers = {"Content-Type": "application/json", "X-Brand": brand};
 
         if(xSessionContext !== ""){
@@ -61,11 +67,40 @@ class RestClient {
         return this._restConnector.postWithoutErrors(url, options);
     }
 
-    updateProductObj(cartId, productId, obj,xBrand){
+
+          /*
+      this.data = {
+          product_id: this.productId,
+          :null,
+          price:null,
+          _promotionId:null
+      }
+
+      this.data._promotionId = _promotionId
+    
+      */
+        /*.getProductUpdater(cartId, product, brand)
+          .withWarranty(warranty_id)
+          .withPromotion(promotionId)
+          .withQuantity(productCount)
+          .execute()*/
+
+
+    updateProductObj( params ){
+        let {cartId, productId,brand,warranty_id,quantity,promotionId,productPrice} = params
+
+        let data = {
+            warranty_id : warranty_id,
+            quantity:quantity,
+            _promotionId:promotionId,
+            product_id:productId,
+            price:productPrice
+        }
+        
         let url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
             options = {
-                headers : {'Content-Type':'application/json','X-Brand':xBrand},
-                data : JSON.stringify(obj)
+                headers : {'Content-Type':'application/json','X-Brand':brand},
+                data : JSON.stringify(data)
             }
     
         return this._restConnector.putWithOptions(url, options);
