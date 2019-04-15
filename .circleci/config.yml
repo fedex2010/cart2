@@ -43,8 +43,6 @@ jobs:
             name: Deploy All Branches
             command: |
               PACKAGE_VERSION=$(grep '"version":' package.json | cut -d\" -f4)
-              AWS_ACCESS_KEY_ID=$AWS
-              AWS_SECRET_ACCESS_KEY=$AWS_KEY
               if [[ "${CIRCLE_TAG}" =~ CHECKOUT-* ]]
               then
                 PACKAGE_LABEL=v$PACKAGE_VERSION-SNAPSHOT-$CIRCLE_TAG-$CIRCLE_BUILD_NUM
@@ -72,6 +70,7 @@ workflows:
             tags:
               only: /^CHECKOUT-.*/
       - deploy_elb:
+          context: org-global
           requires:
             - check_n_build
           filters:
