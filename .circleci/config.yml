@@ -14,17 +14,19 @@ jobs:
             - yarn-cache-{{ .Branch }}
             - yarn-cache-
       - run: yarn install
+      - run: yarn install-server
+      - run: yarn install-client
       - save_cache:
           key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}-v2
           paths: 
             - node_modules
             - client/node_modules
             - server/node_modules
+      - run: CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino yarn build-garba
+      - run: CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo yarn build-compu
       - persist_to_workspace:
           root: .
           paths: .
-      - run: CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino yarn build-garba
-      - run: CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo yarn build-compu
   deploy_elb:
       docker:
         - image: "circleci/python"

@@ -115,7 +115,6 @@ class Cart extends Component {
       this._setDataLayer(this.props.cart);
     }
 
-
     return (
       <div className="App">
         <div className="main-wrapper wrapper">
