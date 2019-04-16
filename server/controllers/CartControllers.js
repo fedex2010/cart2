@@ -265,7 +265,7 @@ class CartControllers {
                 console.log( promotion )
                 console.log("////////////////////")
 
-                if (false){ 
+                if (promotion){ 
 
                   let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
 
