@@ -345,6 +345,11 @@ class CartControllers {
       })
 
       .then( cart => {
+        //si ya esta no lo agrego
+        if( cart.products.includes( paramsProduct.productId ) ){
+          return cart
+        }
+
         return this.addProductToCart(cart, paramsProduct)
           .catch( err => {
             logger.error("Error adding products", JSON.stringify(err))
