@@ -333,8 +333,16 @@ class CartControllers {
 
         return cart        
       })
+      .then(cart => {
 
-      .then(cart => self.waitProcessingCart( paramsCart ))
+        if( cart.products.length >= 10 ){
+          let err = new Error("max items reached")
+          err.code = "403"
+          throw err
+        }
+
+        return cart        
+      })
 
       .then( cart => {
         return this.addProductToCart(cart, paramsProduct)

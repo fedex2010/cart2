@@ -164,15 +164,28 @@ class Alert extends Component {
     }
 
   _showError(err){
-    let classError = (this.props.err.cause && this.props.err.cause.code && this.props.err.cause.code == 404)? "error-msj" : "error-msj hide";
-    let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
-    let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
-      return(
-          <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
-              <button type="button" onClick={this._closeSalable.bind(this)}  className="feedback--btn-close" />
-              {errorFalse}
-          </div>
-      );
+    if( this.props.err.cause && this.props.err.cause.code ){
+        let classError = (this.props.err.cause && this.props.err.cause.code && (this.props.err.cause.code == 404 || this.props.err.cause.code == 403))? "error-msj" : "error-msj hide";
+        let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
+    
+        let errorFalse
+        
+        if( this.props.err.cause.code == 404 ){
+            errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
+        }else if( this.props.err.cause.code == 403 ){
+            errorFalse = "No es posible agregar más de 10 productos diferentes en el mismo carrito";
+        }
+    
+          return(
+              <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
+                  <button type="button" onClick={this._closeSalable.bind(this)}  className="feedback--btn-close" />
+                  {errorFalse}
+              </div>
+          );
+    
+    }else{
+        return null
+    }
   }
 
   render() {

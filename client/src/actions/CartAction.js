@@ -138,8 +138,14 @@ export const addProduct = product => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
-            history.push('/carrito/error')
+
+            if (err.response.erro.cause.code == "403") {
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            } else {
+                history.push('/carrito/error')
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+            }
+
         });
 };
 
