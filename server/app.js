@@ -49,17 +49,8 @@ function sessionMiddleware( req , res ,next) {
   //logger.info('sessionMiddleware --> '+ JSON.stringify(req.headers));
   //logger.info('x-brand --> '+ req.get('x-brand'));
   //logger.info('X-Brand --> '+ req.get('X-Brand'));
-
-  logger.info("----------originalUrl--------------");;
-  logger.info(req.originalUrl);
-  logger.info("------------------------");
-
   try{
     
-    if( req.path.includes("newCart") ){
-      sessionService.resetSessionCookies(res)
-
-    }else{
       let sessionCookie = req.cookies['epi.context']
       let cartCookie = req.cookies['cartId']
   
@@ -72,21 +63,34 @@ function sessionMiddleware( req , res ,next) {
       if (cartCookie) {
           sessionService.setCartContextFromCookie(res, cartCookie)
       }
-    }
-
+    
     res.locals.sellerId = req.cookies["epi.salesman"] || "";    
+
+    res.locals.xSessionContext = req.cookies['gb_session_context'] || "";   
+
+    if (typeof req.headers["x-subdomain"] != "undefined" && req.headers["x-subdomain"] == "empresas") {
+      res.locals.isEmpresarias = true
+    } else {
+      res.locals.isEmpresarias = false
+    }
 
     if( typeof req.get('x-brand') !== "undefined" )
         res.locals.xBrand = req.get('x-brand').toLowerCase();
-      else {
+    else {
         res.locals.xBrand = 'garbarino';
         logger.warn('x-brand header not present. Set garbarino by default');
     }
-
+    
   }catch(err){
     next(err)
   }
   next()
 }
+
+
+/*
+xid: 4952296392
+promotion_id: 5b562577c9e77c0005901fb7
+*/
 
 module.exports = app;
