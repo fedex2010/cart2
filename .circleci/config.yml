@@ -92,7 +92,7 @@ workflows:
               only: /^CHECKOUT-.*/
 
       - deploy_elb:
-          contex: org-global
+          context: org-global
           requires:
             - build_client
           filters:
