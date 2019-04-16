@@ -1,4 +1,4 @@
-import { SET_CURRENT_CART, SET_CAROUSEL, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "./Types";
+import { HIDE_GENERAL_LOADING,SET_CURRENT_CART, SET_CAROUSEL, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "./Types";
 import history from '../history';
 import config from "../config/config";
 
@@ -112,6 +112,9 @@ export const getCarousel = (cartId) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response, operationStatus: "SUCCESSFUL" });
+
+            dispatch({ type: HIDE_GENERAL_LOADING, payload: {}, operationStatus: "SUCCESSFUL" });
+            
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
             history.push('/carrito/error')

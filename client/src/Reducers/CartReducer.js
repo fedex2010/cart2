@@ -1,6 +1,4 @@
-import {SET_CAROUSEL, SET_CURRENT_CART, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "../actions/Types";
-
-import config from "../config/config";
+import {HIDE_GENERAL_LOADING,SET_CAROUSEL, SET_CURRENT_CART, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "../actions/Types";
 
 const initialState = {
   cart: {},
@@ -8,11 +6,17 @@ const initialState = {
   carousel: {},
   err: {},
   operationStatus: "INITIAL",
-  xBrand:""
+  xBrand:"",
+  showGeneralLoading:true
 };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
+    case HIDE_GENERAL_LOADING:
+      return {
+        ...state,
+        showGeneralLoading:false
+      };
     case SET_CURRENT_CART:
       return {
         ...state,

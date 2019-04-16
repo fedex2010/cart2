@@ -10,30 +10,28 @@ class Product extends Component {
     };
   }
 
-  componentDidMount(){
-      document.body.classList.remove('full-page--is-loading');
-  }
-
 
   render() {
     let products = this.props.product;
     let percentage = this.props.percentage;
     
-    if (products !== undefined) {
-      return (
-        <div>
-            {
-                products.map((product, i) => (<ProductDescription key={i} item={product} percentage={percentage}/>))
-            }
-            <Modal/>
-        </div>
-      );
+    if (products !== undefined && products.length > 0) {
+        return (
+          <div>
+              {
+                  products.map((product, i) => (<ProductDescription key={i} item={product} percentage={percentage}/>))
+              }
+              <Modal/>
+          </div>
+        );  
     } else {
+
       return (
-        <div className="cart-empty">
-          <p>No hay productos en tu carrito.</p>
-        </div>
-      );
+                <div className="cart-empty">
+                  <p>No hay productos en tu carrito.</p>
+                </div>
+              )
+              
     }
   }
 }

@@ -25,6 +25,7 @@ class Carousel extends Component {
 
    componentDidMount(){
         this.props.getCarousel();
+        
    }
 
     render() {

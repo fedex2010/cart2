@@ -115,6 +115,12 @@ class Cart extends Component {
       this._setDataLayer(this.props.cart);
     }
 
+    let {showGeneralLoading} = this.props
+
+    if(!showGeneralLoading){
+      document.body.classList.remove('full-page--is-loading');           
+    }
+
     return (
       <div className="App">
         <div className="main-wrapper wrapper">
@@ -153,7 +159,8 @@ const mapStateToProps = state => {
   return { 
     cart: state.cartReducer.cart, 
     err : state.cartReducer.err, 
-    xBrand: state.cartReducer.xBrand };
+    xBrand: state.cartReducer.xBrand ,
+    showGeneralLoading: state.cartReducer.showGeneralLoading };
 };
 
 export default connect(
