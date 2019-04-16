@@ -184,12 +184,13 @@ class CartControllers {
 
           if (promotion){ 
 
-            //let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
             promotion.xids.push( paramsPromotion.productId )
 
-            logger.info( "["+ cart.cart_id+ "] promo xids="+ promotion.xids )
+            let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
+            
+            logger.info( "["+ cart.cart_id+ "] promo missing="+ missing )
 
-            return promotion.xids.reduce( (ac, promoProductId) => {
+            return missing.reduce( (ac, promoProductId) => {
                 
                 let paramsPromotionCopy = {...paramsPromotion}
                 paramsPromotionCopy.productId = promoProductId
@@ -226,6 +227,7 @@ class CartControllers {
       sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
 
       res.redirect(302, req.get('origin') + '/carrito')
+      //res.send( cart )
     })
     .catch(err=> {
       logger.error ( JSON.stringify(err) )
