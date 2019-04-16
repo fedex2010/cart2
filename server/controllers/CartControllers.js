@@ -243,8 +243,6 @@ class CartControllers {
 
     let self = this
 
-    console.log("+++++++++++++++++++++++++++++++++++++++++++")
-
     this._getOneCart( paramCart )
     .then( cart => {
         //puede ser que sea null si no hay carrito
@@ -253,10 +251,10 @@ class CartControllers {
         
         
         return productIds.reduce( (ac, aProductId) => {
-                  let algo = {...paramProduct}
-                  algo.productId = aProductId
+                  let copyProductParam = {...paramProduct}
+                  copyProductParam.productId = aProductId
 
-                  return ac.then(_ => self.addProductToCart( cart, algo ) )
+                  return ac.then(_ => self.addProductToCart( cart, copyProductParam ) )
                            .then(_ => self.waitProcessingCart(paramCart))
                 }
 
@@ -271,7 +269,6 @@ class CartControllers {
     })
     .then( zaraza => {
         res.redirect(302, req.get('origin') + '/carrito')
-        //res.send( zaraza )
     })
     .catch(err => {
       logger.error("Error adding associated products\n", JSON.stringify(err))
@@ -452,7 +449,6 @@ class CartControllers {
         sessionService.setSessionCookie(res, res.locals.session)
         sessionService.setCartIdCookie(res, cart.cart_id)
 
-        console.log(cart)
         res.send( cart )
       })
       .catch(err => {
