@@ -111,7 +111,7 @@ export const getCarousel = (cartId) => dispatch => {
         //.then( handleErrors )
         .then(response => response.json())
         .then(response => {
-            dispatch({ type: SET_CAROUSEL, payload: response });
+            dispatch({ type: SET_CAROUSEL, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
             history.push('/carrito/error')
