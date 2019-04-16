@@ -11,45 +11,96 @@ class RestClient {
         this._restConnector = new RestConnector();
     }
 
-    getOneCart(cartId,options={},brand,include=true,refresh=false) {
-        let url = `${CHECKOUT_CORE_URL}/carts/` + cartId ;
+    getOneCart( params ) {
+        let {cartId,brand,options = undefined,include = true, refresh = false,xSessionContext} = params
 
-        //url = (include) ? url+"?include=cartdata":url;
-        //url =(refresh && include) ? url+"&refresh=true":(refresh && !include)?"?refresh=true":url;
+        let url = `${CHECKOUT_CORE_URL}/carts/` + cartId ;
 
         url=url+"?refresh=true&include=cartdata";
 
-        options.headers = {"Content-Type": "application/json", "X-Brand": brand};
+        if(options === undefined){
+            options = {}
+        }
+
+        let headers = {"Content-Type": "application/json", "X-Brand": brand}
+
+        if(xSessionContext !== ""){
+            headers = {...headers, "x-session-context" : xSessionContext  }
+        }
+
+        options.headers = headers;
         return this._restConnector.get(url,options);
     }
 
-    newCart(session_id, sellerId, ipClient=false, xBrand=null, channel='WEB',brand) {
+    newCart(params) {
+        let {session_id,sellerId,brand,xSessionContext,channel,ipClient} = params
 
         logger.info("[" + session_id + "] Requesting cart");
 
         let url = `${CHECKOUT_CORE_URL}/carts/`
+
         let cartData = {session_id: session_id, sale_source: channel};
+        
         if (sellerId){
             cartData.seller_id = sellerId
         }
+
         if(ipClient){
             cartData.ip = ipClient;
         }
+
         let options = {
             data: JSON.stringify(cartData),
             timeout: NEW_CART_TIMEOUT
         };
 
+
+
         options.headers = {"Content-Type": "application/json", "X-Brand": brand};
+
+        if(xSessionContext !== ""){
+            options.headers = {"Content-Type": "application/json", 
+                               "X-Brand": brand, 
+                               "x-session-context" : xSessionContext };
+        }
 
         return this._restConnector.postWithoutErrors(url, options);
     }
 
-    updateProductObj(cartId, productId, obj,xBrand){
+
+          /*
+      this.data = {
+          product_id: this.productId,
+          :null,
+          price:null,
+          _promotionId:null
+      }
+
+      this.data._promotionId = _promotionId
+    
+      */
+        /*.getProductUpdater(cartId, product, brand)
+          .withWarranty(warranty_id)
+          .withPromotion(promotionId)
+          .withQuantity(productCount)
+          .execute()*/
+
+
+    updateProductObj( params ){
+        let {cartId, productId,brand,warranty_id,quantity,promotionId,productPrice} = params
+
+        let data = {
+            warranty_id : warranty_id,
+            quantity:quantity,
+            _promotionId:promotionId,
+            product_id:productId,
+            price:productPrice
+        }
+        
         let url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
             options = {
-                headers : {'Content-Type':'application/json','X-Brand':xBrand},
-                data : JSON.stringify(obj)
+                headers : {'Content-Type':'application/json','X-Brand':brand},
+                data : JSON.stringify(data)
             }
     
         return this._restConnector.putWithOptions(url, options);
