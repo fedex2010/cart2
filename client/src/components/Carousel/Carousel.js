@@ -42,9 +42,15 @@ class Carousel extends Component {
             renderPrevButton: () => <button className="gb-carousel-module-control gb--prev swiper-button-prev" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="prev" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-left"></span></button>,
             renderNextButton: () => <button className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></button>,
           };
-          
-          if (this.props.carousel.title !== undefined && typeof this.props.data !== "undefined") {
-            const productIds = this.props.data.map((it => it.product_id));
+
+        console.log(this.props.carousel)
+        console.log(typeof this.props.data)
+
+          if (this.props.carousel.title !== undefined) {
+              let productIds =[];
+            if(typeof this.props.data !== "undefined"){
+                 productIds = this.props.data.map((it => it.product_id));
+            }
             return (
                 <div className="card">
                     <div className="card-header">
