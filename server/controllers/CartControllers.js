@@ -34,7 +34,7 @@ class CartControllers {
     if (cartId != "undefined") {  
       //RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
       RestClient.cartClient.getOneCart( params )
-        .then( cart => this._inflateCart(cart) )
+        .then( cart => this._inflateCart(cart,params) )
         .then(cart => {
           res.status(200).send(cart);
         })
@@ -45,7 +45,7 @@ class CartControllers {
         });
     } else {
       RestClient.cartClient.newCart( params )
-        .then( cart => this._inflateCart(cart) )
+        .then( cart => this._inflateCart(cart,params) )
         .then(cart => {
         
           sessionService.setSessionCookie(res, params.session_id) //Setea la cookie con el nuevo carrito
@@ -140,7 +140,6 @@ class CartControllers {
   }
 
   
-
   _getOneCart(params) {
     //TODO Pasar lógica a core para evaluar si devuelve un carro nuevo o utiliza uno anterior en baase al sesisonId
     let {cartId = null} = params
@@ -167,6 +166,74 @@ class CartControllers {
       })
       .catch(err => {throw err});
   }
+
+  addCrosssellingProducs( req,res ){
+    let paramsPromotion = this.getParamsToAddProduct( req,res )
+    let paramsCart = this.getParamsToGetCart(req,res)
+
+    let self = this
+
+    this._getOneCart( paramsCart )
+    .then( cart =>{
+      paramsCart.cartId = cart.cart_id
+      paramsPromotion.cartId = cart.cart_id
+
+      // Agrega todos los productos de la promo que faltan 
+      return RestClient.promotion.getPromotion(paramsPromotion.promotionId,paramsPromotion.brand)
+        .then( promotion => {
+
+          if (promotion){ 
+
+            //let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
+            promotion.xids.push( paramsPromotion.productId )
+
+            logger.info( "["+ cart.cart_id+ "] promo xids="+ promotion.xids )
+
+            return promotion.xids.reduce( (ac, promoProductId) => {
+                
+                let paramsPromotionCopy = {...paramsPromotion}
+                paramsPromotionCopy.productId = promoProductId
+
+                //si no es el producto principal de la promo, los demas valores van en null
+                if( paramsPromotionCopy.productId != req.body.xid ){
+                  paramsPromotionCopy.warrantyId = null
+                  paramsPromotionCopy.productPrice = null
+                  paramsPromotionCopy.promotionId = null
+                }
+
+                return  ac.then( _ => self.addProductToCart( cart, paramsPromotionCopy ) )
+                          .then( _ => self.waitProcessingCart( paramsCart ) )
+                      
+                }
+                ,Q(cart).then(_ => self.waitProcessingCart( paramsCart ))
+              )
+              .catch(err=> {
+                logger.error ("Error adding promotion products", JSON.stringify(err))
+                throw new Error( "Error adding promotion products" )
+              })
+
+          }else{
+            return cart
+          }
+      })
+      .catch(err => { throw err })
+    })
+
+    .then( cart => {
+
+      //por insomnia, DESPUES BORRAR
+      sessionService.setSessionCookie(res, cart.session) //Setea la cookie con el nuevo carrito
+      sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
+
+      res.send(cart)
+    })
+    .catch(err=> {
+      logger.error ( JSON.stringify(err) )
+      
+      res.redirect(301,req.body.errorUrl)
+    })
+  }
+
 
   addSeveralProducs( req,res ){
     const productIds = req.body.xid.split(",")
@@ -196,7 +263,7 @@ class CartControllers {
               , Q(cart).then(_ => self.waitProcessingCart(paramCart) ))
 
               .catch(err=> {
-                logger.error ("Error adding Promotion products", JSON.stringify(err))
+                logger.error ("Error adding several products", JSON.stringify(err))
                 throw new Error( "zajaja" )
               })
 
@@ -237,8 +304,15 @@ class CartControllers {
     const body = req.body;
 
     const productIds = body.xid.split(",")
+  
     if( productIds.length > 1 ){
       this.addSeveralProducs(req,res)
+      return
+    }
+
+    const promotionId = body.promotion_id || ""
+    if( promotionId != "" ){
+      this.addCrosssellingProducs(req,res)
       return
     }
     
@@ -248,53 +322,17 @@ class CartControllers {
 
     let paramsCart = this.getParamsToGetCart(req,res)
     let paramsProduct = this.getParamsToAddProduct(req,res)
-    let paramsPromotion = this.getParamsToAddProduct( req,res )
                       
     this._getOneCart( paramsCart )
       .then(cart => {
         cartId = cart.cart_id
+        //if cart does not exist at the moment to add product, then cartId will be null, because of that is 
+        //necesary this assignment
 
-        paramsPromotion.cartId = cartId
         paramsProduct.cartId = cartId
         paramsCart.cartId = cartId
 
-        if( paramsProduct.promotionId != null ){
-          // Agrega todos los productos de la promo que faltan 
-          return RestClient.promotion.getPromotion(paramsProduct.promotionId,paramsProduct.brand)
-              .then( promotion => {
-                console.log("////////////////////")
-                console.log( promotion )
-                console.log("////////////////////")
-
-                if (promotion){ 
-
-                  let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
-
-                  logger.info("["+ cartId+ "] promo xids="+ promotion.xids+ "  missing="+ missing)
-            
-                  return missing.reduce( (ac, promoProductId) => {
-                      
-                      let paramsPromotionCopy = {...paramsPromotion}
-                      paramsPromotionCopy.productId = promoProductId
-
-                      return  ac.then( _ => self.addProductToCart( cart, paramsPromotionCopy ) )
-                                .then( _ => self.waitProcessingCart( paramsCart ) )
-
-                      }
-                      ,Q(cart).then(_ => self.waitProcessingCart( paramsCart ))
-                  )
-                  .catch(err=> {
-                    logger.error ("Error adding Promotion products"+ err)
-                    throw(err) 
-                  })
-
-                }else{
-                  return cart
-                }
-            })
-        }else{
-          return cart
-        }        
+        return cart        
       })
 
       .then(cart => self.waitProcessingCart( paramsCart ))
@@ -309,12 +347,12 @@ class CartControllers {
 
       .then(cart => self.waitProcessingCart( paramsCart ))
 
-      /*.then(product => {      
-        logger.info("[", cartId, "] Product added", product)
-        return this._getOneCart( paramsCart )
-      })*/
-
       .then(cart => {
+        
+        //por insomnia, DESPUES BORRAR
+        sessionService.setSessionCookie(res, cart.session) //Setea la cookie con el nuevo carrito
+        sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
+
         if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") && !req.headers['referer'].endsWith("/carrito/")) {
           res.redirect(302, req.get('origin') + '/carrito')
         } else {
@@ -359,6 +397,7 @@ class CartControllers {
       return RestClient.cartClient.updateProductObj( aParams )
     } else {
 
+      logger.info("-------------------------------------------------------------")
       logger.info("Agregando producto " + productId + "en [cartId=" + cartId + "]")
 
       return RestClient.productClient.addProduct( aParams )
@@ -513,13 +552,13 @@ class CartControllers {
     let cartId = req.params.cartId,
       couponCode = req.params.couponCode,
       brand = res.locals.xBrand.toLowerCase();
+    
+      let paramsCart = this.getParamsToGetCart(req,res)
     RestClient.promotion
       .deleteCoupon(cartId, couponCode, brand)
       .then(() => {
-        this._getOneCart(cartId, req, res)
+        this._getOneCart( paramsCart )
           .then(cart => {
-            
-
             res.status(200).send(cart);
           })
           .catch(err => {

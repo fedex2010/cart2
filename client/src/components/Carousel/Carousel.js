@@ -11,7 +11,6 @@ import Swiper from 'react-id-swiper';
 class Carousel extends Component {
     constructor(props) {
         super(props)
-        this.props.getCarousel();
     }
 
     handleAddProduct(product,price){
@@ -24,7 +23,9 @@ class Carousel extends Component {
         window.location = "/producto/"+productId
     }
 
-   
+   componentDidMount(){
+        this.props.getCarousel();
+   }
 
     render() {
         const params = {
