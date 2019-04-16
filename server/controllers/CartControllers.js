@@ -225,7 +225,7 @@ class CartControllers {
       sessionService.setSessionCookie(res, cart.session) //Setea la cookie con el nuevo carrito
       sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
 
-      res.send(cart)
+      res.redirect(302, req.get('origin') + '/carrito')
     })
     .catch(err=> {
       logger.error ( JSON.stringify(err) )
