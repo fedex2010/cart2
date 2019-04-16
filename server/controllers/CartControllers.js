@@ -731,12 +731,12 @@ class CartControllers {
 function _replaceImage(cart) {
   let cartId = cart.cart_id;
   cart.products.map(product => {
-      logger.info("[" + cartId + "] img replace:" + product.main_image);
+      //logger.info("[" + cartId + "] img replace:" + product.main_image);
     if (typeof product.main_image !== "undefined") {
-        logger.info("[" + cartId + "] Entre por el if la imagen no es undefined");
+        //logger.info("[" + cartId + "] Entre por el if la imagen no es undefined");
         product.main_image.url = getProductImageCloudfrontV2(product.main_image.url,cartId );
     } else {
-      logger.info("[" + cartId + "] Entre por el else la imagen es undefined");
+      //logger.info("[" + cartId + "] Entre por el else la imagen es undefined");
       product.main_image = {};
       product.main_image.url = "";
     }
@@ -745,7 +745,7 @@ function _replaceImage(cart) {
 }
 
 function getProductImageCloudfrontV2(url,cartId=0) {
-    logger.info("[" + cartId + "] Img product" + url);
+   // logger.info("[" + cartId + "] Img product" + url);
   if (url.indexOf("noImage") == -1) {
     var product_image_sha = url.split("/");
     product_image_sha = product_image_sha[product_image_sha.length - 1];
@@ -761,7 +761,7 @@ function getProductImageCloudfrontV2(url,cartId=0) {
       tamano;
   }
 
-    logger.info("[" + cartId + "] Img product2" + url);
+   // logger.info("[" + cartId + "] Img product2" + url);
   return url;
 }
 
