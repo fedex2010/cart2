@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  check_n_build:
+  checkout_code:
     docker:
       - image: circleci/node:8-browsers
     working_directory: ~/garbarino-com/cart-ui
@@ -52,8 +52,7 @@ jobs:
             name: Install aws dependencies
             command: |
               sudo apt-get update
-              sudo apt-get install -y zip
-              sudo pip install awscli
+              sudo apt-get install awscli
         - run: zip  -r /tmp/app.zip . -x "node_modules/*" -x "client/node_modules/*" -x "server/node_modules/*" -x ".git/*"
         - run:
             name: Deploy All Branches
