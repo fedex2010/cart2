@@ -10,11 +10,16 @@ class Product extends Component {
     };
   }
 
+  
 
   render() {
-    let products = this.props.product;
-    let percentage = this.props.percentage;
+    if( Object.keys(this.props.cart) == 0 ){
+      return null
+    }
     
+    let products = this.props.cart.products;
+    let percentage = this.props.cart.percentage;
+
     if (products !== undefined && products.length > 0) {
         return (
           <div>
@@ -27,11 +32,10 @@ class Product extends Component {
     } else {
 
       return (
-                <div className="cart-empty">
-                  <p>No hay productos en tu carrito.</p>
-                </div>
-              )
-              
+          <div className="cart-empty">
+            <p>No hay productos en tu carrito.</p>
+          </div>
+        )
     }
   }
 }

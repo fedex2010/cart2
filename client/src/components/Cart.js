@@ -132,8 +132,7 @@ class Cart extends Component {
             <div className="product-summary-gbChk row">
               <div className="product-gbChk col-md-8 ">
                 <Product
-                  product={this.props.cart.products}
-                  percentage={this.props.cart.percentage}
+                  cart={this.props.cart}
                 />
               </div>
               <div className="summary-gbChk col-md-4" data-role="resumenCompra">
