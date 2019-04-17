@@ -15,7 +15,7 @@ class Alert extends Component {
   }
 
   showLoginForm(){
-      //gb.my_account.login.open();
+        window.gb.my_account.login.open();
   }
    _closeAlert(){
         this.setState({ showAlert: false });
