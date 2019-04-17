@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Cookie from "js-cookie";
 
 
 class Alert extends Component {
@@ -13,6 +14,9 @@ class Alert extends Component {
     };
   }
 
+  showLoginForm(){
+      //gb.my_account.login.open();
+  }
    _closeAlert(){
         this.setState({ showAlert: false });
     }
@@ -188,6 +192,26 @@ class Alert extends Component {
     }
   }
 
+  _showLoginMessage(){
+    let gb_session_id = Cookie.get("gb_session_id");
+    
+    if(gb_session_id){
+        return null
+    }else{
+       return ( <div className="alert-message-gbChk col-md-12">
+            <div class="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
+                <img src="../../statics/images/checkout_profile.svg" alt="profile" />
+                <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  
+                <a class="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
+                    <span type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </span>
+                <div class="displaynone miAccountBody"></div>
+            </div>
+       </div> )
+    }
+  }
+    
   render() {
     
     if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {    
@@ -197,6 +221,7 @@ class Alert extends Component {
                 {this._isSaleable(this.props.cart)}
                 {this._isPriceChange(this.props.cart)}
                 {this._showError(this.props.err)}
+                {this._showLoginMessage()}
             </div>
         );
     }else{

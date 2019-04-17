@@ -128,18 +128,6 @@ class Cart extends Component {
             <h1 className="cart-title">Mi Carrito</h1>
             <div className="row">
                 <Alert cart={this.props.cart}/>
-                {/*Negro mensaje empieza*/}
-                <div className="alert-message-gbChk col-md-12">
-                  <div class="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
-                      <img src="../../statics/images/checkout_profile.svg" alt="profile" />
-                      <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  <a class="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration">Ingresar</a></span>
-                          <span type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                      </span>
-                      <div class="displaynone miAccountBody"></div>
-                  </div>
-                </div>
-                {/*Negro mensaje termina*/}
             </div>
             <div className="product-summary-gbChk row">
               <div className="product-gbChk col-md-8 ">
