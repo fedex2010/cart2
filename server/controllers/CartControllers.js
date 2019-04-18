@@ -9,6 +9,14 @@ const RestClient = require("../client"),
 class CartControllers {
   constructor() { }
 
+  setLoginMessageClosedCookie(req,res){
+    
+    sessionService.setLoginMessageClosedCookie(res)
+
+    res.status(200)
+       .send({ ok: true });
+  }
+
   sellerLoginAction(req, res) {
     sessionService.clearSessionCookies(res)
 

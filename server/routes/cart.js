@@ -19,6 +19,8 @@ router.post("/c_:cartId/aaPlus", jsonParser, ( req , res) => controllers.cart.se
 router.post("/setWarranty", jsonParser, ( req , res) => controllers.cart.setWarranty( req , res));
 router.post("/vendedor", urlencodedParser, ( req , res) =>  controllers.cart.sellerLoginAction( req , res));
 
+router.post("/setLoginMessageClosedCookie", ( req , res) =>  controllers.cart.setLoginMessageClosedCookie( req , res));
+
 router.put("/:cartId", urlencodedParser, ( req , res) =>  controllers.cart.editProduct( req , res));
 
 router.delete("/:productId", urlencodedParser, (req , res) => controllers.cart.deleteProduct( req , res));

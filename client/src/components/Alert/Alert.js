@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Cookie from "js-cookie";
+import {  setLoginMessageClosedCookie } from "../../actions/CartAction";
 
 
 class Alert extends Component {
@@ -15,8 +16,9 @@ class Alert extends Component {
   }
 
   showLoginForm(){
-        window.gb.my_account.login.open();
+    window.gb.my_account.login.open();
   }
+
    _closeAlert(){
         this.setState({ showAlert: false });
     }
@@ -192,10 +194,18 @@ class Alert extends Component {
     }
   }
 
+  setCookieMonth(){
+    this.props.setLoginMessageClosedCookie()
+  }
+
   _showLoginMessage(){
     let gb_session_id = Cookie.get("gb_session_id");
+    let gb_login_message_closed = Cookie.get("gb_login_message_closed");
     
-    if(gb_session_id){
+    console.log("gb_session_id" , gb_session_id)
+    console.log("gb_login_message_closed" , gb_login_message_closed)
+    
+    if(gb_session_id || gb_login_message_closed){
         return null
     }else{
        return ( <div className="alert-message-gbChk col-md-12">
@@ -204,7 +214,7 @@ class Alert extends Component {
                 <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  
                 <a class="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
                     <span type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span onClick={this.setCookieMonth.bind(this)} aria-hidden="true">×</span>
                 </span>
                 <div class="displaynone miAccountBody"></div>
             </div>
@@ -240,4 +250,6 @@ const mapStateToProps = state => {
     return { err: state.cartReducer.err, operationStatus: state.cartReducer.operationStatus };
 };
 
-export default connect(mapStateToProps)(Alert)
+export default connect(
+                    mapStateToProps,
+                    {setLoginMessageClosedCookie}) (Alert)

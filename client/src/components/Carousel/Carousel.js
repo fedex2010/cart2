@@ -45,8 +45,6 @@ class Carousel extends Component {
             renderNextButton: () => <button className="gb-carousel-module-control gb--next swiper-button-next" gb-analytics="false" data-home-name="20190114_00a00_hogar-fest" data-component-type="vintage_carousel" data-element-title="next" data-home-idx="3" data-element-position="" data-device="desktop"><span className="gb-icon-simple-bold-arrow-right"></span></button>,
           };
 
-        console.log(this.props.carousel)
-        console.log(typeof this.props.data)
 
           if (this.props.carousel.title !== undefined) {
               let productIds =[];

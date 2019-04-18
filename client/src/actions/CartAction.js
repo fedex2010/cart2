@@ -1,6 +1,5 @@
-import { HIDE_GENERAL_LOADING,SET_CURRENT_CART, SET_CAROUSEL, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT} from "./Types";
+import { HIDE_GENERAL_LOADING,SET_CURRENT_CART, SET_CAROUSEL, SET_CURRENT_CART_ERROR, SET_SELECTED_PRODUCT,ONLY_RE_RENDER} from "./Types";
 import history from '../history';
-import config from "../config/config";
 
 function handleErrors(response) {
     if (!response.ok) {
@@ -336,3 +335,25 @@ export const deleteLoyalties = (cartId) => dispatch => {
             history.push('/carrito/error')
         });
 };
+
+export const setLoginMessageClosedCookie = (cartId) => dispatch =>  {
+    fetch("/carrito/api/cart/setLoginMessageClosedCookie", {
+        method: "POST",
+        cache: "no-store",
+        credentials: 'include',
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+    .then(handleErrors)
+    .then(response => response.json())
+    .then(response => {
+        console.log(response)
+        dispatch({ type: ONLY_RE_RENDER, payload: {}, operationStatus: 'SUCCESSFUL' });
+    }).catch((err) => {
+        console.error(err)
+        dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+        history.push('/carrito/error')
+    });
+}

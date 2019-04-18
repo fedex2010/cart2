@@ -23,6 +23,11 @@ exports.setSessionCookie = (res, session_id) => {
     res.cookie('epi.context', '"{\\"userId\\":\\"'+ session_id +'\\"}"', {encode: String, expires: new Date(Date.now() + 1 * 60 * 60 * 1000) })
 }
 
+exports.setLoginMessageClosedCookie = (res) => {
+    logger.info("setLoginMessageClosedCookie setted")
+    res.cookie('gb_login_message_closed', 'algunValor', {encode: String, expires: new Date(Date.now() + 3600*24*30) })//un mes
+}
+
 exports.generateSessionCookie = (res) => {
     this.setSessionCookie(res, "chkw-" + uuid.v4().substr(5))   
 }
