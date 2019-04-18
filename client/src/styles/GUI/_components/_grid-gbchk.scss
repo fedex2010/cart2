@@ -1,0 +1,32 @@
+body * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.col-md-12,
+.col-md-8,
+.col-md-4 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: left;
+}
+.col-md-12 {
+    width: 100%;
+}
+.col-md-8 {
+    width: 66.66666667%;
+}
+
+.col-md-4 {
+    width: 33.33333333%;
+}

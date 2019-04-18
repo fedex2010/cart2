@@ -1,25 +1,26 @@
-const winston           = require('winston');
+const winston = require('winston');
 const WinstonCloudWatch = require('winston-cloudwatch');
 
 var env = process.env.APP_ENV || 'dev';
+
 var cloudwatchTransport = new WinstonCloudWatch({
-    logGroupName: 'application-logs',
-    logStreamName: 'chk-ui-' + process.env.APP_ENV,
-    awsRegion: 'us-east-1'
+  logGroupName: 'application-logs',
+  logStreamName: 'cart-ui-' + env,
+  awsRegion: 'us-east-1'
 });
+
+if (env == "dev") {
+  var transport = new winston.transports.Console({ format: winston.format.simple() });
+} else {
+  var transport = cloudwatchTransport;
+}
 
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
   transports: [
-    cloudwatchTransport
+    transport
   ]
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.simple()
-  }));
-}
 
 module.exports = logger;

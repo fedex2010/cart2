@@ -1,0 +1,29 @@
+//utility classes
+
+.ellipsis-text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   max-width: 100%;
+}
+
+.is-inline-block {
+   display: inline-block;
+}
+
+.text-center {
+   text-align: center;
+}
+
+.is-semibold {
+	font-weight: 600;
+}
+
+
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: none;
+}

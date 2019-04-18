@@ -1,0 +1,202 @@
+// Colors
+// --------------------------------------------------
+
+$black:						#000000 !default;
+$white:						#FFFFFF !default;
+
+$gray-darker-2x:			#333333 !default;
+$gray-darker-1x:			#6B6B6B !default;
+$gray:						#9E9E9E !default;
+$gray-lighter-1x:			#C4C4C4 !default;
+$gray-lighter-2x:			#E2E2E2 !default;
+$gray-lighter-3x:			#F6F6F6 !default;
+
+$red-darker-1x:			#A01B1D !default;
+$red:         				#E42729 !default;
+$red-lighter-1x:			#F6A9A8 !default;
+
+$blue-darker-1x:			#34659E !default;
+$blue:						#4A90E2 !default;
+$blue-lighter-1x:			#B6D2F3 !default;
+
+$green-darker-1x:			#0F7300 !default;
+$green:          			#16A400 !default;
+$green-lighter-1x:		#A0DC96 !default;
+
+$yellow-darker-1x:		#B1811E !default;
+$yellow:   					#FEBA2B !default;
+$yellow-lighter-1x:		#FEE3AA !default;
+
+$orange:						#EB7300 !default;
+
+
+
+$primary:       			$blue !default;
+$secondary:     			$gray !default;
+$success:       			$green !default;
+$info:          			#016AB3 !default;
+$warning:       			$yellow !default;
+$error:        			$red !default;
+
+$option-color:				$orange !default;
+$benefit-color:			$green !default;
+$action-color:				$blue !default;
+$action-color-hover:		$blue-darker-1x!default; 
+
+
+
+
+// style for `<body>`
+// --------------------------------------------------
+$body-bg:               $gray-lighter-3x !default;
+$baseline-grid:         16px;
+$font-family-base:      "Open Sans", -apple-system, sans-serif !default;
+$font-size-base:        1rem !default;    // 16px
+$line-height-base:      1.4rem;
+
+
+// Layout
+// --------------------------------------------------
+$container-max-width: 	1366px;
+$container-min-width: 	320px;
+
+
+// Generic spacers for elements
+// --------------------------------------------------
+$spacer-xl:             $baseline-grid * 2 !default;//32
+$spacer-lg:             $baseline-grid * 1.5 !default; //24
+$spacer-base:           $baseline-grid !default; //16
+$spacer-sm:             $baseline-grid * .5 !default; //8
+$spacer-xs:             $baseline-grid * .25 !default; // 4 
+
+
+
+// Links
+// --------------------------------------------------
+$link-color:            			$blue !default;
+$link-decoration:       			none !default;
+$link-hover-color:      			$blue !default;
+$link-hover-decoration: 			underline !default;
+
+
+
+// Buttons
+// ---------------------------------------------------
+$button-primary-bg:					$blue !default;
+$button-primary-color:				$white !default;
+$button-primary-border-color: 	$blue-darker-1x !default;
+$button-primary-bg-hover: 			$blue!default;
+$button-primary-focus-bg:			$blue-darker-1x!default;
+$button-primary-focus-border-color: $blue!default;
+$button-primary-color-hover:		$white !default;
+
+
+$button-link-bg:						transparent !default;
+$button-link-color:					$link-color !default;
+
+
+
+
+
+// Border-radius
+// --------------------------------------------------
+$border-radius-xs:      			4px !default;
+$border-radius-md:      			8px !default;
+
+
+// Price info
+// --------------------------------------------------
+$item-price-list-color:					$gray !default;
+$item-discount-color:					$green !default;
+//$item-price-color:						$red !default;
+
+
+
+// Cards
+//________________________________________________________________
+$card-bg-color:							$white !default;
+$card-border-color:						$gray-lighter-2x !default;
+$card-rounded: 							$border-radius-xs !default;
+$border-color-error:						$error !default;
+
+
+//Shadows 
+// --------------------------------------------------
+$shadow-color:				rgba(0,0,0,0.33);
+$hover-shadow-0: 			0 0 0 0 $shadow-color; // inicial para la transición
+$hover-shadow-depth-1:	0 4px 8px 0 $shadow-color; //hover de las  cajas
+
+$shadow-xs:					0 1px 2px 0 rgba(0,0,0,0.25) ; //sombra de cajas en el interior
+
+
+
+// Tooltip definitions
+// --------------------------------------------------
+$tooltip-bg:                        $black !default;
+$tooltip-color:                     $white !default;
+$tooltip-line-height:               20px!default;
+$tooltip-padding:                   $spacer-sm $spacer-base !default;
+$tooltip-arrow-size:                $spacer-sm !default;
+$tooltip-distance:                  10px !default;
+$tooltip-border-radius:					$border-radius-xs !default;
+$tooltip-font-size: 						14px !default;
+
+
+// Popovers definitions
+// --------------------------------------------------
+$popover-bg:                        $white !default;
+$popover-color:                     $black !default;
+$popover-line-height:               1.3em!default;
+$popover-padding:                   $spacer-base !default;
+$popover-arrow-size:                9px !default;
+$popover-distance:                  10px !default;
+$popover-border-radius:					$border-radius-xs !default;
+$popover-font-size: 						14px !default;
+$popover-border-color:					$gray-lighter-1x !default;
+
+// Icon font name
+// --------------------------------------------------
+$icon-font-name: "gui-icons" !default;
+
+$gui-icon-close: "\e906";
+$gui-icon-error: "\e90a";
+$gui-icon-info: "\e915";
+$gui-icon-success: "\e92a";
+$gui-icon-warning: "\e932";
+$gui-icon-free-send: "\e900";
+$gui-icon-trash: "\e902";
+$gui-icon-question-mark-circle: "\e901";
+$gui-icon-checkmark: "\e903";
+$gui-icon-arrow-bold-left: "\e904";
+$gui-icon-arrow-bold-right: "\e905";
+$gui-icon-arrow-thin-bottom: "\e907";
+$gui-icon-arrow-thin-left:"\e908";
+$gui-icon-arrow-thin-right: "\e909";
+$gui-icon-arrow-thin-top: "\e90b";
+
+
+// forms
+// --------------------------------------------------
+$input-bg-color:				$white !default;
+$input-border-color:			$gray-lighter-1x !default;
+$input-border-color-focus:	$blue !default;
+$input-border-color-error: $error !default;
+$input-border-radius:		$border-radius-xs !default;
+
+$input-disabled-bg:				$gray-lighter-3x;			
+$input-disabled-border-color:	$gray-lighter-1x!default;
+$input-disabled-color:			$gray-darker-1x !default;
+
+$error-msj-color:				$error !default;
+
+
+
+// Carousel
+// --------------------------------------------------
+$carusel-title-font-color:				$black !default;
+$carusel-title-font-size:				24px !default;
+$carusel-tablet-title-font-size:		20px !default;
+$carusel-mobile-title-font-size:		16px !default;
+
+$carusel-product-name-color:			$gray-darker-2x!default;
+$carusel-product-name-font-size:    15px!default;

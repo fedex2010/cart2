@@ -1,0 +1,216 @@
+@import "../GUI/_variables/_variables";
+
+.cart-item {
+	margin-bottom: $spacer-base;
+}
+
+.cart-item-detail {
+   align-content: stretch;
+   align-items: center;
+   display: flex;
+   font-size: rem(14);
+   padding: $spacer-base 10% $spacer-base $spacer-lg;
+   position: relative;
+   
+   picture {
+      display: block;
+      height: 65px;
+      position: relative;
+      width: 65px;
+
+   	img {
+         display: block;
+         left: 50%;
+         max-height: 100%;
+         max-width: 100%;
+         position: absolute;
+         top: 50%;
+         transform: translate(-50%,-50%);
+   	}
+   }
+
+   .cart-item-name { 
+      line-height: rem(20);
+      padding-right: $spacer-xl;
+
+      em {
+         display: block;
+         font-style: normal;
+      }
+   }
+
+
+   .cart-item-column {
+      flex: 0 0 80px;
+   }
+
+   .cart-item-column-lg {
+      flex-grow: 2;
+      height: auto;
+      width: auto;
+   }
+
+   label {
+      color: $gray-darker-1x;
+      display: block;
+      font-size: rem(11);
+      line-height: initial;
+      margin-bottom: $spacer-sm;
+   }
+
+	.cart-item-column-data {
+      display: block;
+      line-height: rem(30);
+      white-space: nowrap;
+	}
+
+	select {
+		width: 50px;
+        display: inline-block;
+	}
+
+   .gui-icon-trash {
+      position: absolute;
+      right: $spacer-base;
+      background-color: transparent;
+      border: 0;
+      color: $blue;
+   	&:hover {
+   		text-decoration: none;
+   	}
+   }
+}
+
+//ajustes para Venta empresas
+.cart-item--vta-empresas {
+
+   .cart-item-column:nth-child(3),{
+      flex: 0 0 100px;
+   }
+
+    .cart-item-column:nth-child(4) {
+      flex: 0 0 65px;
+   }
+
+   .cart-item-column:nth-child(5){
+      flex: 0 0 90px;
+   }
+}
+
+
+// producto agotado
+.cart-item-sold-out {
+   border-color: $border-color-error;
+}
+
+//tags
+.cart-item-tag {
+   border-radius: $border-radius-xs;
+   color: $white;
+   display: inline-block;
+   font-size: rem(12);
+   font-weight: 700;
+   margin-top:$spacer-sm;
+   padding: 0 $spacer-sm;
+}
+
+.cart-item-tag--error {
+   background-color: $error;
+}
+
+.cart-item-tag--info {
+   background-color: $info;
+}
+
+.cart-item-tag--success {
+   background-color: $success;
+}
+
+
+//garantías
+.cart-item-warranties {
+   border-top: 1px solid $card-border-color;
+   padding: $spacer-base $spacer-lg;
+   .cart-item-tag--info {
+      margin-left: 10px;
+   }
+	p { 
+		font-size: rem(13);
+      line-height: rem(18);
+
+		.benefits {
+			font-weight: 600;
+		}
+	}
+}
+
+.cart-item-warranties--list {
+	font-size: 0;
+	margin-top: $spacer-sm;
+	
+   li {
+      box-sizing: border-box;
+      display: inline-block;
+      font-size: rem(12);
+      line-height: rem(18);
+      padding: $spacer-xs $spacer-base $spacer-xs 20px;
+      position: relative;
+      width: 50%;
+	}
+
+	input {
+      left: 0;
+      position: absolute;
+      top: 7px;
+	}
+}
+
+
+
+@media (max-width: 1024px){
+   .cart-item-detail {
+      flex-wrap: wrap;
+      padding: $spacer-base 10% $spacer-base 100px;
+
+      .cart-item-column:first-child {
+         left: $spacer-base;
+         position: absolute;
+         top: $spacer-base;
+      }
+
+      .cart-item-column-lg {
+         flex: 0 0 100%;
+      }
+
+      label {
+         margin-top: 20px;
+      }
+   }
+
+   .cart-item-warranties--list {
+      li {
+         width: 100%;
+      }
+   }
+}
+
+
+@media (max-width: 767px){
+   .cart-item-detail {
+
+      .gui-icon-trash {
+         top: 20px;
+      }
+
+      .cart-item-column {
+         flex: 0 0 100% !important;
+      }
+
+      label,
+      .cart-item-column-data {
+         display: inline-block;
+         min-width: 60px;
+      }
+   }
+  
+}

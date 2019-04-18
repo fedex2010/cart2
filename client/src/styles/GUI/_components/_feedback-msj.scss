@@ -1,0 +1,129 @@
+@import "../_variables/variables";
+
+.alert-signup {
+	border: 1px solid #ddd;
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 14px;
+	line-height: 32px;
+	position: relative;
+	padding-left: 55px;
+	img {
+		top: 22px;
+		width: 30px;
+		margin-right: 10px;
+		position: absolute;
+		left: 16px;
+	}
+	.deleteProductText {
+		color:#666;
+		font-weight: 600;
+		.gb-button {
+		background-color: inherit;
+		color: #4990e2;
+		border-bottom: 0;
+		font-weight: 700;
+		}
+	}
+	.close {
+		font-size: 35px;
+		margin-top: 1px;
+		margin-right: 0;
+	}
+}
+
+.feedback {
+	border-radius: $border-radius-xs;
+	color: $gray-darker-2x;
+	font-size: 0.875rem;
+	margin-bottom: $spacer-xl;
+	padding: $spacer-base $spacer-base $spacer-base ($spacer-base * 2 + $spacer-xl);
+	position: relative;
+	text-align: left;
+
+	&:before {
+		content: "";
+		display: block;
+		font-family: $icon-font-name;
+		font-size:$spacer-xl;
+		left: $spacer-base;
+		line-height: $spacer-xl;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	p + p {
+		margin-top: $spacer-sm;
+	}
+}
+
+.feedback-error {
+	background-color: $red-lighter-1x;
+	&:before {
+		content: $gui-icon-error;
+	}
+}
+
+.feedback-success {
+	background-color: $green-lighter-1x;
+	&:before {
+		content: $gui-icon-success;
+	}
+}
+
+.feedback-warning {
+	background-color: $yellow-lighter-1x;
+	&:before {
+		content: $gui-icon-warning;
+	}
+}
+
+.feedback-info {
+	background-color: $blue-lighter-1x;
+	&:before {
+		content: $gui-icon-info;
+	}
+}
+
+// link en el mensaje
+.feedback-link {
+	color: $link-color;
+}
+
+// mensajes que se pueden cerrar
+.feedback-dismissible {
+	padding-right:($spacer-base * 2 + $spacer-lg);
+}
+
+.feedback--btn-close {
+	background: transparent;
+	border: 0;
+	font-family: $icon-font-name;
+	font-size: $spacer-base;
+	height: $spacer-base;
+	line-height: $spacer-base;
+	padding: 0;
+	position: absolute;
+	right: $spacer-base;
+	top: $spacer-base;
+	width: $spacer-base;
+
+	&:before {
+		color: $link-color;
+		content: $gui-icon-close;
+		display: block;
+		font-size: 12px;
+	}
+}
+
+
+// sin icono ni botón para cerrar
+.feedback-basic {
+	padding-left: $spacer-base;
+	&:before {
+		display: none;
+	}
+}

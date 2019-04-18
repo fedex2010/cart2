@@ -1,0 +1,52 @@
+// Css Arrow Generator mixin
+
+// @make-css-arrow($width, $height, $color, $arrowdirection)
+//
+// Genera automaticamente una flecha usando pseudo-elements de CSS.
+//
+// $width - Medida de la flecha/ancho.
+// $height - Medida de la flecha/altura.
+// $color - Color de la flecha (no admite bordes).
+// $arrowdirection - La dirección en que debe apuntar la flecha.
+//
+// Styleguide Helpers.Misc.CSSArrowGenerator
+
+@mixin css-arrow($width, $height, $color, $arrowdirection) {
+  @include make-pseudo-element;
+  border: solid transparent;
+  height: 0;
+  position: absolute;
+  width: 0;
+
+  @if $arrowdirection == "top" {
+    border-bottom-color: $color;
+    border-width: 0 $width / 2 $height;
+    left: 50%;
+    margin-left: ($width / 2) * -1;
+    top: $height * -1;
+  }
+
+  @if $arrowdirection == "right" {
+    border-left-color: $color;
+    border-width: $height / 2 $width;
+    left: 100%;
+    margin-right: $width * -1;
+    top: 0;
+  }
+
+  @if $arrowdirection == "bottom" {
+    border-top-color: $color;
+    border-width: $height $width / 2 0;
+    bottom: $height * -1;
+    left: 50%;
+    margin-left: ($width / 2) * -1;
+  }
+
+  @if $arrowdirection == "left" {
+    border-right-color: $color;
+    border-width: $height / 2 $width;
+    margin-left: $width * -1;
+    right: 100%;
+    top: 0;
+  }
+}

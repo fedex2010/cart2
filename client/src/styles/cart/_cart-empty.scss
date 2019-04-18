@@ -1,0 +1,14 @@
+@import "../GUI/_variables/_variables";
+
+.cart-empty {
+   background: url(./images/empty.png) no-repeat center top;
+   background-size: auto rem(140);
+   padding-top: rem(160);
+
+	p {
+      color: $gray;
+      font-size:rem(16);
+      margin-bottom: $spacer-xl;
+      text-align: center;
+   }
+}

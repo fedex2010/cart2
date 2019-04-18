@@ -1,0 +1,117 @@
+@import "../_variables/variables";
+
+body,
+html {
+   background-color: $body-bg;
+   font-size: $baseline-grid;
+   font-family: $font-family-base;
+   line-height: $line-height-base;
+}
+
+.main-wrapper,
+.gb-wrapper,
+.main-container,
+.cart-wrapper {
+   max-width: $container-max-width;
+   min-width: $container-min-width;
+   margin-right: auto;
+   margin-left: auto;
+   text-align: left;
+   padding-left: $spacer-xl;
+   padding-right: $spacer-xl;
+   margin-bottom: $spacer-xl;
+}
+
+
+a {
+   color: $link-color;
+   text-decoration:  $link-decoration;
+
+   &:hover {
+      color: $link-hover-color;
+      text-decoration: $link-hover-decoration;
+   }
+}
+
+.card {
+   background-color: $card-bg-color;
+   border: 1px solid $card-border-color;
+   border-radius: $card-rounded;
+}
+
+.card-header {
+   border-bottom: 1px solid $card-border-color;
+   margin: 0 30px;
+}
+
+.card-title {
+   display: block;
+   font-size: rem(24);
+   font-weight: 600;
+   line-height: initial;
+   padding: 20px 0;
+   vertical-align: top;
+}
+
+.card-title--sm {
+   font-size: rem(20);
+}
+
+
+.card--is-loading {
+   position: relative;
+   &:after {
+      background-color: rgba(246, 246, 246, .8);
+      background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/all/gb-spinner--md.svg);
+      background-position:  center center;
+      background-repeat: no-repeat;
+      background-size: 30px 30px;
+      bottom: 0;
+      content:""; 
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 3;
+   }
+}
+
+
+body.full-page--is-loading {
+   &:after {
+      background-color: rgba(246, 246, 246, .8);
+      background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/all/gb-spinner--md.svg);
+      background-position:  center center;
+      background-repeat: no-repeat;
+      background-size: 60px 60px;
+      bottom: 0;
+      content:""; 
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 2998;
+   }
+   .gb-header {
+      position: relative;
+      z-index: 2999;
+   }
+}
+
+//contenedor con hover 
+.hover-box {
+   box-shadow: $hover-shadow-0;
+   transition: all .15s linear;
+}
+
+.hover-box:hover{
+   box-shadow: $hover-shadow-depth-1;
+   text-decoration: none;
+}
+
+
+
+
+
+
+
