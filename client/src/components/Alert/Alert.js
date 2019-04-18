@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Cookie from "js-cookie";
 import {  setLoginMessageClosedCookie } from "../../actions/CartAction";
+import config from "../../config/config";
 
 
 class Alert extends Component {
@@ -205,12 +206,14 @@ class Alert extends Component {
     console.log("gb_session_id" , gb_session_id)
     console.log("gb_login_message_closed" , gb_login_message_closed)
     
+    let url = config.cloudfront.url+"/statics/images/checkout_profile.svg"
+
     if(gb_session_id || gb_login_message_closed){
         return null
     }else{
        return ( <div className="alert-message-gbChk col-md-12">
             <div class="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
-                <img src="../../statics/images/checkout_profile.svg" alt="profile" />
+                <img src={url} alt="profile" />
                 <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  
                 <a class="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
                     <span type="button" class="close" data-dismiss="alert" aria-label="Close">
