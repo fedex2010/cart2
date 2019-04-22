@@ -203,10 +203,7 @@ class Alert extends Component {
     let gb_session_id = Cookie.get("gb_session_id");
     let gb_login_message_closed = Cookie.get("gb_login_message_closed");
     
-    console.log("gb_session_id" , gb_session_id)
-    console.log("gb_login_message_closed" , gb_login_message_closed)
-    
-    let url = config.cloudfront.url+"/statics/images/checkout_profile.svg"
+    let url = config.getBasePathImages()+"/statics/images/checkout_profile.svg"
 
     if(gb_session_id || gb_login_message_closed){
         return null
