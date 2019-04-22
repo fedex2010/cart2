@@ -5,6 +5,10 @@ import {  setLoginMessageClosedCookie } from "../../actions/CartAction";
 import config from "../../config/config";
 
 
+function reloadPage() {
+    document.location.reload(true)
+}
+
 class Alert extends Component {
     constructor(props) {
     super(props);
@@ -20,7 +24,7 @@ class Alert extends Component {
   showLoginForm(){
     window.gb.my_account.login.open();
 
-    window.gb.my_account.login.addCallback ( this.closeMessageLoginBySetState )
+    window.gb.my_account.login.addCallback ( reloadPage )
   }
 
    _closeAlert(){
