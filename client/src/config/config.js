@@ -13,7 +13,7 @@ let config    = require(__dirname + util.format('/%s.config.js', env) )(rootPath
 
 console.log("---------process.env------------")
 console.log(process.env)
-console.log("------------------------")
+console.log("----------process.env--------------")
 
 config.env = env;
 config.getBasePathImages = function(){
