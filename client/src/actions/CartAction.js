@@ -135,6 +135,9 @@ export const addProduct = product => dispatch => {
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
+
+            window.gb.normandia.getCartItems();
+
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
 
@@ -220,6 +223,8 @@ export const deleteProduct = (productId) => dispatch => {
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
+            window.gb.normandia.getCartItems();
+
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });

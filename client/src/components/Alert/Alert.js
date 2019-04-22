@@ -19,21 +19,21 @@ class Alert extends Component {
       showSaleable:true,
       showLogin:true
     };
-  }
-
-  showLoginForm(){
-    window.gb.my_account.login.open();
 
     window.gb.my_account.login.addCallback ( reloadPage )
   }
 
-   _closeAlert(){
+  showLoginForm(){
+    window.gb.my_account.login.open();
+  }
+
+    _closeAlert(){
         this.setState({ showAlert: false });
     }
 
-   _closeSalable(){
+    _closeSalable(){
         this.setState({ showSaleable: false });
-    }
+}
 
   _isBonificacion(cart){
       let cssMsj = "feedback feedback-success feedback-dismissible";
