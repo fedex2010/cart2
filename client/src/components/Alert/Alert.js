@@ -12,12 +12,15 @@ class Alert extends Component {
       mensaje: this.props.mensaje,
       tipo: this.props.tipo,
       showAlert:true,
-      showSaleable:true
+      showSaleable:true,
+      showLogin:true
     };
   }
 
   showLoginForm(){
     window.gb.my_account.login.open();
+
+    window.gb.my_account.login.addCallback ( this.closeMessageLoginBySetState )
   }
 
    _closeAlert(){
@@ -199,13 +202,17 @@ class Alert extends Component {
     this.props.setLoginMessageClosedCookie()
   }
 
+  closeMessageLoginBySetState(){ //will be called from login modal of normandia
+      this.setState( {showLogin:false} )
+  }
+
   _showLoginMessage(){
     let gb_session_id = Cookie.get("gb_session_id");
     let gb_login_message_closed = Cookie.get("gb_login_message_closed");
     
     let url = config.getBasePathImages()+"/statics/images/checkout_profile.svg"
 
-    if(gb_session_id || gb_login_message_closed){
+    if(gb_session_id || gb_login_message_closed || !this.state.showLogin){
         return null
     }else{
        return ( <div className="alert-message-gbChk col-md-12">
@@ -223,7 +230,7 @@ class Alert extends Component {
   }
     
   render() {
-    
+
     if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {    
         return(
             <div className="alert-message-gbChk col-md-12">
