@@ -17,7 +17,7 @@ console.log("------------------------")
 
 config.env = env;
 config.getBasePathImages = function(){
-    return (env == "dev") ? "http://localhost:5000" : process.env.PUBLIC_URL
+    return (process.env.PUBLIC_URL == "") ? "http://localhost:5000" : process.env.PUBLIC_URL
 }
 
 module.exports = config;
