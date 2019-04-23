@@ -6,9 +6,9 @@ function handleErrors(response) {
         return response.json().then(json => {
             let err = new Error("algo salió mal")
 
-            console.error("*************")
-            console.error(json)
-            console.error("*************")
+            // console.error("*************")
+            // console.error(json)
+            // console.error("*************")
 
             err.response = json
 
@@ -39,15 +39,9 @@ export const justReload = id => dispatch => {
 
         }).catch((err) => {
 
-            console.error("*************")
-            console.error(err)
-            console.error("*************")
-
-            if (err.response.erro.cause.code == 404) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
-            } else {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
-            }
+            var operationResult = (err && err.response && err.response.error && err.response.error.cause.code == 404 && err.response.error.cause.code) || 500;
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
+            
             history.push('/carrito/error')
         });
 };
@@ -62,15 +56,8 @@ export const fetchCart = id => dispatch => {
 
         }).catch((err) => {
 
-            console.error("*************")
-            console.error(err)
-            console.error("*************")
-
-            if (err.response.erro.cause.code == 404) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
-            } else {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
-            }
+            let operationResult = (err && err.response && err.response.error && err.response.error.cause.code == 404 && err.response.error.cause.code) || 500;
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
             history.push('/carrito/error')
         });
 };
@@ -99,11 +86,10 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
 
         }).catch((err) => {
-            if (err.response.erro.cause.code == 404) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
-            } else {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
-            }
+
+            let operationResult = (err && err.response && err.response.error && err.response.error.cause.code == 404 && err.response.error.cause.code) || 500;
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
+
             history.push('/carrito/error')
         });
 };
@@ -118,7 +104,10 @@ export const getCarousel = (cartId) => dispatch => {
             dispatch({ type: SET_CAROUSEL, payload: response, operationStatus: "SUCCESSFUL" });
             
         }).catch((err) => {
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+
+            let operationResult = (err && err.response && err.response.error && err.response.error.cause.code == 404 && err.response.error.cause.code) || 500;
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
+            
             history.push('/carrito/error')
         });
 };
@@ -143,12 +132,13 @@ export const addProduct = product => dispatch => {
 
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
-
-            if (err.response.erro.cause.code == "403") {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            let operationResult = (err && err.response && err.response.error && err.response.error.cause.code == 403 && err.response.error.cause.code) || 500;
+            
+            if (operationResult == "403") {
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
             } else {
                 history.push('/carrito/error')
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
             }
 
         });
@@ -254,18 +244,17 @@ export const addCoupon = (couponId, cartId) => dispatch => {
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
-            console.log("-----addCoupon----")
-            console.log(response)
-
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL', operationResult: 200 });
         })
         .catch((err) => {
 
-            if (err.response.erro.cause.code == "400" || err.response.erro.cause.code == "405") {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            let operationResult = (err && err.response && err.response.error && err.response.error.cause.code) || 500;
+
+            if (operationResult == "400" || operationResult == "405") {
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
             } else {
                 history.push('/carrito/error')
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult });
             }
         });
 };
@@ -285,8 +274,8 @@ export const deleteCoupon = (couponId, cartId) => dispatch => {
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
-            console.log("-----deleteCoupon----")
-            console.log(response)
+            // console.log("-----deleteCoupon----")
+            // console.log(response)
 
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL' });
         })
@@ -357,10 +346,10 @@ export const setLoginMessageClosedCookie = (cartId) => dispatch =>  {
     .then(handleErrors)
     .then(response => response.json())
     .then(response => {
-        console.log(response)
+        // console.log(response)
         dispatch({ type: ONLY_RE_RENDER, payload: {}, operationStatus: 'SUCCESSFUL' });
     }).catch((err) => {
-        console.error(err)
+        // console.error(err)
         dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
         history.push('/carrito/error')
     });
