@@ -30,7 +30,7 @@ app.get("/carrito", sessionMiddleware, (req, res) => {
 });
 
 // app.use("/carrito",sessionMiddleware, carrito);
-app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
+app.use("/api/cart", sessionMiddleware , cartRouter);
 app.use("/clean", function(req,res){
   sessionService.resetSessionCookies(res)
   res.send({"cleaned":"ok"})
