@@ -47,7 +47,7 @@ class Cart extends Component {
 
   _showCarousel(){
       let empresarias = Cookie.get("empresarias");
-      if(!empresarias){
+      if(!empresarias !== "true"){
           return <Carousel data={this.props.cart.products} />
       }
   }
