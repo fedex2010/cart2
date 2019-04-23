@@ -27,7 +27,7 @@
     "build-garba": "yarn norma-garba && yarn build-client && yarn mv-client-garba",
     "build-compu": "yarn norma-compu && yarn build-client &&  yarn mv-client-compu",
     "build-empresas": "yarn norma-empresas && yarn build-client && yarn mv-client-empresas",
-    "react-exp" : "CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias yarn build-empresas && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino yarn build-garba && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo yarn build-compu"
+    "react-exp" : "CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino yarn build-garba"
   },
   "keywords": [],
   "author": "",
