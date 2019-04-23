@@ -16,6 +16,7 @@ class Summary extends Component {
     this.timeoutId = setTimeout(function () {
             this.setState({show: true});
         }.bind(this), 2000);
+        
     
     this.props.hideGereralLoading()
 }
