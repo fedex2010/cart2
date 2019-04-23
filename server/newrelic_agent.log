@@ -32,3 +32,35 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":25999,"time":"2019-01-30T15:07:03.705Z","msg":"Module not enabled in configuration; not starting."}
 {"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":27711,"time":"2019-01-30T15:16:53.979Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v8.12.0."}
 {"v":0,"level":30,"name":"newrelic","hostname":"federico-HP-250-G6-Notebook-PC","pid":27711,"time":"2019-01-30T15:16:53.983Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81495,"time":"2019-01-30T18:18:35.246Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81495,"time":"2019-01-30T18:18:35.252Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81521,"time":"2019-01-30T18:19:13.936Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81521,"time":"2019-01-30T18:19:13.964Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81801,"time":"2019-01-30T18:22:51.525Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81801,"time":"2019-01-30T18:22:51.531Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81912,"time":"2019-01-30T18:24:42.913Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":81912,"time":"2019-01-30T18:24:42.918Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":82083,"time":"2019-01-30T18:36:00.950Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":82083,"time":"2019-01-30T18:36:00.956Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":82120,"time":"2019-01-30T18:38:54.223Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":82120,"time":"2019-01-30T18:38:54.227Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":82256,"time":"2019-01-30T18:40:49.261Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":82256,"time":"2019-01-30T18:40:49.267Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":14965,"time":"2019-04-23T19:12:35.900Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":14965,"time":"2019-04-23T19:12:35.913Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15016,"time":"2019-04-23T19:14:49.811Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15016,"time":"2019-04-23T19:14:49.875Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15074,"time":"2019-04-23T19:18:17.983Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15074,"time":"2019-04-23T19:18:18.027Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15145,"time":"2019-04-23T19:23:59.368Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15145,"time":"2019-04-23T19:23:59.382Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15220,"time":"2019-04-23T19:25:14.408Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15220,"time":"2019-04-23T19:25:14.516Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15263,"time":"2019-04-23T19:26:41.263Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15263,"time":"2019-04-23T19:26:41.348Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15342,"time":"2019-04-23T19:28:08.992Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15342,"time":"2019-04-23T19:28:09.014Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15393,"time":"2019-04-23T19:32:47.411Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15393,"time":"2019-04-23T19:32:47.468Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15467,"time":"2019-04-23T19:36:14.017Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"lgedeon.garbarino.com.ar","pid":15467,"time":"2019-04-23T19:36:14.081Z","msg":"Module not enabled in configuration; not starting."}

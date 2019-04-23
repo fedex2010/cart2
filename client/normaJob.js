@@ -11,9 +11,9 @@ var data = fs.readFileSync("indexTemplate.html", "utf-8");
 
 var baseUrl = config.normandia.base_url[process.argv[2]];
 
-baseUrl += "/template/all?analytics=off&webp=true";
+console.log("Running norma Job");
 
-console.log(baseUrl);
+baseUrl += "/template/all?analytics=off&webp=true";
 
 let gtmId = configClient.google.gtm_id[process.argv[2]];
 
@@ -59,11 +59,11 @@ fetch(baseUrl)
     newIndex = newIndex.replace("<!-- <norma Header> -->", json.headerHtml);
     newIndex = newIndex.replace("<!-- <norma Footer> -->", json.footerHtml);
 
-    fs.unlink("./public/index.html", err => {
-      if (err) console.log("./public/index.html was deleted");
+    fs.unlink("./public/"+process.argv[2]+"/index.html", err => {
+      if (err) console.log("./public/"+process.argv[2]+"/index.html was deleted");
     });
 
-    fs.writeFileSync("./public/index.html", newIndex, "utf-8");
+    fs.writeFileSync("./public/"+process.argv[2]+"/index.html", newIndex, "utf-8");
 
     console.log("norma inject in " + process.argv[2] + " complete");
   })

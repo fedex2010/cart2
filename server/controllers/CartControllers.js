@@ -40,10 +40,11 @@ class CartControllers {
     console.log("tiro newrelic.addCustomParameter('cookieCartId', cartId);"+cartId);
 
     console.log("*****************");
-    console.log(newrelic);
+
+      console.log(newrelic);
     console.log("*****************");
 
-    //newrelic.addCustomParameter('cookieCartId', cartId);
+    newrelic.addCustomParameter('cookieCartId', cartId);
 
     this._isEmpresarias(req, res);
 
