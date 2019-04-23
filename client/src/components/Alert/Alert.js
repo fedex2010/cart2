@@ -219,7 +219,7 @@ class Alert extends Component {
     if(gb_session_id || gb_login_message_closed || !this.state.showLogin){
         return null
     }else{
-       return ( <div className="alert-message-gbChk col-md-12">
+       return ( <div className="alert-message-gbChk">
             <div class="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
                 <img src={url} alt="profile" />
                 <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  
