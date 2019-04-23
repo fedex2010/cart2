@@ -8,6 +8,7 @@ const express = require("express"),
       errorService = require('./services/error_service'),
       cookieParser   = require('cookie-parser'),
       indexRouter = require("./routes/index"),
+      path 	= require('path'),
       cartRouter = require("./routes/cart");
 
 let app = express();
@@ -20,9 +21,18 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.static(path.join(__dirname, "public/garbarino")));
+app.use(express.static(path.join(__dirname, "public/compumundo")));
 
 //app.use(parallel([cookie]));
+app.get("/carrito",sessionMiddleware, (req, res) => {
+  if(res.locals.xBrand.toLowerCase() == "compumundo"){
+    res.sendFile("index.html",{ root: './public/compumundo' })
+  }else {
+    res.sendFile("index.html",{ root: './public/garbarino' })
+  }
+});
 
 app.use("/", indexRouter);
 //app.get("/api/",( req , res ) => controllers.cart.renderApp( req , res ))

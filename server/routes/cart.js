@@ -5,6 +5,7 @@ var express = require("express"),
     urlencodedParser = bodyParser.urlencoded({ extended: false }),
     jsonParser = bodyParser.json()
 
+// router.get("/carrito", ( req , res) => controllers.index( req , res ))
 router.get("/normandia", ( req , res) => controllers.normandia.getTemplate( req , res ))
 router.get("/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/summary", ( req , res) => controllers.cart.summary( req , res ));

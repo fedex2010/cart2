@@ -59,11 +59,11 @@ fetch(baseUrl)
     newIndex = newIndex.replace("<!-- <norma Header> -->", json.headerHtml);
     newIndex = newIndex.replace("<!-- <norma Footer> -->", json.footerHtml);
 
-    fs.unlink("./public/"+process.argv[2]+"/index.html", err => {
-      if (err) console.log("./public/"+process.argv[2]+"/index.html was deleted");
+    fs.unlink("./public/index.html", err => {
+      if (err) console.log("./public/index.html was deleted");
     });
 
-    fs.writeFileSync("./public/"+process.argv[2]+"/index.html", newIndex, "utf-8");
+    fs.writeFileSync("./public/index.html", newIndex, "utf-8");
 
     console.log("norma inject in " + process.argv[2] + " complete");
   })

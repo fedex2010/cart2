@@ -21,10 +21,11 @@
     "compu-cart": "yarn run norma-garba && npm-run-all --parallel client server-dev",
     "empresas-cart": "yarn run norma-empresas && npm-run-all --parallel client server-dev",
     "build-client": "cd client && yarn build",
-    "mv-client-garba": "cd client && mv build build-garba",
-    "mv-client-compu": "cd client && mv build build-compu",
+    "mv-client-garba": "rm -rf server/public/garbarino && mkdir server/public/garbarino && cd client && mv build/* ../server/public/garbarino",
+    "mv-client-compu": "rm -rf server/public/compumundo && mkdir server/public/compumundo && cd client && mv build/* ../server/public/compumundo",
     "build-garba": "yarn norma-garba && yarn build-client && yarn mv-client-garba",
-    "build-compu": "yarn norma-compu && yarn build-client && yarn mv-client-compu"
+    "build-compu": "yarn norma-compu && yarn build-client &&  yarn mv-client-compu",
+    "react-exp" : "yarn build-garba && yarn build-compu"
   },
   "keywords": [],
   "author": "",
