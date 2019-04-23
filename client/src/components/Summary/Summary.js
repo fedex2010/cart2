@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import config from "../../config/config";
 import { Salesman, SubTotal, Iva, Warranties, TotalSummary, SpecialDiscount, CuponDiscount} from "./SummaryHelpers";
 import CartAdditionals from "./CartAdditionals"
+import { hideGereralLoading } from "../../actions/CartAction";
 
 
 class Summary extends Component {
@@ -15,7 +16,9 @@ class Summary extends Component {
     this.timeoutId = setTimeout(function () {
             this.setState({show: true});
         }.bind(this), 2000);
-    }
+    
+    this.props.hideGereralLoading()
+}
 
   componentWillUnmount () {
         if (this.timeoutId) {
@@ -142,4 +145,5 @@ const mapStateToProps = state => {
         };
 };
 
-export default connect(mapStateToProps,{})(Summary)
+
+export default connect(mapStateToProps,{ hideGereralLoading })(Summary)

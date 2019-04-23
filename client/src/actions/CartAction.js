@@ -23,6 +23,11 @@ export const selectProduct = product => dispatch => {
     return dispatch({ type: SET_SELECTED_PRODUCT, payload: product });
 };
 
+export const hideGereralLoading = product => dispatch => {
+    return dispatch({ type: HIDE_GENERAL_LOADING, payload: {} });
+};
+
+
 export const justReload = id => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
 
@@ -111,8 +116,6 @@ export const getCarousel = (cartId) => dispatch => {
         .then(response => response.json())
         .then(response => {
             dispatch({ type: SET_CAROUSEL, payload: response, operationStatus: "SUCCESSFUL" });
-
-            dispatch({ type: HIDE_GENERAL_LOADING, payload: {}, operationStatus: "SUCCESSFUL" });
             
         }).catch((err) => {
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
