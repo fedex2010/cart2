@@ -27,11 +27,12 @@ export function SubTotal( {cart} ){
 
 export function Iva( {cart} ){ 
     let empresarias = (Cookie.get("empresarias")==='true'?true:false);
-
+    
     let subtotalRound = 0    
-    if(cart.subtotal_base_price && cart.subtotalPrice){
-        subtotalRound = cart.subtotal_base_price - cart.subtotalPrice
-        subtotalRound = formatPrice( subtotalRound )
+
+    if(cart.subtotal_base_price && cart.subtotal_price){
+        subtotalRound = cart.subtotal_base_price - cart.subtotal_price
+        subtotalRound = formatPrice( subtotalRound )   
     }
 
     return (
