@@ -98,7 +98,6 @@ class CartControllers {
     return cart;
   }
 
-
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let products = {};
@@ -106,8 +105,8 @@ class CartControllers {
       return {};
     }
 
-
-    RestClient.productClient.getProductsCarousel(brand)
+    RestClient.productClient
+      .getProductsCarousel(brand)
       .then(carousel => {
         return RestClient.productClient
           .getProducts(brand, carousel.products)
@@ -115,7 +114,7 @@ class CartControllers {
             products.id = carousel.id;
             products.title = carousel.title;
 
-            product = product.filter(prod => prod.enabled_for_sale)
+            product = product.filter(prod => prod.enabled_for_sale);
 
             product.map(prod => {
               prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url,0);

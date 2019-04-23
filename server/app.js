@@ -4,8 +4,8 @@ const express = require("express"),
       sessionService = require('./services/session_service'),
       errorService = require('./services/error_service'),
       cookieParser   = require('cookie-parser'),
-      cartRouter = require("./routes/cart"),
-      carrito = require("./routes/carrito");
+      path 	= require('path'),
+      cartRouter = require("./routes/cart");
 
 let app = express();
 
@@ -16,7 +16,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/carrito",sessionMiddleware, carrito);
+
+// app.use(express.static(path.join(__dirname, "public/garbarino")));
+app.use(express.static(path.join(__dirname, "public/compumundo")));
+
+//app.use(parallel([cookie]));
+app.get("/carrito", sessionMiddleware, (req, res) => {
+  if(res.locals.xBrand.toLowerCase() == "compumundo"){
+    res.sendFile("index.html", { root: './public/compumundo' })
+  }else {
+    res.sendFile("index.html", { root: './public/garbarino' })
+  }
+});
+
+// app.use("/carrito",sessionMiddleware, carrito);
 app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
 app.use("/clean", function(req,res){
   sessionService.resetSessionCookies(res)
