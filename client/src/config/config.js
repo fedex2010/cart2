@@ -11,6 +11,7 @@ const timeoutRatio = 1;
 
 let config    = require(__dirname + util.format('/%s.config.js', env) )(rootPath, timeoutRatio);
 
+
 console.log("---------process.env------------")
 console.log(process.env)
 console.log("----------process.env--------------")
