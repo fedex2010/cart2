@@ -21,6 +21,7 @@ class Summary extends Component {
     this.props.hideGereralLoading()
 }
 
+
   componentWillUnmount () {
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
