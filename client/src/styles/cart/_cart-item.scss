@@ -131,7 +131,9 @@
 .cart-item-warranties {
    border-top: 1px solid $card-border-color;
    padding: $spacer-base $spacer-lg;
-
+   .cart-item-tag--info {
+      margin-left: 10px;
+   }
 	p { 
 		font-size: rem(13);
       line-height: rem(18);

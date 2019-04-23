@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: 'gui-icons';
-  src:  url('./styles/GUI/_icons/fonts/gui-icons.eot');
-  src:  url('./styles/GUI/_icons/fonts/gui-icons.eot') format('embedded-opentype'),
-    url('./styles/GUI/_icons/fonts/gui-icons.ttf') format('truetype'),
-    url('./styles/GUI/_icons/fonts/gui-icons.woff') format('woff'),
-    url('./styles/GUI/_icons/fonts/gui-icons.svg') format('svg');
+  src:  url('fonts/gui-icons.eot');
+  src:  url('fonts/gui-icons.eot') format('embedded-opentype'),
+    url('fonts/gui-icons.ttf') format('truetype'),
+    url('fonts/gui-icons.woff') format('woff'),
+    url('fonts/gui-icons.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }

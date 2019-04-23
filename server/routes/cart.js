@@ -3,13 +3,13 @@ var express = require("express"),
     controllers = require("../controllers"),
     bodyParser = require("body-parser"),
     urlencodedParser = bodyParser.urlencoded({ extended: false }),
-    jsonParser = bodyParser.json()
+    sessionService = require('../services/session_service'),
+    jsonParser = bodyParser.json();
 
-// router.get("/carrito", ( req , res) => controllers.index( req , res ))
-router.get("/normandia", ( req , res) => controllers.normandia.getTemplate( req , res ))
 router.get("/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/summary", ( req , res) => controllers.cart.summary( req , res ));
 router.get("/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));
+router.get("/newCart/:productId/:cupon", ( req , res) => controllers.cart.newCart( req , res ));
 router.get("/:cartId", ( req , res) => controllers.cart.getCart( req , res ));
 
 router.post("/fake_product_view/:productId", urlencodedParser, ( req , res) => controllers.cart.fake_product(req , res));
@@ -18,6 +18,8 @@ router.post("/:cartId/cupon", jsonParser, ( req , res) => controllers.cart.setCo
 router.post("/c_:cartId/aaPlus", jsonParser, ( req , res) => controllers.cart.setAAPlus(req , res));
 router.post("/setWarranty", jsonParser, ( req , res) => controllers.cart.setWarranty( req , res));
 router.post("/vendedor", urlencodedParser, ( req , res) =>  controllers.cart.sellerLoginAction( req , res));
+
+router.post("/setLoginMessageClosedCookie", ( req , res) =>  controllers.cart.setLoginMessageClosedCookie( req , res));
 
 router.put("/:cartId", urlencodedParser, ( req , res) =>  controllers.cart.editProduct( req , res));
 

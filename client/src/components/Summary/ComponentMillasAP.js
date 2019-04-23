@@ -9,8 +9,9 @@ class ComponentMillasAP extends Component {
      super();
      this.state = {
         millasAP: true,
-        checkedAP: false,
-        input:""
+        checkedAP: true,
+        input:"",
+        value: ''
      }
   }
   handleCheckAP = () => {
@@ -24,14 +25,12 @@ class ComponentMillasAP extends Component {
 
   _setMillasEmpty(){
       let cartId = Cookie.get("cartId");
+      this.setState({value: ""});
       this.props.deleteLoyalties(cartId);
   }
 
   _showDelete(){
       if (this.props.addMillasAP && this.props.addMillasAP[0] && this.props.addMillasAP[0].code) {
-
-          console.log(this.props.addMillasAP)
-          console.log(typeof this.props.addMillasAP)
           return (
               <div className="coupon-applied">
                   <span className="coupon-code">{this.props.addMillasAP[0].code}</span>
@@ -44,9 +43,9 @@ class ComponentMillasAP extends Component {
       }
   }
 
-    _handleInput(e){
-        let couponId = e.target.value;
-        this.setState({ input: couponId });
+    _handleInput = ({target: {value}}) => {
+        this.setState(state => value.length <= 8 && !isNaN(Number(value)) && {value} || state)
+        this.setState({ input: value })
     }
 
     _onChange() {
@@ -55,51 +54,69 @@ class ComponentMillasAP extends Component {
         });
     }
 
+    _handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            let cartId = Cookie.get("cartId");
+            this.props.setLoyalties(this.state.input,cartId);
+        }
+      }
+
   _showAdd(displaynoneCheckboxAP){
-      if (this.props.addMillasAP && this.props.addMillasAP[0] && !this.props.addMillasAP[0].code) {
-      return(
-          <div>
-              <label>
-                  <input
-                      type="checkbox"
-                      onChange={this.handleCheckAP}/> Sumá millas Aerolíneas Plus{" "}
-              </label>
-              <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
-                    <span className="popover_bottomCenter">
-                        <p>
-                            Comprando ciertos productos en nuestra web podés sumar
-                            millas en Aerolíneas Plus
-                        </p>
-                        <p>
-                            <button className="link-to-button" data-target="#arplus-tyc">Ver bases y condiciones</button>
-                        </p>
+      if (this.props.addMillasAP && this.props.addMillasAP[0]) {
+        return(
+            <div>
+                <label>
+                    <input
+                        type="checkbox"
+                        onChange={this.handleCheckAP}/> Sumá millas Aerolíneas Plus{" "}
+                </label>
+                <span className="gui-icon-question-mark-circle has-popover icon--xs icon--has-action">
+                        <span className="popover_bottomCenter">
+                            <p>
+                                Comprando ciertos productos en nuestra web podés sumar
+                                millas en Aerolíneas Plus
+                            </p>
+                            <p>
+                                <button className="link-to-button" data-target="#arplus-tyc" data-toggle="modal"
+                                >Ver bases y condiciones</button>
+                            </p>
+                        </span>
                     </span>
-                </span>
-              <div className={displaynoneCheckboxAP}>
-                  <div className="coupon-apply-form">
-                      <input
-                          className="form-control form-control--sm"
-                          type="number"
-                          placeholder="Ingresá tu número de socio"
-                          min="999999"
-                          max="99999999"
-                          autoComplete="off"
-                          onChange={this._handleInput.bind(this)}
-                      />
-                      <button className="button--primary button--sm" onClick={this._setMillas.bind(this)}>
-                          Alicar
-                      </button>
-                  </div>
-              </div>
-          </div>
-      );
+                    <div className={this.state.checkedAP === true ? "displaynone":"" }>
+                        {!this.props.addMillasAP[0].code ? (
+                            <div className="coupon-apply-form">
+                                <input
+                                    className="form-control form-control--sm"
+                                    type="text"
+                                    pattern="[0-9]{8}"
+                                    placeholder="Ingresá tu número de socio"
+                                    minLength="999999"
+                                    maxLength="99999999"
+                                    autoComplete="off"
+                                    onChange={this._handleInput.bind(this)}
+                                    onKeyPress={this._handleKeyPress.bind(this)}
+                                    value={this.state.value}
+                                    autofocus="true"
+                                />
+                                <button className="button--primary button--sm" onClick={this._setMillas.bind(this)}>
+                                    Aplicar
+                                </button>
+                            </div>
+                        
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
+             
+            </div>
+        );
       }
   }
 
   render() {
     let displaynoneCheckboxAP = 'displaynone';
 
-    if(this.state.checkedAP){
+    if(!this.state.checkedAP){
         displaynoneCheckboxAP ='';
     }
 
@@ -114,7 +131,9 @@ class ComponentMillasAP extends Component {
         return (
             <div className={loyalties}>
                 {this._showAdd(displaynoneCheckboxAP)}
-                {this._showDelete()}
+                <div className={this.state.checkedAP === true ? "displaynone":"" }>
+                    {this._showDelete()}
+                </div>    
             </div>
         );
     }else{

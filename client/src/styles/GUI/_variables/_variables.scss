@@ -34,7 +34,7 @@ $orange:						#EB7300 !default;
 $primary:       			$blue !default;
 $secondary:     			$gray !default;
 $success:       			$green !default;
-$info:          			$blue !default;
+$info:          			#016AB3 !default;
 $warning:       			$yellow !default;
 $error:        			$red !default;
 
@@ -107,7 +107,7 @@ $border-radius-md:      			8px !default;
 // Price info
 // --------------------------------------------------
 $item-price-list-color:					$gray !default;
-$item-discount-color:					$green-darker-1x !default;
+$item-discount-color:					$green !default;
 //$item-price-color:						$red !default;
 
 
@@ -164,8 +164,6 @@ $gui-icon-info: "\e915";
 $gui-icon-success: "\e92a";
 $gui-icon-warning: "\e932";
 $gui-icon-free-send: "\e900";
-$gui-icon-trash: "\e902";
-$gui-icon-question-mark-circle: "\e901";
 $gui-icon-trash: "\e902";
 $gui-icon-question-mark-circle: "\e901";
 $gui-icon-checkmark: "\e903";

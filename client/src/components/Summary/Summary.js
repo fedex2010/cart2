@@ -1,162 +1,151 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Cookie from "js-cookie";
-
-import ComponentMillasAP from "./ComponentMillasAP";
-import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
-
-function SuccessMessage(){
-  let salesman = Cookie.get("epi.salesman");
-
-  if(salesman){
-    return <p className="alert alert-success fade in alert-dismissable salesman">Vendedor: {salesman}</p>
-  }
-  return null 
-}
+import config from "../../config/config";
+import { Salesman, SubTotal, Iva, Warranties, TotalSummary, SpecialDiscount, CuponDiscount} from "./SummaryHelpers";
+import CartAdditionals from "./CartAdditionals"
+import { hideGereralLoading } from "../../actions/CartAction";
 
 
 class Summary extends Component {
     
   constructor(props) {
     super(props);
-    this.state = {
-        sellerId:{},
-        subtotalPrice:{},
-        subtotalBasePrice: {},
-        totalWarranties: {},
-        specialDiscountAmount: {},
-        discountCoupon:{},
-        coupons : [],
-        totalDiscounts: {},
-        totalPrice: {}
-    };
   }
+
+  componentDidMount () {
+    this.timeoutId = setTimeout(function () {
+            this.setState({show: true});
+        }.bind(this), 2000);
+        
+    
+    this.props.hideGereralLoading()
+}
+
+
+  componentWillUnmount () {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+    }
 
   _continue(e){
-      window.location = "/compra/entrega";
-  }
-
-  _formatPrice(value, decimals) {
-    if(value == undefined){
-        return 0;
+//      window.location = "http://localhost:3000/compra/entrega";
+        window.location = "/compra/entrega";
     }
-      /**
-       * Number.prototype.format(n, x, s, c)
-       *
-       * @param integer n: length of decimal
-       * @param integer x: length of whole part
-       * @param mixed   s: sections delimiter
-       * @param mixed   c: decimal delimiter
-       */
-      if(!decimals){
-          decimals = 0;
-      }
 
-      var n = decimals,
-          x = 3,
-          s = ".",
-          c = ",";
-
-      var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
-          num = value.toFixed(Math.max(0, ~~n));
-
-    
-      num = (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
-      return num.replace(",00", "")
+  _moreProduct(){
+      let homeUrl = ( window.xBrand === "garbarino" )?config.home_url.garbarino:config.home_url.compumundo;
+      window.location = homeUrl;
   }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({input: nextProps.cupon});
+  }
+
+  _isThereProductWithOutStock(){
+    let disabled = false
+
+    if(this.props.cart.products !== undefined){
+        let { products } = this.props.cart;
+
+        try{
+            for (let i = 0; i < products.length; i++) {
+                if(!products[i].validations.saleable){
+                    disabled = true
+                    break
+                }    
+            }            
+        }catch(err){
+            console.error(err)
+            disabled = false
+        }
+
+    }
+    return disabled
+  }
+
+
+ 
+    _isPromotion(cart){
+        let hasPolcom = cart.products.filter(function(p){ return p.polcom }).length > 0;
+        let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
+        let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
+
+        return (hasPriceMatchingDiscount || hasPolcom || hasCrosseling);
+    }
+
+    _productCant(products){
+        let count = products.length;
+        let classSummary = (count >=3 )?"purchase-summary--fixed":"";
+        return classSummary;
+    }
+    
 
   render() {
-    let couponClass = "highlight-benefit displaynone";
-    let products="";
-    let empresarias = (Cookie.get("empresarias")==='true'?true:false);
-      if(typeof this.props.coupons !== "undefined"){
-      couponClass =  (this.props.coupons.length >=1)? 'highlight-benefit': 'highlight-benefit displaynone';
-    }
-    if(this.props.products !== undefined){
-        products = this.props.products;
-    }
+    //used for "Continue" button
+    let isThereProductWithOutStock = this._isThereProductWithOutStock()
 
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
-    let subtotal = (this.props.subtotalBasePrice && this.props.subtotalPrice) ? this.props.subtotalBasePrice - this.props.subtotalPrice:0;
+    let classSummary = ""
+    if(this.props.cart.products){
+        classSummary = this._productCant(this.props.cart.products);
+    }
 
-    let priceRound = this._formatPrice(this.props.subtotalPrice)
-    let specialDiscountAmountRound = this._formatPrice(this.props.specialDiscountAmount);
-    let totalWarrantiesRound = this._formatPrice(this.props.totalWarranties);
-    let totalDiscountsRound = this._formatPrice(this.props.totalDiscounts);
-    let subtotalRound = this._formatPrice(subtotal);
-    let totalRound = this._formatPrice(this.props.totalPrice);
+    let cartAdditionals = null
+    if(!isThereProductWithOutStock){
+        cartAdditionals = <CartAdditionals cart={this.props.cart} />
+    }
 
     return (
-        <div className={classLoading}>
-          {/* resumen de compra */}
-          <div className="purchase-summary">
-            {/*add class - card--is-loading - en  <div className="card cart-summary card--is-loading"> para el loading*/}
-            <div className="card cart-summary">
-              {/*  cart-seller <p className="cart-seller">Vendedor: 12345566</p> */}
-              <div className="cart-summary-header">
-                <span className="cart-summary-title">Resumen de compra</span>
-              </div>
+        <div className={classSummary}>
+            <div className={classLoading}>
+                <div className="purchase-summary">
+                    <div className="card cart-summary">
+                        <div className="cart-summary-header">
+                            <span className="cart-summary-title">Resumen de compra</span>
+                        </div>
+                        
+                        <Salesman />
 
-              <SuccessMessage />
+                        <ul className="summary-detail">
 
-              <ul className="summary-detail">
-                <li id="subtotal">
-                  <label>Subtotal</label>
-                  <span className="summary-detail-value">${this.props.subtotalPrice > 0 ? priceRound : '0'}</span>
-                </li>
+                            <SubTotal cart={this.props.cart}/>
 
+                            <Iva cart={this.props.cart}/>
+                            <Warranties cart={this.props.cart}/>
 
-               
-                <li className={`${empresarias ? '' : 'displaynone'}`} id="empresarias">
-                  <label>IVA</label>
-                  <span className="summary-detail-value">${subtotalRound}</span>
-                </li>
-               
+                            <CuponDiscount cart={this.props.cart} />
+                            <SpecialDiscount cart={this.props.cart} />
 
-                <li className={this.props.totalWarranties > 0 ? '' : 'displaynone'} id="warranty">
-                  <label>Garantías</label>
-                  <span className="summary-detail-value">${this.props.totalWarranties > 0 ? totalWarrantiesRound : '0'}</span>
-                </li>
-                <li className={couponClass} id="coupon">
-                  <label>Descuento por cupón</label>
-                  <span className="summary-detail-value">- ${this.props.totalDiscounts > 0 ? totalDiscountsRound : '0'}</span>
-                </li>
-                <li className={this.props.specialDiscountAmount > 0 ? 'benefits' : 'benefits displaynone'} id="special-discount-line">
-                  <label>Descuento especial</label>
-                  <span className="summary-detail-value">- ${specialDiscountAmountRound}</span>
-                </li>
-                <li className="summary-total" id="total">
-                  <label>Total</label>
-                  <span className="summary-detail-value">${this.props.totalPrice > 0 ? totalRound : '0'}</span>
-                </li>
-              </ul>
+                            <TotalSummary cart={this.props.cart} />
 
-              <div  className={`${empresarias ? 'cart-additionals displaynone' : 'cart-additionals'}`}>
-                <h5 className="cart-additionals-title">DESCUENTOS Y CUPONES</h5>     
-                <ComponentDiscountCoupon discountCoupon={this.props.specialDiscountAmount} coupon={this.props.coupons}/>
-                <ComponentMillasAP products={products} addMillasAP={this.props.addMillasAP}/>
-              </div>
-             
+                        </ul>
 
+                        { cartAdditionals }
 
+                    </div>
+                    <div className="cart-actions">
+                        <button className="button--link" onClick={this._moreProduct.bind()}>
+                            COMPRAR MÁS PRODUCTOS
+                        </button>
+                        <button type="button" className="button--primary" id="cart-buy-btn" disabled={isThereProductWithOutStock} onClick={this._continue.bind()}>
+                            Continuar
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div className="cart-actions">
-              <button className="button--link">
-                COMPRAR MÁS PRODUCTOS
-              </button>
-              <button type="button" className="button--primary" onClick={this._continue.bind()}>
-                Continuar
-              </button>
-            </div>
-          </div>
-          {/* FIN resumen de compra */}
         </div>
-    );
-  }
+      );
+    }
 }
+
 const mapStateToProps = state => {
-    return { operationStatus: state.cartReducer.operationStatus };
+    return { 
+            operationStatus: state.cartReducer.operationStatus, 
+            cart: state.cartReducer.cart 
+        };
 };
 
-export default connect(mapStateToProps,{})(Summary)
+
+export default connect(mapStateToProps,{ hideGereralLoading })(Summary)

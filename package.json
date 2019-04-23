@@ -25,7 +25,7 @@
     "mv-client-compu": "rm -rf server/public/compumundo && mkdir server/public/compumundo && cd client && mv build/* ../server/public/compumundo",
     "build-garba": "yarn norma-garba && yarn build-client && yarn mv-client-garba",
     "build-compu": "yarn norma-compu && yarn build-client &&  yarn mv-client-compu",
-    "react-exp" : "yarn build-garba && yarn build-compu"
+    "react-exp" : "PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino yarn build-garba && PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo yarn build-compu"
   },
   "keywords": [],
   "author": "",

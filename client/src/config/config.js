@@ -11,5 +11,14 @@ const timeoutRatio = 1;
 
 let config    = require(__dirname + util.format('/%s.config.js', env) )(rootPath, timeoutRatio);
 
+
+console.log("---------process.env------------")
+console.log(process.env)
+console.log("----------process.env--------------")
+
 config.env = env;
+config.getBasePathImages = function(){
+    return (process.env.PUBLIC_URL == "") ? "http://localhost:5000" : process.env.PUBLIC_URL
+}
+
 module.exports = config;

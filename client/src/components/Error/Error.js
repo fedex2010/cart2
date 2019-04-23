@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import config from "../../config/config";
-
-
+import {fetchNewCart} from "../../actions/CartAction";
 
 class ErrorPage extends Component {
     constructor(props) {
@@ -15,15 +14,15 @@ class ErrorPage extends Component {
             homeUrl : homeUrl       
         };
 
-        this.redirectToHome = this.redirectToHome.bind(this);
+        this.createNewCart = this.createNewCart.bind(this);
     }
 
   componentDidMount(){
     document.body.classList.remove('full-page--is-loading');
   }
 
-  redirectToHome(){
-    window.location.href = this.state.homeUrl;
+  createNewCart(){
+    this.props.fetchNewCart()
   }
 
   _errorImage(){
@@ -50,7 +49,7 @@ class ErrorPage extends Component {
                     <div className="gb-error-content">
                         <h2 className="gb-error-title">Ocurrió un error al procesar tu compra.</h2>
                         <p>Por favor, intentá realizarla nuevamente</p>
-                        <button onClick={this.redirectToHome} className="gb-button primary" id="reset-cookie-button">Volver al inicio</button>
+                        <button onClick={this.createNewCart} className="gb-button primary" id="reset-cookie-button">Volver al inicio</button>
                     </div>
                 </div>
             </div>
@@ -64,6 +63,6 @@ const mapStateToProps = state => {
   };
   
   export default connect(
-    mapStateToProps 
+    mapStateToProps,{ fetchNewCart }
   )(ErrorPage);
   

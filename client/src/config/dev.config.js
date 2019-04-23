@@ -2,8 +2,15 @@
 
 module.exports = (ROOT_PATH, timeoutRatio) => {
   var config = {
+      cart_url:"/carrito",
+      path_name: {
+        seller : "vendedor",
+        error : "error",
+        reactcart : "carrito"
+      },
       cloudfront: {
-          url: "http://localhost:3000"
+          url: "http://localhost:5000",
+          urlImageProduct: "//d34zlyc2cp9zm7.cloudfront.net/products/"
       },
       google: {
           gtm_id:{

@@ -104,3 +104,25 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":29034,"time":"2019-04-23T21:09:56.566Z","msg":"Module not enabled in configuration; not starting."}
 {"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":29059,"time":"2019-04-23T21:09:59.655Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
 {"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":29059,"time":"2019-04-23T21:09:59.659Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":30615,"time":"2019-04-23T21:25:35.366Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":30615,"time":"2019-04-23T21:25:35.374Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":30691,"time":"2019-04-23T21:25:44.063Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":30691,"time":"2019-04-23T21:25:44.075Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31114,"time":"2019-04-23T21:30:31.419Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31114,"time":"2019-04-23T21:30:31.435Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31171,"time":"2019-04-23T21:31:10.190Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31171,"time":"2019-04-23T21:31:10.200Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31334,"time":"2019-04-23T21:31:42.882Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31334,"time":"2019-04-23T21:31:42.918Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31375,"time":"2019-04-23T21:32:15.059Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31375,"time":"2019-04-23T21:32:15.065Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31830,"time":"2019-04-23T21:41:14.485Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":31830,"time":"2019-04-23T21:41:14.502Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":32128,"time":"2019-04-23T21:44:36.265Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":32128,"time":"2019-04-23T21:44:36.279Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":2451,"time":"2019-04-23T21:54:40.327Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":2451,"time":"2019-04-23T21:54:40.333Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":3179,"time":"2019-04-23T22:00:00.358Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":3179,"time":"2019-04-23T22:00:00.366Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":3428,"time":"2019-04-23T22:01:44.316Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":3428,"time":"2019-04-23T22:01:44.326Z","msg":"Module not enabled in configuration; not starting."}

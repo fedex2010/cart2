@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Cookie from "js-cookie";
+import {  setLoginMessageClosedCookie } from "../../actions/CartAction";
+import config from "../../config/config";
 
+
+function reloadPage() {
+    document.location.reload(true)
+}
 
 class Alert extends Component {
     constructor(props) {
@@ -9,17 +16,24 @@ class Alert extends Component {
       mensaje: this.props.mensaje,
       tipo: this.props.tipo,
       showAlert:true,
-      showSaleable:true
+      showSaleable:true,
+      showLogin:true
     };
+
+    window.gb.my_account.login.addCallback ( reloadPage )
   }
 
-   _closeAlert(){
+  showLoginForm(){
+    window.gb.my_account.login.open();
+  }
+
+    _closeAlert(){
         this.setState({ showAlert: false });
     }
 
-   _closeSalable(){
+    _closeSalable(){
         this.setState({ showSaleable: false });
-    }
+}
 
   _isBonificacion(cart){
       let cssMsj = "feedback feedback-success feedback-dismissible";
@@ -27,9 +41,17 @@ class Alert extends Component {
       let hasPriceMatchingDiscount = cart.products.filter(function(p) { return p.price_matching_discount > 0}).length > 0;
       let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
       let hasBonification = hasPriceMatchingDiscount || hasPolcom;
+      cart.couponAmount=0;
+      cart.discount_details.map(function(discount_detail) {
+          switch (discount_detail.source) {
+              case "COUPON":
+                  cart.couponAmount +=discount_detail.amount;
+                  break;
+          }
+      });
+
       let hasCoupon = cart.couponAmount > 0;
       let msj = "";
-      
       if(hasCoupon){
           msj = "¡Buenas noticias! Tenes un cupón de descuento aplicado."
       }else{
@@ -156,27 +178,63 @@ class Alert extends Component {
     }
 
   _showError(err){
-                      //err not empty
-    let classError = "error-msj hide"
-
-    if(Object.keys(err).length > 0){
-        classError = "error-msj" 
-        console.error("Mostrando error : " + JSON.stringify( err ) )
+    if( this.props.err.cause && this.props.err.cause.code ){
+        let classError = (this.props.err.cause && this.props.err.cause.code && (this.props.err.cause.code == 404 || this.props.err.cause.code == 403))? "error-msj" : "error-msj hide";
+        let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
+    
+        let errorFalse
+        
+        if( this.props.err.cause.code == 404 ){
+            errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
+        }else if( this.props.err.cause.code == 403 ){
+            errorFalse = "No es posible agregar más de 10 productos diferentes en el mismo carrito";
+        }
+    
+          return(
+              <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
+                  <button type="button" onClick={this._closeSalable.bind(this)}  className="feedback--btn-close" />
+                  {errorFalse}
+              </div>
+          );
+    
+    }else{
+        return null
     }
-
-    let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
-
-    let errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
-      return(
-          <div className={cssMsj} style={{display: this.state.showSaleable ? 'block' : 'none' }}>
-              <button type="button" onClick={this._closeSalable.bind(this)}  className="feedback--btn-close" />
-              {errorFalse}
-          </div>
-      );
   }
 
-  render() {
+  setCookieMonth(){
+    this.props.setLoginMessageClosedCookie()
+  }
+
+  closeMessageLoginBySetState(){ //will be called from login modal of normandia
+      this.setState( {showLogin:false} )
+  }
+
+  _showLoginMessage(){
+    let gb_session_id = Cookie.get("gb_session_id");
+    let gb_login_message_closed = Cookie.get("gb_login_message_closed");
     
+    let url = config.getBasePathImages()+"/statics/images/checkout_profile.svg"
+
+    if(gb_session_id || gb_login_message_closed || !this.state.showLogin){
+        return null
+    }else{
+       return ( <div className="alert-message-gbChk">
+            <div class="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
+                <img src={url} alt="profile" />
+                <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  
+                <a class="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
+                    <span type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span onClick={this.setCookieMonth.bind(this)} aria-hidden="true">×</span>
+                </span>
+                <div class="displaynone miAccountBody"></div>
+            </div>
+       </div> )
+    }
+  }
+    
+  render() {
+
     if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {    
         return(
             <div className="alert-message-gbChk col-md-12">
@@ -184,15 +242,14 @@ class Alert extends Component {
                 {this._isSaleable(this.props.cart)}
                 {this._isPriceChange(this.props.cart)}
                 {this._showError(this.props.err)}
+                {this._showLoginMessage()}
             </div>
         );
     }else{
+        //si falla el carrito entra aca
         return(
             <div className="alert-message-gbChk col-md-12">
                 {this._showError(this.props.err)}
-                <div className="displaynone">
-                    <button type="button" className="feedback--btn-close" />
-                </div>
             </div>
         );
     }
@@ -204,4 +261,6 @@ const mapStateToProps = state => {
     return { err: state.cartReducer.err, operationStatus: state.cartReducer.operationStatus };
 };
 
-export default connect(mapStateToProps)(Alert)
+export default connect(
+                    mapStateToProps,
+                    {setLoginMessageClosedCookie}) (Alert)

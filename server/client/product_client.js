@@ -8,57 +8,9 @@ const CHECKOUT_CORE_URL = config.services.checkout_core.base_url;
 const NEW_CART_TIMEOUT = config.services.new_cart_timeout || 2000;
 const SEARCHLIST = config.searchList.url;
 
-class ProductUpdater {
-    constructor(_cartId, _product,brand){
-        this.brand = brand
-        this.cartId = _cartId
-        this.product = _product
-        this.productId = this.product.product_id
-        this.apiClient = new Rest_client();
-        this.data = {product_id: this.productId}
-        this.execute = this.voidExecutor
-    }
 
-    withQuantity(_qty){
-        if (_qty != this.product.quantity){
-            this.data.quantity = _qty
-            this.execute = this.putExecutor
-        }
-        return this
-    }
-
-    withWarranty(_warranty){
-        if (_warranty && _warranty != this.product.warranty_id){
-            this.data.warranty = _warranty
-            this.execute = this.putExecutor
-        }
-        return this
-    }
-
-    withPromotion(_promotionId){
-        if (_promotionId && (!this.product.promotion || this.product.promotion.id != _promotionId)){
-            this.data.promotion = {id: _promotionId}
-            this.execute = this.putExecutor
-        }
-        return this
-    }
-
-    putExecutor(){
-        return this.apiClient.updateProductObj(this.cartId, this.productId, this.data,this.brand)
-    }
-
-    voidExecutor(){
-        return Q(this.product)
-    }
-}
 class ProductClient{
-    getProductUpdater(cartId,product,brand){
-        console.log("----------------------")
-        console.log( cartId, product , brand   )
-        console.log("----------------------")
-        return new ProductUpdater(cartId, product,brand)
-    }
-
+    
     constructor() {
         this._restConnector = new RestConnector();
     }
@@ -73,8 +25,11 @@ class ProductClient{
     }
 
     
-
-    addProduct(cartId, productId, quantity=1, warrantyId=undefined, productPrice=null, promotionId=undefined, session_id=null,brand){
+    //addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
+    addProduct( params ){
+        
+        let { cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, sessionId=null,brand,xSessionContext } = params
+        
         let url = `${CHECKOUT_CORE_URL}/carts/${cartId}/products`,
             data = {
                 product_id: productId,
@@ -86,42 +41,61 @@ class ProductClient{
         if (promotionId) {
             data.promotion = {id: promotionId}
         }
+
+        let headers = {
+            'Content-Type': 'application/json',
+            'x-session-id': sessionId,
+            'X-Brand':brand
+        } 
+
+        if( xSessionContext != "" ){
+            headers = { ...headers, "x-session-context": xSessionContext }
+        }
+
         let options = {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-session-id': session_id,
-                'X-Brand':brand
-            },
+            headers: headers,
             data: JSON.stringify(data)
         }
 
         return this._restConnector.post( url, options)
     }
 
-    deleteProduct(cartId, productId,brand){
+    deleteProduct(cartId, productId,brand,xSessionContext){
 
         console.log(brand);
 
         let url     = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId;
 
+        let headers = {
+            'X-Brand':brand
+        }
+
+        if( xSessionContext != "" ){
+            headers = { ...headers, "x-session-context": xSessionContext }
+        }
+
         let options = {
-            headers: {
-                'X-Brand':brand
-            }
+            headers: headers
         }
 
         return this._restConnector.delete(url,options)
     }
 
-    updateProduct(cartId, productId, quantity,brand) {
+    updateProduct(cartId, productId, quantity,brand,xSessionContext) {
         let data = {
             product_id : productId,
             quantity : quantity
         }
 
+        let headers = {'Content-Type':'application/json'}
+
+        if(xSessionContext != ""){
+            headers = { ...headers, "x-session-context": xSessionContext }
+        }
+
         let url = CHECKOUT_CORE_URL + "/carts/" + cartId + "/products/" + productId,
             options = {
-                headers : {'Content-Type':'application/json'},
+                headers : headers,
                 'X-Brand':brand,
                 data : JSON.stringify(data)
             }

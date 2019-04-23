@@ -3,6 +3,7 @@ import ProductWarranty from "./ProductWarranty";
 import {  updateQuantityProduct,  deleteProduct,  selectProduct} from "../../actions/CartAction";
 import { connect } from "react-redux";
 import Cookie from "js-cookie";
+import {formatImage} from "../../utils/FormatImage";
 
 class ProductDescription extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class ProductDescription extends Component {
   _showModal(product) {
     this.props.selectProduct(product);
   }
+
   _formatPrice(value, decimals) {
     if(value == undefined){
         return 0;
@@ -63,6 +65,8 @@ class ProductDescription extends Component {
     let product = this.props.item;
     let percentage = this.props.percentage;
     let showStatus = this._showStatus(product.validations.saleable);
+    let displaynone = ( product.validations.saleable ) ?"":"displaynone";
+
     let showChangePrice = (product.price_delta) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
     let warranty_delta_class  = (product.delta_warranty_price) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
     let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
@@ -73,12 +77,32 @@ class ProductDescription extends Component {
     let priceRound = this._formatPrice(product.price);
     let subtotalPriceRound = this._formatPrice(product.subtotal_price);
 
+    let productWarranty
+    let imageProduct = (navigator.userAgent.indexOf("Chrome") != -1) ? product.main_image.url : formatImage(product.main_image.url);
+
+    console.log("************************");
+    console.log(this.props.item);
+    console.log("************************");
+
+
+    if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
+      productWarranty = <ProductWarranty
+                            current={product}
+                            item={product.warranties}
+                            products={product.product_id}
+                            warranty_id={product.warranty_id}
+                            percentage={percentage}
+                            classDelta={warranty_delta_class}
+                          />
+    }
+
+
     return (
-      <div className="cart-item card" id={idProduct}>
+      <div className={ showStatus == "cart-item-tag cart-item-tag--error" ? "cart-item card cart-item-sold-out": "cart-item card"}  id={idProduct}>
         <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
           <div className="cart-item-column">
             <picture className="cart-item-image">
-              <img src={product.main_image.url} alt="product name" itemProp="image"/>
+              <img src={imageProduct} alt="product name" itemProp="image"/>
             </picture>
           </div>
           <div className="cart-item-column cart-item-column-lg">
@@ -90,32 +114,33 @@ class ProductDescription extends Component {
             <span className={showStatus}>Agotado</span>
             <span className={showChangePrice}>Precio Modificado</span>
           </div>
-          <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
-            <label>Precio:</label>
-            <span className="cart-item-column-data precio-texto">${priceRound} {`${empresarias ? '+ IVA' : ''}`}</span>
-          </div>
+          
+            <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}  ${displaynone} `}>
+              <label>Precio:</label>
+              <span className="cart-item-column-data precio-texto">${priceRound} {`${empresarias ? '+ IVA' : ''}`}</span>
+            </div>
 
-          <div className="cart-item-column">
-            <label>Cantidad:</label>
-            <select
-              className="form-control form-control--sm"
-              value={product.quantity}
-              onChange={this._onSortChange.bind(this, product.product_id)}
-              disabled={isDisabled}
-              id={idQuantity}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </div>
-          <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'}`}>
-            <label>Subtotal:</label>
-            <strong className="cart-item-column-data precio-texto">
-              ${subtotalPriceRound} {`${empresarias ? '+ IVA' : ''}`}
-            </strong>
-          </div>
+            <div className={`${'cart-item-column'}  ${displaynone} `}>
+              <label>Cantidad:</label>
+              <select
+                className="form-control form-control--sm"
+                value={product.quantity}
+                onChange={this._onSortChange.bind(this, product.product_id)}
+                disabled={isDisabled}
+                id={idQuantity}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div className={`${empresarias ? 'cart-item-column column-empresarias' : 'cart-item-column'} ${displaynone}`}>
+              <label>Subtotal:</label>
+              <strong className="cart-item-column-data precio-texto">
+                ${subtotalPriceRound} {`${empresarias ? '+ IVA' : ''}`}
+              </strong>
+            </div>
 
           <button
             onClick={this._showModal.bind(this, product)}
@@ -126,14 +151,9 @@ class ProductDescription extends Component {
             <span className="tooltip_bottomCenter">Eliminar</span>
           </button>
         </div>
-        <ProductWarranty
-          current={product}
-          item={product.warranties}
-          products={product.product_id}
-          warranty_id={product.warranty_id}
-          percentage={percentage}
-          classDelta={warranty_delta_class}
-        />
+        
+        {productWarranty}
+
       </div>
     );
   }
