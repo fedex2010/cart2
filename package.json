@@ -28,7 +28,7 @@
     "build-compu": "yarn norma-compu && yarn build-client &&  yarn mv-client-compu",
     "build-empresas": "yarn norma-empresas && yarn build-client && yarn mv-client-empresas",
     "build-develop" : "PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/ci yarn build-empresas && PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/ci yarn build-garba && PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo/ci yarn build-compu",
-    "build-staging" : "PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging yarn build-empresas && PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/staging yarn build-garba && PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo/staging yarn build-compu"
+    "build-master" : "PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging yarn build-empresas && PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/staging yarn build-garba && PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo/staging yarn build-compu"
   },
   "keywords": [],
   "author": "",
