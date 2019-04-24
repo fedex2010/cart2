@@ -24,7 +24,9 @@ app.use(cookieParser());
 app.get("/carrito", sessionMiddleware, (req, res) => {
   if(res.locals.xBrand.toLowerCase() == "compumundo"){
     res.sendFile("index.html", { root: './public/compumundo' })
-  }else {
+  }else if(res.locals.isEmpresarias) {
+    res.sendFile("index.html", { root: './public/empresarias' })
+  }else{
     res.sendFile("index.html", { root: './public/garbarino' })
   }
 });
