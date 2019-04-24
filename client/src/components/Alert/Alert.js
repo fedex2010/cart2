@@ -20,11 +20,12 @@ class Alert extends Component {
       showLogin:true
     };
 
-    window.gb.my_account.login.addCallback ( reloadPage )
   }
 
   showLoginForm(){
     window.gb.my_account.login.open();
+    window.gb.my_account.login.addCallback ( reloadPage )
+
   }
 
     _closeAlert(){
