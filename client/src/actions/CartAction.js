@@ -31,7 +31,7 @@ export const hideGereralLoading = product => dispatch => {
 export const justReload = id => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
 
-    fetch("/api/cart/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache'})
+    fetch("/carrito/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache'})
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
@@ -54,7 +54,7 @@ export const justReload = id => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-    fetch("/api/cart/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache' })
+    fetch("/carrito/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache' })
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
@@ -76,7 +76,7 @@ export const fetchCart = id => dispatch => {
 };
 
 export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
-    let url = "/api/cart/newCart"
+    let url = "/carrito/newCart"
 
     if (productId != "") {
         url += "/" + productId
@@ -111,7 +111,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
 
 export const getCarousel = (cartId) => dispatch => {
 
-    fetch("/api/cart/carousel", { credentials: 'include'})
+    fetch("/carrito/carousel", { credentials: 'include'})
         //.then( handleErrors )
         .then(response => response.json())
         .then(response => {
@@ -125,7 +125,7 @@ export const getCarousel = (cartId) => dispatch => {
 
 export const addProduct = product => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
-    fetch("/api/cart", {
+    fetch("/carrito", {
         method: "POST",
         credentials: 'include',
         cache: "no-store",
@@ -161,7 +161,7 @@ export const updateQuantityProduct = (cartId, product, quantity) => dispatch => 
     data.xid = product;
     data.quantity = quantity;
 
-    fetch("/api/cart/" + cartId, {
+    fetch("/carrito/" + cartId, {
         method: "PUT",
         credentials: 'include',
         cache: "no-store",
@@ -189,7 +189,7 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
     data.product_id = productId;
     data.warranty_id = warrantyId;
 
-    fetch("/api/cart/setWarranty", {
+    fetch("/carrito/setWarranty", {
         method: "POST",
         credentials: 'include',
         cache: "no-store",
@@ -212,7 +212,7 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
 
 export const deleteProduct = (productId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
-    fetch("/api/cart/" + productId,
+    fetch("/carrito/" + productId,
         {
             method: "DELETE",
             credentials: 'include',
@@ -240,7 +240,7 @@ export const addCoupon = (couponId, cartId) => dispatch => {
     let data = {};
     data.coupon_code = couponId;
 
-    fetch("/api/cart/" + cartId + "/cupon", {
+    fetch("/carrito/" + cartId + "/cupon", {
         method: "POST",
         credentials: 'include',
         cache: "no-store",
@@ -272,7 +272,7 @@ export const addCoupon = (couponId, cartId) => dispatch => {
 
 export const deleteCoupon = (couponId, cartId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
-    fetch("/api/cart/c_" + cartId + "/cupon/" + couponId, {
+    fetch("/carrito/c_" + cartId + "/cupon/" + couponId, {
         method: "DELETE",
         cache: "no-store",
         
@@ -301,7 +301,7 @@ export const setLoyalties = (code, cartId) => dispatch => {
     let data = {};
     data.code = code;
 
-    fetch("/api/cart/c_" + cartId + "/aaPlus", {
+    fetch("/carrito/c_" + cartId + "/aaPlus", {
         method: "POST",
         cache: "no-store",
         
@@ -324,7 +324,7 @@ export const setLoyalties = (code, cartId) => dispatch => {
 
 export const deleteLoyalties = (cartId) => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
-    fetch("/api/cart/c_" + cartId + "/aaPlus", {
+    fetch("/carrito/c_" + cartId + "/aaPlus", {
         method: "DELETE",
         cache: "no-store",
         
@@ -345,7 +345,7 @@ export const deleteLoyalties = (cartId) => dispatch => {
 };
 
 export const setLoginMessageClosedCookie = (cartId) => dispatch =>  {
-    fetch("/api/cart/setLoginMessageClosedCookie", {
+    fetch("/carrito/setLoginMessageClosedCookie", {
         method: "POST",
         cache: "no-store",
         credentials: 'include',

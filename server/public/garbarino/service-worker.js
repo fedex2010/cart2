@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/precache-manifest.e53d50bb74d4574c4cbd4ebf84b05255.js"
+  "//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/precache-manifest.4b4d469f0fc0ef6a9def2a5c204ba473.js"
 );
 
 workbox.clientsClaim();
