@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/precache-manifest.06add3e6d2c63e342ab9a7d7e6e5702e.js"
+  "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/precache-manifest.d5af6c70b728b85837e7a6cc99087ad8.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/index.html", {
+workbox.routing.registerNavigationRoute("//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

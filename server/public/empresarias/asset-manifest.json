@@ -1,14 +1,14 @@
 {
-  "main.css": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/css/main.d6fe8a20.chunk.css",
-  "main.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/js/main.473905af.chunk.js",
-  "main.js.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/js/main.473905af.chunk.js.map",
-  "static/js/1.83f02b2f.chunk.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/js/1.83f02b2f.chunk.js",
-  "static/js/1.83f02b2f.chunk.js.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/js/1.83f02b2f.chunk.js.map",
-  "runtime~main.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/js/runtime~main.63d947dc.js",
-  "runtime~main.js.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/js/runtime~main.63d947dc.js.map",
-  "static/media/App.scss": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/media/gui-icons.bcc21aae.woff",
-  "static/css/main.d6fe8a20.chunk.css.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/static/css/main.d6fe8a20.chunk.css.map",
-  "index.html": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/index.html",
-  "precache-manifest.06add3e6d2c63e342ab9a7d7e6e5702e.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/precache-manifest.06add3e6d2c63e342ab9a7d7e6e5702e.js",
-  "service-worker.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/service-worker.js"
+  "main.css": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/css/main.2ab0a48f.chunk.css",
+  "main.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/js/main.cda2ac04.chunk.js",
+  "main.js.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/js/main.cda2ac04.chunk.js.map",
+  "static/js/1.e38d0d88.chunk.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/js/1.e38d0d88.chunk.js",
+  "static/js/1.e38d0d88.chunk.js.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/js/1.e38d0d88.chunk.js.map",
+  "runtime~main.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/js/runtime~main.33130209.js",
+  "runtime~main.js.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/js/runtime~main.33130209.js.map",
+  "static/media/App.scss": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/media/empty.466a5adc.png",
+  "static/css/main.2ab0a48f.chunk.css.map": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/static/css/main.2ab0a48f.chunk.css.map",
+  "index.html": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/index.html",
+  "precache-manifest.d5af6c70b728b85837e7a6cc99087ad8.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/precache-manifest.d5af6c70b728b85837e7a6cc99087ad8.js",
+  "service-worker.js": "//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging/service-worker.js"
 }
