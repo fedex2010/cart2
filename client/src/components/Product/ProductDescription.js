@@ -80,11 +80,6 @@ class ProductDescription extends Component {
     let productWarranty
     let imageProduct = (navigator.userAgent.indexOf("Chrome") != -1) ? product.main_image.url : formatImage(product.main_image.url);
 
-    console.log("************************");
-    console.log(this.props.item);
-    console.log("************************");
-
-
     if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
       productWarranty = <ProductWarranty
                             current={product}
