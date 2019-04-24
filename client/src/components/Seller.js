@@ -22,7 +22,7 @@ class Vendedor extends Component {
     let data={};
     data.vendedor=event.target.vendedor.value;
 
-    fetch("/carrito/vendedor", {
+    fetch("/carrito/api/cart/vendedor", {
         method: "POST",
         credentials: 'include' ,
         headers: {
@@ -80,4 +80,3 @@ const mapStateToProps = state => {
     { }
   )(Vendedor);
 
-  

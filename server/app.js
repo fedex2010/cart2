@@ -18,11 +18,19 @@ app.use(cookieParser());
 
 
 // app.use(express.static(path.join(__dirname, "public/garbarino")));
-app.use(express.static(path.join(__dirname, "public/compumundo")));
+// app.use(express.static(path.join(__dirname, "public/compumundo")));
 
 //app.use(parallel([cookie]));
+app.get("/carrito", sessionMiddleware, (req, res) => {
+  if(res.locals.xBrand.toLowerCase() == "compumundo"){
+    res.sendFile("index.html", { root: './public/compumundo' })
+  }else {
+    res.sendFile("index.html", { root: './public/garbarino' })
+  }
+});
+
 // app.use("/carrito",sessionMiddleware, carrito);
-app.use("/carrito", sessionMiddleware , cartRouter);
+app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
 app.use("/clean", function(req,res){
   sessionService.resetSessionCookies(res)
   res.send({"cleaned":"ok"})
