@@ -166,3 +166,13 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":27920,"time":"2019-04-24T01:55:42.086Z","msg":"Module not enabled in configuration; not starting."}
 {"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":9436,"time":"2019-04-24T02:34:02.922Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
 {"v":0,"level":30,"name":"newrelic","hostname":"magi","pid":9436,"time":"2019-04-24T02:34:02.928Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":66846,"time":"2019-04-24T11:44:10.709Z","msg":"Using New Relic for Node.js. Agent version: 5.2.1; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":66846,"time":"2019-04-24T11:44:10.713Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":67810,"time":"2019-04-24T11:58:26.639Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":67810,"time":"2019-04-24T11:58:26.644Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":70151,"time":"2019-04-24T14:18:55.249Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":70151,"time":"2019-04-24T14:18:55.253Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":70520,"time":"2019-04-24T14:44:20.070Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":70520,"time":"2019-04-24T14:44:20.075Z","msg":"Module not enabled in configuration; not starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":70702,"time":"2019-04-24T14:58:04.713Z","msg":"Using New Relic for Node.js. Agent version: 5.6.4; Node version: v9.11.2."}
+{"v":0,"level":30,"name":"newrelic","hostname":"ignacios-mbp-2.lan","pid":70702,"time":"2019-04-24T14:58:04.717Z","msg":"Module not enabled in configuration; not starting."}
