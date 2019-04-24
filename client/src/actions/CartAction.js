@@ -19,6 +19,16 @@ function handleErrors(response) {
     return Promise.resolve(response)
 }
 
+function getErroCode(err){
+    try{
+        return err.response.erro.cause.code
+    }catch(err){
+        console.warn("err exception has no serve response estructure")
+        console.warn(err)
+        return 500
+    }
+}
+
 export const selectProduct = product => dispatch => {
     return dispatch({ type: SET_SELECTED_PRODUCT, payload: product });
 };
@@ -39,15 +49,9 @@ export const justReload = id => dispatch => {
 
         }).catch((err) => {
 
-            console.error("*************")
-            console.error(err)
-            console.error("*************")
+            let errorCode = getErroCode(err)
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: errorCode });
 
-            if (err.response.erro.cause.code == 404) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
-            } else {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
-            }
             history.push('/carrito/error')
         });
 };
@@ -62,15 +66,9 @@ export const fetchCart = id => dispatch => {
 
         }).catch((err) => {
 
-            console.error("*************")
-            console.error(err)
-            console.error("*************")
+            let errorCode = getErroCode(err)
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: errorCode });
 
-            if (err.response.erro.cause.code == 404) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
-            } else {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
-            }
             history.push('/carrito/error')
         });
 };
@@ -99,11 +97,9 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
 
         }).catch((err) => {
-            if (err.response.erro.cause.code == 404) {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
-            } else {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
-            }
+            let errorCode = getErroCode(err)
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: errorCode });
+
             history.push('/carrito/error')
         });
 };
@@ -118,7 +114,9 @@ export const getCarousel = (cartId) => dispatch => {
             dispatch({ type: SET_CAROUSEL, payload: response, operationStatus: "SUCCESSFUL" });
             
         }).catch((err) => {
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            let errorCode = getErroCode(err)
+
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: errorCode });
             history.push('/carrito/error')
         });
 };
@@ -143,9 +141,10 @@ export const addProduct = product => dispatch => {
 
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
+            let errorCode = getErroCode(err)
 
-            if (err.response.erro.cause.code == "403") {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            if ( errorCode == "403") {
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: errorCode });
             } else {
                 history.push('/carrito/error')
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
@@ -177,6 +176,8 @@ export const updateQuantityProduct = (cartId, product, quantity) => dispatch => 
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
         }).catch((err) => {
+            let errorCode = getErroCode(err)
+
             dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
             history.push('/carrito/error')
         });
@@ -254,18 +255,16 @@ export const addCoupon = (couponId, cartId) => dispatch => {
         .then(handleErrors)
         .then(response => response.json())
         .then(response => {
-            console.log("-----addCoupon----")
-            console.log(response)
-
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: 'SUCCESSFUL', operationResult: 200 });
         })
         .catch((err) => {
+            let errorCode = getErroCode(err)
 
-            if (err.response.erro.cause.code == "400" || err.response.erro.cause.code == "405") {
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: err.response.erro.cause.code });
+            if (errorCode == "400" || errorCode == "405") {
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: errorCode });
             } else {
                 history.push('/carrito/error')
-                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: 500 });
+                dispatch({ type: SET_CURRENT_CART_ERROR, payload: err.response, operationStatus: 'ERROR', operationResult: errorCode });
             }
         });
 };
