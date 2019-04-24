@@ -57,8 +57,14 @@ jobs:
               then
                 PACKAGE_LABEL=v$PACKAGE_VERSION-SNAPSHOT-$CIRCLE_TAG-$CIRCLE_BUILD_NUM
                 aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$PACKAGE_LABEL.zip
-                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $PACKAGE_LABEL --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
+                aws elasticbeanstalk create-application-version --application-name cart-ui-ci --version-label $PACKAGE_LABEL --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
               elif [ "$CIRCLE_BRANCH" == "master" ]
+              then
+                PACKAGE_LABEL=v$PACKAGE_VERSION-SNAPSHOT-$CIRCLE_BUILD_NUM
+                aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$PACKAGE_LABEL.zip
+                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $PACKAGE_LABEL --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
+                aws elasticbeanstalk update-environment --environment-name cart-ui-prod --version-label $PACKAGE_LABEL --region us-east-1
+              elif [ "$CIRCLE_BRANCH" == "staging" ]
               then
                 PACKAGE_LABEL=v$PACKAGE_VERSION-SNAPSHOT-$CIRCLE_BUILD_NUM
                 aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$PACKAGE_LABEL.zip
@@ -82,6 +88,7 @@ workflows:
             branches:
               only:
                 - develop
+                - staging
                 - master
             tags:
               only: /^CHECKOUT-.*/
@@ -92,6 +99,7 @@ workflows:
             branches:
               only:
                 - develop
+                - staging
                 - master
             tags:
               only: /^CHECKOUT-.*/
@@ -104,6 +112,7 @@ workflows:
             branches:
               only:
                 - develop
+                - staging
                 - master
             tags:
               only: /^CHECKOUT-.*/

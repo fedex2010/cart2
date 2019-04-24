@@ -28,7 +28,9 @@
     "build-compu": "yarn norma-compu && yarn build-client &&  yarn mv-client-compu",
     "build-empresas": "yarn norma-empresas && yarn build-client && yarn mv-client-empresas",
     "build-develop" : "CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/ci yarn build-empresas && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/ci yarn build-garba && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo/ci yarn build-compu",
-    "build-master" : "CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging yarn build-empresas && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/staging yarn build-garba && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo/staging yarn build-compu"
+    "build-staging" : "CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/staging yarn build-empresas && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/staging yarn build-garba && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo/staging yarn build-compu",
+    "build-master" : "CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/empresarias/master yarn build-empresas && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/garbarino/master yarn build-garba && CI=false PUBLIC_URL=//dj4i04i24axgu.cloudfront.net/cart-ui/compumundo/master yarn build-compu"
+    
   },
   "keywords": [],
   "author": "",
