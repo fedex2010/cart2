@@ -58,6 +58,9 @@ export const justReload = id => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
+    console.error("*************")
+    console.error("disparo el fech para el id: "+id)
+    console.error("*************")
     fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache' })
         .then(handleErrors)
         .then(response => response.json())
@@ -74,6 +77,9 @@ export const fetchCart = id => dispatch => {
 };
 
 export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
+    console.error("*************")
+    console.error("disparo el fechNew para el productId: "+productId)
+    console.error("*************")
     let url = "/carrito/api/cart/newCart"
 
     if (productId != "") {
@@ -105,7 +111,9 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
 };
 
 export const getCarousel = (cartId) => dispatch => {
-
+    console.error("*************")
+    console.error("disparo el fechtCarousel para el cartId: "+cartId)
+    console.error("*************")
     fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         //.then( handleErrors )
         .then(response => response.json())
@@ -121,6 +129,9 @@ export const getCarousel = (cartId) => dispatch => {
 };
 
 export const addProduct = product => dispatch => {
+    console.error("*************")
+    console.error("disparo el fechtaddProduct para el product: "+product)
+    console.error("*************")
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
     fetch("/carrito/api/cart", {
         method: "POST",
