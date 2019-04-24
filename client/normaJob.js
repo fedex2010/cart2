@@ -8,7 +8,7 @@ let gtmId = clientConfig.google.gtm_id[process.argv[2]];
 var jsInlineList = "";
 var cssInlineList = "";
 
-var jsBrand = '<script>\n        window.xBrand ="' + process.argv[2] + '";\n    </script>';
+var jsBrand = '<script>\n        window.xBrand ="' + process.argv[2] + '";\n    var gb = gb || {};\n</script>';
 
 var jsDataLayer = '<script>\n          if (typeof dataLayer === \'undefined\') {\n              dataLayer = [];\n          }\n      </script>';
 
