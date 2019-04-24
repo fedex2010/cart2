@@ -220,14 +220,14 @@ class Alert extends Component {
         return null
     }else{
        return ( <div className="alert-message-gbChk">
-            <div class="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
+            <div className="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
                 <img src={url} alt="profile" />
-                <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  
-                <a class="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
-                    <span type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span className="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios
+                <a className="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
+                    <span type="button" className="close" data-dismiss="alert" aria-label="Close">
                     <span onClick={this.setCookieMonth.bind(this)} aria-hidden="true">×</span>
                 </span>
-                <div class="displaynone miAccountBody"></div>
+                <div className="displaynone miAccountBody"></div>
             </div>
        </div> )
     }
