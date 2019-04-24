@@ -349,7 +349,8 @@ export const setLoginMessageClosedCookie = (cartId) => dispatch =>  {
         credentials: 'include',
         headers: {
             Accept: "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "CP":"Potato"
         }
     })
     .then(handleErrors)
