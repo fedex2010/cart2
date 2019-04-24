@@ -22,10 +22,10 @@ class Alert extends Component {
   }
 
   showLoginForm(){
-      try{
+    try{
         window.gb.my_account.login.open();
-        window.gb.my_account.login.addCallback ( reloadPage )    
-      }catch(err){
+        window.gb.my_account.login.addCallback ( reloadPage )
+    }catch(err){
         console.error("exploto intentando abrir login de norma")
         console.error(err)
       }

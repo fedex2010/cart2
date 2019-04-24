@@ -15,16 +15,15 @@ function handleErrors(response) {
             throw err
         })
     }
-
     return Promise.resolve(response)
 }
 
 function getErroCode(err){
     try{
         return err.response.erro.cause.code
-    }catch(err){
+    }catch(errr){
         console.warn("err exception has no serve response estructure")
-        console.warn(err)
+        console.warn(errr)
         return 500
     }
 }
