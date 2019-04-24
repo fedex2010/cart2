@@ -44,6 +44,13 @@ class Cart extends Component {
     componentDidMount(){
         document.body.dataset.cartid = Cookie.get("cartId");
     }
+
+  _showCarousel(){
+      let empresarias = Cookie.get("empresarias");
+      if(!empresarias !== "true"){
+          return <Carousel data={this.props.cart.products} />
+      }
+  }
   
 
  
@@ -144,7 +151,7 @@ class Cart extends Component {
             
             <div className="carousel row">
               <div className="col-md-12">
-                <Carousel data={this.props.cart.products} />
+                  {this._showCarousel()}
               </div>
             </div>
           </section>

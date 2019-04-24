@@ -48,7 +48,9 @@ class CartControllers {
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
-          //relic.noticeError(err)
+          
+          newrelic.noticeError(err)
+
           res.status(500).send(errorService.checkErrorObject(errror));
         });
     } else {
@@ -96,7 +98,6 @@ class CartControllers {
     return cart;
   }
 
-
   getCarousel(req, res) {
     let brand = res.locals.xBrand.toLowerCase();
     let products = {};
@@ -104,8 +105,8 @@ class CartControllers {
       return {};
     }
 
-
-    RestClient.productClient.getProductsCarousel(brand)
+    RestClient.productClient
+      .getProductsCarousel(brand)
       .then(carousel => {
         return RestClient.productClient
           .getProducts(brand, carousel.products)
@@ -113,7 +114,7 @@ class CartControllers {
             products.id = carousel.id;
             products.title = carousel.title;
 
-            product = product.filter(prod => prod.enabled_for_sale)
+            product = product.filter(prod => prod.enabled_for_sale);
 
             product.map(prod => {
               prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url,0);
@@ -124,11 +125,13 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("Fail get carousel product: " + err);
+            newrelic.noticeError(err)
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
       .catch(err => {
         logger.error("Fail get carousel: " + err);
+        newrelic.noticeError(err)
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
@@ -239,7 +242,7 @@ class CartControllers {
     })
     .catch(err=> {
       logger.error ( JSON.stringify(err) )
-      
+      newrelic.noticeError(err)      
       res.redirect(301,req.body.errorUrl)
     })
   }
@@ -272,7 +275,7 @@ class CartControllers {
 
               .catch(err=> {
                 logger.error ("Error adding several products", JSON.stringify(err))
-                throw new Error( "zajaja" )
+                throw new Error( "Error adding several products " + JSON.stringify(err) )
               })
 
 
@@ -282,6 +285,7 @@ class CartControllers {
     })
     .catch(err => {
       logger.error("Error adding associated products\n", JSON.stringify(err))
+      newrelic.noticeError(err)
       res.status(400).send(err)
     })
   }
@@ -381,6 +385,7 @@ class CartControllers {
       })
       .catch(err => {
         newrelic.noticeError(err)
+
         logger.error("[" + cartId + "] Fail get to cart: " + err);
 
         let { errorUrl } = req.body
@@ -412,13 +417,12 @@ class CartControllers {
       productCount++
       aParams.quantity = ( productCount <= 4) ? productCount : 4
  
-      logger.info("Actualizando cantidad producto " + productId + "en [cartId=" + cartId + "]")
+      logger.info("Actualizando cantidad producto " + productId + "en [cartId = " + cartId + "]")
 
       return RestClient.cartClient.updateProductObj( aParams )
     } else {
 
-      logger.info("-------------------------------------------------------------")
-      logger.info("Agregando producto " + productId + "en [cartId=" + cartId + "]")
+      logger.info("Agregando producto " + productId + "en [cartId = " + cartId + "]")
 
       return RestClient.productClient.addProduct( aParams )
     }
@@ -476,6 +480,9 @@ class CartControllers {
       })
       .catch(err => {
         logger.error("Fail get to cart with id: " + cart.cart_id);
+
+        newrelic.noticeError(err)
+
         res.status(500).send(errorService.checkErrorObject(err));
       })
   }
@@ -551,6 +558,9 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
+
+            newrelic.noticeError(err)
+
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
@@ -584,6 +594,9 @@ class CartControllers {
             logger.error(
               "[" + cartId + "] Fail get cart coupon delete ,err:" + err
             );
+
+            newrelic.noticeError(err)
+
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
@@ -597,6 +610,9 @@ class CartControllers {
           err
         );
         err.message = "Fail delete coupon to cart"
+
+        newrelic.noticeError(err)
+
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
@@ -618,6 +634,8 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
+            newrelic.noticeError(err)
+
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
@@ -625,6 +643,8 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
+        newrelic.noticeError(err)
+
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
@@ -643,6 +663,8 @@ class CartControllers {
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
+            newrelic.noticeError(err)
+
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
@@ -650,6 +672,8 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
+        newrelic.noticeError(err)
+
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
@@ -667,6 +691,8 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Fail get cart: ,err:" + err
         );
+        newrelic.noticeError(err)
+
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
@@ -693,6 +719,8 @@ class CartControllers {
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart   warranty to cart,err:" + err);
             err.message = "Fail get a update cart warranty"
+            newrelic.noticeError(err)
+
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
@@ -700,6 +728,8 @@ class CartControllers {
         logger.error("[" + cartId + "] Fail set warranty to cart,err:" + err);
 
         err.message = "Fail set warranty to cart"
+        newrelic.noticeError(err)
+
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }

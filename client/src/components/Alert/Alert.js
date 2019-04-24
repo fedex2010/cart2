@@ -5,6 +5,10 @@ import {  setLoginMessageClosedCookie } from "../../actions/CartAction";
 import config from "../../config/config";
 
 
+function reloadPage() {
+    document.location.reload(true)
+}
+
 class Alert extends Component {
     constructor(props) {
     super(props);
@@ -12,21 +16,24 @@ class Alert extends Component {
       mensaje: this.props.mensaje,
       tipo: this.props.tipo,
       showAlert:true,
-      showSaleable:true
+      showSaleable:true,
+      showLogin:true
     };
+
+    window.gb.my_account.login.addCallback ( reloadPage )
   }
 
   showLoginForm(){
     window.gb.my_account.login.open();
   }
 
-   _closeAlert(){
+    _closeAlert(){
         this.setState({ showAlert: false });
     }
 
-   _closeSalable(){
+    _closeSalable(){
         this.setState({ showSaleable: false });
-    }
+}
 
   _isBonificacion(cart){
       let cssMsj = "feedback feedback-success feedback-dismissible";
@@ -199,19 +206,20 @@ class Alert extends Component {
     this.props.setLoginMessageClosedCookie()
   }
 
+  closeMessageLoginBySetState(){ //will be called from login modal of normandia
+      this.setState( {showLogin:false} )
+  }
+
   _showLoginMessage(){
     let gb_session_id = Cookie.get("gb_session_id");
     let gb_login_message_closed = Cookie.get("gb_login_message_closed");
     
-    console.log("gb_session_id" , gb_session_id)
-    console.log("gb_login_message_closed" , gb_login_message_closed)
-    
-    let url = config.cloudfront.url+"/statics/images/checkout_profile.svg"
+    let url = config.getBasePathImages()+"/statics/images/checkout_profile.svg"
 
-    if(gb_session_id || gb_login_message_closed){
+    if(gb_session_id || gb_login_message_closed || !this.state.showLogin){
         return null
     }else{
-       return ( <div className="alert-message-gbChk col-md-12">
+       return ( <div className="alert-message-gbChk">
             <div class="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
                 <img src={url} alt="profile" />
                 <span class="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios  
@@ -226,7 +234,7 @@ class Alert extends Component {
   }
     
   render() {
-    
+
     if (this.props.cart !== undefined && typeof this.props.cart.products !== "undefined") {    
         return(
             <div className="alert-message-gbChk col-md-12">

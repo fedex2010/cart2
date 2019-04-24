@@ -6,6 +6,13 @@ var express = require("express"),
     sessionService = require('../services/session_service'),
     jsonParser = bodyParser.json();
 
+// router.get("/", (req, res) => {
+//     // if(res.locals.xBrand.toLowerCase() == "compumundo"){
+//     //     res.sendFile("index.html", { root: './public/compumundo' })
+//     // }else {
+//         res.sendFile("index.html", { root: './public/garbarino' })
+//     // }
+// });
 router.get("/carousel",  ( req , res) => controllers.cart.getCarousel( req , res ));
 router.get("/summary", ( req , res) => controllers.cart.summary( req , res ));
 router.get("/c_:cartId/warranty/:productId", ( req , res) => controllers.cart.warrantyMobile( req , res ));
@@ -28,22 +35,6 @@ router.delete( "/c_:cartId/cupon/:couponCode", ( req , res) => controllers.cart.
 router.delete("/c_:cartId/aaPlus", ( req , res) => controllers.cart.deleteAAPlus( req , res));
   
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

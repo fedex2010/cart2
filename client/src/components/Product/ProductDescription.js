@@ -31,6 +31,7 @@ class ProductDescription extends Component {
   _showModal(product) {
     this.props.selectProduct(product);
   }
+
   _formatPrice(value, decimals) {
     if(value == undefined){
         return 0;
