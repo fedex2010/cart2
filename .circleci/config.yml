@@ -33,7 +33,7 @@ jobs:
             at: ~/garbarino-com/cart-ui
         - run: yarn install
         - run: yarn install-client
-        - run: yarn react-exp
+        - run: yarn build-{{ .Branch }}
         - persist_to_workspace:
             root: .
             paths: .
