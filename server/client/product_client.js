@@ -25,7 +25,6 @@ class ProductClient{
     }
 
     
-    //addProduct(cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, session_id=null,brand){
     addProduct( params ){
         
         let { cartId, productId, quantity=1, warrantyId=null, productPrice=null, promotionId=null, sessionId=null,brand,xSessionContext } = params

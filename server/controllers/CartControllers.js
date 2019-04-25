@@ -58,7 +58,7 @@ class CartControllers {
         .then( cart => this._inflateCart(cart,params) )
         .then(cart => {
         
-          sessionService.setSessionCookie(res, params.session_id) //Setea la cookie con el nuevo carrito
+          sessionService.setSessionCookie(res, params.sessionId) //Setea la cookie con el nuevo carrito
           sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
 
           res.status(200).send(cart);
@@ -762,7 +762,7 @@ class CartControllers {
 
   getParamsToCreateCart(res){
     return {
-      session_id : res.locals.session,
+      sessionId : res.locals.session,
       sellerId : res.locals.sellerId,
       brand : res.locals.xBrand.toLowerCase(),
       xSessionContext : res.locals.xSessionContext,
@@ -774,7 +774,7 @@ class CartControllers {
     let cartId = req.params.cartId || req.body.cartId || res.locals.cartId || null
     
     return {
-      session_id : res.locals.session,
+      sessionId : res.locals.session,
       brand : res.locals.xBrand.toLowerCase(),
       isEmpresarias : res.locals.isEmpresarias,
       xSessionContext : res.locals.xSessionContext,

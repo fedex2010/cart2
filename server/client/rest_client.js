@@ -33,13 +33,13 @@ class RestClient {
     }
 
     newCart(params) {
-        let {session_id,sellerId,brand,xSessionContext,channel,ipClient} = params
+        let {sessionId,sellerId,brand,xSessionContext,channel,ipClient} = params
 
-        logger.info("[" + session_id + "] Requesting cart");
+        logger.info("[" + sessionId + "] Requesting cart");
 
         let url = `${CHECKOUT_CORE_URL}/carts/`
 
-        let cartData = {session_id: session_id, sale_source: channel};
+        let cartData = {session_id: sessionId, sale_source: channel};
         
         if (sellerId){
             cartData.seller_id = sellerId
