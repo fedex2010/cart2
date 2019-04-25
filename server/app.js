@@ -5,6 +5,7 @@ const express = require("express"),
       errorService = require('./services/error_service'),
       cookieParser   = require('cookie-parser'),
       path 	= require('path'),
+      controllers = require("./controllers"),
       cartRouter = require("./routes/cart");
 
 let app = express();
@@ -16,11 +17,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
 // app.use(express.static(path.join(__dirname, "public/garbarino")));
 // app.use(express.static(path.join(__dirname, "public/compumundo")));
-
 //app.use(parallel([cookie]));
+
 app.get("/carrito", sessionMiddleware, (req, res) => {
   if(res.locals.xBrand.toLowerCase() == "compumundo"){
     res.sendFile("index.html", { root: './public/compumundo' })
@@ -30,6 +30,8 @@ app.get("/carrito", sessionMiddleware, (req, res) => {
     res.sendFile("index.html", { root: './public/garbarino' })
   }
 });
+
+app.get("/carrito/summary", sessionMiddleware, ( req , res) => controllers.cart.summary( req , res ));
 
 // app.use("/carrito",sessionMiddleware, carrito);
 app.use("/carrito/api/cart", sessionMiddleware , cartRouter);
@@ -101,11 +103,5 @@ function sessionMiddleware( req , res ,next) {
   }
   next()
 }
-
-
-/*
-xid: 4952296392
-promotion_id: 5b562577c9e77c0005901fb7
-*/
 
 module.exports = app;
