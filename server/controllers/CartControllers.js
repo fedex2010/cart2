@@ -679,11 +679,14 @@ class CartControllers {
   }
 
   summary(req, res) {
-    let cartId = res.locals.cartId,
-      brand = res.locals.xBrand.toLowerCase();
+    console.log("***********************")
+    console.log( this )
+    console.log("***********************")
+    
+    let params = this.getParamsToGetCart(req,res)
 
     RestClient.cartClient
-      .getOneCart(cartId, {}, brand)
+      .getOneCart( params )
       .then(cart => {
         res.json({ products_count: cart.products.length });
       })
