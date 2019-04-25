@@ -217,10 +217,11 @@ class Alert extends Component {
   _showLoginMessage(){
     let gb_session_id = Cookie.get("gb_session_id");
     let gb_login_message_closed = Cookie.get("gb_login_message_closed");
-    
+    let empresarias = Cookie.get("empresarias") || "false";
+  
     let url = config.getBasePathImages()+"/statics/images/checkout_profile.svg"
 
-    if(gb_session_id || gb_login_message_closed || !this.state.showLogin){
+    if(gb_session_id || gb_login_message_closed || !this.state.showLogin || empresarias == "true"){
         return null
     }else{
        return ( <div className="alert-message-gbChk">
