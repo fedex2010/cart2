@@ -20,7 +20,7 @@ var jsInlineTagManager = '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({
 
 var cssTemplate = '<link href="<inline CSS>" rel="stylesheet" type="text/css">\n  ';
 
-var jsTemplate = '<script src="<inline Js>" crossorigin="anonymous"></script>\n  ';
+var jsTemplate = '<script src="<inline Js>" ></script>\n  ';
 
 var baseUrl = serverConfig.normandia.base_url[process.argv[2]] + "/template/all?analytics=off&webp=true";
 

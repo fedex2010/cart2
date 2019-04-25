@@ -29,7 +29,7 @@ fetch(baseUrl)
     newIndex = data.replace("<!-- <norma CSS> -->", cssInlineList);
 
     var jsTemplate =
-      '<script src="<inline Js>" crossorigin="anonymous"></script>\n    ';
+      '<script src="<inline Js>"></script>\n    ';
     json.js.forEach(js => {
       jsInlineList += jsTemplate.replace("<inline Js>", js);
     });
