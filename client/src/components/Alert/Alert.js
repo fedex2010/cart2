@@ -227,7 +227,7 @@ class Alert extends Component {
        return ( <div className="alert-message-gbChk">
             <div className="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
                 <img src={url} alt="profile" />
-                <span className="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios
+                <span className="deleteProductText">¡Registrate o inicia sesion para ver tus compras, favoritos y disfrutar de beneficios
                 <a className="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
                     <span type="button" className="close" data-dismiss="alert" aria-label="Close">
                     <span onClick={this.setCookieMonth.bind(this)} aria-hidden="true">×</span>
