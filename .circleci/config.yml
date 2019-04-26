@@ -33,7 +33,18 @@ jobs:
             at: ~/garbarino-com/cart-ui
         - run: yarn install
         - run: yarn install-client
-        - run: yarn build-"${CIRCLE_BRANCH}"
+        - run:
+            name: Get ENVIRONMENT_NAME
+            command: |
+              if [ "$CIRCLE_BRANCH" == "master" ]; then
+                echo 'export ENVIRONMENT_NAME=master' >> $BASH_ENV
+              elif [ "$CIRCLE_BRANCH" == "satging" ]; then
+                echo 'export ENVIRONMENT_NAME=staging' >> $BASH_ENV
+              else
+                echo 'export ENVIRONMENT_NAME=ci' >> $BASH_ENV
+              fi
+        - run: chmod +x deploy.sh
+        - run: ./deploy.sh $ENVIRONMENT_NAME
         - persist_to_workspace:
             root: .
             paths: .
