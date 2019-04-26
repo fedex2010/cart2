@@ -54,8 +54,8 @@ fetch(baseUrl)
         });
         */
 
-        console.log("./server/views/"+site+"/index.html")
-        fs.writeFileSync("./server/views/"+site+"/"+site+"-index.html", newIndex, "utf-8");
+        console.log("./server/public/"+site+"/"+site+".html")
+        fs.writeFileSync("./server/public/"+site+"/"+site+".html", newIndex, "utf-8");
 
         console.log("norma inject in " + site + " complete");
     })
