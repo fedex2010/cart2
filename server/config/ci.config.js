@@ -38,7 +38,7 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
             compumundo  :   "https://www.compumundo.com.ar/normandia",
             
             //empresarias :   "https://empresas-ci.garbarino.com/normandia"
-            empresarias :   "https://empresas.garbarino.com/normandia"
+            empresarias :   "https://empresas-ci.garbarino.com/normandia"
         },
         timeout: 4000*timeoutRatio
     }
