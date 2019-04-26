@@ -40,7 +40,7 @@ jobs:
             command: |
               if [ "$CIRCLE_BRANCH" == "master" ]; then
                 echo 'export ENVIRONMENT_NAME=master' >> $BASH_ENV
-              elif [ "$CIRCLE_BRANCH" == "satging" ]; then
+              elif [ "$CIRCLE_BRANCH" == "staging" ]; then
                 echo 'export ENVIRONMENT_NAME=staging' >> $BASH_ENV
               else
                 echo 'export ENVIRONMENT_NAME=ci' >> $BASH_ENV
