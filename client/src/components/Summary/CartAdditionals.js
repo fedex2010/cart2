@@ -6,9 +6,6 @@ import ComponentMillasAP from "./ComponentMillasAP";
 import ComponentDiscountCoupon from "./ComponentDiscountCoupon";
 
 class CartAdditionals extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render(){
         if( Object.keys(this.props.cart).length === 0 ){

@@ -1,5 +1,3 @@
-"use strict";
-
 var path 			= require('path');
 var util 			= require('util');
 var rootPath        = path.normalize(__dirname + '/..');
@@ -14,7 +12,7 @@ let config    = require(__dirname + util.format('/%s.config.js', env) )(rootPath
 
 config.env = env;
 config.getBasePathImages = function(){
-    return (process.env.PUBLIC_URL == "") ? "http://localhost:5000" : process.env.PUBLIC_URL
+    return (process.env.PUBLIC_URL === "") ? "http://localhost:5000" : process.env.PUBLIC_URL
 }
 
 module.exports = config;

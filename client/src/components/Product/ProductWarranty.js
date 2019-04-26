@@ -65,7 +65,7 @@ class ProductWarranty extends Component{
       }
 
     _formatPrice(value, decimals) {
-        if(value == undefined){
+        if(value === undefined){
             return 0;
         }
           /**

@@ -78,9 +78,6 @@ export const justReload = id => dispatch => {
 
 
 export const fetchCart = id => dispatch => {
-    console.error("*************")
-    console.error("disparo el fech para el id: "+id)
-    console.error("*************")
     fetch("/carrito/api/cart/" + id, { credentials: 'include', cache: "no-store", 'Cache-Control': 'no-cache' })
         .then(handleErrors)
         .then(response => response.json())
@@ -98,18 +95,15 @@ export const fetchCart = id => dispatch => {
 };
 
 export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
-    console.error("*************")
-    console.error("disparo el fechNew para el productId: "+productId)
-    console.error("*************")
     let url = "/carrito/api/cart/newCart"
 
-    if (productId != "") {
+    if (productId !== "") {
         url += "/" + productId
     } else {
         url += "/UNDEFINED"
     }
 
-    if (couponId != "") {
+    if (couponId !== "") {
         url += "/" + couponId
     } else {
         url += "/UNDEFINED"
@@ -134,9 +128,6 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
 };
 
 export const getCarousel = (cartId) => dispatch => {
-    console.error("*************")
-    console.error("disparo el fechtCarousel para el cartId: "+cartId)
-    console.error("*************")
     fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         //.then( handleErrors )
         .then(response => response.json())
@@ -153,9 +144,6 @@ export const getCarousel = (cartId) => dispatch => {
 };
 
 export const addProduct = product => dispatch => {
-    console.error("*************")
-    console.error("disparo el fechtaddProduct para el product: "+product)
-    console.error("*************")
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
     fetch("/carrito/api/cart", {
         method: "POST",
@@ -178,7 +166,7 @@ export const addProduct = product => dispatch => {
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
 
-            if ( errorCode == "403") {
+            if ( errorCode === "403") {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
             } else {
                 history.push('/carrito/error')
@@ -214,7 +202,7 @@ export const updateQuantityProduct = (cartId, product, quantity) => dispatch => 
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
 
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: 500 });
+            dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
             history.push('/carrito/error')
         });
 };
@@ -301,7 +289,7 @@ export const addCoupon = (couponId, cartId) => dispatch => {
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
 
-            if (errorCode == "400" || errorCode == "405") {
+            if (errorCode === "400" || errorCode === "405") {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
             } else {
                 history.push('/carrito/error')

@@ -1,5 +1,3 @@
-import config from "../config/config";
-import {Redirect} from "react-router-dom";
 import React, { Component} from "react";
 import history from '../history';
 import { connect } from "react-redux";
@@ -47,8 +45,8 @@ class Vendedor extends Component {
                 <section className="container gb-box">
                     <div>
                         <div id="tp-content-form">
-                            <img id="garba-image" src="https://dj4i04i24axgu.cloudfront.net/statics/1.3.16/images/favicon_app.png" />
-                            <img id="compu-image" src="https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/logo-compumundo-app/2b54edb5d6f7adb1175f580812b3c1449d526febee9875ff77a400fc9fd59c05" />
+                            <img alt="garba" id="garba-image" src="https://dj4i04i24axgu.cloudfront.net/statics/1.3.16/images/favicon_app.png" />
+                            <img alt="compu" id="compu-image" src="https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/logo-compumundo-app/2b54edb5d6f7adb1175f580812b3c1449d526febee9875ff77a400fc9fd59c05" />
                             <p className="por-favor">Por favor, ingresá tu número de vendedor</p>
                             <hr/>
                             {this.state.errorSubmit}

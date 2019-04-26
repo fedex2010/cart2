@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Cookie from "js-cookie";
 
 import { formatPrice } from "../../utils/formatPrice";

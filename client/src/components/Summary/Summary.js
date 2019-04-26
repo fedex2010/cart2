@@ -8,10 +8,6 @@ import { hideGereralLoading } from "../../actions/CartAction";
 
 class Summary extends Component {
     
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount () {
     this.timeoutId = setTimeout(function () {
             this.setState({show: true});

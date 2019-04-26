@@ -192,7 +192,7 @@ class ComponentDiscountCoupon extends Component {
 
     componentWillReceiveProps(nextProps){
         //if there is no products then reset component state
-        if( nextProps.cart.products.length == 0 ){
+        if( nextProps.cart.products.length === 0 ){
             sessionStorage.removeItem("couponDeleted")
             this.setState({
                 selectedOption: "discount-coupon1",

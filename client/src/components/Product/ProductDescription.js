@@ -33,7 +33,7 @@ class ProductDescription extends Component {
   }
 
   _formatPrice(value, decimals) {
-    if(value == undefined){
+    if(value === undefined){
         return 0;
     }
       /**
@@ -78,7 +78,7 @@ class ProductDescription extends Component {
     let subtotalPriceRound = this._formatPrice(product.subtotal_price);
 
     let productWarranty
-    let imageProduct = (navigator.userAgent.indexOf("Chrome") != -1) ? product.main_image.url : formatImage(product.main_image.url);
+    let imageProduct = (navigator.userAgent.indexOf("Chrome") !== -1) ? product.main_image.url : formatImage(product.main_image.url);
 
     if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
       productWarranty = <ProductWarranty
@@ -93,7 +93,7 @@ class ProductDescription extends Component {
 
 
     return (
-      <div className={ showStatus == "cart-item-tag cart-item-tag--error" ? "cart-item card cart-item-sold-out": "cart-item card"}  id={idProduct}>
+      <div className={ showStatus === "cart-item-tag cart-item-tag--error" ? "cart-item card cart-item-sold-out": "cart-item card"}  id={idProduct}>
         <div className="cart-item-detail"  itemScope itemType="http://schema.org/Offer" >
           <div className="cart-item-column">
             <picture className="cart-item-image">
