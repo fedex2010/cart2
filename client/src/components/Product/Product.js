@@ -13,7 +13,7 @@ class Product extends Component {
   
 
   render() {
-    if( Object.keys(this.props.cart) == 0 ){
+    if( Object.keys(this.props.cart) === 0 ){
       return null
     }
     

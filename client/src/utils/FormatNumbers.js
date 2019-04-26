@@ -1,7 +1,7 @@
 export const formatNumbers = (number) => {
     number = number.replace(new RegExp('\\.', 'g'), ',')
 
-    let regex   = new RegExp('[^' + "," + '\\d]', 'g'),
+    let regex   = new RegExp('[^,\\d]', 'g'),
     numberReplaced = number.replace(regex, '').toString(),
     split   = numberReplaced.split(","),
     rest    = split[0].length % 3,
@@ -12,7 +12,7 @@ export const formatNumbers = (number) => {
     let separator = rest ? "." : '';
     result += separator + thousands.join(".");
   }
-  result = split[1] != undefined ? result + "," + split[1] : result;
+  result = split[1] !== undefined ? result + "," + split[1] : result;
 
   return result
 };

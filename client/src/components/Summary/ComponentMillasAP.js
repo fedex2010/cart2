@@ -44,8 +44,10 @@ class ComponentMillasAP extends Component {
   }
 
     _handleInput = ({target: {value}}) => {
+
         this.setState(state => value.length <= 8 && !isNaN(Number(value)) && {value} || state)
         this.setState({ input: value })
+        
     }
 
     _onChange() {

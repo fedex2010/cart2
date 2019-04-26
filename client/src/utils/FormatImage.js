@@ -10,7 +10,7 @@ export const formatImage = (imageUrl) => {
 
     let extension = ".jpg";
 
-    if(navigator.userAgent.indexOf("Chrome") != -1){
+    if(navigator.userAgent.indexOf("Chrome") !== -1){
         //Chrome
         extension = ".webp";
         product_image_route = product_image_route + extension;

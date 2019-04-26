@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = (ROOT_PATH, timeoutRatio) => {
   var config = {
       cart_url:"/reactcart",

@@ -1,5 +1,5 @@
 export function formatPrice(value, decimals){
-  if(value == undefined){
+  if(value === undefined){
       return 0;
   }
     /**

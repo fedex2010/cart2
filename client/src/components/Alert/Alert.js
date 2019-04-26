@@ -46,13 +46,22 @@ class Alert extends Component {
       let hasCrosseling = cart.products.filter(function(p){return p.promotion && p.promotion.status === 'VALID' && p.promotion.total_discount > 0;}).length > 0;
       let hasBonification = hasPriceMatchingDiscount || hasPolcom;
       cart.couponAmount=0;
-      cart.discount_details.map(function(discount_detail) {
+      
+      /*cart.discount_details.map(function(discount_detail) {
           switch (discount_detail.source) {
               case "COUPON":
                   cart.couponAmount +=discount_detail.amount;
                   break;
+              default:
+                  ;         
           }
-      });
+      });*/
+
+      cart.discount_details.forEach(function(discount_detail){
+        if( discount_detail.source === "COUPON"){
+            cart.couponAmount +=discount_detail.amount;            
+        }
+      })
 
       let hasCoupon = cart.couponAmount > 0;
       let msj = "";
@@ -183,14 +192,14 @@ class Alert extends Component {
 
   _showError(err){
     if( this.props.err.cause && this.props.err.cause.code ){
-        let classError = (this.props.err.cause && this.props.err.cause.code && (this.props.err.cause.code == 404 || this.props.err.cause.code == 403))? "error-msj" : "error-msj hide";
+        let classError = (this.props.err.cause && this.props.err.cause.code && (this.props.err.cause.code === 404 || this.props.err.cause.code === 403))? "error-msj" : "error-msj hide";
         let cssMsj = "feedback feedback-error feedback-dismissible " + classError;
     
         let errorFalse
         
-        if( this.props.err.cause.code == 404 ){
+        if( this.props.err.cause.code === 404 ){
             errorFalse = "Ocurrio un error. Intente nuevamente más tarde.";
-        }else if( this.props.err.cause.code == 403 ){
+        }else if( this.props.err.cause.code === 403 ){
             errorFalse = "No es posible agregar más de 10 productos diferentes en el mismo carrito";
         }
     
@@ -221,14 +230,14 @@ class Alert extends Component {
   
     let url = config.getBasePathImages()+"/statics/images/checkout_profile.svg"
 
-    if(gb_session_id || gb_login_message_closed || !this.state.showLogin || empresarias == "true"){
+    if(gb_session_id || gb_login_message_closed || !this.state.showLogin || empresarias === "true"){
         return null
     }else{
        return ( <div className="alert-message-gbChk">
             <div className="gb-alert-box alert alert-neutral alert-signup" id="myAccountLoginCart">
                 <img src={url} alt="profile" />
-                <span className="deleteProductText">¡Registrate o inicia sesion para ver tus compras, favoritos y disfrutar de beneficios
-                <a className="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</a></span>
+                <span className="deleteProductText">¡Registrate o inicia session para ver tus compras, favoritos y disfrutar de beneficios
+                <button className="gb-button primary" id="myAccountLogin" data-toggle="modal" data-target="#myaccount-registration" onClick={this.showLoginForm.bind(this)} >Ingresar</button></span>
                     <span type="button" className="close" data-dismiss="alert" aria-label="Close">
                     <span onClick={this.setCookieMonth.bind(this)} aria-hidden="true">×</span>
                 </span>

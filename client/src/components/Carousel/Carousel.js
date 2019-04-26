@@ -4,15 +4,11 @@ import { connect } from "react-redux";
 import {getCarousel, addProduct} from "../../actions/CartAction";
 import {formatNumbers} from "../../utils/FormatNumbers";
 import {formatImage} from "../../utils/FormatImage";
-import config from "../../config/config";
 
 import Swiper from 'react-id-swiper';
 
 class Carousel extends Component {
-    constructor(props) {
-        super(props)
-    }
-
+    
     handleAddProduct(product,price){
         let  products = { xid: product, productPrice: price };
         this.props.addProduct(products);
@@ -86,7 +82,7 @@ class Carousel extends Component {
                                             </div>
 
                                             <div className="carousel-item-actions">
-                                                <a href={'/producto/'+ product.xid} title={product.xid} itemProp="url" target="_blank" className="button--link button--xs">Ver detalle</a>
+                                                <a rel="noopener noreferrer" href={'/producto/'+ product.xid} title={product.xid} itemProp="url" target="_blank" className="button--link button--xs">Ver detalle</a>
                                                 <button onClick={this.handleAddProduct.bind(this,product.xid,product.price)} className="button--primary button--xs">Agregar</button>
                                             </div>
                                     </div>
