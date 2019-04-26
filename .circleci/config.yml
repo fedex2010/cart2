@@ -31,6 +31,8 @@ jobs:
       steps:
         - attach_workspace:
             at: ~/garbarino-com/cart-ui
+        - run: sudo apt-get update
+        - run: sudo apt-get install awscli
         - run: yarn install
         - run: yarn install-client
         - run:
