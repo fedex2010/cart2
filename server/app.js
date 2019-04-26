@@ -11,15 +11,15 @@ const express = require("express"),
 
 var schedule = require("node-schedule");
 
-schedule.scheduleJob("*/1 * * * *", function() {
-  console.log("The answer to life, the universe, and everything!0");
-  normaJobs.normaJobs("garbarino");
-  console.log("The answer to life, the universe, and everything!1");
-  normaJobs.normaJobs("compumundo");
-  console.log("The answer to life, the universe, and everything!2");
-  normaJobs.normaJobs("empresarias");
-  console.log("The answer to life, the universe, and everything!3");
-});
+// schedule.scheduleJob("*/1 * * * *", function() {
+//   console.log("The answer to life, the universe, and everything!0");
+//   normaJobs.normaJobs("garbarino");
+//   console.log("The answer to life, the universe, and everything!1");
+//   normaJobs.normaJobs("compumundo");
+//   console.log("The answer to life, the universe, and everything!2");
+//   normaJobs.normaJobs("empresarias");
+//   console.log("The answer to life, the universe, and everything!3");
+// });
 
 let app = express();
 
@@ -108,20 +108,18 @@ function sessionMiddleware(req, res, next) {
   next();
 }
 function getIndex(req, res, next) {
+  
   let whereToGo =
     res.locals.xBrand.toLowerCase() == "compumundo"
       ? "compumundo"
       : "garbarino";
   whereToGo = res.locals.isEmpresarias ? "empresarias" : whereToGo;
+  console.log("\n\n\n\n request-> " +whereToGo);
 
-  res.sendFile(whereToGo + ".html", { root: "./public/" + whereToGo }, function(
-    err
-  ) {
+  res.sendFile(whereToGo + ".html", { root: "./public/" + whereToGo }, function(err) {
     if (err) {
       logger.error("index not found for " + whereToGo);
-      res.sendFile("index.html", { root: "./public/" + whereToGo }, function(
-        err
-      ) {
+      res.sendFile("index.html", { root: "./public/" + whereToGo }, function(err) {
         if (err) {
           logger.error("index not found for " + whereToGo + " fallback!");
           next(err);
