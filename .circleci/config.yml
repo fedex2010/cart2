@@ -105,6 +105,7 @@ workflows:
             tags:
               only: /^CHECKOUT-.*/
       - build_client:
+          context: org-global
           requires:
             - checkout_code
           filters:
