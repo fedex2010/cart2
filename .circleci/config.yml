@@ -14,6 +14,7 @@ jobs:
             - yarn-cache-{{ .Branch }}
             - yarn-cache-
       - run: yarn install
+      - run: yarn install-server
       - run: yarn install-client
       - save_cache:
           key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}-v2
@@ -33,8 +34,6 @@ jobs:
             at: ~/garbarino-com/cart-ui
         - run: sudo apt-get update
         - run: sudo apt-get install awscli
-        - run: yarn install
-        - run: yarn install-client
         - run:
             name: Get ENVIRONMENT_NAME
             command: |

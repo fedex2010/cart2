@@ -6,20 +6,17 @@ const express = require("express"),
   cookieParser = require("cookie-parser"),
   path = require("path"),
   controllers = require("./controllers"),
-  normaJobs = require("./normaJobsAlls"),
+  normaJobs = require("./normaJob"),
   cartRouter = require("./routes/cart");
 
 var schedule = require("node-schedule");
 
-// schedule.scheduleJob("*/1 * * * *", function() {
-//   console.log("The answer to life, the universe, and everything!0");
-//   normaJobs.normaJobs("garbarino");
-//   console.log("The answer to life, the universe, and everything!1");
-//   normaJobs.normaJobs("compumundo");
-//   console.log("The answer to life, the universe, and everything!2");
-//   normaJobs.normaJobs("empresarias");
-//   console.log("The answer to life, the universe, and everything!3");
-// });
+schedule.scheduleJob("*/1 * * * *", function() {
+  console.log("Job runing: norma sync")
+  normaJobs.job("garbarino",false);
+  normaJobs.job("compumundo",false);
+  normaJobs.job("empresarias",false);
+});
 
 let app = express();
 

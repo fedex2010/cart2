@@ -8,21 +8,24 @@ CDN='//dj4i04i24axgu.cloudfront.net'
 EMP='empresarias'
 CP='compumundo'
 GB='garbarino'
-
-# echo $ENV > APP_ENV
-
-echo $APPLICATION_VERSION > APP_VERSION
-
+landings=( $EMP $CP $GB)
 APPLICATION_VERSION="SNAPSHOT-$CIRCLE_SHA1-$CIRCLE_BUILD_NUM"
+
 echo $APPLICATION_VERSION
+echo $APPLICATION_VERSION > APP_VERSION
+echo $ENV > APP_ENV
 
-cd /home/circleci/garbarino-com/$PROJECT_NAME
+cd /home/circleci/garbarino-com/$PROJECT_NAME/client
+# cd client
+echo "index copied"
+cp indexTemplate.html public/index.html
+printf "CI=false\nPUBLIC_URL=$CDN/$PROJECT_NAME/$ENV/$APPLICATION_VERSION" > .env.production
+yarn build
+aws s3 sync ./build s3://garbarino-fe/$PROJECT_NAME/$ENV/$APPLICATION_VERSION --cache-control max-age=604800
 
-PUBLIC_URL=$CDN/$PROJECT_NAME/$GB/$ENV/$APPLICATION_VERSION yarn build-garbarino
-aws s3 sync ./client/build s3://$GB-fe/$PROJECT_NAME/$GB/$ENV/$APPLICATION_VERSION --cache-control max-age=604800
-
-PUBLIC_URL=$CDN/$PROJECT_NAME/$CP/$ENV/$APPLICATION_VERSION yarn build-compumundo
-aws s3 sync ./client/build s3://$GB-fe/$PROJECT_NAME/$CP/$ENV/$APPLICATION_VERSION --cache-control max-age=604800
-
-PUBLIC_URL=$CDN/$PROJECT_NAME/$EMP/$ENV/$APPLICATION_VERSION yarn build-empresarias
-aws s3 sync ./client/build s3://$GB-fe/$PROJECT_NAME/$EMP/$ENV/$APPLICATION_VERSION --cache-control max-age=604800
+cd ..
+for var in "${landings[@]}"
+do
+  echo "${var}"  
+  node normaJob.js "${var}" 
+done
