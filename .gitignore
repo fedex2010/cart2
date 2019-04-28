@@ -6,6 +6,9 @@ npm-debug.log
 server/*.log
 server/newrelic_agent.log
 newrelic_agent.log
-server/public/garbarino/
-server/public/compumundo/
-server/public/empresarias/
+server/public/garbarino/*
+server/public/compumundo/*
+server/public/empresarias/*
+!server/public/garbarino/.Drogon
+!server/public/compumundo/.Rhaegal
+!server/public/empresarias/.Viserion
