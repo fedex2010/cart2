@@ -18,7 +18,7 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
         url:"http://api-global-prod.garbarino.com/lists",
         list_name:{
             garbarino:"home-ofertas-ultimo-momento",
-            compumundo:"after-offers"
+            compumundo:"home-ofertas-ultimo-momento-c"
         },
         list_name_product:{
             garbarino:"productos-cuotas-sin-interes",
