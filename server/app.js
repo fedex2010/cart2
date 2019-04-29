@@ -63,9 +63,6 @@ app.use(function(err, req, res, next) {
 });
 
 function sessionMiddleware(req, res, next) {
-  //logger.info('sessionMiddleware --> '+ JSON.stringify(req.headers));
-  //logger.info('x-brand --> '+ req.get('x-brand'));
-  //logger.info('X-Brand --> '+ req.get('X-Brand'));
   try {
     let sessionCookie = req.cookies["epi.context"];
     let cartCookie = req.cookies["cartId"];
@@ -111,8 +108,7 @@ function getIndex(req, res, next) {
       ? "compumundo"
       : "garbarino";
   whereToGo = res.locals.isEmpresarias ? "empresarias" : whereToGo;
-  console.log("\n\n\n\n request-> " +whereToGo);
-
+  
   res.sendFile(whereToGo + ".html", { root: "./public/" + whereToGo }, function(err) {
     if (err) {
       logger.error("index not found for " + whereToGo);
