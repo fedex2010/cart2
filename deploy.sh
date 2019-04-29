@@ -29,3 +29,4 @@ do
   echo "${var}"  
   node normaJob.js "${var}" 
 done
+aws s3 sync ./server/public s3://garbarino-fe/$PROJECT_NAME/test --cache-control max-age=604800
