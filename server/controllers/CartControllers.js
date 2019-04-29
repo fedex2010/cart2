@@ -377,11 +377,14 @@ class CartControllers {
         sessionService.setSessionCookie(res, cart.session) //Setea la cookie con el nuevo carrito
         sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
 
-        if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") && !req.headers['referer'].endsWith("/carrito/")) {
+        if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") 
+        && !req.headers['referer'].endsWith("/carrito/") && !req.headers['referer'].endsWith("/reactcart/")) {
+
           res.redirect(302, req.get('origin') + '/carrito')
         } else {
           res.status(200).send(cart)
         }
+        
       })
       .catch(err => {
         newrelic.noticeError(err)
