@@ -7,6 +7,7 @@
     "rm-node-module": "rm -rf node_modules && rm -rf client/node_modules && rm -rf server/node_modules",
     "install-client": "cd client && yarn install",
     "install-server": "cd server && yarn install",
+    "postinstall": "npm-run-all install-server",
     "server-dev": "cd server && yarn run server-dev",
     "server-prod": "cd server && yarn run server-prod",
     "server-staging": "cd server && yarn run server-staging",
