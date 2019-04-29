@@ -11,7 +11,7 @@ const express = require("express"),
 
 var schedule = require("node-schedule");
 
-schedule.scheduleJob("*/1 * * * *", function() {
+schedule.scheduleJob("*/15 * * * *", function() {
   logger.info("running Job: norma sync");
   normaJobs.job("garbarino",false);
   normaJobs.job("compumundo",false);
