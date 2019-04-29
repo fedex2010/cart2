@@ -12,7 +12,7 @@ const express = require("express"),
 var schedule = require("node-schedule");
 
 schedule.scheduleJob("*/1 * * * *", function() {
-  logger.error("running Job: norma sync");
+  logger.info("running Job: norma sync");
   normaJobs.job("garbarino",false);
   normaJobs.job("compumundo",false);
   normaJobs.job("empresarias",false);
