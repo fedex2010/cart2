@@ -24,5 +24,4 @@ RUN yarn install --no-optional --production
 COPY . /usr/src/app
 
 EXPOSE 3000
-CMD rm -f /usr/src/app/server/newrelic/newrelic.js; cp /usr/src/app/server/newrelic/newrelic.js.$APP_ENV /usr/src/app/server/newrelic.js;
-CMD yarn server-$APP_ENV
+CMD rm -f /usr/src/app/server/newrelic/newrelic.js; cp /usr/src/app/server/newrelic/newrelic.js.$APP_ENV /usr/src/app/server/newrelic.js; yarn server-$APP_ENV;
