@@ -17,8 +17,8 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
     searchList: {
         url:"http://api-global-staging.garbarino.com/lists",
         list_name:{
-            garbarino:"home-ofertas-ultimo-momento",
-            compumundo:"after-offers"
+            garbarino:"home-electrodomesticos",
+            compumundo:"home-electrodomesticos"
         },
         list_name_product:{
             garbarino:"productos-cuotas-sin-interes",

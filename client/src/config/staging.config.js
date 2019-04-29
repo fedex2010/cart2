@@ -8,14 +8,14 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
       },
       cloudfront: {
           url: "//dj4i04i24axgu.cloudfront.net/checkout-ui",
-          urlImageProduct: "//d34zlyc2cp9zm7.cloudfront.net/products/"
+          urlImageProduct: "//d34zlyc2cp9zm7.cloudfront.net/ci/products/"
       },
       google: {
           gtm_id:{
               garbarino:"GTM-MSSSZ7",
               compumundo:"GTM-3S2LZG"
           },
-          experiment_key: "120032359-126",
+          experiment_key: "120043263-85",
           maps_key: "AIzaSyBTGseCoifrBnclGBt6j2XMg5-bxGu-vG4"
       },
       home_url:{
