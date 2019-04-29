@@ -15,8 +15,7 @@ let cssInlineList = "";
 
 let jsBrand =
   '<script>\n        window.xBrand ="' +
-  brand +
-  '";\n    window.gb.my_account = window.gb.my_account || {};\n</script>';
+  brand + ';';
 
 let jsDataLayer =
   "<script>\n          if (typeof dataLayer === 'undefined') {\n              dataLayer = [];\n          }\n      </script>";
