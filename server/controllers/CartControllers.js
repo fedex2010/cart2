@@ -32,9 +32,6 @@ class CartControllers {
 
     let cookieCart = req.cookies['cartId']
     logger.info("[" + cookieCart + "] getCart cookies1:" + cookieCart);
-    logger.info("[" + cookieCart + "] getCart cookies2:" + JSON.stringify(req.cookies));
-    console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
-
     newrelic.addCustomAttribute('cookieCartId', cartId);
 
     this._isEmpresarias(req, res);
@@ -436,8 +433,8 @@ class CartControllers {
     sessionService.resetSessionCookies(res)
 
     let params = this.getParamsToCreateCart( res ) 
-    params.productId = req.params.productId
-    params.cupon = req.params.cupon
+        params.productId = req.params.productId
+        params.cupon = req.params.cupon
                 
     RestClient.cartClient.newCart( params )
       .then(cart => {        
