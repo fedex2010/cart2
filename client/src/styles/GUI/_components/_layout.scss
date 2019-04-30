@@ -75,7 +75,29 @@ a {
       z-index: 3;
    }
 }
-
+.button--is-loading {
+   position: relative;
+   background-color: #E2E2E2!important;
+   color: #9E9E9E!important;
+   cursor: default;
+   pointer-events: none;
+   width: 137px!important;
+   text-align: right!important;
+   box-shadow: none!important;
+   &:after {
+      background-image: url(https://d34zlyc2cp9zm7.cloudfront.net/all/gb-spinner--md.svg);
+      background-position:  7px center;
+      background-repeat: no-repeat;
+      background-size: 25px 25px;
+      bottom: 0;
+      content:""; 
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 3;
+   }
+}
 
 body.full-page--is-loading {
    &:after {

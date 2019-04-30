@@ -7,13 +7,19 @@ import { hideGereralLoading } from "../../actions/CartAction";
 
 
 class Summary extends Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+            classLoadingContinue: true,
+            timeoutLoading: false
+        };
+      }
     
   componentDidMount () {
     this.timeoutId = setTimeout(function () {
             this.setState({show: true});
         }.bind(this), 2000);
         
-    
     this.props.hideGereralLoading()
 }
 
@@ -22,12 +28,14 @@ class Summary extends Component {
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
+      
     }
 
   _continue(e){
-//      window.location = "http://localhost:3000/compra/entrega";
-        window.location = "/compra/entrega";
-    }
+    this.setState({classLoadingContinue: false});   
+    window.location = "/compra/entrega";  
+ 
+   }
 
   _moreProduct(){
       let homeUrl = ( window.xBrand === "garbarino" )?"https://www.garbarino.com":"https://www.compumundo.com.ar";
@@ -80,10 +88,9 @@ class Summary extends Component {
   render() {
     //used for "Continue" button
     let isThereProductWithOutStock = this._isThereProductWithOutStock()
-
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
-    let classSummary = ""
+    let classSummary = "";
     if(this.props.cart.products){
         classSummary = this._productCant(this.props.cart.products);
     }
@@ -125,7 +132,7 @@ class Summary extends Component {
                         <button className="button--link" onClick={this._moreProduct.bind()}>
                             COMPRAR MÁS PRODUCTOS
                         </button>
-                        <button type="button" className="button--primary" id="cart-buy-btn" disabled={isThereProductWithOutStock} onClick={this._continue.bind()}>
+                        <button type="button" className={this.state.classLoadingContinue ? 'button--primary' : 'button--primary button--is-loading' } id="cart-buy-btn" disabled={isThereProductWithOutStock} onClick={this._continue.bind(this)}>
                             Continuar
                         </button>
                     </div>
