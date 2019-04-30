@@ -20,7 +20,8 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
       },
       home_url:{
           garbarino   :   "https://staging.garbarino.com",
-          compumundo  :   "https://staging.compumundo.com.ar"
+          compumundo  :   "https://staging.compumundo.com.ar",
+          empresarias  :   "https://empresas-staging.garbarino.com"
       }
   };
   return config;

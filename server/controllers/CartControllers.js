@@ -32,9 +32,6 @@ class CartControllers {
 
     let cookieCart = req.cookies['cartId']
     logger.info("[" + cookieCart + "] getCart cookies1:" + cookieCart);
-    logger.info("[" + cookieCart + "] getCart cookies2:" + JSON.stringify(req.cookies));
-    console.log("tiro newrelic.addCustomAttribute('cookieCartId', cartId);" + cartId);
-
     newrelic.addCustomAttribute('cookieCartId', cartId);
 
     this._isEmpresarias(req, res);
@@ -436,8 +433,8 @@ class CartControllers {
     sessionService.resetSessionCookies(res)
 
     let params = this.getParamsToCreateCart( res ) 
-    params.productId = req.params.productId
-    params.cupon = req.params.cupon
+        params.productId = req.params.productId
+        params.cupon = req.params.cupon
                 
     RestClient.cartClient.newCart( params )
       .then(cart => {        
@@ -624,14 +621,14 @@ class CartControllers {
     let cartId = req.params.cartId,
       code = req.body.code,
       brand = res.locals.xBrand.toLowerCase();
-
+    
     console.log("code:" + code);
     console.log("cartId:" + cartId);
-
+    let cartParams = this.getParamsToGetCart(req,res)
     RestClient.promotion
       .setLoyaltyCode(cartId, "AEROLINEAS_PLUS", code, brand)
-      .then(() => {
-        this._getOneCart(cartId, req, res)
+      .then((cart) => {
+        this._getOneCart(cartParams)
           .then(cart => {
             res.status(200).send(cart);
           })
@@ -656,10 +653,12 @@ class CartControllers {
     let cartId = req.params.cartId,
       brand = res.locals.xBrand.toLowerCase();
 
+      let cartParams = this.getParamsToGetCart(req,res)
+
     RestClient.promotion
       .deleteLoyaltyCode(cartId, "AEROLINEAS_PLUS", brand)
       .then(loyalty => {
-        this._getOneCart(cartId, req, res)
+        this._getOneCart(cartParams)
           .then(cart => {
 
             res.status(200).send(cart);

@@ -20,7 +20,8 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
       },
       home_url:{
           garbarino   :   "https://ci.garbarino.com",
-          compumundo  :   "https://ci.compumundo.com.ar"
+          compumundo  :   "https://ci.compumundo.com.ar",
+          empresarias  :   "https://empresas-ci.garbarino.com"
       }
   };
   return config;

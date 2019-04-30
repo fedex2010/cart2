@@ -32,16 +32,13 @@ class Modal extends Component {
   }
 
   escFunction(event){
-    console.log("KEYYevent",event)
     if(event.keyCode === 27) {
-      console.log("keyCode",event.keyCode)
         document.querySelector(".keyEscModal").click();
         document.getElementById("KeyEscModal").click();
     }
 }
 componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
-    console.log("KEYY")
 }
 
   render() {
