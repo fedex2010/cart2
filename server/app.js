@@ -15,7 +15,7 @@ schedule.scheduleJob("*/15 * * * *", function() {
   normaJobs.job("garbarino",false);
   normaJobs.job("compumundo",false);
   normaJobs.job("empresarias",false);
-});
+});  
 
 let app = express();
 
@@ -30,6 +30,13 @@ app.get("/carrito", sessionMiddleware, getIndex);
 app.get("/carrito/summary", sessionMiddleware, (req, res) =>
   controllers.cart.summary(req, res)
 );
+
+app.use( (req, res, next) => {
+  req.duration = new Date().getTime()
+  next();
+});
+
+
 app.use("/carrito/api/cart", sessionMiddleware, cartRouter);
 app.use("/clean", function(req, res) {
   sessionService.resetSessionCookies(res);
