@@ -37,7 +37,7 @@ jobs:
             name: Get ENVIRONMENT_NAME
             command: |
               if [ "$CIRCLE_BRANCH" == "master" ]; then
-                echo 'export ENVIRONMENT_NAME=master' >> $BASH_ENV
+                echo 'export ENVIRONMENT_NAME=prod' >> $BASH_ENV
               elif [ "$CIRCLE_BRANCH" == "staging" ]; then
                 echo 'export ENVIRONMENT_NAME=staging' >> $BASH_ENV
               else
