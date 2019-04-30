@@ -624,14 +624,14 @@ class CartControllers {
     let cartId = req.params.cartId,
       code = req.body.code,
       brand = res.locals.xBrand.toLowerCase();
-
+    
     console.log("code:" + code);
     console.log("cartId:" + cartId);
-
+    let cartParams = this.getParamsToGetCart(req,res)
     RestClient.promotion
       .setLoyaltyCode(cartId, "AEROLINEAS_PLUS", code, brand)
-      .then(() => {
-        this._getOneCart(cartId, req, res)
+      .then((cart) => {
+        this._getOneCart(cartParams)
           .then(cart => {
             res.status(200).send(cart);
           })
@@ -656,10 +656,12 @@ class CartControllers {
     let cartId = req.params.cartId,
       brand = res.locals.xBrand.toLowerCase();
 
+      let cartParams = this.getParamsToGetCart(req,res)
+
     RestClient.promotion
       .deleteLoyaltyCode(cartId, "AEROLINEAS_PLUS", brand)
       .then(loyalty => {
-        this._getOneCart(cartId, req, res)
+        this._getOneCart(cartParams)
           .then(cart => {
 
             res.status(200).send(cart);
