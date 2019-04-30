@@ -15,12 +15,7 @@ echo "Application version: $APPLICATION_VERSION"
 echo $APPLICATION_VERSION > APP_VERSION
 
 echo "environment: $ENV"
-echo "export APP_ENV=$ENV" >> $BASH_ENV
-
-echo "APP_ENV: $APP_ENV"
-echo $ENV > APP_ENV
-
-echo "******TEST*******"
+echo "export APP_ENV=APP_ENV" >> $BASH_ENV
 
 cd /home/circleci/garbarino-com/$PROJECT_NAME/client
 
@@ -28,7 +23,7 @@ echo "Copying indexTemplate"
 cp indexTemplate.html public/index.html
 
 echo "Saving .env.production"
-printf "CI=false\nPUBLIC_URL=$CDN/$PROJECT_NAME/$ENV/$APPLICATION_VERSION" > .env.production
+printf "REACT_APP_APP_ENV=$ENV\nPUBLIC_URL=$CDN/$PROJECT_NAME/$ENV/$APPLICATION_VERSION" > .env.production
 
 echo "Building react cart"
 yarn build
