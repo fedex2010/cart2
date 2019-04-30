@@ -38,7 +38,7 @@ class Summary extends Component {
    }
 
   _moreProduct(){
-      let homeUrl = ( window.xBrand === "garbarino" )?"https://www.garbarino.com":"https://www.compumundo.com.ar";
+      let homeUrl = ( window.xBrand === "garbarino" )?config.home_url.garbarino : ( window.xBrand === "compumundo" ) ? config.home_url.compumundo: config.home_url.empresarias;
       window.location = homeUrl;
   }
 

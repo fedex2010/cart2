@@ -19,8 +19,9 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
           maps_key: "AIzaSyDPqf7pWglQM2NkVIZD63C5MgOagigCBMg"
       },
       home_url:{
-          garbarino   :   "https://www.garbarino.com",
-          compumundo  :   "https://www.compumundo.com.ar"
+          garbarino    :   "https://www.garbarino.com",
+          compumundo   :   "https://www.compumundo.com.ar",
+          empresarias  :   "https://empresas.garbarino.com"
       }
   };
   return config;
