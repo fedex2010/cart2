@@ -436,8 +436,8 @@ class CartControllers {
     sessionService.resetSessionCookies(res)
 
     let params = this.getParamsToCreateCart( res ) 
-    params.productId = req.params.productId
-    params.cupon = req.params.cupon
+        params.productId = req.params.productId
+        params.cupon = req.params.cupon
                 
     RestClient.cartClient.newCart( params )
       .then(cart => {        
