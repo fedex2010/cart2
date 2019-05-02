@@ -479,7 +479,7 @@ class CartControllers {
         let timeConsumed = new Date().getTime()
         let durationRequest = timeConsumed - req.duration
 
-        if(durationRequest > 30000){ //30 segundos
+        if(durationRequest > 5000){ //5 segundos
           
           logger.warn("*********** DURACION DEL REQUEST MAYOR A 30 SEG")
         }
