@@ -66,16 +66,16 @@ jobs:
               if [ "$CIRCLE_BRANCH" == "master" ]
               then
                 aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$CIRCLE_SHA1-$CIRCLE_BUILD_NUM.zip
-                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
+                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$CIRCLE_SHA1-$CIRCLE_BUILD_NUM.zip --region us-east-1
               elif [ "$CIRCLE_BRANCH" == "staging" ]
               then
                 aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$CIRCLE_SHA1-$CIRCLE_BUILD_NUM-staging.zip
-                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM-staging --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
+                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM-staging --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$CIRCLE_SHA1-$CIRCLE_BUILD_NUM-staging.zip --region us-east-1
                 aws elasticbeanstalk update-environment --environment-name cart-ui-staging --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM-staging --region us-east-1
               elif [ "$CIRCLE_BRANCH" == "develop" ]
               then
                 aws s3 cp /tmp/app.zip s3://garbarino-deploys/cart-ui/builds/$CIRCLE_SHA1-$CIRCLE_BUILD_NUM-ci.zip
-                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM-ci --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$PACKAGE_LABEL.zip --region us-east-1
+                aws elasticbeanstalk create-application-version --application-name cart-ui --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM-ci --source-bundle S3Bucket=garbarino-deploys,S3Key=cart-ui/builds/$CIRCLE_SHA1-$CIRCLE_BUILD_NUM-ci.zip --region us-east-1
                 aws elasticbeanstalk update-environment --environment-name cart-ui-ci --version-label $CIRCLE_SHA1-$CIRCLE_BUILD_NUM-ci --region us-east-1
               else
                 echo "Something wrong!?!"
