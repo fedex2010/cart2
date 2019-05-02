@@ -1,7 +1,8 @@
-"use strict";
-
+const logger = require("../utils/logger")
 
 exports.getErrorObject = (message,code) =>{
+    code = ( typeof code === "string" )? parseInt(code) :code
+
     let error = {
                     erro:{
                         cause : {
@@ -10,7 +11,17 @@ exports.getErrorObject = (message,code) =>{
                         }
                     }
                 }
+                
     return error
+}
+
+exports.getErrorCode = (err) => {
+    try{
+        return err.erro.cause.code
+    }catch(anotherError){
+        logger.warn("error object has no rigth structure")
+        return 500
+    }
 }
 
 exports.checkErrorObject = (err = {} ) => {
@@ -29,10 +40,6 @@ exports.checkErrorObject = (err = {} ) => {
         errorMessage = erro.cause.message || errorMessage
         errorCode = erro.cause.code || errorCode
     }
-
-    console.log( "***************************" )
-    console.log( this.getErrorObject(errorMessage,errorCode) )
-    console.log( "***************************" )
     
     return this.getErrorObject(errorMessage,errorCode)
 }

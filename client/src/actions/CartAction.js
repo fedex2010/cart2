@@ -41,7 +41,7 @@ function getErroCode(err){
     try{
         return err.response.erro.cause.code
     }catch(errr){
-        console.warn("err exception has no serve response estructure")
+        console.warn("err exception has no server response estructure")
         console.warn(errr)
         return 500
     }
@@ -166,7 +166,7 @@ export const addProduct = product => dispatch => {
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
 
-            if ( errorCode === "403") {
+            if ( errorCode === 403) {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
             } else {
                 history.push('/carrito/error')
@@ -289,7 +289,7 @@ export const addCoupon = (couponId, cartId) => dispatch => {
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
 
-            if (errorCode === "400" || errorCode === "405") {
+            if (errorCode === 400 || errorCode === 405) {
                 dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
             } else {
                 history.push('/carrito/error')

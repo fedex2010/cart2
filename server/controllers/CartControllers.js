@@ -346,7 +346,7 @@ class CartControllers {
 
         if( cart.products.length >= 10 ){
           let err = new Error("max items reached")
-          err.code = "403"
+          err.code = 403
           throw err
         }
 
@@ -393,7 +393,9 @@ class CartControllers {
         if (errorUrl) {
           res.redirect(errorUrl)
         } else {
-          res.status(500).send(errorService.checkErrorObject(err));
+          let errorObject = errorService.checkErrorObject(err)
+
+          res.status( errorService.getErrorCode(errorObject) ).send(errorObject);
         }
       })
   }
@@ -578,10 +580,11 @@ class CartControllers {
 
         let { cause } = err
         if( typeof cause.code === "undefined" && cause.status == "INVALID"){
-          err.code = "405"
+          err.code = 405
         }
 
-        res.status(500).send(errorService.checkErrorObject(err));
+        let errorObject = errorService.checkErrorObject(err)
+        res.status( errorService.getErrorCode(errorObject) ).send(errorObject);
       });
   }
 
@@ -689,9 +692,6 @@ class CartControllers {
   }
 
   summary(req, res) {
-    console.log("***********************")
-    console.log( this )
-    console.log("***********************")
     
     let params = this.getParamsToGetCart(req,res)
 
