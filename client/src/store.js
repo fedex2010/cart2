@@ -10,14 +10,10 @@ const logger = createLogger({
 });
 
 export default function configureStore(initialState = {}) {
-  let store;
-  if (process.env.REACT_APP_APP_ENV != "prod") {
-    store = createStore(
-      rootReducer,
-      composeWithDevTools(applyMiddleware(thunk, logger))
-    );
-  } else {
-    store = createStore(rootReducer);
-  }
-  return store;
+
+  let store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk, logger))
+  )
+  return  store
 }
