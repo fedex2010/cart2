@@ -40,6 +40,8 @@ let cssTemplate =
 
 let jsTemplate = '<script src="<inline Js>" ></script>\n  ';
 
+let noscript = '<noscript><iframe src="//www.googletagmanager.com/ns.html?id='+gtmId+'" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
+
 let baseUrl =
   serverConfig.normandia.base_url[brand] +
   "/template/all?analytics=off&webp=true";
@@ -78,6 +80,7 @@ fetch(baseUrl)
     newIndex = newIndex.replace("/*!*norma Js Brand*/", jsBrand);
     newIndex = newIndex.replace("/*!*norma Header*/", json.headerHtml);
     newIndex = newIndex.replace("/*!*norma Footer*/", json.footerHtml);
+    newIndex = newIndex.replace("/*!*noscript*/", noscript);
 
     if (isLocal) {
       fs.unlink("./client/public/index.html", err => {
