@@ -9,9 +9,15 @@ self.job = (site,islocal)=>{
 let brand = site;
 let isLocal = !!islocal;
 let newIndex;
-let gtmId = clientConfig.google.gtm_id[process.argv[2]];
+let gtmId = "";
 let jsInlineList = "";
 let cssInlineList = "";
+
+if(process.argv[2]=="compumundo"){
+    gtmId= clientConfig.google.gtm_id.compumundo;
+}else{
+    gtmId= clientConfig.google.gtm_id.garbarino;
+}
 
 let jsBrand =
   '<script>\n        window.xBrand ="' +
