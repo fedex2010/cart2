@@ -90,12 +90,11 @@ class Cart extends Component {
                         step: 1
                     },
                     products: cart.products.map((product) => {
-                        let details = product.details || {}
                         return {
-                            brand: details.brand,
-                            category: details.category||details.category_id,
+                            brand: "",
+                            category: product.category_id,
                             id: product.product_id,
-                            name: details.description,
+                            name: product.description,
                             price: product.price,
                             quantity: product.quantity,
                             variant:""
