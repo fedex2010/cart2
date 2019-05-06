@@ -3,7 +3,7 @@
 var path 			= require('path');
 var util 			= require('util');
 var rootPath        = path.normalize(__dirname + '/..');
-var env             = process.env.APP_ENV || 'dev';
+var env             = process.env.REACT_APP_APP_ENV || process.env.APP_ENV || 'dev';
 
 if(!env) new Error("NODE_ENV variable should be set");
 
