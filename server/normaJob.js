@@ -14,6 +14,10 @@ let gtmId = "";
 let jsInlineList = "";
 let cssInlineList = "";
 
+console.log("*************process.argv[2]****************");
+console.log(process.argv[2]);
+
+
 switch (process.argv[2])
 {
     case "compumundo" : gtmId= clientConfig.google.gtm_id.compumundo;
@@ -23,6 +27,9 @@ switch (process.argv[2])
     default:gtmId= clientConfig.google.gtm_id.garbarino;
     break;
 }
+    console.log(gtmId);
+
+console.log("*************process.argv[2]****************");
 
 let jsBrand =
   '<script>\n        window.xBrand ="' +
