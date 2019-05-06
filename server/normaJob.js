@@ -18,7 +18,7 @@ console.log("*************process.argv[2]****************");
 console.log(process.argv[2]);
 
 
-switch (process.argv[2])
+switch (brand)
 {
     case "compumundo" : gtmId= clientConfig.google.gtm_id.compumundo;
     break;
