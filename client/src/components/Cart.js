@@ -108,11 +108,13 @@ class Cart extends Component {
         dataLayer.push(main);
         dataLayer.push(ecommerce);
 
-        return JSON.stringify(dataLayer);
+        return dataLayer;
     };
 
   _setDataLayer(cart) {
-    window.dataLayer.push(this._generateDataLayerForGTM(cart, null));
+    let dataLayer = this._generateDataLayerForGTM(cart, null)
+    
+    window.dataLayer.push(dataLayer[0],dataLayer[1]);
   }
 
 
