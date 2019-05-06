@@ -13,7 +13,8 @@ module.exports = (ROOT_PATH, timeoutRatio) => {
       google: {
           gtm_id:{
               garbarino:"GTM-MSSSZ7",
-              compumundo:"GTM-3S2LZG"
+              compumundo:"GTM-3S2LZG",
+              empresarias:"GTM-5VTV8SK"
           },
           experiment_key: "120032359-126",
           maps_key: "AIzaSyBTGseCoifrBnclGBt6j2XMg5-bxGu-vG4"
