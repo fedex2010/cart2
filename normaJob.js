@@ -13,10 +13,14 @@ let gtmId = "";
 let jsInlineList = "";
 let cssInlineList = "";
 
-if(process.argv[2]=="compumundo"){
-    gtmId= clientConfig.google.gtm_id.compumundo;
-}else{
-    gtmId= clientConfig.google.gtm_id.garbarino;
+switch (process.argv[2])
+{
+    case "compumundo" : gtmId= clientConfig.google.gtm_id.compumundo;
+        break;
+    case "empresarias" : gtmId= clientConfig.google.gtm_id.empresarias;
+        break;
+    default:gtmId= clientConfig.google.gtm_id.garbarino;
+        break;
 }
 
 let jsBrand =
