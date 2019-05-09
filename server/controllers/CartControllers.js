@@ -1,5 +1,4 @@
 const RestClient = require("../client"),
-
   logger = require("../utils/logger"),
   sessionService = require("../services/session_service"),
   newrelic = require("newrelic"),
@@ -773,6 +772,7 @@ class CartControllers {
 
   getParamsToCreateCart(res){
     return {
+      ipClient: res.locals.ipClient,
       sessionId : res.locals.session,
       sellerId : res.locals.sellerId,
       brand : res.locals.xBrand.toLowerCase(),
@@ -785,6 +785,7 @@ class CartControllers {
     let cartId = req.params.cartId || req.body.cartId || res.locals.cartId || null
     
     return {
+      ipClient: res.locals.ipClient,
       sessionId : res.locals.session,
       brand : res.locals.xBrand.toLowerCase(),
       isEmpresarias : res.locals.isEmpresarias,
