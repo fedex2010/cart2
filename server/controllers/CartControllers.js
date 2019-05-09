@@ -1,5 +1,5 @@
 const RestClient = require("../client"),
-    
+
   logger = require("../utils/logger"),
   sessionService = require("../services/session_service"),
   newrelic = require("newrelic"),
