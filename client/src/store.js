@@ -9,11 +9,18 @@ const logger = createLogger({
   diff: true
 });
 
+let middlewares = [thunk]
+
+let enviroment = process.env.REACT_APP_APP_ENV || "dev"
+if(enviroment !== "prod"){
+  middlewares.push(logger)
+}
+
 export default function configureStore(initialState = {}) {
 
   let store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(thunk, logger))
+    composeWithDevTools(applyMiddleware( ...middlewares ))
   )
   return  store
 }
