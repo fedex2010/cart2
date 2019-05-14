@@ -12,3 +12,5 @@ server/public/empresarias/*
 !server/public/garbarino/.Drogon
 !server/public/compumundo/.Rhaegal
 !server/public/empresarias/.Viserion
+.env.production
+APP_VERSION

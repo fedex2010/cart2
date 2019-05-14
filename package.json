@@ -15,9 +15,9 @@
     "client": "cd client && yarn run start",
     "build": "cd client && yarn run build",
     "cp-norma-template" : "cp ./client/indexTemplate.html ./client/public/index.html",
-    "garba-cart": "yarn cp-norma-template && yarn run norma-garba && npm-run-all --parallel client server-dev",
-    "compu-cart": "yarn cp-norma-template && yarn run norma-compumundo && npm-run-all --parallel client server-dev",
-    "empresa-cart": "yarn cp-norma-template && yarn run norma-empresarias && npm-run-all --parallel client server-dev",
+    "garba-cart": "yarn cp-norma-template && yarn run norma-garba && npm-run-all --parallel client build server-dev",
+    "compu-cart": "yarn cp-norma-template && yarn run norma-compumundo && npm-run-all --parallel client build server-dev",
+    "empresa-cart": "yarn cp-norma-template && yarn run norma-empresarias && npm-run-all --parallel client build server-dev",
     "norma-garba": "node normaJob.js garbarino local",
     "norma-compumundo": "node normaJob.js compumundo local",
     "norma-empresarias": "node normaJob.js empresarias local"

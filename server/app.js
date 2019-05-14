@@ -7,6 +7,7 @@ const express = require("express"),
   path = require("path"),
   controllers = require("./controllers"),
   normaJobs = require("./normaJob"),
+  network  = require("./utils/network")
   cartRouter = require("./routes/cart");
 
 var schedule = require("node-schedule");
@@ -70,6 +71,7 @@ app.use(function(err, req, res, next) {
 
 function sessionMiddleware(req, res, next) {
   try {
+          
     let sessionCookie = req.cookies["epi.context"];
     let cartCookie = req.cookies["cartId"];
 
@@ -102,6 +104,8 @@ function sessionMiddleware(req, res, next) {
       res.locals.xBrand = "garbarino";
       logger.warn("x-brand header not present. Set garbarino by default");
     }
+    res.locals.ipClient = network.getIpClient(req, res);
+    
   } catch (err) {
     next(err);
   }
