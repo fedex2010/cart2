@@ -1,6 +1,6 @@
 var router = require("express").Router();
 
-router.use("/", require("./carrito"));
 router.use("/api/cart/", require("./api"));
+router.use("/", require("./carrito"));
 
 module.exports = router;

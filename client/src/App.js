@@ -2,8 +2,8 @@ import { Router, Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
 import history from './history';
 import Cart from "./components/Cart";
-import Error from "./components/Error/Error";
-import Seller from './components/Seller'
+import Errors from "./components/Error/Error";
+import Seller from "./components/Seller";
 import "./App.scss";
 
 class App extends Component {
@@ -16,10 +16,10 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-          <Switch>
-            <Route exact path="/carrito/error" component={Error} />
+          <Switch>           
+            <Route exact path="/carrito" component={Cart} />
             <Route path="/carrito/vendedor" component={Seller} />
-            <Route path="/carrito" component={Cart} />
+            <Route component={Errors} />
           </Switch>
         </div>
       </Router>
