@@ -4,21 +4,15 @@ const express = require("express"),
   sessionService = require("./services/session_service"),
   errorService = require("./services/error_service"),
   cookieParser = require("cookie-parser"),
-  path = require("path"),
-  controllers = require("./controllers"),
-  normaJobs = require("./normaJob"),
   network  = require("./utils/network")
-  cartRouter = require("./routes/cart");
-
-var schedule = require("node-schedule");
-
-schedule.scheduleJob("*/15 * * * *", function() {
-  normaJobs.job("garbarino",false);
-  normaJobs.job("compumundo",false);
-  normaJobs.job("empresarias",false);
-});  
+  apiRouter = require("./routes/api"),
+  cartRouter = require("./routes/cart"),
+  normaJOb = require("./jobs/norma");
 
 let app = express();
+
+// run norma job
+normaJOb.sync();
 
 // view engine setupS
 app.set("view engine", "jade");
@@ -27,22 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get("/carrito", sessionMiddleware, getIndex);
-app.get("/carrito/summary", sessionMiddleware, (req, res) =>
-  controllers.cart.summary(req, res)
-);
-
-app.use( (req, res, next) => {
-  req.duration = new Date().getTime()
-  next();
-});
-
-
-app.use("/carrito/api/cart", sessionMiddleware, cartRouter);
-app.use("/clean", function(req, res) {
-  sessionService.resetSessionCookies(res);
-  res.send({ cleaned: "ok" });
-});
+app.use("/carrito", sessionMiddleware, cartRouter);
 
 //AWS
 app.get("/api/health", (req, res) => {
@@ -71,6 +50,7 @@ app.use(function(err, req, res, next) {
 
 function sessionMiddleware(req, res, next) {
   try {
+    req.duration = new Date().getTime();
           
     let sessionCookie = req.cookies["epi.context"];
     let cartCookie = req.cookies["cartId"];
@@ -110,30 +90,6 @@ function sessionMiddleware(req, res, next) {
     next(err);
   }
   next();
-}
-function getIndex(req, res, next) {
-  
-  let whereToGo =
-    res.locals.xBrand.toLowerCase() == "compumundo"
-      ? "compumundo"
-      : "garbarino";
-  whereToGo = res.locals.isEmpresarias ? "empresarias" : whereToGo;
-  
-  res.sendFile(whereToGo + ".html", { root: "./public/" + whereToGo }, function(err) {
-    if (err) {
-      logger.error("index not found for " + whereToGo);
-      res.sendFile("index.html", { root: "./public/" + whereToGo }, function(err) {
-        if (err) {
-          logger.error("index not found for " + whereToGo + " fallback!");
-          next(err);
-        } else {
-          console.log("fileSend: " + whereToGo);
-        }
-      });
-    } else {
-      console.log("fileSend: " + whereToGo);
-    }
-  });
 }
 
 module.exports = app;

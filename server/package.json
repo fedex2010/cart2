@@ -18,6 +18,7 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "minify": "^4.1.1",
     "morgan": "^1.9.1",
     "newrelic": "^5.2.0",
     "node-rest-client": "^3.1.0",

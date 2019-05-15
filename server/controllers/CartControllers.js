@@ -3,24 +3,22 @@ const RestClient = require("../client"),
   sessionService = require("../services/session_service"),
   newrelic = require("newrelic"),
   errorService = require("../services/error_service"),
-  config = require('../config/config'),
   Q = require("q");
 
 class CartControllers {
-  constructor() { }
+  constructor() {}
 
-  setLoginMessageClosedCookie(req,res){
-    
-    sessionService.setLoginMessageClosedCookie(res)
+  setLoginMessageClosedCookie(req, res) {
+    sessionService.setLoginMessageClosedCookie(res);
 
-    res.status(200)
-       .send({ ok: true });
+    res.status(200).send({ ok: true });
   }
 
   sellerLoginAction(req, res) {
-    sessionService.clearSessionCookies(res)
+    sessionService.clearSessionCookies(res);
 
-    res.cookie('epi.salesman', req.body.vendedor)
+    res
+      .cookie("epi.salesman", req.body.vendedor)
       .status(200)
       .send({ ok: true });
   }
@@ -28,65 +26,68 @@ class CartControllers {
   getCart(req, res) {
     let cartId = req.params.cartId;
 
-    let params = this.getParamsToGetCart(req,res)
+    let params = this.getParamsToGetCart(req, res);
 
-    let cookieCart = req.cookies['cartId']
+    let cookieCart = req.cookies["cartId"];
     logger.info("[" + cookieCart + "] getCart cookies1:" + cookieCart);
-    newrelic.addCustomAttribute('cookieCartId', cartId);
+    newrelic.addCustomAttribute("cookieCartId", cartId);
 
     this._isEmpresarias(req, res);
 
-    if (cartId != "undefined") {  
+    if (cartId != "undefined") {
       //RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
-      RestClient.cartClient.getOneCart( params )
-        .then( cart => this._inflateCart(cart,params) )
+      RestClient.cartClient
+        .getOneCart(params)
+        .then(cart => this._inflateCart(cart, params))
         .then(cart => {
           res.status(200).send(cart);
         })
         .catch(err => {
           logger.error("[" + cartId + "] Fail get cart,err:" + err);
-          
-          newrelic.noticeError(err)
+
+          newrelic.noticeError(err);
 
           res.status(500).send(errorService.checkErrorObject(err));
         });
     } else {
-      RestClient.cartClient.newCart( params )
-        .then( cart => this._inflateCart(cart,params) )
+      RestClient.cartClient
+        .newCart(params)
+        .then(cart => this._inflateCart(cart, params))
         .then(cart => {
-        
-          sessionService.setSessionCookie(res, params.sessionId) //Setea la cookie con el nuevo carrito
-          sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
+          sessionService.setSessionCookie(res, params.sessionId); //Setea la cookie con el nuevo carrito
+          sessionService.setCartIdCookie(res, cart.cart_id); //Setea la cookie con el nuevo carrito
 
           res.status(200).send(cart);
         })
         .catch(err => {
-          newrelic.noticeError(err)
-          logger.error("[" + cartId + "]Fail create cart: " + JSON.stringify(err) );
+          newrelic.noticeError(err);
+          logger.error(
+            "[" + cartId + "]Fail create cart: " + JSON.stringify(err)
+          );
           res.status(500).send(errorService.checkErrorObject(err));
         });
     }
   }
 
   _isEmpresarias(req, res) {
-    if( res.locals.isEmpresarias ){
+    if (res.locals.isEmpresarias) {
       res.cookie("empresarias", true);
-    }else{
+    } else {
       res.cookie("empresarias", false);
     }
   }
-  
-  _getEmpresarias(cart) {
 
-    cart.subtotal_without_vat = 0
-    cart.products.forEach((i) => {
-      cart.subtotal_without_vat += (i.price * i.quantity) - (i.price_without_vat * i.quantity)
+  _getEmpresarias(cart) {
+    cart.subtotal_without_vat = 0;
+    cart.products.forEach(i => {
+      cart.subtotal_without_vat +=
+        i.price * i.quantity - i.price_without_vat * i.quantity;
       let priceAux = i.subtotal_price;
       i.subtotal_price = i.subtotal_base_price;
       i.subtotal_base_price = priceAux;
-      i.price = i.price_without_vat
-    })
-    let subTotal = cart.subtotal_price
+      i.price = i.price_without_vat;
+    });
+    let subTotal = cart.subtotal_price;
     let total = cart.total_base_price;
 
     cart.subtotal_price = cart.subtotal_base_price;
@@ -114,387 +115,410 @@ class CartControllers {
             product = product.filter(prod => prod.enabled_for_sale);
 
             product.map(prod => {
-              prod.main_image.url = getProductImageCloudfrontV2(prod.main_image.url,0);
-              prod.price = Math.ceil(prod.price)
+              prod.main_image.url = getProductImageCloudfrontV2(
+                prod.main_image.url,
+                0
+              );
+              prod.price = Math.ceil(prod.price);
             });
             products.products = product;
             res.status(200).send(products);
           })
           .catch(err => {
             logger.error("Fail get carousel product: " + err);
-            newrelic.noticeError(err)
+            newrelic.noticeError(err);
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
       .catch(err => {
         logger.error("Fail get carousel: " + err);
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
 
-  _inflateCart(cart,params){
-
-    let {isEmpresarias} = params
+  _inflateCart(cart, params) {
+    let { isEmpresarias } = params;
 
     cart = _replaceImage(cart);
     cart.percentage = calculateWarrantiesPercentage(cart);
 
-    if(isEmpresarias){
+    if (isEmpresarias) {
       cart = this._getEmpresarias(cart);
     }
-    
-    return cart
+
+    return cart;
   }
 
-  
   _getOneCart(params) {
     //TODO Pasar lógica a core para evaluar si devuelve un carro nuevo o utiliza uno anterior en baase al sesisonId
-    let {cartId = null} = params
+    let { cartId = null } = params;
 
-    if ( cartId != null) {
+    if (cartId != null) {
       console.log("ACTUALIZANDO CART");
-      return RestClient.cartClient.getOneCart( params )
-        .then(cart => this._inflateCart(cart,params))
-        .catch(err => {throw err});
+      return RestClient.cartClient
+        .getOneCart(params)
+        .then(cart => this._inflateCart(cart, params))
+        .catch(err => {
+          throw err;
+        });
     } else {
       console.log("CREANDO CART");
-        
-      return RestClient.cartClient.newCart( params )
-                 .then(cart => this._inflateCart(cart,params))
-                 .catch(err => {throw err});
+
+      return RestClient.cartClient
+        .newCart(params)
+        .then(cart => this._inflateCart(cart, params))
+        .catch(err => {
+          throw err;
+        });
     }
   }
 
-  waitProcessingCart( params ) {
-    return this._getOneCart( params )
+  waitProcessingCart(params) {
+    return this._getOneCart(params)
       .then(cart => {
-        params.cartId = cart.cart_id
-        return cart.status != 'PROCESSING' ? cart : Q.delay(50).then(_ => waitProcessingCart( params ))
+        params.cartId = cart.cart_id;
+        return cart.status != "PROCESSING"
+          ? cart
+          : Q.delay(50).then(_ => waitProcessingCart(params));
       })
-      .catch(err => {throw err});
+      .catch(err => {
+        throw err;
+      });
   }
 
-  addCrosssellingProducs( req,res ){
-    let paramsPromotion = this.getParamsToAddProduct( req,res )
-    let paramsCart = this.getParamsToGetCart(req,res)
+  addCrosssellingProducs(req, res) {
+    let paramsPromotion = this.getParamsToAddProduct(req, res);
+    let paramsCart = this.getParamsToGetCart(req, res);
 
-    let self = this
+    let self = this;
 
-    this._getOneCart( paramsCart )
-    .then( cart =>{
-      paramsCart.cartId = cart.cart_id
-      paramsPromotion.cartId = cart.cart_id
+    this._getOneCart(paramsCart)
+      .then(cart => {
+        paramsCart.cartId = cart.cart_id;
+        paramsPromotion.cartId = cart.cart_id;
 
-      // Agrega todos los productos de la promo que faltan 
-      return RestClient.promotion.getPromotion(paramsPromotion.promotionId,paramsPromotion.brand)
-        .then( promotion => {
+        // Agrega todos los productos de la promo que faltan
+        return RestClient.promotion
+          .getPromotion(paramsPromotion.promotionId, paramsPromotion.brand)
+          .then(promotion => {
+            if (promotion) {
+              promotion.xids.push(paramsPromotion.productId);
 
-          if (promotion){ 
+              let missing = promotion.xids.filter(
+                promoProductId =>
+                  !cart.products.find(p => p.product_id == promoProductId)
+              );
 
-            promotion.xids.push( paramsPromotion.productId )
+              logger.info("[" + cart.cart_id + "] promo missing=" + missing);
 
-            let missing = promotion.xids.filter( promoProductId => !cart.products.find(p => p.product_id == promoProductId))
-            
-            logger.info( "["+ cart.cart_id+ "] promo missing="+ missing )
+              return missing
+                .reduce((ac, promoProductId) => {
+                  let paramsPromotionCopy = { ...paramsPromotion };
+                  paramsPromotionCopy.productId = promoProductId;
 
-            return missing.reduce( (ac, promoProductId) => {
-                
-                let paramsPromotionCopy = {...paramsPromotion}
-                paramsPromotionCopy.productId = promoProductId
+                  //si no es el producto principal de la promo, los demas valores van en null
+                  if (paramsPromotionCopy.productId != req.body.xid) {
+                    paramsPromotionCopy.warrantyId = null;
+                    paramsPromotionCopy.productPrice = null;
+                    paramsPromotionCopy.promotionId = null;
+                  }
 
-                //si no es el producto principal de la promo, los demas valores van en null
-                if( paramsPromotionCopy.productId != req.body.xid ){
-                  paramsPromotionCopy.warrantyId = null
-                  paramsPromotionCopy.productPrice = null
-                  paramsPromotionCopy.promotionId = null
-                }
-
-                return  ac.then( _ => self.addProductToCart( cart, paramsPromotionCopy ) )
-                          .then( _ => self.waitProcessingCart( paramsCart ) )
-                      
-                }
-                ,Q(cart).then(_ => self.waitProcessingCart( paramsCart ))
-              )
-              .catch(err=> {
-                logger.error ("Error adding promotion products", JSON.stringify(err))
-                throw new Error( "Error adding promotion products" )
-              })
-
-          }else{
-            return cart
-          }
+                  return ac
+                    .then(_ => self.addProductToCart(cart, paramsPromotionCopy))
+                    .then(_ => self.waitProcessingCart(paramsCart));
+                }, Q(cart).then(_ => self.waitProcessingCart(paramsCart)))
+                .catch(err => {
+                  logger.error(
+                    "Error adding promotion products",
+                    JSON.stringify(err)
+                  );
+                  throw new Error("Error adding promotion products");
+                });
+            } else {
+              return cart;
+            }
+          })
+          .catch(err => {
+            throw err;
+          });
       })
-      .catch(err => { throw err })
-    })
 
-    .then( cart => {
+      .then(cart => {
+        //por insomnia, DESPUES BORRAR
+        sessionService.setSessionCookie(res, cart.session); //Setea la cookie con el nuevo carrito
+        sessionService.setCartIdCookie(res, cart.cart_id); //Setea la cookie con el nuevo carrito
 
-      //por insomnia, DESPUES BORRAR
-      sessionService.setSessionCookie(res, cart.session) //Setea la cookie con el nuevo carrito
-      sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
-
-      res.redirect(302, req.get('origin') + '/carrito')
-      //res.send( cart )
-    })
-    .catch(err=> {
-      logger.error ( JSON.stringify(err) )
-      newrelic.noticeError(err)      
-      res.redirect(301,req.body.errorUrl)
-    })
+        res.redirect(302, req.get("origin") + "/carrito");
+        //res.send( cart )
+      })
+      .catch(err => {
+        logger.error(JSON.stringify(err));
+        newrelic.noticeError(err);
+        res.redirect(301, req.body.errorUrl);
+      });
   }
 
+  addSeveralProducs(req, res) {
+    const productIds = req.body.xid.split(",");
 
-  addSeveralProducs( req,res ){
-    const productIds = req.body.xid.split(",")
+    let paramCart = this.getParamsToGetCart(req, res);
+    let paramProduct = this.getParamsToAddProduct(req, res);
 
-    let paramCart = this.getParamsToGetCart(req,res)
-    let paramProduct = this.getParamsToAddProduct( req,res )
+    let self = this;
 
-    let self = this
-
-    this._getOneCart( paramCart )
-    .then( cart => {
+    this._getOneCart(paramCart)
+      .then(cart => {
         //puede ser que sea null si no hay carrito
-        paramCart.cartId = cart.cart_id
-        paramProduct.cartId = cart.cart_id
-        
-        
-        return productIds.reduce( (ac, aProductId) => {
-                  let copyProductParam = {...paramProduct}
-                  copyProductParam.productId = aProductId
+        paramCart.cartId = cart.cart_id;
+        paramProduct.cartId = cart.cart_id;
 
-                  return ac.then(_ => self.addProductToCart( cart, copyProductParam ) )
-                           .then(_ => self.waitProcessingCart(paramCart))
-                }
+        return productIds
+          .reduce(
+            (ac, aProductId) => {
+              let copyProductParam = { ...paramProduct };
+              copyProductParam.productId = aProductId;
 
-              , Q(cart).then(_ => self.waitProcessingCart(paramCart) ))
+              return ac
+                .then(_ => self.addProductToCart(cart, copyProductParam))
+                .then(_ => self.waitProcessingCart(paramCart));
+            },
 
-              .catch(err=> {
-                logger.error ("Error adding several products", JSON.stringify(err))
-                throw new Error( "Error adding several products " + JSON.stringify(err) )
-              })
+            Q(cart).then(_ => self.waitProcessingCart(paramCart))
+          )
 
-
-    })
-    .then( zaraza => {
-        res.redirect(302, req.get('origin') + '/carrito')
-    })
-    .catch(err => {
-      logger.error("Error adding associated products\n", JSON.stringify(err))
-      newrelic.noticeError(err)
-      res.status(400).send(err)
-    })
+          .catch(err => {
+            logger.error("Error adding several products", JSON.stringify(err));
+            throw new Error(
+              "Error adding several products " + JSON.stringify(err)
+            );
+          });
+      })
+      .then(zaraza => {
+        res.redirect(302, req.get("origin") + "/carrito");
+      })
+      .catch(err => {
+        logger.error("Error adding associated products\n", JSON.stringify(err));
+        newrelic.noticeError(err);
+        res.status(400).send(err);
+      });
   }
 
   addProduct(req, res) {
-    
     let epi_context;
     let gb_anonymous_session_id;
     let gb_session_id;
 
-    if (typeof req.cookies['epi.context'] != "undefined") {
-      epi_context = req.cookies['epi.context'];
+    if (typeof req.cookies["epi.context"] != "undefined") {
+      epi_context = req.cookies["epi.context"];
     }
 
-    if (typeof req.cookies['gb_anonymous_session_id'] != "undefined") {
-      gb_anonymous_session_id = req.cookies['gb_anonymous_session_id'];
+    if (typeof req.cookies["gb_anonymous_session_id"] != "undefined") {
+      gb_anonymous_session_id = req.cookies["gb_anonymous_session_id"];
     }
 
-    if (typeof req.cookies['gb_session_id'] != "undefined") {
-      gb_session_id = req.cookies['gb_session_id'];
+    if (typeof req.cookies["gb_session_id"] != "undefined") {
+      gb_session_id = req.cookies["gb_session_id"];
     }
 
     newrelic.addCustomAttribute("epi_context", epi_context);
-    newrelic.addCustomAttribute("gb_anonymous_session_id", gb_anonymous_session_id);
+    newrelic.addCustomAttribute(
+      "gb_anonymous_session_id",
+      gb_anonymous_session_id
+    );
     newrelic.addCustomAttribute("gb_session_id", gb_session_id);
 
     const body = req.body;
 
-    const productIds = body.xid.split(",")
-  
-    if( productIds.length > 1 ){
-      this.addSeveralProducs(req,res)
-      return
+    const productIds = body.xid.split(",");
+
+    if (productIds.length > 1) {
+      this.addSeveralProducs(req, res);
+      return;
     }
 
-    const promotionId = body.promotion_id || ""
-    if( promotionId != "" ){
-      this.addCrosssellingProducs(req,res)
-      return
+    const promotionId = body.promotion_id || "";
+    if (promotionId != "") {
+      this.addCrosssellingProducs(req, res);
+      return;
     }
-    
+
     let cartId = res.locals.cartId;
 
     var self = this;
 
-    let paramsCart = this.getParamsToGetCart(req,res)
-    let paramsProduct = this.getParamsToAddProduct(req,res)
-                      
-    this._getOneCart( paramsCart )
+    let paramsCart = this.getParamsToGetCart(req, res);
+    let paramsProduct = this.getParamsToAddProduct(req, res);
+
+    this._getOneCart(paramsCart)
       .then(cart => {
-        cartId = cart.cart_id
-        //if cart does not exist at the moment to add product, then cartId will be null, because of that is 
+        cartId = cart.cart_id;
+        //if cart does not exist at the moment to add product, then cartId will be null, because of that is
         //necesary this assignment
 
-        paramsProduct.cartId = cartId
-        paramsCart.cartId = cartId
+        paramsProduct.cartId = cartId;
+        paramsCart.cartId = cartId;
 
-        return cart        
+        return cart;
       })
       .then(cart => {
-
-        if( cart.products.length >= 10 ){
-          let err = new Error("max items reached")
-          err.code = 403
-          throw err
+        if (cart.products.length >= 10) {
+          let err = new Error("max items reached");
+          err.code = 403;
+          throw err;
         }
 
-        return cart        
+        return cart;
       })
 
-      .then( cart => {
+      .then(cart => {
         //si ya esta no lo agrego
-        if( cart.products.includes( paramsProduct.productId ) ){
-          return cart
+        if (cart.products.includes(paramsProduct.productId)) {
+          return cart;
         }
 
-        return this.addProductToCart(cart, paramsProduct)
-          .catch( err => {
-            logger.error("Error adding products", JSON.stringify(err))
-            throw ( err )
-          })
+        return this.addProductToCart(cart, paramsProduct).catch(err => {
+          logger.error("Error adding products", JSON.stringify(err));
+          throw err;
+        });
       })
 
-      .then(cart => self.waitProcessingCart( paramsCart ))
+      .then(cart => self.waitProcessingCart(paramsCart))
 
       .then(cart => {
-        
         //por insomnia, DESPUES BORRAR
-        sessionService.setSessionCookie(res, cart.session) //Setea la cookie con el nuevo carrito
-        sessionService.setCartIdCookie(res, cart.cart_id) //Setea la cookie con el nuevo carrito
+        sessionService.setSessionCookie(res, cart.session); //Setea la cookie con el nuevo carrito
+        sessionService.setCartIdCookie(res, cart.cart_id); //Setea la cookie con el nuevo carrito
 
-        if (req.headers['referer'] && !req.headers['referer'].endsWith("/carrito") 
-        && !req.headers['referer'].endsWith("/carrito/") && !req.headers['referer'].endsWith("/reactcart/")) {
-
-          res.redirect(302, req.get('origin') + '/carrito')
+        if (
+          req.headers["referer"] &&
+          !req.headers["referer"].endsWith("/carrito") &&
+          !req.headers["referer"].endsWith("/carrito/") &&
+          !req.headers["referer"].endsWith("/reactcart/")
+        ) {
+          res.redirect(302, req.get("origin") + "/carrito");
         } else {
-          res.status(200).send(cart)
+          res.status(200).send(cart);
         }
-        
       })
       .catch(err => {
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
 
         logger.error("[" + cartId + "] Fail get to cart: " + err);
 
-        let { errorUrl } = req.body
+        let { errorUrl } = req.body;
 
         if (errorUrl) {
-          res.redirect(errorUrl)
+          res.redirect(errorUrl);
         } else {
-          let errorObject = errorService.checkErrorObject(err)
+          let errorObject = errorService.checkErrorObject(err);
 
-          res.status( errorService.getErrorCode(errorObject) ).send(errorObject);
+          res.status(errorService.getErrorCode(errorObject)).send(errorObject);
         }
-      })
+      });
   }
 
   addProductToCart(cart, aParams) {
-    let { productId } = aParams
+    let { productId } = aParams;
 
-    const cartId = cart.cart_id
-    logger.info("[cartId=" + cartId + "] Adding product " + productId)
+    const cartId = cart.cart_id;
+    logger.info("[cartId=" + cartId + "] Adding product " + productId);
 
     let productCount, product;
 
     cart.products.forEach(aProduct => {
       if (productId == aProduct.product_id) {
-        productCount = aProduct.quantity
-        product = aProduct
+        productCount = aProduct.quantity;
+        product = aProduct;
       }
-    })
+    });
 
     if (product) {
-      productCount++
-      aParams.quantity = ( productCount <= 4) ? productCount : 4
- 
-      logger.info("Actualizando cantidad producto " + productId + "en [cartId = " + cartId + "]")
+      productCount++;
+      aParams.quantity = productCount <= 4 ? productCount : 4;
 
-      return RestClient.cartClient.updateProductObj( aParams )
+      logger.info(
+        "Actualizando cantidad producto " +
+          productId +
+          "en [cartId = " +
+          cartId +
+          "]"
+      );
+
+      return RestClient.cartClient.updateProductObj(aParams);
     } else {
+      logger.info(
+        "Agregando producto " + productId + "en [cartId = " + cartId + "]"
+      );
 
-      logger.info("Agregando producto " + productId + "en [cartId = " + cartId + "]")
-
-      return RestClient.productClient.addProduct( aParams )
+      return RestClient.productClient.addProduct(aParams);
     }
   }
 
-
   newCart(req, res) {
-    sessionService.resetSessionCookies(res)
+    sessionService.resetSessionCookies(res);
 
-    let params = this.getParamsToCreateCart( res ) 
-        params.productId = req.params.productId
-        params.cupon = req.params.cupon
-                
-    RestClient.cartClient.newCart( params )
-      .then(cart => {        
-        params.cartId = cart.cart_id
+    let params = this.getParamsToCreateCart(res);
+    params.productId = req.params.productId;
+    params.cupon = req.params.cupon;
 
-        if ( params.productId != "UNDEFINED") {
-
-          return RestClient.productClient.addProduct( params )
-                    .then(product => {
-                      return this.waitProcessingCart( params )
-                    })
-                    .catch(err => {
-                      logger.error("error adding product " + productId)
-                      throw err
-                    })
-        } else {
-          return cart
-        }
-      })
+    RestClient.cartClient
+      .newCart(params)
       .then(cart => {
+        params.cartId = cart.cart_id;
 
-        if ( params.cupon != "UNDEFINED") {
-
-          return RestClient.promotion.addCoupon(cart.cart_id, params.cupon, params.brand)
-            .then(cupon => {
-              return this.waitProcessingCart( params )
+        if (params.productId != "UNDEFINED") {
+          return RestClient.productClient
+            .addProduct(params)
+            .then(product => {
+              return this.waitProcessingCart(params);
             })
             .catch(err => {
-              logger.error(JSON.stringify(err))
-              logger.error("error adding cupon " + cupon)
-              throw err
-            })
+              logger.error("error adding product " + productId);
+              throw err;
+            });
         } else {
-          return cart
+          return cart;
         }
-
       })
       .then(cart => {
-        sessionService.setSessionCookie(res, res.locals.session)
-        sessionService.setCartIdCookie(res, cart.cart_id)
-
-        let timeConsumed = new Date().getTime()
-        let durationRequest = timeConsumed - req.duration
-
-        if(durationRequest > 5000){ //5 segundos
-          
-          logger.warn("*********** DURACION DEL REQUEST MAYOR A 30 SEG")
+        if (params.cupon != "UNDEFINED") {
+          return RestClient.promotion
+            .addCoupon(cart.cart_id, params.cupon, params.brand)
+            .then(cupon => {
+              return this.waitProcessingCart(params);
+            })
+            .catch(err => {
+              logger.error(JSON.stringify(err));
+              logger.error("error adding cupon " + cupon);
+              throw err;
+            });
+        } else {
+          return cart;
         }
-        
-        res.send( cart )
+      })
+      .then(cart => {
+        sessionService.setSessionCookie(res, res.locals.session);
+        sessionService.setCartIdCookie(res, cart.cart_id);
+
+        let timeConsumed = new Date().getTime();
+        let durationRequest = timeConsumed - req.duration;
+
+        if (durationRequest > 5000) {
+          //5 segundos
+
+          logger.warn("*********** DURACION DEL REQUEST MAYOR A 30 SEG");
+        }
+
+        res.send(cart);
       })
       .catch(err => {
         logger.error("Fail get to cart with id: " + cart.cart_id);
 
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
 
         res.status(500).send(errorService.checkErrorObject(err));
-      })
+      });
   }
 
   editProduct(req, res) {
@@ -505,20 +529,26 @@ class CartControllers {
       quantity = body.quantity;
 
     RestClient.productClient
-      .updateProduct(cartId, productId, quantity, brand,res.locals.xSessionContext)
+      .updateProduct(
+        cartId,
+        productId,
+        quantity,
+        brand,
+        res.locals.xSessionContext
+      )
       .then(product => {
-        this._getOneCart( this.getParamsToGetCart(req,res) )
+        this._getOneCart(this.getParamsToGetCart(req, res))
           .then(cart => {
             res.status(200).send(cart);
           })
           .catch(err => {
-            newrelic.noticeError(err)
+            newrelic.noticeError(err);
             logger.error("[" + cartId + "] Fail get a update cart: " + err);
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
       .catch(err => {
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
         logger.error("[" + cartId + "] Fail add product to cart: " + err);
         res.status(500).send(errorService.checkErrorObject(err));
       });
@@ -529,24 +559,23 @@ class CartControllers {
       cartId = res.locals.cartId,
       brand = res.locals.xBrand.toLowerCase();
 
-    let cartParams = this.getParamsToGetCart(req,res)
+    let cartParams = this.getParamsToGetCart(req, res);
 
     RestClient.productClient
-      .deleteProduct(cartId, productId, brand,res.locals.xSessionContext)
+      .deleteProduct(cartId, productId, brand, res.locals.xSessionContext)
       .then(() => {
-        this._getOneCart( cartParams )
+        this._getOneCart(cartParams)
           .then(cart => {
-            
             res.status(200).send(cart);
           })
           .catch(err => {
-            newrelic.noticeError(err)
+            newrelic.noticeError(err);
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
       .catch(err => {
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
         logger.error("[" + cartId + "] Fail to delete product ,err:" + err);
         res.status(500).send(errorService.checkErrorObject(err));
       });
@@ -557,34 +586,36 @@ class CartControllers {
       couponCode = req.body.coupon_code,
       brand = res.locals.xBrand.toLowerCase();
 
-    let paramsCart = this.getParamsToGetCart(req,res)
+    let paramsCart = this.getParamsToGetCart(req, res);
 
     RestClient.promotion
-      .addCoupon(cartId, couponCode, brand,res.locals.xSessionContext)
+      .addCoupon(cartId, couponCode, brand, res.locals.xSessionContext)
       .then(coupon => {
-        this._getOneCart( paramsCart )
+        this._getOneCart(paramsCart)
           .then(cart => {
             res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
 
-            newrelic.noticeError(err)
+            newrelic.noticeError(err);
 
             res.status(500).send(errorService.checkErrorObject(err));
           });
       })
       .catch(err => {
-        newrelic.noticeError(err)
-        logger.error( "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err);
+        newrelic.noticeError(err);
+        logger.error(
+          "[" + cartId + "] Error add coupon: " + couponCode + ",err:" + err
+        );
 
-        let { cause } = err
-        if( typeof cause.code === "undefined" && cause.status == "INVALID"){
-          err.code = 405
+        let { cause } = err;
+        if (typeof cause.code === "undefined" && cause.status == "INVALID") {
+          err.code = 405;
         }
 
-        let errorObject = errorService.checkErrorObject(err)
-        res.status( errorService.getErrorCode(errorObject) ).send(errorObject);
+        let errorObject = errorService.checkErrorObject(err);
+        res.status(errorService.getErrorCode(errorObject)).send(errorObject);
       });
   }
 
@@ -592,12 +623,12 @@ class CartControllers {
     let cartId = req.params.cartId,
       couponCode = req.params.couponCode,
       brand = res.locals.xBrand.toLowerCase();
-    
-      let paramsCart = this.getParamsToGetCart(req,res)
+
+    let paramsCart = this.getParamsToGetCart(req, res);
     RestClient.promotion
       .deleteCoupon(cartId, couponCode, brand)
       .then(() => {
-        this._getOneCart( paramsCart )
+        this._getOneCart(paramsCart)
           .then(cart => {
             res.status(200).send(cart);
           })
@@ -606,7 +637,7 @@ class CartControllers {
               "[" + cartId + "] Fail get cart coupon delete ,err:" + err
             );
 
-            newrelic.noticeError(err)
+            newrelic.noticeError(err);
 
             res.status(500).send(errorService.checkErrorObject(err));
           });
@@ -614,15 +645,15 @@ class CartControllers {
       .catch(err => {
         logger.error(
           "[" +
-          cartId +
-          "] Error deleting coupon: " +
-          couponCode +
-          ",err:" +
-          err
+            cartId +
+            "] Error deleting coupon: " +
+            couponCode +
+            ",err:" +
+            err
         );
-        err.message = "Fail delete coupon to cart"
+        err.message = "Fail delete coupon to cart";
 
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
 
         res.status(500).send(errorService.checkErrorObject(err));
       });
@@ -632,20 +663,20 @@ class CartControllers {
     let cartId = req.params.cartId,
       code = req.body.code,
       brand = res.locals.xBrand.toLowerCase();
-    
+
     console.log("code:" + code);
     console.log("cartId:" + cartId);
-    let cartParams = this.getParamsToGetCart(req,res)
+    let cartParams = this.getParamsToGetCart(req, res);
     RestClient.promotion
       .setLoyaltyCode(cartId, "AEROLINEAS_PLUS", code, brand)
-      .then((cart) => {
+      .then(cart => {
         this._getOneCart(cartParams)
           .then(cart => {
             res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            newrelic.noticeError(err)
+            newrelic.noticeError(err);
 
             res.status(500).send(errorService.checkErrorObject(err));
           });
@@ -654,7 +685,7 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
 
         res.status(500).send(errorService.checkErrorObject(err));
       });
@@ -664,19 +695,18 @@ class CartControllers {
     let cartId = req.params.cartId,
       brand = res.locals.xBrand.toLowerCase();
 
-      let cartParams = this.getParamsToGetCart(req,res)
+    let cartParams = this.getParamsToGetCart(req, res);
 
     RestClient.promotion
       .deleteLoyaltyCode(cartId, "AEROLINEAS_PLUS", brand)
       .then(loyalty => {
         this._getOneCart(cartParams)
           .then(cart => {
-
             res.status(200).send(cart);
           })
           .catch(err => {
             logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
-            newrelic.noticeError(err)
+            newrelic.noticeError(err);
 
             res.status(500).send(errorService.checkErrorObject(err));
           });
@@ -685,26 +715,23 @@ class CartControllers {
         logger.error(
           "[" + cartId + "] Error add AEROLINEAS_PLUS: " + code + ",err:" + err
         );
-        newrelic.noticeError(err)
+        newrelic.noticeError(err);
 
         res.status(500).send(errorService.checkErrorObject(err));
       });
   }
 
   summary(req, res) {
-    
-    let params = this.getParamsToGetCart(req,res)
+    let params = this.getParamsToGetCart(req, res);
 
     RestClient.cartClient
-      .getOneCart( params )
+      .getOneCart(params)
       .then(cart => {
         res.json({ products_count: cart.products.length });
       })
       .catch(err => {
-        logger.error(
-          "[" + cartId + "] Fail get cart: ,err:" + err
-        );
-        newrelic.noticeError(err)
+        logger.error("[" + cartId + "] Fail get cart: ,err:" + err);
+        newrelic.noticeError(err);
 
         res.status(500).send(errorService.checkErrorObject(err));
       });
@@ -720,19 +747,21 @@ class CartControllers {
       warrantyId = req.body.warranty_id,
       brand = res.locals.xBrand.toLowerCase();
 
-    let params = this.getParamsToGetCart(req, res)
+    let params = this.getParamsToGetCart(req, res);
 
     RestClient.productClient
       .setWarranty(cartId, productId, warrantyId, brand)
       .then(product => {
-        this._getOneCart( params )
+        this._getOneCart(params)
           .then(cart => {
             res.status(200).send(cart);
           })
           .catch(err => {
-            logger.error("[" + cartId + "] Fail get cart   warranty to cart,err:" + err);
-            err.message = "Fail get a update cart warranty"
-            newrelic.noticeError(err)
+            logger.error(
+              "[" + cartId + "] Fail get cart   warranty to cart,err:" + err
+            );
+            err.message = "Fail get a update cart warranty";
+            newrelic.noticeError(err);
 
             res.status(500).send(errorService.checkErrorObject(err));
           });
@@ -740,8 +769,8 @@ class CartControllers {
       .catch(err => {
         logger.error("[" + cartId + "] Fail set warranty to cart,err:" + err);
 
-        err.message = "Fail set warranty to cart"
-        newrelic.noticeError(err)
+        err.message = "Fail set warranty to cart";
+        newrelic.noticeError(err);
 
         res.status(500).send(errorService.checkErrorObject(err));
       });
@@ -756,46 +785,82 @@ class CartControllers {
     }
   }
 
-  getParamsToAddProduct(req,res){
+  getParamsToAddProduct(req, res) {
     return {
-      productId : req.body.xid,
-      promotionId : req.body.promotion_id || null,
-      quantity : req.body.quantity || 1,
-      warrantyId : req.body.warranty_id || null,
-      productPrice : req.body.price || null,
-      brand : res.locals.xBrand.toLowerCase(),
-      xSessionContext : res.locals.xSessionContext,
-      sessionId : res.locals.session,
-      cartId : res.locals.cartId
-    }
+      productId: req.body.xid,
+      promotionId: req.body.promotion_id || null,
+      quantity: req.body.quantity || 1,
+      warrantyId: req.body.warranty_id || null,
+      productPrice: req.body.price || null,
+      brand: res.locals.xBrand.toLowerCase(),
+      xSessionContext: res.locals.xSessionContext,
+      sessionId: res.locals.session,
+      cartId: res.locals.cartId
+    };
   }
 
-  getParamsToCreateCart(res){
-    return {
-      ipClient: res.locals.ipClient,
-      sessionId : res.locals.session,
-      sellerId : res.locals.sellerId,
-      brand : res.locals.xBrand.toLowerCase(),
-      xSessionContext : res.locals.xSessionContext,
-      channel : "WEB"
-    }
-  }
-
-  getParamsToGetCart(req,res){
-    let cartId = req.params.cartId || req.body.cartId || res.locals.cartId || null
-    
+  getParamsToCreateCart(res) {
     return {
       ipClient: res.locals.ipClient,
-      sessionId : res.locals.session,
-      brand : res.locals.xBrand.toLowerCase(),
-      isEmpresarias : res.locals.isEmpresarias,
-      xSessionContext : res.locals.xSessionContext,
-      cartId : cartId
-    }
+      sessionId: res.locals.session,
+      sellerId: res.locals.sellerId,
+      brand: res.locals.xBrand.toLowerCase(),
+      xSessionContext: res.locals.xSessionContext,
+      channel: "WEB"
+    };
   }
 
+  getParamsToGetCart(req, res) {
+    let cartId =
+      req.params.cartId || req.body.cartId || res.locals.cartId || null;
+
+    return {
+      ipClient: res.locals.ipClient,
+      sessionId: res.locals.session,
+      brand: res.locals.xBrand.toLowerCase(),
+      isEmpresarias: res.locals.isEmpresarias,
+      xSessionContext: res.locals.xSessionContext,
+      cartId: cartId
+    };
+  }
+
+  getIndex(req, res) {
+    let whereToGo =
+      res.locals.xBrand.toLowerCase() == "compumundo"
+        ? "compumundo"
+        : "garbarino";
+    whereToGo = res.locals.isEmpresarias ? "empresarias" : whereToGo;
+
+    res.sendFile(
+      whereToGo + ".html",
+      { root: "./public/" + whereToGo },
+      function(err) {
+        if (err) {
+          logger.error("index not found for " + whereToGo);
+          res.sendFile(
+            "index.html",
+            { root: "./public/" + whereToGo },
+            function(err) {
+              if (err) {
+                logger.error("index not found for " + whereToGo + " fallback!");
+                next(err);
+              } else {
+                console.log("fileSend: " + whereToGo);
+              }
+            }
+          );
+        } else {
+          console.log("fileSend: " + whereToGo);
+        }
+      }
+    );
+  }
+
+  clean(req, res) {
+    sessionService.resetSessionCookies(res);
+    res.send({ cleaned: "ok" });
+  }
 }
-
 function _replaceImage(cart) {
   let cartId = cart.cart_id;
   cart.products.map(product => {
