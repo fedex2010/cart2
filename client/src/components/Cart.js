@@ -51,8 +51,16 @@ class Cart extends Component {
           return <Carousel data={this.props.cart.products} />
       }
   }
-  
 
+  _getUserType(){
+    let userType = "USUARIO_NO_LOGUEADO";
+
+    if(typeof Cookie.get('gb_session_id') != "undefined"){
+        userType = "USUARIO_LOGUEADO";
+    }
+
+    return userType;
+  }
  
 
   _generateDataLayerForGTM(cart, userType=null){
@@ -82,7 +90,7 @@ class Cart extends Component {
         let ecommerce = {
             event: "checkout",
             virtualurl: "/mi-carrito.html",
-            typeUser: userType,
+            typeUser: this._getUserType(),
             ecommerce: {
                 checkout:{
                     actionField: {
