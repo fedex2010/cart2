@@ -68,22 +68,29 @@ class RestClient {
     }
 
 
-          /*
-      this.data = {
-          product_id: this.productId,
-          :null,
-          price:null,
-          _promotionId:null
-      }
-
-      this.data._promotionId = _promotionId
+    newCartFromGarex ( garexData  ) {
+        
+        logger.info("[", garexData.cart.session, "] creating garex cart");
     
-      */
-        /*.getProductUpdater(cartId, product, brand)
-          .withWarranty(warranty_id)
-          .withPromotion(promotionId)
-          .withQuantity(productCount)
-          .execute()*/
+        let url = `${CHECKOUT_CORE_URL}/carts/garex`
+    
+        let options = {
+            headers : {"Content-Type": "application/json", "X-Brand": garexData.cart.brand},
+            timeout: NEW_CART_TIMEOUT
+        };
+
+        if(garexData.cart.xSessionContext !== ""){
+            options.headers = {
+                    "Content-Type": "application/json", 
+                    "X-Brand": garexData.cart.brand, 
+                    "x-session-context" :  garexData.cart.xSessionContext 
+                };
+        }
+        
+        options.data = JSON.stringify(garexData)
+    
+        return this._restConnector.postWithoutErrors(url, options);
+    };
 
 
     updateProductObj( params ){
