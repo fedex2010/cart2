@@ -11,10 +11,10 @@ let key = "ULRGF6dpniNEMlq5dRUN6b7cYPZC5a3U";
 class GarexControllers{
   constructor() {}
 
-  hola(req,res){
+  garex(req,res){
     if(!req.query.data){
       logger.error("GAREX Query data missing")
-      return res.redirect('/carrito/error');
+      return res.redirect('/compra/error');
     }
 
     let garexData = JSON.parse(this.decrypt64(req.query.data));
@@ -38,7 +38,10 @@ class GarexControllers{
     };
 
     RestClient.cartClient.newCartFromGarex( garexData )
-        .then(cart => waitProcessingCart(paramswaitProcessingCart))
+        .then(cart => {
+          paramswaitProcessingCart.cartId = cart.cart_id;
+          return this.waitProcessingCart(paramswaitProcessingCart)
+        })
         .then( cart => {
             
             sessionService.setCartIdCookie(res,cart.cart_id)
@@ -55,6 +58,18 @@ class GarexControllers{
             return res.redirect('/carrito/error');
         });
 
+  }
+
+  waitProcessingCart(params) {
+    return RestClient.cartClient.getOneCart(params)
+      .then(cart => {
+        return cart.status != "PROCESSING"
+          ? cart
+          : Q.delay(50).then(_ => waitProcessingCart(params));
+      })
+      .catch(err => {
+        throw err;
+      });
   }
 
   encrypt(key, data) {
@@ -83,5 +98,5 @@ class GarexControllers{
   };
 }
 
-module.exports = GarexControllers;
+module.exports = new GarexControllers();
  

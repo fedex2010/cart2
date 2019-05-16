@@ -4,13 +4,12 @@ var express = require("express"),
   GarexControllers = require("../controllers/GarexControllers");
 
 let CartControllers = new cart()
-let garexControllers = new GarexControllers()
 
 router.post("/", (req, res, next) => CartControllers.addProduct(req, res, next));
 router.get("/", (req, res) => CartControllers.getIndex(req, res));
 router.get("/summary", (req, res, next) => CartControllers.summary(req, res, next));
 
-router.get('/garex', (req, res) => garexControllers.hola(req,res)  );
+router.get('/garex',  GarexControllers.garex   );
 //router.get('/garex/encode', garexController.encode);
 
 //test
