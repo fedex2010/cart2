@@ -31,8 +31,6 @@ class GarexControllers{
         xSessionContext : res.locals.xSessionContext
     };
 
-    
-
     RestClient.cartClient.newCartFromGarex( garexData )
         .then(cart =>  this.waitProcessingCart(cart.cart_id,res))
         .then( cart => {
