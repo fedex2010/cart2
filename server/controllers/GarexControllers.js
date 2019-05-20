@@ -11,14 +11,17 @@ let key = "ULRGF6dpniNEMlq5dRUN6b7cYPZC5a3U";
 class GarexControllers{
   constructor() {}
 
-  garex(req,res){
+  garex(req,res,next){
     if(!req.query.data){
       logger.error("GAREX Query data missing")
       return res.redirect('/compra/error');
     }
+    
 
-    let garexData = JSON.parse(this.decrypt64(req.query.data));
+    let garexData = JSON.parse( this.decrypt64(req.query.data) );
     logger.info("garexData",garexData);
+
+   
 
     garexData.cart = {
         session: res.locals.session,
@@ -28,24 +31,14 @@ class GarexControllers{
         xSessionContext : res.locals.xSessionContext
     };
 
-    let paramswaitProcessingCart = {
-      ipClient: res.locals.ipClient,
-      sessionId: res.locals.session,
-      sellerId: res.locals.sellerId,
-      brand: res.locals.xBrand.toLowerCase(),
-      xSessionContext: res.locals.xSessionContext,
-      channel: "WEB"
-    };
+    
 
     RestClient.cartClient.newCartFromGarex( garexData )
-        .then(cart => {
-          paramswaitProcessingCart.cartId = cart.cart_id;
-          return this.waitProcessingCart(paramswaitProcessingCart)
-        })
+        .then(cart =>  this.waitProcessingCart(cart.cart_id,res))
         .then( cart => {
-            
+             
             sessionService.setCartIdCookie(res,cart.cart_id)
-
+            
             if ( typeof cart !== 'undefined' && cart ){
                 return res.redirect('/compra/financiacion');
             } else {
@@ -60,12 +53,22 @@ class GarexControllers{
 
   }
 
-  waitProcessingCart(params) {
+  waitProcessingCart(cartId,res) {
+    let params = {
+      ipClient: res.locals.ipClient,
+      sessionId: res.locals.session,
+      sellerId: res.locals.sellerId,
+      brand: res.locals.xBrand.toLowerCase(),
+      xSessionContext: res.locals.xSessionContext,
+      channel: "WEB",
+      cartId : cartId
+    };
+
     return RestClient.cartClient.getOneCart(params)
       .then(cart => {
         return cart.status != "PROCESSING"
           ? cart
-          : Q.delay(50).then(_ => waitProcessingCart(params));
+          : Q.delay(50).then(_ => waitProcessingCart(cartId,res));
       })
       .catch(err => {
         throw err;
@@ -93,10 +96,18 @@ class GarexControllers{
   }
 
   encode(req, res, next){
-    var encryptedText = encrypt(key, req.query.data);
+    var encryptedText = this.encrypt(key, req.query.data);
     res.status(200).send(encryptedText)
   };
+
 }
 
-module.exports = new GarexControllers();
+module.exports = GarexControllers;
  
+/**
+ * 
+ * setWarranty se llama cuando agregas garantina a un producto
+ * 
+ * 
+ * 
+ */

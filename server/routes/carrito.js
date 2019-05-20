@@ -1,16 +1,17 @@
 var express = require("express"),
   router = express.Router(),
-  cart = require("../controllers/CartControllers");
-  GarexControllers = require("../controllers/GarexControllers");
+  cart = require("../controllers/CartControllers"),
+  garex = require("../controllers/GarexControllers");
 
-let CartControllers = new cart()
+  let CartControllers = new cart()
+  let GarexControllers = new garex()
 
 router.post("/", (req, res, next) => CartControllers.addProduct(req, res, next));
 router.get("/", (req, res) => CartControllers.getIndex(req, res));
 router.get("/summary", (req, res, next) => CartControllers.summary(req, res, next));
 
-router.get('/garex',  GarexControllers.garex   );
-//router.get('/garex/encode', garexController.encode);
+router.get('/garex',   (req, res, next) => GarexControllers.garex(req, res, next)  );
+router.get('/garex/encode', (req, res, next) => GarexControllers.encode(req, res, next) );
 
 //test
 router.get("/clean", (req, res) => CartControllers.clean(req, res));
