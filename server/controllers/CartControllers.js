@@ -733,10 +733,70 @@ class CartControllers {
         logger.error("[" + cartId + "] Fail get cart: ,err:" + err);
         newrelic.noticeError(err);
 
-        res.status(500).send(errorService.checkErrorObject(err));
+        let errorObject = errorService.checkErrorObject(err);
+        res.status(errorService.getErrorCode(errorObject)).send(errorObject);
+    });
+  }
+
+  getCartStatus(req,res){
+    let params = this.getParamsToGetCart(req, res);
+
+    RestClient.cartClient
+      .getOneCart(params)
+      .then(cart => {
+          res.json(cart);
+      })
+      .catch(function(err) {
+          newrelic.noticeError(err)
+          logger.error("sendCart FAIL: Cart Call: ", err);
+
+          let errorObject = errorService.checkErrorObject(err);
+          res.status(errorService.getErrorCode(errorObject)).send(errorObject);
       });
   }
 
+  /*sendCart(req, res, next) {
+    let arplus = req.body.arplus
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Pragma", "no-cache");
+    res.header("Expires", 0);
+  
+    let params = this.getParamsToGetCart(req, res);
+
+    RestClient.cartClient
+      .getOneCart(params)
+      .then(cart => {
+        if (cart.status !== "EMPTY") {
+    
+          var productService = new ProductService(cart, apiClient);
+    
+          return productService.getProducts(res).then(function(products) {
+    
+              products.forEach(function(product) {
+    
+                let xid; ({xid } = product);
+                let cartProduct = (cart.products.find(x => x.product_id == xid));
+    
+                //Adding the product api query to the product in the cart.
+                cartProduct.details = product;
+              });
+              res.status(200).send(helpers.generateCartObject(cart, arplus));
+            });
+        }else{
+
+          logger.error('Cant send cart yet', cart.cart_id, '->', cart)
+          res.status(400).send("Can't send cart yet")
+
+        }
+    }).catch(function(err) {
+      logger.error("sendCart FAIL: Cart Call: ", err);
+      res.status(404).send(err);
+      return err
+    });
+  }*/
+
+  
   warrantyMobile(req, res) {
     res.status(200).send("ok");
   }

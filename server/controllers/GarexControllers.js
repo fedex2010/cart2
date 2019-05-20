@@ -17,11 +17,8 @@ class GarexControllers{
       return res.redirect('/compra/error');
     }
     
-
     let garexData = JSON.parse( this.decrypt64(req.query.data) );
     logger.info("garexData",garexData);
-
-   
 
     garexData.cart = {
         session: res.locals.session,
