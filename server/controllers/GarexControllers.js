@@ -28,18 +28,15 @@ class GarexControllers{
         xSessionContext : res.locals.xSessionContext
     };
 
+    logger.info("----------garexData--------------")
+    logger.info(garexData)
+
     RestClient.cartClient.newCartFromGarex( garexData )
         .then(cart =>  this.waitProcessingCart(cart.cart_id,res))
         .then( cart => {
-             
             sessionService.setCartIdCookie(res,cart.cart_id)
             
-            if ( typeof cart !== 'undefined' && cart ){
-                return res.redirect('/compra/financiacion');
-            } else {
-                logger.error("Error creating Garex Cart", garexData);
-            }
-
+            return res.redirect('/compra/financiacion');
         })
         .catch(function (err) {
             logger.error("GAREX unhandled error: ", err);
@@ -63,7 +60,7 @@ class GarexControllers{
       .then(cart => {
         return cart.status != "PROCESSING"
           ? cart
-          : Q.delay(50).then(_ => waitProcessingCart(cartId,res));
+          : Q.delay(50).then(_ => this.waitProcessingCart(cartId,res));
       })
       .catch(err => {
         throw err;
