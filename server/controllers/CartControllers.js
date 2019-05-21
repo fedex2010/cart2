@@ -796,7 +796,6 @@ class CartControllers {
     });
   }*/
 
-  
   warrantyMobile(req, res) {
     res.status(200).send("ok");
   }
