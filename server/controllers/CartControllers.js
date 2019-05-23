@@ -3,6 +3,7 @@ const RestClient = require("../client"),
   sessionService = require("../services/session_service"),
   newrelic = require("newrelic"),
   errorService = require("../services/error_service"),
+  gtm = require("../utils/gtm"),
   Q = require("q");
 
 class CartControllers {
@@ -768,26 +769,29 @@ class CartControllers {
       .getOneCart(params)
       .then(cart => {
         if (cart.status !== "EMPTY") {
-    
-          var productService = new ProductService(cart, apiClient);
-    
-          return productService.getProducts(res).then(function(products) {
-    
+        
+          let productsIds = []
+
+          cart.products.forEach(function (product) {
+            productsIds.push(product.product_id);
+          });
+
+          RestClient.productClient.getProducts(res.locals.xBrand,productsIds)
+          .then(function(products) {
               products.forEach(function(product) {
     
-                let xid; ({xid } = product);
-                let cartProduct = (cart.products.find(x => x.product_id == xid));
+                let { xid } = product;
+                let cartProduct = ( cart.products.find(x => x.product_id == xid) );
     
                 //Adding the product api query to the product in the cart.
                 cartProduct.details = product;
               });
-              res.status(200).send(helpers.generateCartObject(cart, arplus));
+
+              res.status(200).send( gtm.generateCartObject(cart, arplus) );
             });
         }else{
-
           logger.error('Cant send cart yet', cart.cart_id, '->', cart)
           res.status(400).send("Can't send cart yet")
-
         }
     }).catch(function(err) {
       logger.error("sendCart FAIL: Cart Call: ", err);
