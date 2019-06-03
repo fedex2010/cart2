@@ -128,6 +128,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
 };
 
 export const getCarousel = (cartId) => dispatch => {
+
     fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         .then( handleErrors )
         .then(response => response.json())
@@ -137,10 +138,11 @@ export const getCarousel = (cartId) => dispatch => {
         }).catch((err) => {
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
-
-            dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
-            history.push('/carrito/error')
+            
+            //dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
+            //history.push('/carrito/error')
         });
+
 };
 
 export const addProduct = product => dispatch => {

@@ -104,6 +104,8 @@ class CartControllers {
       return {};
     }
 
+    throw new Error("jajajaja")
+    
     RestClient.productClient
       .getProductsCarousel(brand)
       .then(carousel => {
