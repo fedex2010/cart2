@@ -104,7 +104,7 @@ class CartControllers {
       return {};
     }
 
-    throw new Error("jajajaja")
+    throw new Error("Fail get carousel")
     
     RestClient.productClient
       .getProductsCarousel(brand)
