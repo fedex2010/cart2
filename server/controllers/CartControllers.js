@@ -103,8 +103,6 @@ class CartControllers {
     if (req.headers["x-subdomain"] == "empresas") {
       return {};
     }
-
-    throw new Error("jajajaja")
     
     RestClient.productClient
       .getProductsCarousel(brand)
