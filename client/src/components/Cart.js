@@ -18,8 +18,6 @@ class Cart extends Component {
 
     this.state = {};
 
-    this.state.fromGarex = false
-
     if( window.location.search ){
       const productId = customURLSearchParams( 'producto' );
       
@@ -29,12 +27,8 @@ class Cart extends Component {
   
         this.state.cupon = (cupon == null)? "" : cupon 
        }
-       
-       const fromGarex = customURLSearchParams( 'fromGarex' );
-       if( fromGarex != null ){
-        this.state.fromGarex = true
-       }      
     }
+
   }
 
   componentWillMount() {
@@ -154,11 +148,10 @@ class Cart extends Component {
               <div className="product-gbChk col-md-8 ">
                 <Product
                   cart={this.props.cart} 
-                  fromGarex={this.state.fromGarex}
                 />
               </div>
               <div className="summary-gbChk col-md-4" data-role="resumenCompra">
-                  <Summary fromGarex={this.state.fromGarex} />
+                  <Summary />
               </div>
             </div>
 

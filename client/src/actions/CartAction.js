@@ -59,11 +59,12 @@ export const hideGereralLoading = product => dispatch => {
 
 function isGarexSelector(state){
     try{
-        return state.cartReducer.cart.isGarex 
+        let isGarex = state.cartReducer.cart.isGarex
+        return !!isGarex
     }catch(err){
         console.err(err)
-        console.err("returning empty array")
-        return []
+        console.err("returning garex as false")
+        return false
     }
 }
 
@@ -95,6 +96,7 @@ export const fetchCart = id => dispatch => {
         .then(response => {
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
 
+            dispatch( getCarousel() )
         }).catch((err) => {
             let errObject = getErrorObject(err)
 
@@ -128,6 +130,8 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
             history.push('/carrito')
             dispatch({ type: SET_CURRENT_CART, payload: response, xBrand: window.xBrand });
 
+            dispatch( getCarousel() )
+
         }).catch((err) => {
             let errObject = getErrorObject(err)
 
@@ -138,19 +142,29 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
         });
 };
 
-export const getCarousel = (cartId) => dispatch => {
+export const getCarousel = () => (dispatch,getState) => {
 
-    fetch("/carrito/api/cart/carousel", { credentials: 'include'})
+    let isGarex = isGarexSelector( getState() )
+  
+    if(!isGarex){
+        fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         .then( handleErrors )
         .then(response => response.json())
         .then(response => {
-            dispatch({ type: SET_CAROUSEL, payload: response, operationStatus: "SUCCESSFUL" });
-            
+            dispatch({ type: SET_CAROUSEL, payload: response, operationStatus: "SUCCESSFUL" });        
         }).catch((err) => {
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
+
+            console.error( errObject )
+            console.error("exploto buscando el carousel")
+            //dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
+            //history.push('/carrito/error')
         });
+    }
+    
 };
+
 
 export const addProduct = product => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });

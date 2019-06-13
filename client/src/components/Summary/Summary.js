@@ -9,8 +9,10 @@ import { hideGereralLoading } from "../../actions/CartAction";
 class Summary extends Component {
       constructor(props) {
         super(props);
+        
         this.state = {
             classLoadingContinue: true,
+
             timeoutLoading: false
         };
 
@@ -18,19 +20,18 @@ class Summary extends Component {
       }
     
   componentDidMount () {
-    this.timeoutId = setTimeout(function () {
-            this.setState({show: true});
-        }.bind(this), 2000);
-        
-    this.props.hideGereralLoading()
-}
+        this.timeoutId = setTimeout(function () {
+                this.setState({show: true});
+            }.bind(this), 2000);
+            
+        this.props.hideGereralLoading()
+    }
 
 
   componentWillUnmount () {
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
-      
     }
 
   _continue(e){
@@ -89,7 +90,11 @@ class Summary extends Component {
 
   render() {
     //used for "Continue" button
+    let isGarex = this.props.cart.isGarex
     let isThereProductWithOutStock = this._isThereProductWithOutStock()
+    //
+
+    
     let classLoading = this.props.operationStatus === "LOADING" ? "summary card--is-loading" : "summary"
 
     let classSummary = "";
@@ -104,11 +109,11 @@ class Summary extends Component {
     let cuponDiscount = <CuponDiscount cart={this.props.cart} />
     let specialDiscount = <SpecialDiscount cart={this.props.cart} />
 
-    if(!isThereProductWithOutStock && !this.props.fromGarex){
+    if(!isThereProductWithOutStock && !isGarex){
         cartAdditionals = <CartAdditionals cart={this.props.cart} />
     }
 
-    if(this.props.fromGarex){
+    if( isGarex ){
         buyMore = null
         iva = null
         warranties = null

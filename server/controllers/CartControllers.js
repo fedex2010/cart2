@@ -137,12 +137,8 @@ class CartControllers {
       });
   }
 
-  _isGarex(cart){
-    console.log("--------------------")
-    console.log( cart.products )
-    console.log("--------------------")
-    cart.isGarex = true
-    
+  _isGarex(cart){    
+    cart.isGarex = typeof cart.related_legacy_id !== "undefined";
     return cart
   }
 

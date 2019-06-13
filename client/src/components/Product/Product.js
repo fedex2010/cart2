@@ -6,8 +6,7 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        product: {},
-        fromGarex:props.fromGarex
+        product: {}
     };
   }
 
@@ -20,12 +19,13 @@ class Product extends Component {
     
     let products = this.props.cart.products;
     let percentage = this.props.cart.percentage;
+    let isGarex = this.props.cart.isGarex
 
     if (products !== undefined && products.length > 0) {
         return (
           <div>
               {
-                  products.map((product, i) => (<ProductDescription fromGarex={this.state.fromGarex} key={i} item={product} percentage={percentage}/>))
+                  products.map((product, i) => (<ProductDescription fromGarex={isGarex} key={i} item={product} percentage={percentage}/>))
               }
               <Modal/>
           </div>
