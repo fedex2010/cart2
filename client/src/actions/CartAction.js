@@ -56,6 +56,18 @@ export const hideGereralLoading = product => dispatch => {
     return dispatch({ type: HIDE_GENERAL_LOADING, payload: {} });
 };
 
+
+function isGarexSelector(state){
+    try{
+        return state.cartReducer.cart.isGarex 
+    }catch(err){
+        console.err(err)
+        console.err("returning empty array")
+        return []
+    }
+}
+
+
 export const justReload = id => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
 
@@ -126,10 +138,7 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
         });
 };
 
-export const getCarousel = (cartId) => (dispatch,getState) => {
-    console.log( "----------------" )
-    console.log( getState() )
-    console.log( "----------------" )
+export const getCarousel = (cartId) => dispatch => {
 
     fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         .then( handleErrors )
