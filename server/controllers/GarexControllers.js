@@ -39,6 +39,7 @@ class GarexControllers{
               return res.redirect('/compra/financiacion');
             } else {
               logger.error("Error creating Garex Cart", garexData);
+              logger.error("Cart: ", cart);
 
               return res.redirect('/carrito/error');
             }

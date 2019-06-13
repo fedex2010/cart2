@@ -13,6 +13,8 @@ class Summary extends Component {
             classLoadingContinue: true,
             timeoutLoading: false
         };
+
+        console.log(props.fromGarex)
       }
     
   componentDidMount () {
@@ -96,8 +98,22 @@ class Summary extends Component {
     }
 
     let cartAdditionals = null
-    if(!isThereProductWithOutStock){
+    let buyMore = <button className="button--link" onClick={this._moreProduct.bind()}>COMPRAR MÁS PRODUCTOS</button>
+    let iva = <Iva cart={this.props.cart}/>
+    let warranties = <Warranties cart={this.props.cart}/>
+    let cuponDiscount = <CuponDiscount cart={this.props.cart} />
+    let specialDiscount = <SpecialDiscount cart={this.props.cart} />
+
+    if(!isThereProductWithOutStock && !this.props.fromGarex){
         cartAdditionals = <CartAdditionals cart={this.props.cart} />
+    }
+
+    if(this.props.fromGarex){
+        buyMore = null
+        iva = null
+        warranties = null
+        cuponDiscount = null
+        specialDiscount = null
     }
 
     return (
@@ -115,12 +131,12 @@ class Summary extends Component {
 
                             <SubTotal cart={this.props.cart}/>
 
-                            <Iva cart={this.props.cart}/>
-                            <Warranties cart={this.props.cart}/>
+                            {iva}
+                            {warranties}
 
-                            <CuponDiscount cart={this.props.cart} />
-                            <SpecialDiscount cart={this.props.cart} />
-
+                            {cuponDiscount}
+                            {specialDiscount}
+                            
                             <TotalSummary cart={this.props.cart} />
 
                         </ul>
@@ -129,9 +145,8 @@ class Summary extends Component {
 
                     </div>
                     <div className="cart-actions">
-                        <button className="button--link" onClick={this._moreProduct.bind()}>
-                            COMPRAR MÁS PRODUCTOS
-                        </button>
+                        { buyMore }
+
                         <button type="button" className={this.state.classLoadingContinue ? 'button--primary' : 'button--primary button--is-loading' } id="cart-buy-btn" disabled={isThereProductWithOutStock} onClick={this._continue.bind(this)}>
                             Continuar
                         </button>

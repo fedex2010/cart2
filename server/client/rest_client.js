@@ -76,7 +76,7 @@ class RestClient {
     
         let options = {
             headers : {"Content-Type": "application/json", "X-Brand": garexData.cart.brand},
-            timeout: NEW_CART_TIMEOUT
+            timeout: 120000
         };
 
         if(garexData.cart.xSessionContext !== ""){

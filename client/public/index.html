@@ -24,7 +24,7 @@
   <link rel="icon" sizes="192x192" href="%PUBLIC_URL%/favicon_garbarino.png">
   <link rel="apple-touch-icon-precomposed" href="%PUBLIC_URL%//*!*favicon-apple*/">
   <link href="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.52-SNAPSHOT-9fa6c0b82b645972031a6218d13f44005f2231ea-1319/garbarino/stylesheets/style.css" rel="stylesheet" type="text/css">
-  <link href="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1117-89de37ab73313ce58ba15cea241acdaa7f503ae5/stylesheets/style-popups.css" rel="stylesheet" type="text/css">
+  <link href="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1121-47f6cf1c1e7e14d2f7125036a905e9ffd8b9a94f/stylesheets/style-popups.css" rel="stylesheet" type="text/css">
     
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css" /> 
 </head>
@@ -72,6 +72,12 @@
         
       <nav class="gb-mobile-menu-list ">
          <ul class="mobile-category-list">
+            <li>
+               <a href="/productos/cat1/50149">
+                  <span>Cat1</span>
+                  <i class="gb-icon-simple-thin-arrow-right"></i>
+               </a>
+            </li>
             <li>
                <a href="/productos/moda/4891">
                   <span>Moda</span>
@@ -319,6 +325,9 @@
                   <span class="category-btn">Categorías</span>
                   <div class="nav-menu">
                      <ul class="nav-menu-n1" id="nav-categories-menu"> 
+                           <li class="nav-menu-n1-item" data-caterogy-name="Cat1">
+                              <a class="nav-menu-n1-name ellipsis-text " >Cat1</a>
+                           </li>
                            <li class="nav-menu-n1-item" data-caterogy-name="Moda">
                               <a class="nav-menu-n1-name ellipsis-text " >Moda</a>
                            </li>
@@ -345,6 +354,42 @@
                            </li>
                      </ul>
                      <div class="nav-submenu-content">
+                           <div class="nav-submenu" data-caterogy-name="Cat1">
+                              <div class="nav-submenu-header">
+                                 <h2 class="nav-submenu-title">Cat1</h2>
+                                 <a href="/productos/cat1/50149">Ver todo de Cat1</a>
+                              </div>
+                              <div class="nav-submenu-body" data-category="cat1">
+                                 <div class="nav-submenu--col-lg">
+                                    <div class="nav-submenu-categories">
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/cat2-subcat/50169" class="ellipsis-text">cat2 subcat</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/cat3/50171" class="ellipsis-text">cat3</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                    </div>
+                                 </div>
+                  
+                  
+                              </div>
+                           </div>
                            <div class="nav-submenu" data-caterogy-name="Moda">
                               <div class="nav-submenu-header">
                                  <h2 class="nav-submenu-title">Moda</h2>
@@ -356,12 +401,12 @@
                                           <div class="nav-submenu-n2">
                                              
                                              <h3 class="nav-submenu-n2-name ">
-                                                <a href="/productos/jeans/48036" class="ellipsis-text">Jeans</a>
+                                                <a href="/productos/pantalones-para-mujer/51713" class="ellipsis-text">Pantalones para Mujer</a>
                                              </h3>
                                              <nav class="nav-submenu-n3">
                                                 <ul>
                                                       <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
+                                                            <a href="/productos/jeans/48036" class="ellipsis-text">Jeans</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
@@ -442,17 +487,15 @@
                                              <nav class="nav-submenu-n3">
                                                 <ul>
                                                       <li class="" >
+                                                            <a href="/productos/tv-led/4273" class="ellipsis-text">TV Led</a>
+                                                                                             </li>
+                                                      <li class="" >
                                                             <a href="/productos/smart-tv-led/4274" class="ellipsis-text">Smart TV Led</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="/productos/tv-led-3d/4275" class="ellipsis-text">TV Led 3D</a>
                                                                                              </li>
-                                                      <li class="" >
-                                                            <a href="/productos/reproductores-de-dvd-y-blu-ray/4276" class="ellipsis-text">Reproductores de DVD y Blu Ray</a>
-                                                                                             </li>
-                                                      <li class="" >
-                                                            <a href="/productos/accesorios/4528" class="ellipsis-text">Accesorios</a>
-                                                                                             </li>
+                                                      <li class="semibold-link"><a href="/productos/tv-led-y-video/4272">Ver más</a></li>
                                                 </ul>
                                              </nav>
                                           </div>
@@ -467,14 +510,12 @@
                                                             <a href="/productos/aires-acondicionados-split/4278" class="ellipsis-text">Aires Acondicionados Split</a>
                                                                                              </li>
                                                       <li class="" >
+                                                            <a href="/productos/aires-ventana-y-portatiles/4564" class="ellipsis-text">Aires Ventana y Portátiles</a>
+                                                                                             </li>
+                                                      <li class="" >
                                                             <a href="/productos/ventiladores/4280" class="ellipsis-text">Ventiladores</a>
                                                                                              </li>
-                                                      <li class="" >
-                                                            <a href="/productos/calefaccion-electrica/4484" class="ellipsis-text">Calefacción Eléctrica</a>
-                                                                                             </li>
-                                                      <li class="" >
-                                                            <a href="/productos/calefaccion-a-gas/4279" class="ellipsis-text">Calefacción a Gas</a>
-                                                                                             </li>
+                                                      <li class="semibold-link"><a href="/productos/ventilacion-y-calefaccion/4277">Ver más</a></li>
                                                 </ul>
                                              </nav>
                                           </div>
@@ -554,9 +595,7 @@
                                                       <li class="" >
                                                             <a href="/productos/cavas/4294" class="ellipsis-text">Cavas</a>
                                                                                              </li>
-                                                      <li class="" >
-                                                            <a href="/productos/freezers/4292" class="ellipsis-text">Freezers</a>
-                                                                                             </li>
+                                                      <li class="semibold-link"><a href="/productos/heladeras-y-freezers/4290">Ver más</a></li>
                                                 </ul>
                                              </nav>
                                           </div>
@@ -748,13 +787,13 @@
                                                             <a href="/productos/camaras-digitales/4356" class="ellipsis-text">Cámaras Digitales</a>
                                                                                              </li>
                                                       <li class="" >
+                                                            <a href="/productos/video-camaras/4355" class="ellipsis-text">Video Cámaras</a>
+                                                                                             </li>
+                                                      <li class="" >
                                                             <a href="/productos/camaras-deportivas/4504" class="ellipsis-text">Cámaras Deportivas</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="/productos/accesorios/4357" class="ellipsis-text">Accesorios</a>
-                                                                                             </li>
-                                                      <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
                                                                                              </li>
                                                 </ul>
                                              </nav>
@@ -796,11 +835,9 @@
                                                             <a href="/productos/muebles-para-dormitorio/4210" class="ellipsis-text">Muebles para Dormitorio</a>
                                                                                              </li>
                                                       <li class="" >
-                                                            <a href="/productos/organizadores/4817" class="ellipsis-text">Organizadores</a>
+                                                            <a href="/productos/muebles-para-living-y-comedor/4209" class="ellipsis-text">Muebles para Living y Comedor</a>
                                                                                              </li>
-                                                      <li class="" >
-                                                            <a href="/productos/muebles-para-escritorios/4211" class="ellipsis-text">Muebles para Escritorios</a>
-                                                                                             </li>
+                                                      <li class="semibold-link"><a href="/productos/muebles/4208">Ver más</a></li>
                                                 </ul>
                                              </nav>
                                           </div>
@@ -837,10 +874,10 @@
                                                             <a href="/productos/baterias-de-cocina-y-ollas/4835" class="ellipsis-text">Baterías de Cocina y Ollas</a>
                                                                                              </li>
                                                       <li class="" >
-                                                            <a href="/productos/vajilla/4836" class="ellipsis-text">Vajilla</a>
+                                                            <a href="/productos/electro-cocina/4851" class="ellipsis-text">Electro Cocina</a>
                                                                                              </li>
                                                       <li class="" >
-                                                            <a href="/productos/cubiertos/4229" class="ellipsis-text">Cubiertos</a>
+                                                            <a href="/productos/muebles/4855" class="ellipsis-text">Muebles</a>
                                                                                              </li>
                                                       <li class="semibold-link"><a href="/productos/cocina/4221">Ver más</a></li>
                                                 </ul>
@@ -854,10 +891,10 @@
                                              <nav class="nav-submenu-n3">
                                                 <ul>
                                                       <li class="" >
-                                                            <a href="/productos/toallas-y-toallones/4862" class="ellipsis-text">Toallas y Toallones</a>
+                                                            <a href="/productos/accesorios-bano/4863" class="ellipsis-text">Accesorios Baño</a>
                                                                                              </li>
                                                       <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
+                                                            <a href="/productos/toallas-y-toallones/4862" class="ellipsis-text">Toallas y Toallones</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
@@ -885,7 +922,7 @@
                                                             <a href="/productos/parrillas/4246" class="ellipsis-text">Parrillas</a>
                                                                                              </li>
                                                       <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
+                                                            <a href="/productos/muebles-de-jardin/4248" class="ellipsis-text">Muebles de Jardín</a>
                                                                                              </li>
                                                 </ul>
                                              </nav>
@@ -898,16 +935,16 @@
                                              <nav class="nav-submenu-n3">
                                                 <ul>
                                                       <li class="" >
+                                                            <a href="/productos/cestos-y-canastos/4879" class="ellipsis-text">Cestos y Canastos</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/limpieza-del-hogar/4878" class="ellipsis-text">Limpieza del Hogar</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/organizadores/4881" class="ellipsis-text">Organizadores</a>
+                                                                                             </li>
+                                                      <li class="" >
                                                             <a href="/productos/planchado-y-tenders/4877" class="ellipsis-text">Planchado y Tenders</a>
-                                                                                             </li>
-                                                      <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
-                                                                                             </li>
-                                                      <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
-                                                                                             </li>
-                                                      <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
                                                                                              </li>
                                                 </ul>
                                              </nav>
@@ -927,6 +964,50 @@
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/deco-del-hogar/4260" class="ellipsis-text">Deco del Hogar</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/relojes/4262" class="ellipsis-text">Relojes </a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/organizadores/4267" class="ellipsis-text">Organizadores</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/iluminacion/4252" class="ellipsis-text">Iluminación</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/luces-de-emergencia/4660" class="ellipsis-text">Luces de Emergencia</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/interior/4253" class="ellipsis-text">Interior</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/exterior/4254" class="ellipsis-text">Exterior</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
@@ -1040,10 +1121,10 @@
                                                             <a href="/productos/tensiometro/4468" class="ellipsis-text">Tensiómetro</a>
                                                                                              </li>
                                                       <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
+                                                            <a href="/productos/masajeadores/4470" class="ellipsis-text">Masajeadores</a>
                                                                                              </li>
                                                       <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
+                                                            <a href="/productos/nebulizador/4467" class="ellipsis-text">Nebulizador</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
@@ -1097,22 +1178,42 @@
                                           <div class="nav-submenu-n2">
                                              
                                              <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/juguetes/4864" class="ellipsis-text">Juguetes</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/ninas/4383" class="ellipsis-text">Niñas</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/ninos/4384" class="ellipsis-text">Niños</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
                                                 <a href="/productos/bebes/4397" class="ellipsis-text">Bebes</a>
                                              </h3>
                                              <nav class="nav-submenu-n3">
                                                 <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/cochecitos-cunas-y-butacas/4865" class="ellipsis-text">Cochecitos, Cunas y Butacas</a>
+                                                                                             </li>
                                                       <li class="" >
                                                             <a href="/productos/accesorios/4423" class="ellipsis-text">Accesorios</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="/productos/alimentacion-y-sillitas/4573" class="ellipsis-text">Alimentación y Sillitas</a>
                                                                                              </li>
-                                                      <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
-                                                                                             </li>
-                                                      <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
-                                                                                             </li>
+                                                      <li class="semibold-link"><a href="/productos/bebes/4397">Ver más</a></li>
                                                 </ul>
                                              </nav>
                                           </div>
@@ -1142,12 +1243,57 @@
                                           <div class="nav-submenu-n2">
                                              
                                              <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/bicicletas/4885" class="ellipsis-text">Bicicletas</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/bicicletas/4425" class="ellipsis-text">Bicicletas</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
                                                 <a href="/productos/fitness/4436" class="ellipsis-text">Fitness</a>
                                              </h3>
                                              <nav class="nav-submenu-n3">
                                                 <ul>
                                                       <li class="" >
-                                                            <a href="/productos/accesorios/4445" class="ellipsis-text">Accesorios</a>
+                                                            <a href="/productos/bicicletas-fijas-y-spinning/4439" class="ellipsis-text">Bicicletas Fijas y Spinning</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/elipticos/4438" class="ellipsis-text">Elípticos</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/cintas-para-correr/4437" class="ellipsis-text">Cintas para Correr</a>
+                                                                                             </li>
+                                                      <li class="semibold-link"><a href="/productos/fitness/4436">Ver más</a></li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/rollers-monopatines-y-skates/4424" class="ellipsis-text">Rollers, Monopatines y Skates</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/rollers/4428" class="ellipsis-text">Rollers</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/skates-longboards/4429" class="ellipsis-text">Skates & Longboards</a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
@@ -1155,9 +1301,26 @@
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
                                                                                              </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/camping/4432" class="ellipsis-text">Camping</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
                                                       <li class="" >
-                                                            <a href="" class="ellipsis-text"></a>
+                                                            <a href="/productos/carpas/4434" class="ellipsis-text">Carpas</a>
                                                                                              </li>
+                                                      <li class="" >
+                                                            <a href="/productos/accesorios-de-camping/4632" class="ellipsis-text">Accesorios de Camping</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="/productos/colchones-y-colchonetas/4631" class="ellipsis-text">Colchones y Colchonetas</a>
+                                                                                             </li>
+                                                      <li class="semibold-link"><a href="/productos/camping/4432">Ver más</a></li>
                                                 </ul>
                                              </nav>
                                           </div>
@@ -1200,7 +1363,95 @@
                                                             <a href="/productos/bolsos/4626" class="ellipsis-text">Bolsos</a>
                                                                                              </li>
                                                       <li class="" >
+                                                            <a href="/productos/valijas/4625" class="ellipsis-text">Valijas</a>
+                                                                                             </li>
+                                                      <li class="" >
                                                             <a href="/productos/mochilas/4433" class="ellipsis-text">Mochilas</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/bebidas-y-comestibles/4567" class="ellipsis-text">Bebidas y comestibles</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/capsulas-de-cafe/4568" class="ellipsis-text">Cápsulas de Café</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/instrumentos-musicales/4627" class="ellipsis-text">Instrumentos Musicales</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/guitarras/4628" class="ellipsis-text">Guitarras</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/sistemas-de-seguridad/4700" class="ellipsis-text">Sistemas de Seguridad</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="/productos/camaras/4701" class="ellipsis-text">Cámaras</a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                </ul>
+                                             </nav>
+                                          </div>
+                                          <div class="nav-submenu-n2">
+                                             
+                                             <h3 class="nav-submenu-n2-name ">
+                                                <a href="/productos/vehiculos/4196" class="ellipsis-text">Vehículos</a>
+                                             </h3>
+                                             <nav class="nav-submenu-n3">
+                                                <ul>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
+                                                                                             </li>
+                                                      <li class="" >
+                                                            <a href="" class="ellipsis-text"></a>
                                                                                              </li>
                                                       <li class="" >
                                                             <a href="" class="ellipsis-text"></a>
@@ -1482,7 +1733,7 @@
                     </form>
                 </div>
                 <div class="gb-register-form-constent gb-register-col-right">
-                    <img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1117-89de37ab73313ce58ba15cea241acdaa7f503ae5/img/registro-login/registro.svg"/>
+                    <img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1121-47f6cf1c1e7e14d2f7125036a905e9ffd8b9a94f/img/registro-login/registro.svg"/>
                     <h5>¿Qué vas a poder hacer en tu cuenta?</h5>
                     <ul>
                         <li><span class="gb-icon-checkmark"></span> Consultar el estado de tus compras.</li>
@@ -1519,7 +1770,7 @@
 	        </div>
 	        <div class="modal-body">
 	        	<div class="gb-email-send-content">
-	        		<img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1117-89de37ab73313ce58ba15cea241acdaa7f503ae5/img/registro-login/mailcheck.svg" />
+	        		<img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1121-47f6cf1c1e7e14d2f7125036a905e9ffd8b9a94f/img/registro-login/mailcheck.svg" />
 	        		<p>Ya te enviamos el link para activar tu cuenta a <span class="gb-user-email-address"></span></p>
 					<p><strong>No olvides revisar la carpeta de correo no deseado.</strong></p>
 					<a href="#" class="gb-email-client"></a>
@@ -1594,7 +1845,7 @@
             </div>
             <div class="modal-body">
                 <div class="gb-email-send-content">
-                    <img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1117-89de37ab73313ce58ba15cea241acdaa7f503ae5/img/registro-login/mailcheck.svg" />
+                    <img src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1121-47f6cf1c1e7e14d2f7125036a905e9ffd8b9a94f/img/registro-login/mailcheck.svg" />
                     <p>Ya te enviamos el link para crear una nueva contraseña a <span class="gb-user-email-address"></span></p>
                     <p><strong>No olvides revisar la carpeta de correo no deseado.</strong></p>
                     <a href="#" class="gb-email-client"></a>
@@ -2056,7 +2307,7 @@
         window.xBrand ="garbarino"; </script>
   <script src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.52-SNAPSHOT-9fa6c0b82b645972031a6218d13f44005f2231ea-1319/common/js/categories-menu.min.js" ></script>
   <script src="//dj4i04i24axgu.cloudfront.net/normi/statics/0.2.52-SNAPSHOT-9fa6c0b82b645972031a6218d13f44005f2231ea-1319/garbarino/js/normi.min.js" ></script>
-  <script src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1117-89de37ab73313ce58ba15cea241acdaa7f503ae5/js/flow.min.js" ></script>
+  <script src="//dj4i04i24axgu.cloudfront.net/my-account-ui/statics/0.0.72-SNAPSHOT-1121-47f6cf1c1e7e14d2f7125036a905e9ffd8b9a94f/js/flow.min.js" ></script>
   
 </body>
 

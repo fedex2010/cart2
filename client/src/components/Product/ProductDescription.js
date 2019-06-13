@@ -10,7 +10,8 @@ class ProductDescription extends Component {
     super(props);
     this.state = {
       productIdModal: {},
-      operationStatus:"SUCCESSFUL"
+      operationStatus:"SUCCESSFUL",
+      fromGarex:props.fromGarex
     };
   }
 
@@ -69,7 +70,7 @@ class ProductDescription extends Component {
 
     let showChangePrice = (product.price_delta) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
     let warranty_delta_class  = (product.delta_warranty_price) ? "cart-item-tag cart-item-tag--info":"cart-item-tag cart-item-tag--info displaynone";
-    let isDisabled = this.props.operationStatus === "LOADING" ? true : false;
+    let isDisabled = this.props.operationStatus === "LOADING" || this.state.fromGarex? true : false;
     let idProduct  = "productId_"+product.product_id;
     let empresarias = (Cookie.get("empresarias")===true?true:false);
     let idQuantity = "idQuantity_"+product.product_id;
@@ -80,7 +81,7 @@ class ProductDescription extends Component {
     let productWarranty
     let imageProduct = (navigator.userAgent.indexOf("Chrome") !== -1) ? product.main_image.url : formatImage(product.main_image.url);
 
-    if( typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
+    if( !this.state.fromGarex && typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
       productWarranty = <ProductWarranty
                             current={product}
                             item={product.warranties}
@@ -91,6 +92,7 @@ class ProductDescription extends Component {
                           />
     }
 
+    let aDescription = (this.state.fromGarex)?"A K IRÍA LA DESCRIPCIÓN DEL GAREX":product.description;
 
     return (
       <div className={ showStatus === "cart-item-tag cart-item-tag--error" ? "cart-item card cart-item-sold-out": "cart-item card"}  id={idProduct}>
@@ -103,7 +105,7 @@ class ProductDescription extends Component {
           <div className="cart-item-column cart-item-column-lg">
             <h3 className="cart-item-name">
               <a href={'/producto/'+ product.product_id} title={product.product_id} itemProp="url" target="_blank" rel="noopener noreferrer">
-                {product.description}
+                { aDescription }
               </a>
             </h3>
             <span className={showStatus}>Agotado</span>

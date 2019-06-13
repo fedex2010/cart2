@@ -6,7 +6,8 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        product: {}
+        product: {},
+        fromGarex:props.fromGarex
     };
   }
 
@@ -24,7 +25,7 @@ class Product extends Component {
         return (
           <div>
               {
-                  products.map((product, i) => (<ProductDescription key={i} item={product} percentage={percentage}/>))
+                  products.map((product, i) => (<ProductDescription fromGarex={this.state.fromGarex} key={i} item={product} percentage={percentage}/>))
               }
               <Modal/>
           </div>
