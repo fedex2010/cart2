@@ -56,7 +56,6 @@ export const hideGereralLoading = product => dispatch => {
     return dispatch({ type: HIDE_GENERAL_LOADING, payload: {} });
 };
 
-
 export const justReload = id => dispatch => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
 
@@ -127,7 +126,10 @@ export const fetchNewCart = (productId = "", couponId = "") => dispatch => {
         });
 };
 
-export const getCarousel = (cartId) => dispatch => {
+export const getCarousel = (cartId) => (dispatch,getState) => {
+    console.log( "----------------" )
+    console.log( getState() )
+    console.log( "----------------" )
 
     fetch("/carrito/api/cart/carousel", { credentials: 'include'})
         .then( handleErrors )
@@ -138,11 +140,7 @@ export const getCarousel = (cartId) => dispatch => {
         }).catch((err) => {
             let errorCode = getErroCode(err)
             let errObject = getErrorObject(err)
-            
-            //dispatch({ type: SET_CURRENT_CART_ERROR, payload: errObject.response, operationStatus: 'ERROR', operationResult: errorCode });
-            //history.push('/carrito/error')
         });
-
 };
 
 export const addProduct = product => dispatch => {

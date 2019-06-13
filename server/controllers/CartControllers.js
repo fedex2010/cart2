@@ -36,7 +36,6 @@ class CartControllers {
     this._isEmpresarias(req, res);
 
     if (cartId != "undefined") {
-      //RestClient.cartClient.getOneCart(cartId, {}, brand, true, true)
       RestClient.cartClient
         .getOneCart(params)
         .then(cart => this._inflateCart(cart, params))
@@ -138,6 +137,15 @@ class CartControllers {
       });
   }
 
+  _isGarex(cart){
+    console.log("--------------------")
+    console.log( cart.products )
+    console.log("--------------------")
+    cart.isGarex = true
+    
+    return cart
+  }
+
   _inflateCart(cart, params) {
     let { isEmpresarias } = params;
 
@@ -147,6 +155,8 @@ class CartControllers {
     if (isEmpresarias) {
       cart = this._getEmpresarias(cart);
     }
+
+    cart = this._isGarex(cart);
 
     return cart;
   }

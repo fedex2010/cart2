@@ -31,18 +31,15 @@ class Cart extends Component {
        }
        
        const fromGarex = customURLSearchParams( 'fromGarex' );
-      
        if( fromGarex != null ){
         this.state.fromGarex = true
        }      
     }
-
   }
 
   componentWillMount() {
     if(this.state.productId){
       this.props.fetchNewCart( this.state.productId, this.state.cupon );
-      //document.body.dataset.cartid=Cookie.get("cartId");
     }else{
       let cartId = Cookie.get("cartId");
       this.props.fetchCart(cartId);    

@@ -20,10 +20,6 @@ class Carousel extends Component {
     }
 
    componentDidMount(){
-       
-       if(window.xBrand !== "empresarias"){
-        this.props.getCarousel();
-       }
    }
 
     render() {
