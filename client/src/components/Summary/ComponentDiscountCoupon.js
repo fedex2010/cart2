@@ -27,7 +27,8 @@ function RadiosDiscount(props){
             <label className="labelRadio">
                 <input type="radio" name="discount-coupon"  value="discount-coupon1" 
                     onChange={ props.handleOptionChange }
-                    checked={ props.isSpecialChecked } 
+                    checked={ props.isSpecialChecked }
+                    id="add-discount"
                  />
                 Descuento especial
             </label>
