@@ -62,6 +62,24 @@ class ProductDescription extends Component {
       return num.replace(",00", "")
   }
 
+  _getGarexDescription(){
+    let period = this.props.item.coverage_period.split(" ")[0];
+    let related = this.props.item.related
+
+    let description = <span>
+                        <p>{"Garantía de reparación"} <b>{  "por " + period + " meses" }</b></p>
+                        <p>{"Para " + related.description}</p>
+                      </span>
+
+    return description
+  }
+
+  _getDefaultDescription(){
+    let product = this.props.item
+
+    return <a href={'/producto/'+ product.product_id} title={product.product_id} itemProp="url" target="_blank" rel="noopener noreferrer">{product.description}</a>
+  }
+
   render() {
     let product = this.props.item;
     let percentage = this.props.percentage;
@@ -92,7 +110,7 @@ class ProductDescription extends Component {
                           />
     }
 
-    let aDescription = (this.state.fromGarex)?"A K IRÍA LA DESCRIPCIÓN DEL GAREX":product.description;
+    let aDescription = (this.state.fromGarex)? this._getGarexDescription() :this._getDefaultDescription();
 
     return (
       <div className={ showStatus === "cart-item-tag cart-item-tag--error" ? "cart-item card cart-item-sold-out": "cart-item card"}  id={idProduct}>
@@ -104,9 +122,7 @@ class ProductDescription extends Component {
           </div>
           <div className="cart-item-column cart-item-column-lg">
             <h3 className="cart-item-name">
-              <a href={'/producto/'+ product.product_id} title={product.product_id} itemProp="url" target="_blank" rel="noopener noreferrer">
                 { aDescription }
-              </a>
             </h3>
             <span className={showStatus}>Agotado</span>
             <span className={showChangePrice}>Precio Modificado</span>

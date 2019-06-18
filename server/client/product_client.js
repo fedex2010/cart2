@@ -126,6 +126,22 @@ class ProductClient{
             };
         return this._restConnector.putWithOptions(url, options);
     }
+
+    getGarex( params ) {
+        let {garexId,brand,include = true, refresh = false,xSessionContext} = params
+    
+        let options = {};
+        let headers = {'Content-Type':'application/json' ,"X-Brand": brand};
+
+        if(xSessionContext === ""){
+            headers = { ...headers , "x-session-context": xSessionContext }
+        }
+    
+        options.headers = headers
+    
+        let url = CHECKOUT_CORE_URL + "/v2/products/" + garexId;
+        return this._restConnector.getWithOptions(url,options);
+    };
 }
 
 module.exports = ProductClient;

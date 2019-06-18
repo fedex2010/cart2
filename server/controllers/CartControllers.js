@@ -137,9 +137,66 @@ class CartControllers {
       });
   }
 
-  _isGarex(cart){    
-    cart.isGarex = typeof cart.related_legacy_id !== "undefined";
-    return cart
+  _checkGarex(cart,params){    
+    cart.isGarex = false
+    
+    if( typeof cart.related_legacy_id !== "undefined" ){
+      cart.isGarex = true
+      
+      let responses = {}
+      let product = cart.products[0]
+      let garexId = product.product_id;
+      let relatedProductId = product.related_product_id;
+
+      console.log("---------Es Garex-----------------")
+      // GET PRODUCT, GET GAREX
+      return RestClient.productClient.getProducts(cart.brand.toLowerCase(), relatedProductId)
+      
+      .then( productResponse => {
+
+        console.log("---------getProducts-----------------")
+        console.log( productResponse )
+
+        responses.productResponse = productResponse[0]
+        params.garexId = garexId
+        return RestClient.productClient.getGarex(params)
+
+      })
+
+      .then( garexResponse => {
+
+        console.log("---------garexResponse-----------------")
+        console.log( garexResponse )
+
+        product.related = responses.productResponse;
+        product.garex = garexResponse;
+
+        garexResponse.features.forEach(item => {
+            if (item.key === "periodo-de-garantia") {
+                product.coverage_period = item.value;
+            }
+        });
+
+        product.main_image = {
+          url: "https://d3lfzbr90tctqz.cloudfront.net/epi/resource/l/garantia-extendida/033335bd1fed9313f2feffb2b74890a79be791f3ff9ace2b2c6eafa535a5ee8f"
+        }
+
+        cart.products[0] = product
+
+        console.log("---------cart----REFACTORED-------------")
+        console.log( cart )
+
+        return cart
+      })
+      .catch( err => {
+        
+        logger.error("[" + cart.cart_id + "] error configuring garex");
+        return cart
+      })
+
+    }else{
+      return cart
+    }
   }
 
   _inflateCart(cart, params) {
@@ -152,7 +209,7 @@ class CartControllers {
       cart = this._getEmpresarias(cart);
     }
 
-    cart = this._isGarex(cart);
+    cart = this._checkGarex(cart,params);
 
     return cart;
   }
