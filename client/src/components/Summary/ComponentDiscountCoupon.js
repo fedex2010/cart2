@@ -9,7 +9,8 @@ function CheckDiscount(props){
         <li>
             <label>
                 <input  type="checkbox"  
-                        value="discount-coupon2" 
+                        value="discount-coupon2"
+                        id="add-coupon"
                         checked={ props.checked } 
                         onChange={ props.handleOptionChange }
                 />
@@ -35,6 +36,7 @@ function RadiosDiscount(props){
                     type="radio"
                     name="discount-coupon"
                     value="discount-coupon2"
+                    id="add-coupon"
                     onChange={ props.handleOptionChange }
                     checked={ props.isCouponChecked }
                 />

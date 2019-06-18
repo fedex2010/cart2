@@ -87,7 +87,7 @@ class InputCouponApplied extends Component {
             onKeyPress={this._handleKeyPress.bind(this)} 
             className={`${ this._thereWasAnError() ? 'form-control form-control--sm form-control-error' : 'form-control form-control--sm'}`} type="text" placeholder="Respetá mayúsculas y minúsculas" onChange={this._handleInput.bind(this)}  autoComplete="off" />
             
-            <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" disabled={this.state.disabled}>Aplicar</button>
+            <button onClick={this._addCoupon.bind(this)} className="button--primary button--sm" id="apply-coupon" disabled={this.state.disabled}>Aplicar</button>
             {this._showError()}
         </div>
         
