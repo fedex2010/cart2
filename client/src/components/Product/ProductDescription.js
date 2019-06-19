@@ -66,8 +66,12 @@ class ProductDescription extends Component {
     let period = this.props.item.coverage_period.split(" ")[0];
     let related = this.props.item.related
 
+    const bStyle = {
+      fontWeight: '800'
+    }
+
     let description = <span>
-                        <p>{"Garantía de reparación"} <b>{  "por " + period + " meses" }</b></p>
+                        <p>{"Garantía de reparación por "} <b style={bStyle}>{ period + " meses" }</b></p>
                         <p>{"Para " + related.description}</p>
                       </span>
 

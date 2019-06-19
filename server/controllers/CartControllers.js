@@ -154,9 +154,6 @@ class CartControllers {
       
       .then( productResponse => {
 
-        console.log("---------getProducts-----------------")
-        console.log( productResponse )
-
         responses.productResponse = productResponse[0]
         params.garexId = garexId
         return RestClient.productClient.getGarex(params)
@@ -164,9 +161,6 @@ class CartControllers {
       })
 
       .then( garexResponse => {
-
-        console.log("---------garexResponse-----------------")
-        console.log( garexResponse )
 
         product.related = responses.productResponse;
         product.garex = garexResponse;
@@ -182,9 +176,6 @@ class CartControllers {
         }
 
         cart.products[0] = product
-
-        console.log("---------cart----REFACTORED-------------")
-        console.log( cart )
 
         return cart
       })
