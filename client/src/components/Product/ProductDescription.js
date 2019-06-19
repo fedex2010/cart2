@@ -102,7 +102,7 @@ class ProductDescription extends Component {
 
     let productWarranty
     let imageProduct = (navigator.userAgent.indexOf("Chrome") !== -1) ? product.main_image.url : formatImage(product.main_image.url);
-
+    
     if( !this.state.fromGarex && typeof product.warranties != "undefined" && product.warranties.constructor === Object && Object.keys(product.warranties).length > 0 ){
       productWarranty = <ProductWarranty
                             current={product}
@@ -112,6 +112,8 @@ class ProductDescription extends Component {
                             percentage={percentage}
                             classDelta={warranty_delta_class}
                           />
+    }else{
+      imageProduct = product.main_image.url;
     }
 
     let aDescription = (this.state.fromGarex)? this._getGarexDescription() :this._getDefaultDescription();
