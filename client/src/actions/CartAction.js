@@ -260,9 +260,14 @@ export const editWarranty = (cartId, productId, warrantyId) => dispatch => {
         });
 };
 
-export const deleteProduct = (productId) => dispatch => {
+
+export const deleteProduct = (productId) => (dispatch,getState) => {
     dispatch({ type: SET_CURRENT_CART, operationStatus: "LOADING" });
-    fetch("/carrito/api/cart/" + productId,
+
+    let isGarex = isGarexSelector( getState() )
+    let isGarexParam = isGarex ?"true":"false"
+
+    fetch("/carrito/api/cart/" + productId + "?isGarex=" + isGarexParam,
         {
             method: "DELETE",
             credentials: 'include',
@@ -279,6 +284,12 @@ export const deleteProduct = (productId) => dispatch => {
             window.gb.normandia.getCartItems();
 
             dispatch({ type: SET_CURRENT_CART, payload: response, operationStatus: "SUCCESSFUL" });
+
+            let isGarex2 = isGarexSelector( getState() )
+            if(isGarex && !isGarex2){
+                dispatch( getCarousel() )
+            }
+
         }).catch((err) => {
             let errObject = getErrorObject(err)
 

@@ -137,10 +137,14 @@ class CartControllers {
       });
   }
 
+  _isGarex(cart){
+    return typeof cart.related_legacy_id !== "undefined"
+  }
+
   _checkGarex(cart,params){    
     cart.isGarex = false
     
-    if( typeof cart.related_legacy_id !== "undefined" ){
+    if( this._isGarex(cart) ){
       cart.isGarex = true
       
       let responses = {}
@@ -186,6 +190,7 @@ class CartControllers {
       })
 
     }else{
+      
       return cart
     }
   }
@@ -616,7 +621,28 @@ class CartControllers {
 
     let cartParams = this.getParamsToGetCart(req, res);
 
-    RestClient.productClient
+    if( req.query.isGarex === "true" ){
+      sessionService.resetSessionCookies(res);
+
+      let params = this.getParamsToCreateCart(res);
+      
+      RestClient.cartClient
+        .newCart(params)
+        .then(cart => this._inflateCart(cart, params))
+        .then(cart => {
+          sessionService.setSessionCookie(res, params.sessionId); //Setea la cookie con el nuevo carrito
+          sessionService.setCartIdCookie(res, cart.cart_id); //Setea la cookie con el nuevo carrito
+
+          res.status(200).send(cart);
+        })
+        .catch(err => {
+          newrelic.noticeError(err);
+          logger.error("[" + cartId + "] Fail get cart coupon ,err:" + err);
+          res.status(500).send(errorService.checkErrorObject(err));
+        });
+
+    }else{
+      RestClient.productClient
       .deleteProduct(cartId, productId, brand, res.locals.xSessionContext)
       .then(() => {
         this._getOneCart(cartParams)
@@ -634,6 +660,7 @@ class CartControllers {
         logger.error("[" + cartId + "] Fail to delete product ,err:" + err);
         res.status(500).send(errorService.checkErrorObject(err));
       });
+    }
   }
 
   setCoupon(req, res) {

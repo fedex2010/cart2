@@ -18,7 +18,12 @@ export default (state = initialState, action = {}) => {
         showGeneralLoading:false
       };
     case SET_CURRENT_CART:
-      return {
+      
+        console.log("**********action.payload**************")
+        console.log( action.payload )
+        console.log("************************")
+
+        return {
         ...state,
         cart: action.payload || state.cart,
         err: {},
